@@ -1,23 +1,25 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import StartScreen from './Screens/StartScreen/StartScreen';
+import GameScreen from './Screens/GameScreen/GameScreen';
 
 function App() {
+  const [isAuth, setIsAuth] = useState(false);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {
+        isAuth ? (
+          <GameScreen>
+
+          </GameScreen>
+        ) : (
+          <header className="App-header">
+            <StartScreen setIsAuth={setIsAuth}/>
+          </header>
+        )
+      }
+      
     </div>
   );
 }
