@@ -36,3 +36,12 @@
     transform: rotate(360deg);
   }
 }
+
+/* Game Screen */
+.container {
+  background-color: #282c34;
+  padding: 2em;
+  border: 1px solid red;
+}
+
+
