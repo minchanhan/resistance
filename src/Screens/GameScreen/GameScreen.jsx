@@ -4,50 +4,47 @@ import "../../App.css";
 
 import ChatBox from "./Components/ChatBox/ChatBox";
 import PlayerBox from "./Components/GameTable/PlayerBox/PlayerBox";
-
-
+import GameTable from "./Components/GameTable/GameTable";
+import InfoTable from "./Components/InfoTable/InfoTable";
+import GameMaster from "./Components/GameMaster.jsx/GameMaster";
 
 function GameScreen() {
-
   return (
-    <div className="container">
-      <Box sx={{ flexGrow: 1 }}>
-        <Grid 
-          container 
-          direction="row"
-          justifyContent="center"
-          alignItems="center"
-          spacing={3}
-        >
-          <Grid box xs={10}>
-            Game Table
-          </Grid>
+    <Grid 
+      className="container"
+      container 
+      direction="row"
+      justifyContent="center"
+      alignItems="center"
+    >
+      <Grid container xs={8}>
+        <GameTable />
+      </Grid>
 
-          <Grid 
-            box
-            direction="column"
-            justifyContent="center"
-            alignItems="center"
-            spacing={3}
-            xs={2}
-          >
-            <Grid item xs>
-              Info Table
-            </Grid>
-            <Grid item xs>
-              Game Leader
-            </Grid>
-          </Grid>
-          
-          <Grid item xs={6}>
-            ChatBox
-          </Grid>
-          <Grid item xs={6}>
-            action box
-          </Grid>
+      <Grid
+        container
+        direction="column"
+        justifyContent="center"
+        alignItems="center"
+        xs={4}
+      >
+        <Grid item xs={3} sx={{pb: 4}}>
+          <InfoTable />
         </Grid>
-      </Box>
-    </div>
+        <Grid item xs={9} sx={{pt: 4}}>
+          <GameMaster />
+        </Grid>
+      </Grid>
+
+      <Grid xs>
+        CHATBOX
+      </Grid>
+      <Grid xs>
+        ACTION STUFF
+      </Grid>
+      
+    </Grid>
+          
   )
 }
 

@@ -1,13 +1,16 @@
+import { Typography } from "@mui/material";
 import React from "react";
 
-function GameMaster() {
+import "../../../../App.css";
+
+function GameMaster({ instructions="" }) {
 
   return (
-    <div>
-      <h1>
-        Game Master
-      </h1>
-    </div>
+    <>
+      <div className="masterMsg">
+        {instructions}
+      </div>
+    </>
   )
 }
 

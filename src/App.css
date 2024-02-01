@@ -40,8 +40,71 @@
 /* Game Screen */
 .container {
   background-color: #282c34;
-  padding: 2em;
   border: 1px solid red;
 }
 
+/* Table */
+.table {
+  background-image: url("./assets/woodtable.svg");
+  padding: 4.5em 2em 4.5em 2em;
+  margin: 0em 1em 0em 1em;
+}
 
+/* Mission Holes */
+.missionToken {
+  border-radius: 50%;
+  background-color: #fff;
+  position: relative;
+  top: 0;
+  left: 0;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.depth {
+  width: 5em;
+  height: 5em;
+  border-radius: 50%;
+  background-color: #3d3a3a;
+  position: relative;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.7);
+}
+
+.currentMission {
+  border: 1px solid yellow;
+}
+
+/* Vote Track */
+.voteHole {
+  width: 2em;
+  height: 2em;
+  border-radius: 50%;
+  background-color: #fff;
+  position: relative;
+  top: 0;
+  left: 0;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+.filledVote {
+  background-color: #fff;
+}
+
+/* Game Master */
+.masterMsg {
+  background-color: black;
+  display: inline-block;
+  height: 10em;
+  width: 10em;
+  border-radius: 8px;
+  position: relative;
+}
+
+.masterMsg::after {
+  background-color: black;
+  content: "";
+  height: 16px;
+  width: 16px;
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translate(-50%) rotate(45deg);
+}

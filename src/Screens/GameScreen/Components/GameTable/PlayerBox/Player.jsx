@@ -1,19 +1,13 @@
 import React from "react";
 import "../../../../../App.css";
 
-import { Grid } from "@mui/material"
-import MilitaryTechIcon from '@mui/icons-material/MilitaryTech';
-import StarIcon from '@mui/icons-material/Star';
+import Fist  from "../../../../../assets/Fist.jsx"
 
 function Player() {
 
   return (
     <div className="player">
-      
-
-    
-      <MilitaryTechIcon style={{fill: "white", fontSize:"large"}} />
-      
+      <Fist />
     </div>
   )
 }
