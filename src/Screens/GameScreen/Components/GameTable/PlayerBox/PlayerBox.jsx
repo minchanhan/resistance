@@ -1,7 +1,7 @@
 import React from "react";
 import "../../../../../App.css";
 
-import { Box, Grid } from "@mui/material"
+import { Box, Grid, Typography } from "@mui/material"
 import StarIcon from '@mui/icons-material/Star';
 import Player from "./Player";
 
@@ -26,6 +26,12 @@ function PlayerBox({ isLeader = false }) {
 
       <Grid xs={12}>
         <Player />
+      </Grid>
+
+      <Grid xs={12}>
+        <Typography variant="subtitle1" color="text.secondary" sx={{ flex: 1 }}>
+          username
+        </Typography>
       </Grid>
       
     </Grid>

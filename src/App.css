@@ -93,7 +93,7 @@
   background-color: black;
   display: inline-block;
   height: 10em;
-  width: 10em;
+  width: 14em;
   border-radius: 8px;
   position: relative;
 }
@@ -107,4 +107,9 @@
   bottom: -4px;
   left: 50%;
   transform: translate(-50%) rotate(45deg);
+}
+
+.soldier {
+  height: 4em;
+  width: 4em;
 }
