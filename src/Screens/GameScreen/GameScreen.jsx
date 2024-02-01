@@ -1,9 +1,8 @@
 import React from "react";
-import { Box, Grid } from "@mui/material";
+import { Grid } from "@mui/material";
 import "../../App.css";
 
 import ChatBox from "./Components/ChatBox/ChatBox";
-import PlayerBox from "./Components/GameTable/PlayerBox/PlayerBox";
 import GameTable from "./Components/GameTable/GameTable";
 import InfoTable from "./Components/InfoTable/InfoTable";
 import GameMaster from "./Components/GameMaster.jsx/GameMaster";
@@ -31,13 +30,14 @@ function GameScreen() {
         <Grid item xs={3} sx={{pb: 4}}>
           <InfoTable />
         </Grid>
-        <Grid item xs={9} sx={{pt: 4}}>
-          <GameMaster />
-        </Grid>
+        <ChatBox />
       </Grid>
 
       <Grid xs>
-        CHATBOX
+        
+        <Grid item xs={9} sx={{pt: 4}}>
+          <GameMaster />
+        </Grid>
       </Grid>
       <Grid xs>
         ACTION STUFF
