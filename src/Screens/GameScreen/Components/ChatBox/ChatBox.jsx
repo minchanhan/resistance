@@ -3,17 +3,9 @@ import io from 'socket.io-client';
 
 const socket = io.connect("http://localhost:3001"); // connect to socket server
 
-function ChatBox() {
-  const [roomCode, setRoomCode] = useState("");
-
+function ChatBox({ roomCode="", username }) {
   const [msg, setMsg] = useState("");
   const [msgList, setMsgList] = useState([]);
-
-  const joinRoom = () => {
-    if (roomCode !== "") {
-      socket.emit("join_room", roomCode);
-    }
-  };
 
   const getTime = () => {
     var mins = new Date(Date.now()).getMinutes();
@@ -59,7 +51,7 @@ function ChatBox() {
             return (
               <div
                 className="message" 
-                id={username === msgContent.sender ? "you" : "other"}
+                id={username === msgData.sender ? "you" : "other"}
               >
                 <div>
                   <div className="msgContent">
@@ -86,14 +78,6 @@ function ChatBox() {
         <button onClick={sendMsg}>Send</button>
       </div>
 
-      <input
-        placeholder="Room Code" 
-        onChange={ (event) => {
-          setRoomCode(event.target.value);
-        }}
-      />
-      <button onClick={joinRoom}>Join</button>
-      
     </div>
   )
 };

@@ -15,3 +15,9 @@ const PlotCardType = Object.freeze({
   OtherPlayerNow: "otherPlayerNow",
   OtherPlayerAny: "otherPlayerAny"
 })
+
+const Team = Object.freeze({
+  Red: "spies",
+  Blue: "the resistance",
+  None: "none"
+})
