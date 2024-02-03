@@ -3,7 +3,12 @@ import "../../../App.css";
 import { Box, Button, FormControl, FormHelperText, Grid, InputLabel, MenuItem, Modal, Select, TextField, Typography } from "@mui/material";
 import "../../../data/Enums.js";
 
-function JoinRoomModal({open, handleJoinClose, joinRoom, setRoomCode}) {
+function JoinRoomModal({
+  open, 
+  handleJoinClose, 
+  joinRoom, 
+  setRoomCode
+}) {
   const [checkedRoom, setCheckedRoom] = useState(false);
   const style = {
     position: 'absolute',
@@ -19,7 +24,6 @@ function JoinRoomModal({open, handleJoinClose, joinRoom, setRoomCode}) {
 
   const validRoomCheck = () => {
 
-    
     return true;
   }
 

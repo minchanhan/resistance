@@ -1,9 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
-import io from 'socket.io-client';
 
-const socket = io.connect("http://localhost:3001"); // connect to socket server
-
-function ChatBox({ roomCode="", username }) {
+function ChatBox({ socket, roomCode="", username }) {
   const [msg, setMsg] = useState("");
   const [msgList, setMsgList] = useState([]);
 

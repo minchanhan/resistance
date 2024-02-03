@@ -1,20 +1,23 @@
 import React, { useState } from "react";
 import "../../App.css";
 
-import io from 'socket.io-client';
 import CreateRoomModal from "./Components/CreateRoomModal";
 import { Grid, Button, TextField } from "@mui/material";
 import JoinRoomModal from "./Components/JoinRoomModal";
 
-const socket = io.connect("http://localhost:3001"); // connect to socket server
-
-function StartScreen() {
+function StartScreen({
+  socket, 
+  username, 
+  setUsername, 
+  roomCode, 
+  setRoomCode,
+  setGameStart
+}) {
   const [createRoomModal, setCreateRoomModal] = useState(false);
   const [joinRoomModal, setJoinRoomModal] = useState(false);
+
   const [capacity, setCapacity] = useState(5);
-  const [username, setUsername] = useState("");
   const [usernameWarning, setUsernameWarning] = useState(false);
-  const [roomCode, setRoomCode] = useState("");
 
   const usernameValidate = () => {
     if (username.length >= 5) {
@@ -23,7 +26,6 @@ function StartScreen() {
       return false;
     }
   }
-
   const handleCreateOpen = () => {
     setUsernameWarning(true);
     setCreateRoomModal(true);
@@ -31,7 +33,6 @@ function StartScreen() {
   const handleCreateClose = () => {
     setCreateRoomModal(false);
   }
-
   const handleJoinOpen = () => {
     setUsernameWarning(true);
     setJoinRoomModal(true);
@@ -42,27 +43,17 @@ function StartScreen() {
 
   const createRoom = () => {
     if (usernameValidate()) {
-
+      socket.emit("create_room", {username, roomCode, capacity});
+      setGameStart(true);
     }
-    /*
-    var host = new Player(
-      username, // username
-      "", // id
-      true, // isHost
-      Team.None, // team
-      false, // isLeader
-      VoteStatus.None, // voteStatus
-      false, // onMission
-      [], // plotCards
-      false // isRevealed
-    );*/
-
+    return;
   }
 
   const joinRoom = () => {
     if (usernameValidate()) {
       if (roomCode !== "") {
         socket.emit("join_room", roomCode);
+        setGameStart(true);
       }
     }
     return;
@@ -119,11 +110,10 @@ function StartScreen() {
         </Grid>
       </Grid>
 
-      <h6>
-        credits
-        wood:
+      <footer className="footer">
+        credits: wood - 
         <a href="https://www.freepik.com/free-vector/wooden-background-texture-brown-wood-planks_13327400.htm#page=2&query=wood%20table%20top&position=32&from_view=search&track=ais&uuid=78cbee26-baa7-4307-9fed-5ea5d0d061aa">Image by upklyak</a> on Freepik
-      </h6>
+      </footer>
     </div>
   )
 }

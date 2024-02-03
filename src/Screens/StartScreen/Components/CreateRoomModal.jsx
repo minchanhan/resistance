@@ -1,9 +1,25 @@
 import React, { useState } from "react";
 import "../../../App.css";
-import { Box, Button, FormControl, FormHelperText, Grid, InputLabel, MenuItem, Modal, Select, Typography } from "@mui/material";
+import { Box, 
+  Button, 
+  FormControl, 
+  FormHelperText, 
+  Grid, 
+  InputLabel, 
+  MenuItem, 
+  Modal, 
+  Select, 
+  Typography 
+} from "@mui/material";
 import "../../../data/Enums.js";
 
-function CreateRoomModal({open, handleCreateClose, capacity=5, setCapacity, createRoom}) {
+function CreateRoomModal({
+  open, 
+  handleCreateClose, 
+  capacity=5, 
+  setCapacity, 
+  createRoom
+}) {
   const style = {
     position: 'absolute',
     top: '50%',

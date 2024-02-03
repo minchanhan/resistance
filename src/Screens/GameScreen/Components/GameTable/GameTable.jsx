@@ -1,7 +1,7 @@
 import React from "react";
 import "../../../../App.css";
 
-import { Box, Grid } from "@mui/material"
+import { Grid } from "@mui/material"
 import PlayerBox from "./PlayerBox/PlayerBox";
 import MissionToken from "./MissionToken";
 import VoteTrack from "./VoteTrack";
@@ -20,7 +20,7 @@ function GameTable() {
         <PlayerBox />
       </Grid>
 
-      <Grid className="table" container xs={12}>
+      <Grid className="table" container>
         <Grid xs={2.4} sx={{pb: 5}}>
           <MissionToken current/>
         </Grid>

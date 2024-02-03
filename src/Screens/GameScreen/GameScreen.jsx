@@ -1,23 +1,41 @@
-import React from "react";
-import { Grid } from "@mui/material";
+import React, { useState } from "react";
+import { Box, Grid, Typography} from "@mui/material";
 import "../../App.css";
 
 import ChatBox from "./Components/ChatBox/ChatBox";
 import GameTable from "./Components/GameTable/GameTable";
 import InfoTable from "./Components/InfoTable/InfoTable";
-import GameMaster from "./Components/GameMaster.jsx/GameMaster";
+import Soldier from "../../assets/Solider.jsx";
 
-function GameScreen() {
+function GameScreen({ socket, roomCode, username, setGameEnd }) {
+  const [instructions, setInstructions] = useState("");
+
   return (
-    <Grid 
-      className="container"
-      container 
+    <Grid
+      container
       direction="row"
       justifyContent="center"
       alignItems="center"
+      xs={12}
     >
-      <Grid container xs={8}>
-        <GameTable />
+      <Grid
+        container 
+        direction="column"
+        justifyContent="center"
+        alignItems="center"
+        xs={8}
+      >
+        <Grid item xs={1.5}>
+          <InfoTable />
+        </Grid>
+
+        <Grid 
+          className="gameTable" 
+          container 
+          xs={10.5} 
+        >
+          <GameTable />
+        </Grid>
       </Grid>
 
       <Grid
@@ -27,24 +45,29 @@ function GameScreen() {
         alignItems="center"
         xs={4}
       >
-        <Grid item xs={3} sx={{pb: 4}}>
-          <InfoTable />
+        <Grid xs={8} sx={{mb: 2}}>
+          <ChatBox
+            socket={socket} 
+            roomCode={roomCode}
+            username={username}
+          />
         </Grid>
-        <ChatBox />
-      </Grid>
-
-      <Grid xs>
         
-        <Grid item xs={9} sx={{pt: 4}}>
-          <GameMaster />
-        </Grid>
-      </Grid>
-      <Grid xs>
-        ACTION STUFF
-      </Grid>
-      
-    </Grid>
+        <Grid direction="row" xs={4}>
+          <Grid xs={6}>
+            <Typography className="masterMsg" variant="subtitle2" color="lightgray">
+              {instructions}
+            </Typography>
+          </Grid>
           
+          <Grid xs={6}>
+            <Soldier/>  
+          </Grid>
+          
+        </Grid>
+              
+      </Grid>
+    </Grid>
   )
 }
 

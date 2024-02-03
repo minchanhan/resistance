@@ -1,7 +1,7 @@
 import React from "react";
 import "../../../../../App.css";
 
-import { Box, Grid, Typography } from "@mui/material"
+import { Grid, Typography } from "@mui/material"
 import StarIcon from '@mui/icons-material/Star';
 import Player from "./Player";
 
@@ -33,9 +33,7 @@ function PlayerBox({ isLeader = false }) {
           username
         </Typography>
       </Grid>
-      
     </Grid>
-    
   )
 }
 

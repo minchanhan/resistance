@@ -6,9 +6,7 @@ import Fist  from "../../../../../assets/Fist.jsx"
 function Player() {
 
   return (
-    <div className="player">
-      <Fist />
-    </div>
+    <Fist />
   )
 }
 
