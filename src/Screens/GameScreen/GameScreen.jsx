@@ -14,25 +14,23 @@ function GameScreen({ socket, roomCode, username, setGameEnd }) {
     <Grid
       container
       direction="row"
-      justifyContent="center"
       alignItems="center"
-      xs={12}
     >
       <Grid
-        container 
+        container
+        item
         direction="column"
-        justifyContent="center"
         alignItems="center"
-        xs={8}
+        xs={7.5}
       >
         <Grid item xs={1.5}>
           <InfoTable />
         </Grid>
 
         <Grid 
-          className="gameTable" 
-          container 
-          xs={10.5} 
+          container
+          xs={10.5}
+          sx={{pl: 3, pr: 3}}
         >
           <GameTable />
         </Grid>
@@ -40,12 +38,15 @@ function GameScreen({ socket, roomCode, username, setGameEnd }) {
 
       <Grid
         container
+        item
         direction="column"
-        justifyContent="center"
-        alignItems="center"
-        xs={4}
+        xs={4.5}
       >
-        <Grid xs={8} sx={{mb: 2}}>
+        <Grid
+          item
+          xs={8} 
+          sx={{ mb: 2, ml: 3, mr: 3, pl: 3, pr: 3}} 
+        >
           <ChatBox
             socket={socket} 
             roomCode={roomCode}
@@ -53,14 +54,25 @@ function GameScreen({ socket, roomCode, username, setGameEnd }) {
           />
         </Grid>
         
-        <Grid direction="row" xs={4}>
-          <Grid xs={6}>
+        <Grid
+          container
+          item
+          direction="row"
+          justifyItems="center"
+          xs={4}
+          sx={{mt: 2}}
+        >
+          <Grid 
+            alignSelf="center"
+            xs={7}
+            sx={{ml:2}}
+          >
             <Typography className="masterMsg" variant="subtitle2" color="lightgray">
               {instructions}
             </Typography>
           </Grid>
           
-          <Grid xs={6}>
+          <Grid alignSelf="end" xs={3} sx={{mr:3}}>
             <Soldier/>  
           </Grid>
           

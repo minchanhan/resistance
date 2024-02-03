@@ -55,6 +55,11 @@
   box-sizing:border-box;
 }
 
+/* Timer */
+.timer {
+  size: 75%;
+}
+
 /* Table */
 .table {
   background-image: url("./assets/woodtable.svg");
@@ -181,7 +186,7 @@
 }
 
 .chatWindow .chatBody {
-  min-height: 18em;
+  min-height: 24em;
   height: 100%;
   border: 1px solid #263238;
   background: #fff;
