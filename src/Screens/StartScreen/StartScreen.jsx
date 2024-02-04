@@ -11,13 +11,14 @@ function StartScreen({
   setUsername, 
   roomCode, 
   setRoomCode,
-  setGameStart
+  setGameStart,
 }) {
   const [createRoomModal, setCreateRoomModal] = useState(false);
   const [joinRoomModal, setJoinRoomModal] = useState(false);
 
   const [capacity, setCapacity] = useState(5);
   const [usernameWarning, setUsernameWarning] = useState(false);
+  const [isHost, setIsHost] = useState(false);
 
   const usernameValidate = () => {
     if (username.length >= 5) {
@@ -27,6 +28,7 @@ function StartScreen({
     }
   }
   const handleCreateOpen = () => {
+    setIsHost(true);
     setUsernameWarning(true);
     setCreateRoomModal(true);
   }
@@ -34,27 +36,28 @@ function StartScreen({
     setCreateRoomModal(false);
   }
   const handleJoinOpen = () => {
+    setIsHost(false);
     setUsernameWarning(true);
     setJoinRoomModal(true);
   }
   const handleJoinClose = () => {
     setJoinRoomModal(false);
   }
-
-  const createRoom = () => {
-    if (usernameValidate()) {
-      socket.emit("create_room", {username, roomCode, capacity});
-      setGameStart(true);
-    }
-    return;
+  const handleJoinRandom = () => {
+    setIsHost(false);
+    setUsernameWarning(true);
+    joinRoom(true);
   }
 
-  const joinRoom = () => {
+  const joinRoom = (isRandom=false) => {
+    console.log(isRandom);
     if (usernameValidate()) {
-      if (roomCode !== "") {
-        socket.emit("join_room", roomCode);
-        setGameStart(true);
+      if (isRandom) {
+        roomCode = "random"
+        setRoomCode("random");
       }
+      socket.emit("join_room", {isHost, roomCode, username, capacity});
+      setGameStart(true);
     }
     return;
   };
@@ -82,8 +85,14 @@ function StartScreen({
         </Grid>
 
         <Grid xs>
-          
-          <Button onClick={handleJoinOpen}>Join Room</Button>
+          <Button 
+            onClick={handleJoinRandom}>
+              Join Random Room
+          </Button>
+        </Grid>
+
+        <Grid xs>
+          <Button onClick={handleJoinOpen}>Join Room with Code</Button>
           {
             joinRoomModal ? (
               <JoinRoomModal 
@@ -104,7 +113,8 @@ function StartScreen({
                 handleCreateClose={handleCreateClose}
                 capacity={capacity}
                 setCapacity={setCapacity}
-                createRoom={createRoom} />
+                createRoom={joinRoom}
+              />
             ) : <></>
           }
         </Grid>

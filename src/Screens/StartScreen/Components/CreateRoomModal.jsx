@@ -70,7 +70,12 @@ function CreateRoomModal({
             </Grid>
             
             <Grid xs>
-              <Button variant="text" onClick={createRoom}>Create Room</Button>
+              <Button 
+                variant="text" 
+                onClick={createRoom}
+              >
+                Create Room
+              </Button>
             </Grid>
 
           </Grid>

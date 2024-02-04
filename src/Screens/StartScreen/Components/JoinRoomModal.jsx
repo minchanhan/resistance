@@ -23,14 +23,11 @@ function JoinRoomModal({
   };
 
   const validRoomCheck = () => {
-
     return true;
   }
 
   const joinRoomClicked = () => {
     setCheckedRoom(true);
-
-    
     joinRoom();
   }
 

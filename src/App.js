@@ -16,7 +16,7 @@ function App() {
     },
   });
 
-  const [gameStart, setGameStart] = useState(true);
+  const [gameStart, setGameStart] = useState(false);
   const [gameEnd, setGameEnd] = useState(false);
 
   const [username, setUsername] = useState("");
@@ -27,7 +27,7 @@ function App() {
       <div className="container">
         {
           !gameStart && !gameEnd ? (
-            <header className="App-header">
+            <div className="startScreen">
               <StartScreen 
                 socket={socket} 
                 username={username}
@@ -36,7 +36,7 @@ function App() {
                 setRoomCode={setRoomCode}
                 setGameStart={setGameStart}
               />
-            </header>
+            </div>
           ) : gameStart && !gameEnd ? (
             <GameScreen
               socket={socket}

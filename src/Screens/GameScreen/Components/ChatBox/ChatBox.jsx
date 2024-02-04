@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
+import ScrollToBottom from "react-scroll-to-bottom";
 
 function ChatBox({ socket, roomCode="", username }) {
   const [msg, setMsg] = useState("");
@@ -12,26 +13,25 @@ function ChatBox({ socket, roomCode="", username }) {
     return new Date(Date.now()).getHours() + ":" + mins;
   }
 
-  const sendMsg = () => {
+  const sendMsg = async () => {
     if (msg === "") return;
 
     const msgData = {
       roomCode: roomCode,
-      sender: "hi",
+      sender: username,
       msg: msg,
       time: getTime()
     }
 
-    socket.emit(
-      "send_msg", 
-      msgData
-    ); // emit event to backend
+    await socket.emit("send_msg", msgData); // emit event to backend
 
     setMsgList((msgList) => [...msgList, msgData]);
+    setMsg("");
   };
 
   useMemo(() => { // listen
     socket.on("receive_msg", (data) => {
+      console.log(data);
       setMsgList((msgList) => [...msgList, data]);
     });
   }, [socket]); // <-- whenever there's change in socket server
@@ -43,34 +43,43 @@ function ChatBox({ socket, roomCode="", username }) {
       </div>
 
       <div className="chatBody">
-        {
-          msgList.map((msgData) => {
-            return (
-              <div
-                className="message" 
-                id={username === msgData.sender ? "you" : "other"}
-              >
-                <div>
-                  <div className="msgContent">
-                    <p>{msgData.msg}</p>
-                  </div>
-                  <div className="msgMeta">
-                    <p>{msgData.time + " "}</p>
-                    <p>{msgData.sender}</p>
+        <ScrollToBottom className="msgContainer">
+          {
+            msgList.map((msgData) => {
+              return (
+                <div
+                  className="message" 
+                  id={username === msgData.sender ? "you" : "other"}
+                >
+                  <div>
+                    <div className="msgContent">
+                      <p>{msgData.msg}</p>
+                    </div>
+                    <div className="msgMeta">
+                      <p>{msgData.time + " "}</p>
+                      <p>{msgData.sender}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            )
-          })
-        }
+              )
+            })
+          }
+        </ScrollToBottom>
       </div>
 
       <div className="chatFooter">
         <input
+          type="text"
           placeholder="Enter message"
-          onChange={ (event) => {
+          value={msg}
+          onChange={(event) => {
             setMsg(event.target.value);
-          }} 
+          }}
+          onKeyDown={(event) => {
+            if (event.code === "Enter") {
+              sendMsg();
+            }
+          }}
         />
         <button onClick={sendMsg}>Send</button>
       </div>
