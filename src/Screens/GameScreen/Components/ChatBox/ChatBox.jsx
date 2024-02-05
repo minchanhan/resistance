@@ -31,10 +31,9 @@ function ChatBox({ socket, roomCode="", username }) {
 
   useMemo(() => { // listen
     socket.on("receive_msg", (data) => {
-      console.log(data);
       setMsgList((msgList) => [...msgList, data]);
     });
-  }, [socket]); // <-- whenever there's change in socket server
+  }, [socket]);
 
   return (
     <div className="chatWindow">

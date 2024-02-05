@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import "../../App.css";
 
 import CreateRoomModal from "./Components/CreateRoomModal";
-import { Grid, Button, TextField } from "@mui/material";
+import { Grid, Button, TextField, Typography } from "@mui/material";
 import JoinRoomModal from "./Components/JoinRoomModal";
 
 function StartScreen({
@@ -15,6 +15,7 @@ function StartScreen({
 }) {
   const [createRoomModal, setCreateRoomModal] = useState(false);
   const [joinRoomModal, setJoinRoomModal] = useState(false);
+  const [openLobby, setOpenLobby] = useState(false);
 
   const [capacity, setCapacity] = useState(5);
   const [usernameWarning, setUsernameWarning] = useState(false);
@@ -43,21 +44,34 @@ function StartScreen({
   const handleJoinClose = () => {
     setJoinRoomModal(false);
   }
+
+  // RANDOM JOIN
   const handleJoinRandom = () => {
     setIsHost(false);
     setUsernameWarning(true);
-    joinRoom(true);
+    socket.emit("request_open_lobby");
   }
 
+  useMemo(() => { // listen
+      socket.on("open_value", (openLobby) => {
+      console.log(openLobby);
+      setOpenLobby(openLobby);
+      if (openLobby) joinRoom(true);
+    });
+  }, [socket]);
+
+  // JOIN ROOM
   const joinRoom = (isRandom=false) => {
-    console.log(isRandom);
     if (usernameValidate()) {
       if (isRandom) {
         roomCode = "random"
         setRoomCode("random");
       }
+
       socket.emit("join_room", {isHost, roomCode, username, capacity});
-      setGameStart(true);
+      console.log("isRandom", isRandom);
+      console.log("openLobby", openLobby);
+      if (!isRandom || openLobby) setGameStart(true);
     }
     return;
   };
@@ -85,10 +99,18 @@ function StartScreen({
         </Grid>
 
         <Grid xs>
-          <Button 
-            onClick={handleJoinRandom}>
-              Join Random Room
-          </Button>
+          <Button onClick={handleCreateOpen}>Create Room</Button>
+          {
+            createRoomModal ? (
+              <CreateRoomModal 
+                open={createRoomModal && usernameValidate()} 
+                handleCreateClose={handleCreateClose}
+                capacity={capacity}
+                setCapacity={setCapacity}
+                createRoom={joinRoom}
+              />
+            ) : <></>
+          }
         </Grid>
 
         <Grid xs>
@@ -103,21 +125,23 @@ function StartScreen({
             ) : <></>
           }
         </Grid>
-      
+
         <Grid xs>
-          <Button onClick={handleCreateOpen}>Create Room</Button>
-          {
-            createRoomModal ? (
-              <CreateRoomModal 
-                open={createRoomModal && usernameValidate()} 
-                handleCreateClose={handleCreateClose}
-                capacity={capacity}
-                setCapacity={setCapacity}
-                createRoom={joinRoom}
-              />
-            ) : <></>
-          }
+          <Button 
+            onClick={handleJoinRandom}>
+              Join Random Room
+          </Button>
         </Grid>
+
+        {
+          !openLobby ? (
+            <Grid xs>
+              <Typography>Sorry, no random rooms available, please create a lobby :D</Typography>
+            </Grid>
+          ) : (
+            <></>
+          )
+        }
       </Grid>
 
       <footer className="footer">
