@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import "../../../App.css";
-import { Box, Button, FormControl, FormHelperText, Grid, InputLabel, MenuItem, Modal, Select, TextField, Typography } from "@mui/material";
+import { Box, Button, Grid, Modal, TextField, Typography } from "@mui/material";
 import "../../../data/Enums.js";
 
 function JoinRoomModal({
+  socket,
   open, 
   handleJoinClose, 
-  joinRoom, 
-  setRoomCode
 }) {
   const [checkedRoom, setCheckedRoom] = useState(false);
+  const [validRoom, setValidRoom] = useState(true);
+  const [roomCode, setRoomCode] = useState("");
+
   const style = {
     position: 'absolute',
     top: '50%',
@@ -22,14 +24,21 @@ function JoinRoomModal({
     p: 4,
   };
 
-  const validRoomCheck = () => {
-    return true;
+  const validateRoom = () => {
+    socket.emit("check_for_room", roomCode);
   }
 
-  const joinRoomClicked = () => {
+  const joinRoom = () => {
     setCheckedRoom(true);
-    joinRoom();
+    validateRoom();
   }
+
+  socket.on("room_with_code", (room) => {
+    setValidRoom(room.exists); // roomCode will be set to socket in server too
+    if (room.exists) {
+      socket.emit("join_room");
+    }
+  });
 
   return (
     <div>
@@ -47,11 +56,11 @@ function JoinRoomModal({
           <Grid direction="column">
             <Grid xs alignItems="flex-end">
             <TextField
-              error={!validRoomCheck() && checkedRoom}
-              id={!validRoomCheck() && checkedRoom ? "" : "outlined-error-helper-text"}
-              label={!validRoomCheck() && checkedRoom ? "Warning" : "Room code"}
+              error={!validRoom && checkedRoom}
+              id={!validRoom && checkedRoom ? "" : "outlined-error-helper-text"}
+              label={!validRoom && checkedRoom ? "Warning" : "Room code"}
               defaultValue=""
-              helperText={!validRoomCheck() && checkedRoom ? "Room doesn't exist" : ""}
+              helperText={!validRoom && checkedRoom ? "Room doesn't exist" : ""}
               onChange={ (event) => {
                 setRoomCode(event.target.value);
               }}
@@ -60,7 +69,7 @@ function JoinRoomModal({
             </Grid>
             
             <Grid xs>
-              <Button variant="text" onClick={joinRoomClicked}>Join Room</Button>
+              <Button variant="text" onClick={joinRoom}>Join Room</Button>
             </Grid>
 
           </Grid>

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Box, Grid, Typography} from "@mui/material";
+import React from "react";
+import { Grid, Typography} from "@mui/material";
 import "../../App.css";
 
 import ChatBox from "./Components/ChatBox/ChatBox";
@@ -7,9 +7,9 @@ import GameTable from "./Components/GameTable/GameTable";
 import InfoTable from "./Components/InfoTable/InfoTable";
 import Soldier from "../../assets/Solider.jsx";
 
-function GameScreen({ socket, roomCode, username, setGameEnd }) {
-  const [instructions, setInstructions] = useState("");
-
+function GameScreen({ socket, username }) {
+  // const [instructions, setInstructions] = useState("");
+  
   return (
     <Grid
       container
@@ -49,7 +49,6 @@ function GameScreen({ socket, roomCode, username, setGameEnd }) {
         >
           <ChatBox
             socket={socket} 
-            roomCode={roomCode}
             username={username}
           />
         </Grid>
@@ -68,7 +67,7 @@ function GameScreen({ socket, roomCode, username, setGameEnd }) {
             sx={{ml:2}}
           >
             <Typography className="masterMsg" variant="subtitle2" color="lightgray">
-              {instructions}
+              {"instructions"}
             </Typography>
           </Grid>
           

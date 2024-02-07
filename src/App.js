@@ -18,9 +18,19 @@ function App() {
 
   const [gameStart, setGameStart] = useState(false);
   const [gameEnd, setGameEnd] = useState(false);
-
   const [username, setUsername] = useState("");
-  const [roomCode, setRoomCode] = useState("");
+
+  const onChangedUsername = (updatedUsername) => {
+    setUsername(updatedUsername);
+  }
+
+  socket.on("set_game_start", () => {
+    setGameStart(true);
+  });
+
+  socket.on("set_game_end", () => {
+    setGameEnd(true);
+  });
 
   return (
     <ThemeProvider theme={darkTheme}>
@@ -28,21 +38,12 @@ function App() {
         {
           !gameStart && !gameEnd ? (
             <div className="startScreen">
-              <StartScreen 
-                socket={socket} 
-                username={username}
-                setUsername={setUsername}
-                roomCode={roomCode}
-                setRoomCode={setRoomCode}
-                setGameStart={setGameStart}
-              />
+              <StartScreen socket={socket} username={username} onChangedUsername={onChangedUsername}/>
             </div>
           ) : gameStart && !gameEnd ? (
             <GameScreen
               socket={socket}
-              roomCode={roomCode}
               username={username}
-              setGameEnd={setGameEnd}
             />
           ) : gameEnd ? (
               <EndScreen />

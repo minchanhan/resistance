@@ -14,11 +14,9 @@ import { Box,
 import "../../../data/Enums.js";
 
 function CreateRoomModal({
+  socket,
   open, 
   handleCreateClose, 
-  capacity=5, 
-  setCapacity, 
-  createRoom
 }) {
   const style = {
     position: 'absolute',
@@ -32,6 +30,13 @@ function CreateRoomModal({
     p: 4,
   };
 
+  const [capacity, setCapacity] = useState(5);
+
+  const createRoom = () => {
+    socket.emit("set_capacity", capacity); // order matters
+    socket.emit("create_room");
+  }
+  
   return (
     <div>
       <Modal
@@ -46,14 +51,14 @@ function CreateRoomModal({
           </Typography>
           
           <Grid direction="column">
-            <Grid xs alignItems="flex-end">
+            <Grid alignItems="flex-end" xs>
               <FormControl sx={{ m: 1.5, minWidth: 200, mt: 3.5}} >
                 <InputLabel id="demo-simple-select-helper-label"># of Players</InputLabel>
                 <Select
-                  labelId="demo-simple-select-helper-label"
                   id="demo-simple-select-helper"
-                  value={capacity}
+                  labelId="demo-simple-select-helper-label"
                   label="# of Players"
+                  value={capacity}
                   onChange={(event) => {
                     setCapacity(event.target.value);
                   }}

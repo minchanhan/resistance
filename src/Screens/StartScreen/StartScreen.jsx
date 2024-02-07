@@ -1,81 +1,46 @@
-import React, { useState, useMemo } from "react";
+import React, { useState } from "react";
 import "../../App.css";
 
 import CreateRoomModal from "./Components/CreateRoomModal";
-import { Grid, Button, TextField, Typography } from "@mui/material";
+import { Grid, Button, TextField } from "@mui/material";
 import JoinRoomModal from "./Components/JoinRoomModal";
 
-function StartScreen({
-  socket, 
-  username, 
-  setUsername, 
-  roomCode, 
-  setRoomCode,
-  setGameStart,
-}) {
+function StartScreen({ socket, username, onChangedUsername }) {
   const [createRoomModal, setCreateRoomModal] = useState(false);
   const [joinRoomModal, setJoinRoomModal] = useState(false);
-  const [openLobby, setOpenLobby] = useState(false);
 
-  const [capacity, setCapacity] = useState(5);
-  const [usernameWarning, setUsernameWarning] = useState(false);
-  const [isHost, setIsHost] = useState(false);
+  const [usernameWarningCheck, setUsernameWarningCheck] = useState(false); // activate warning if needed
 
-  const usernameValidate = () => {
+  const validUsername = () => {
     if (username.length >= 5) {
       return true;
     } else {
       return false;
     }
   }
+
   const handleCreateOpen = () => {
-    setIsHost(true);
-    setUsernameWarning(true);
-    setCreateRoomModal(true);
+    setUsernameWarningCheck(true); // start checking for username
+    if (validUsername()) {
+      setCreateRoomModal(true);
+      socket.emit("set_username", username);
+    }
   }
   const handleCreateClose = () => {
     setCreateRoomModal(false);
   }
+
   const handleJoinOpen = () => {
-    setIsHost(false);
-    setUsernameWarning(true);
-    setJoinRoomModal(true);
+    setUsernameWarningCheck(true);
+    if (validUsername()) {
+      setJoinRoomModal(true);
+      socket.emit("set_username", username);
+    }
   }
   const handleJoinClose = () => {
     setJoinRoomModal(false);
   }
-
-  // RANDOM JOIN
-  const handleJoinRandom = () => {
-    setIsHost(false);
-    setUsernameWarning(true);
-    socket.emit("request_open_lobby");
-  }
-
-  useMemo(() => { // listen
-      socket.on("open_value", (openLobby) => {
-      console.log(openLobby);
-      setOpenLobby(openLobby);
-      if (openLobby) joinRoom(true);
-    });
-  }, [socket]);
-
-  // JOIN ROOM
-  const joinRoom = (isRandom=false) => {
-    if (usernameValidate()) {
-      if (isRandom) {
-        roomCode = "random"
-        setRoomCode("random");
-      }
-
-      socket.emit("join_room", {isHost, roomCode, username, capacity});
-      console.log("isRandom", isRandom);
-      console.log("openLobby", openLobby);
-      if (!isRandom || openLobby) setGameStart(true);
-    }
-    return;
-  };
-
+  
   return (
     <div>
       <h1>
@@ -85,63 +50,36 @@ function StartScreen({
       <Grid direction="column">
         <Grid xs>
           <TextField
-            error={!usernameValidate() && usernameWarning}
-            id={!usernameValidate() && usernameWarning ? "" : "outlined-error-helper-text"}
-            label={!usernameValidate() && usernameWarning ? "Warning" : "Username"}
+            error={!validUsername() && usernameWarningCheck}
+            id={!validUsername() && usernameWarningCheck ? "" : "outlined-error-helper-text"}
+            label={!validUsername() && usernameWarningCheck ? "Warning" : "Username"}
             defaultValue=""
-            helperText={!usernameValidate() && usernameWarning ? "Minimum 5 characters" : ""}
+            helperText={!validUsername() && usernameWarningCheck ? "Minimum 5 characters" : ""}
             onChange={ (event) => {
-              handleCreateClose();
-              handleJoinClose();
-              setUsername(event.target.value);
+              setCreateRoomModal(false); // ensure modals don't open until user clicks
+              setJoinRoomModal(false);
+              onChangedUsername(event.target.value);
             }}
           />
         </Grid>
 
         <Grid xs>
           <Button onClick={handleCreateOpen}>Create Room</Button>
-          {
-            createRoomModal ? (
-              <CreateRoomModal 
-                open={createRoomModal && usernameValidate()} 
-                handleCreateClose={handleCreateClose}
-                capacity={capacity}
-                setCapacity={setCapacity}
-                createRoom={joinRoom}
-              />
-            ) : <></>
-          }
+          <CreateRoomModal 
+            socket={socket}
+            open={createRoomModal} 
+            handleCreateClose={handleCreateClose}
+          />
         </Grid>
 
         <Grid xs>
           <Button onClick={handleJoinOpen}>Join Room with Code</Button>
-          {
-            joinRoomModal ? (
-              <JoinRoomModal 
-                open={joinRoomModal && usernameValidate()} 
-                handleJoinClose={handleJoinClose} 
-                joinRoom={joinRoom}
-                setRoomCode={setRoomCode} />
-            ) : <></>
-          }
+          <JoinRoomModal 
+            socket={socket}
+            open={joinRoomModal} 
+            handleJoinClose={handleJoinClose}
+          />
         </Grid>
-
-        <Grid xs>
-          <Button 
-            onClick={handleJoinRandom}>
-              Join Random Room
-          </Button>
-        </Grid>
-
-        {
-          !openLobby ? (
-            <Grid xs>
-              <Typography>Sorry, no random rooms available, please create a lobby :D</Typography>
-            </Grid>
-          ) : (
-            <></>
-          )
-        }
       </Grid>
 
       <footer className="footer">

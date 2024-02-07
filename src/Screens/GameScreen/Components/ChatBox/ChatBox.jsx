@@ -1,7 +1,7 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import ScrollToBottom from "react-scroll-to-bottom";
 
-function ChatBox({ socket, roomCode="", username }) {
+function ChatBox({ socket, username }) {
   const [msg, setMsg] = useState("");
   const [msgList, setMsgList] = useState([]);
 
@@ -14,12 +14,12 @@ function ChatBox({ socket, roomCode="", username }) {
   }
 
   const sendMsg = async () => {
+    socket.emit("checkLobby");
     if (msg === "") return;
 
     const msgData = {
-      roomCode: roomCode,
-      sender: username,
       msg: msg,
+      sender: username,
       time: getTime()
     }
 
@@ -30,8 +30,8 @@ function ChatBox({ socket, roomCode="", username }) {
   };
 
   useMemo(() => { // listen
-    socket.on("receive_msg", (data) => {
-      setMsgList((msgList) => [...msgList, data]);
+    socket.on("receive_msg", (msgData) => {
+      setMsgList((msgList) => [...msgList, msgData]);
     });
   }, [socket]);
 
@@ -55,7 +55,7 @@ function ChatBox({ socket, roomCode="", username }) {
                       <p>{msgData.msg}</p>
                     </div>
                     <div className="msgMeta">
-                      <p>{msgData.time + " "}</p>
+                      <p className="msgTime">{msgData.time}</p>
                       <p>{msgData.sender}</p>
                     </div>
                   </div>

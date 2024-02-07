@@ -233,7 +233,11 @@
 
 #you .msgMeta {
   justify-content: flex-end;
-  margin-left: 5px;
+  margin-right: 5px;
+}
+
+#you .msgTime {
+  margin-right: 3px;
 }
 
 #other {
@@ -246,8 +250,12 @@
 }
 
 #other .msgMeta {
-  justify-content: flex-end;
-  margin-right: 5px;
+  justify-content: flex-start;
+  margin-left: 5px;
+}
+
+#other .msgTime {
+  margin-right: 3px;
 }
 
 .msgMeta #author {
