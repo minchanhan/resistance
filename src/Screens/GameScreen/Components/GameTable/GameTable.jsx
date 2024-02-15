@@ -9,62 +9,41 @@ import VoteTrack from "./VoteTrack";
 function GameTable() {
 
   return (
-    <>
-      <Grid item sx={{pl: 10, pr: 10}} xs={4}>
+    <div className="fullTable">
+      <div className="playerRow">
         <PlayerBox />
-      </Grid>
-      <Grid item sx={{pl: 10, pr: 10}} xs={4}>
         <PlayerBox />
-      </Grid>
-      <Grid item sx={{pl: 10, pr: 10}} xs={4}>
         <PlayerBox />
-      </Grid>
+      </div>
 
-      <Grid className="table" container>
-        <Grid xs={2.4} sx={{pb: 5}}>
+      <div className="table">
+        <div className="missionTokenGrid">
           <MissionToken current/>
-        </Grid>
-        <Grid xs={2.4} sx={{pb: 5}}>
           <MissionToken />
-        </Grid>
-        <Grid xs={2.4} sx={{pb: 5}}>
           <MissionToken />
-        </Grid>
-        <Grid xs={2.4} sx={{pb: 5}}>
           <MissionToken />
-        </Grid>
-        <Grid xs={2.4} sx={{pb: 5}}>
           <MissionToken />
-        </Grid>
-
-        <Grid xs={2.4} sx={{pt: 5}}>
+        </div>
+        
+        <div className="voteTrackGrid">
           <VoteTrack isFilled/>
-        </Grid>
-        <Grid xs={2.4} sx={{pt: 5}}>
           <VoteTrack />
-        </Grid>
-        <Grid xs={2.4} sx={{pt: 5}}>
           <VoteTrack />
-        </Grid>
-        <Grid xs={2.4} sx={{pt: 5}}>
           <VoteTrack />
-        </Grid>
-        <Grid xs={2.4} sx={{pt: 5}}>
           <VoteTrack />
-        </Grid>
-      </Grid>
+        </div>
+      </div>
 
-      <Grid item sx={{pl: 10, pr: 10}} xs={4}>
+
+
+      <div className="playerRow">
         <PlayerBox />
-      </Grid>
-      <Grid item sx={{pl: 10, pr: 10}} xs={4}>
         <PlayerBox />
-      </Grid>
-      <Grid item sx={{pl: 10, pr: 10}} xs={4}>
         <PlayerBox />
-      </Grid>
-    </>
-    
+      </div>
+
+      
+    </div>
   )
 }
 

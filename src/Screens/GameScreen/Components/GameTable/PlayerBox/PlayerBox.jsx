@@ -13,7 +13,6 @@ function PlayerBox({ isLeader = false }) {
       direction="row"
       justifyContent="center"
       alignItems="center"
-      sx={{pt: 2, pb: 2}}
     >
       <Grid xs={6}>
         {
@@ -29,7 +28,7 @@ function PlayerBox({ isLeader = false }) {
       </Grid>
 
       <Grid xs={12}>
-        <Typography variant="subtitle1" color="text.secondary" sx={{ flex: 1 }}>
+        <Typography variant="subtitle1" color="text.secondary">
           username
         </Typography>
       </Grid>

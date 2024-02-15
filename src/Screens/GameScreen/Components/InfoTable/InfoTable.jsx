@@ -6,9 +6,7 @@ function InfoTable({ missionNumber=1 }) {
 
   return (
     <div>
-      <Typography variant="h3" color="text.secondary" sx={{ flex: 1 }}>
-        {`Mission ${missionNumber}`} 
-      </Typography>
+      {`Mission ${missionNumber}`} 
       <Timer />
     </div>
   )

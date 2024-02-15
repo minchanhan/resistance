@@ -14,7 +14,8 @@ function ChatBox({ socket, username }) {
   }
 
   const sendMsg = async () => {
-    socket.emit("checkLobby");
+    socket.emit("checkLobby"); // remove after test
+    socket.emit("subtract_log"); // remove after test
     if (msg === "") return;
 
     const msgData = {

@@ -12,7 +12,7 @@ function StartScreen({ socket, username, onChangedUsername }) {
   const [usernameWarningCheck, setUsernameWarningCheck] = useState(false); // activate warning if needed
 
   const validUsername = () => {
-    if (username.length >= 5) {
+    if (username.length >= 1) { // change to 5 later
       return true;
     } else {
       return false;
