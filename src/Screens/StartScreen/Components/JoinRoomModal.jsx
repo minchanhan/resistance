@@ -11,6 +11,7 @@ function JoinRoomModal({
   const [checkedRoom, setCheckedRoom] = useState(false);
   const [validRoom, setValidRoom] = useState(true);
   const [roomCode, setRoomCode] = useState("");
+  const [roomStatus, setRoomStatus] = useState("");
 
   const style = {
     position: 'absolute',
@@ -24,20 +25,14 @@ function JoinRoomModal({
     p: 4,
   };
 
-  const validateRoom = () => {
-    socket.emit("check_for_room", roomCode);
-  }
-
   const joinRoom = () => {
     setCheckedRoom(true);
-    validateRoom();
+    socket.emit("join_room", roomCode);
   }
 
-  socket.on("room_with_code", (room) => {
-    setValidRoom(room.exists); // roomCode will be set to socket in server too
-    if (room.exists) {
-      socket.emit("join_room");
-    }
+  socket.on("room_with_code", (data) => {
+    setValidRoom(data.exists);
+    setRoomStatus(data.reason);
   });
 
   return (
@@ -60,7 +55,7 @@ function JoinRoomModal({
               id={!validRoom && checkedRoom ? "" : "outlined-error-helper-text"}
               label={!validRoom && checkedRoom ? "Warning" : "Room code"}
               defaultValue=""
-              helperText={!validRoom && checkedRoom ? "Room doesn't exist" : ""}
+              helperText={!validRoom && checkedRoom ? roomStatus : ""}
               onChange={ (event) => {
                 setRoomCode(event.target.value);
               }}

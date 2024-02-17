@@ -24,7 +24,7 @@ function App() {
     setUsername(updatedUsername);
   }
 
-  socket.on("set_game_start", () => {
+  socket.on("set_game_screen", () => {
     setGameStart(true);
   });
 

@@ -1,5 +1,4 @@
 import React from "react";
-import { Grid } from "@mui/material";
 import "../../App.css";
 
 import ChatBox from "./Components/ChatBox/ChatBox";
