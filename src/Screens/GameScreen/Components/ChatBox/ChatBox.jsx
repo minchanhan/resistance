@@ -11,7 +11,7 @@ function ChatBox({ socket, username }) {
       mins = "0" + mins;
     }
     return new Date(Date.now()).getHours() + ":" + mins;
-  }
+  };
 
   const sendMsg = async () => {
     socket.emit("checkGames"); // remove after test
@@ -21,7 +21,7 @@ function ChatBox({ socket, username }) {
       msg: msg,
       sender: username,
       time: getTime()
-    }
+    };
 
     await socket.emit("send_msg", msgData); // emit event to backend
 

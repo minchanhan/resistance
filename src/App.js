@@ -22,7 +22,7 @@ function App() {
 
   const onChangedUsername = (updatedUsername) => {
     setUsername(updatedUsername);
-  }
+  };
 
   socket.on("set_game_screen", () => {
     setGameStart(true);

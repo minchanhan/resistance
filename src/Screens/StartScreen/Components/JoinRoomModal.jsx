@@ -28,7 +28,7 @@ function JoinRoomModal({
   const joinRoom = () => {
     setCheckedRoom(true);
     socket.emit("join_room", roomCode);
-  }
+  };
 
   socket.on("room_with_code", (data) => {
     setValidRoom(data.exists);

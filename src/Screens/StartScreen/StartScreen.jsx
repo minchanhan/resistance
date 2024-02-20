@@ -17,7 +17,7 @@ function StartScreen({ socket, username, onChangedUsername }) {
     } else {
       return false;
     }
-  }
+  };
 
   const handleCreateOpen = () => {
     setUsernameWarningCheck(true); // start checking for username
@@ -25,10 +25,10 @@ function StartScreen({ socket, username, onChangedUsername }) {
       setCreateRoomModal(true);
       socket.emit("set_username", username);
     }
-  }
+  };
   const handleCreateClose = () => {
     setCreateRoomModal(false);
-  }
+  };
 
   const handleJoinOpen = () => {
     setUsernameWarningCheck(true);
@@ -36,10 +36,10 @@ function StartScreen({ socket, username, onChangedUsername }) {
       setJoinRoomModal(true);
       socket.emit("set_username", username);
     }
-  }
+  };
   const handleJoinClose = () => {
     setJoinRoomModal(false);
-  }
+  };
   
   return (
     <div>

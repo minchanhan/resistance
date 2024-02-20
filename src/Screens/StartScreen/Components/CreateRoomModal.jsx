@@ -35,7 +35,7 @@ function CreateRoomModal({
   const createRoom = () => {
     socket.emit("set_capacity", capacity); // order matters
     socket.emit("create_room");
-  }
+  };
   
   return (
     <div>
