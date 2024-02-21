@@ -16,34 +16,51 @@ function App() {
     },
   });
 
-  const [gameStart, setGameStart] = useState(false);
+  const [gameScreen, setGameScreen] = useState(false);
   const [gameEnd, setGameEnd] = useState(false);
   const [username, setUsername] = useState("");
+
+  const [team, setTeam] = useState("");
+  const [seatNumber, setSeatNumber] = useState(0);
+  const [numPlayers, setNumPlayers] = useState(0);
+
+  const [playerLobby, setPlayerLobby] = useState([]);
 
   const onChangedUsername = (updatedUsername) => {
     setUsername(updatedUsername);
   };
 
-  socket.on("set_game_screen", () => {
-    setGameStart(true);
-  });
-
   socket.on("set_game_end", () => {
     setGameEnd(true);
+  });
+
+  socket.on("player_joined_lobby", (lobbyInfo) => {
+    setPlayerLobby(lobbyInfo.playerLobby);
+    setNumPlayers(lobbyInfo.numPlayers);
+    setGameScreen(true);
+  });
+
+  socket.on("team_set", (gameInfo) => {
+    setTeam(gameInfo.team);
+    setSeatNumber(gameInfo.seatNumber);
   });
 
   return (
     <ThemeProvider theme={darkTheme}>
       <div className="container">
         {
-          !gameStart && !gameEnd ? (
+          !gameScreen && !gameEnd ? (
             <div className="startScreen">
               <StartScreen socket={socket} username={username} onChangedUsername={onChangedUsername}/>
             </div>
-          ) : gameStart && !gameEnd ? (
+          ) : gameScreen && !gameEnd ? (
             <GameScreen
               socket={socket}
               username={username}
+              team={team}
+              seatNumber={seatNumber}
+              numPlayers={numPlayers}
+              playerLobby={playerLobby}
             />
           ) : gameEnd ? (
               <EndScreen />

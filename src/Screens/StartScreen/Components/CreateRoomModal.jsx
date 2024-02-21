@@ -30,10 +30,13 @@ function CreateRoomModal({
     p: 4,
   };
 
-  const [capacity, setCapacity] = useState(5);
+  const [capacity, setCapacity] = useState(6);
+  const [selectionTime, setSelectionTime] = useState(7);
+
 
   const createRoom = () => {
     socket.emit("set_capacity", capacity); // order matters
+    socket.emit("set_selection_time", selectionTime);
     socket.emit("create_room");
   };
   
@@ -71,6 +74,29 @@ function CreateRoomModal({
                   <MenuItem value={10}>10</MenuItem>
                 </Select>
                 <FormHelperText>Minimum 5 Players</FormHelperText>
+              </FormControl>
+            </Grid>
+
+            <Grid alignItems="flex-end" xs>
+              <FormControl sx={{ m: 1.5, minWidth: 200, mt: 2.5}} >
+                <InputLabel id="demo-simple-select-helper-label">Mission Selection Time Limit</InputLabel>
+                <Select
+                  id="demo-simple-select-helper"
+                  labelId="demo-simple-select-helper-label"
+                  label="Mission Selection Time Limit"
+                  value={selectionTime}
+                  onChange={(event) => {
+                    setSelectionTime(event.target.value);
+                  }}
+                >
+                  <MenuItem value={3}>3 mins</MenuItem>
+                  <MenuItem value={5}>5 mins</MenuItem>
+                  <MenuItem value={7}>7 mins</MenuItem>
+                  <MenuItem value={10}>10 mins</MenuItem>
+                  <MenuItem value={15}>15 mins</MenuItem>
+                  <MenuItem value={200}>Unlimited</MenuItem>
+                </Select>
+                <FormHelperText>Recommended: 7 mins</FormHelperText>
               </FormControl>
             </Grid>
             

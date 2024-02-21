@@ -3,10 +3,10 @@ import "../../../../../App.css";
 
 import Fist  from "../../../../../assets/Fist.jsx"
 
-function Player() {
+function Player(team) {
 
   return (
-    <Fist />
+    <Fist team={team}/>
   )
 }
 

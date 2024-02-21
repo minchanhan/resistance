@@ -5,7 +5,7 @@ import { Grid, Typography } from "@mui/material"
 import StarIcon from '@mui/icons-material/Star';
 import Player from "./Player";
 
-function PlayerBox({ isLeader = false }) {
+function PlayerBox({ isLeader = false, team, username }) {
 
   return (
     <Grid 
@@ -24,12 +24,12 @@ function PlayerBox({ isLeader = false }) {
       <Grid xs={6} />
 
       <Grid xs={12}>
-        <Player />
+        <Player team={team}/>
       </Grid>
 
       <Grid xs={12}>
         <Typography variant="subtitle1" color="text.secondary">
-          username
+          {username}
         </Typography>
       </Grid>
     </Grid>
