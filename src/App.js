@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import io from 'socket.io-client';
 
@@ -32,17 +32,34 @@ function App() {
     setGameEnd(true);
   });
 
-  socket.on("player_joined_lobby", (lobbyInfo) => {
-    setSeats(lobbyInfo.seats);
-    setNumPlayers(lobbyInfo.numPlayers);
-    setGameScreen(true);
-  });
+  useEffect(() => {
+    const handlePlayerJoin = (lobbyInfo) => {
+      setSeats(lobbyInfo.seats);
+      setNumPlayers(lobbyInfo.numPlayers);
+      setGameScreen(true);
+      console.log("player joined!");
+    };
 
-  socket.on("shuffled_seats", (seats) => {
-    console.log("received seats: ", seats)
-    setSeats(seats);
-    setGameStarted(true);
-  });
+    socket.on("player_joined_lobby", handlePlayerJoin);
+
+    return () => {
+      socket.off("player_joined_lobby", handlePlayerJoin);
+    }
+  }, [socket]);
+
+  useEffect(() => {
+    const handleSeats = (seats) => {
+      console.log("received seats: ", seats)
+      setSeats(seats);
+      setGameStarted(true);
+    };
+
+    socket.on("shuffled_seats", handleSeats);
+
+    return () => {
+      socket.off("shuffled_seats", handleSeats);
+    }
+  }, [socket]);
 
   return (
     <ThemeProvider theme={darkTheme}>
