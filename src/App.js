@@ -37,7 +37,6 @@ function App() {
       setSeats(lobbyInfo.seats);
       setNumPlayers(lobbyInfo.numPlayers);
       setGameScreen(true);
-      console.log("player joined!");
     };
 
     socket.on("player_joined_lobby", handlePlayerJoin);
@@ -49,7 +48,6 @@ function App() {
 
   useEffect(() => {
     const handleSeats = (seats) => {
-      console.log("received seats: ", seats)
       setSeats(seats);
       setGameStarted(true);
     };
