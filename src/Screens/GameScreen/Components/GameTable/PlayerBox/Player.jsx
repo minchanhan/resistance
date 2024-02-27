@@ -1,13 +1,14 @@
-import React from "react";
+import React, { memo, useEffect } from "react";
 import "../../../../../App.css";
 
 import Fist  from "../../../../../assets/Fist.jsx"
 
-function Player(team) {
-
+function Player({teamStyle}) {
   return (
-    <Fist team={team}/>
+    <div style={teamStyle}>
+      <Fist />
+    </div>
   )
 }
 
-export default Player;
+export default memo(Player);

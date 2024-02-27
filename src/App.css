@@ -66,6 +66,10 @@
   box-sizing:border-box;
 }
 
+.bad {
+  filter: invert(5%) sepia(93%) saturate(6990%) hue-rotate(349deg) brightness(99%) contrast(101%);
+}
+
 /* Table */
 .fullTable {
   justify-content: center;
@@ -74,10 +78,6 @@
   height: 100%;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr 2fr 1fr;
-}
-
-.badTeam {
-  filter: invert(19%) sepia(97%) saturate(4283%) hue-rotate(336deg) brightness(57%) contrast(123%);
 }
 
 .table {

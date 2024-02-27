@@ -1,14 +1,14 @@
-import React from "react";
+import React, { memo } from "react";
 import "../../../../../App.css";
 
 import { Grid, Typography } from "@mui/material"
 import StarIcon from '@mui/icons-material/Star';
 import Player from "./Player";
 
-function PlayerBox({ isLeader = false, team, username }) {
+function PlayerBox({ isLeader = false, teamStyle={}, username }) {
 
   return (
-    <Grid 
+    <Grid
       container
       direction="row"
       justifyContent="center"
@@ -24,7 +24,7 @@ function PlayerBox({ isLeader = false, team, username }) {
       <Grid xs={6} />
 
       <Grid xs={12}>
-        <Player team={team}/>
+        <Player teamStyle={teamStyle}/>
       </Grid>
 
       <Grid xs={12}>
@@ -36,4 +36,4 @@ function PlayerBox({ isLeader = false, team, username }) {
   )
 }
 
-export default PlayerBox;
+export default memo(PlayerBox);

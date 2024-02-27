@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import io from 'socket.io-client';
 
@@ -17,14 +17,12 @@ function App() {
   });
 
   const [gameScreen, setGameScreen] = useState(false);
+  const [gameStarted, setGameStarted] = useState(false);
   const [gameEnd, setGameEnd] = useState(false);
   const [username, setUsername] = useState("");
 
-  const [team, setTeam] = useState("");
-  const [seatNumber, setSeatNumber] = useState(0);
   const [numPlayers, setNumPlayers] = useState(0);
-
-  const [playerLobby, setPlayerLobby] = useState([]);
+  const [seats, setSeats] = useState([]);
 
   const onChangedUsername = (updatedUsername) => {
     setUsername(updatedUsername);
@@ -35,14 +33,16 @@ function App() {
   });
 
   socket.on("player_joined_lobby", (lobbyInfo) => {
-    setPlayerLobby(lobbyInfo.playerLobby);
+    setSeats(lobbyInfo.seats);
     setNumPlayers(lobbyInfo.numPlayers);
     setGameScreen(true);
   });
 
-  socket.on("team_set", (gameInfo) => {
-    setTeam(gameInfo.team);
-    setSeatNumber(gameInfo.seatNumber);
+  socket.on("shuffled_seats", (seats) => {
+    console.log("received seats: ", seats)
+    setSeats(seats);
+    setGameStarted(true);
+    console.log("shuffled_seats in client received: ", seats);
   });
 
   return (
@@ -57,10 +57,9 @@ function App() {
             <GameScreen
               socket={socket}
               username={username}
-              team={team}
-              seatNumber={seatNumber}
+              seats={seats}
               numPlayers={numPlayers}
-              playerLobby={playerLobby}
+              gameStarted={gameStarted}
             />
           ) : gameEnd ? (
               <EndScreen />

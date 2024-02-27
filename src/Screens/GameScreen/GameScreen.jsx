@@ -1,4 +1,4 @@
-import { React } from "react";
+import { React, memo } from "react";
 import "../../App.css";
 
 import ChatBox from "./Components/ChatBox/ChatBox";
@@ -6,17 +6,17 @@ import GameTable from "./Components/GameTable/GameTable";
 import InfoTable from "./Components/InfoTable/InfoTable";
 import GameCommands from "./Components/GameCommands/GameCommands.jsx";
 
-function GameScreen({ socket, username, team, seatNumber, numPlayers, playerLobby }) {
+function GameScreen({ socket, username, seats, numPlayers, gameStarted }) {
   // const [instructions, setInstructions] = useState("");
   
   return (
     <div className="gameScreen">
       <div>
         <GameTable 
-          team={team} 
-          seatNumber={seatNumber} 
+          seats={seats}
           numPlayers={numPlayers} 
-          playerLobby={playerLobby}
+          gameStarted={gameStarted}
+          username={username} // for testing only
         />
       </div>
 
@@ -25,7 +25,7 @@ function GameScreen({ socket, username, team, seatNumber, numPlayers, playerLobb
       </div>
 
       <div>
-        <InfoTable />
+        <InfoTable numPlayers={numPlayers} seats={seats} timer={false}/>
       </div>
 
       <div>
@@ -37,4 +37,4 @@ function GameScreen({ socket, username, team, seatNumber, numPlayers, playerLobb
   )
 }
 
-export default GameScreen;
+export default memo(GameScreen);
