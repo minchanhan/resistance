@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React from "react";
 import "../../../../../App.css";
 
 import { Grid, Typography } from "@mui/material"
@@ -36,4 +36,4 @@ function PlayerBox({ isLeader = false, teamStyle={}, username }) {
   )
 }
 
-export default memo(PlayerBox);
+export default PlayerBox;

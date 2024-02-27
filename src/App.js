@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import io from 'socket.io-client';
 
@@ -42,7 +42,6 @@ function App() {
     console.log("received seats: ", seats)
     setSeats(seats);
     setGameStarted(true);
-    console.log("shuffled_seats in client received: ", seats);
   });
 
   return (

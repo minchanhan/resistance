@@ -1,4 +1,4 @@
-import { React, memo } from "react";
+import { React } from "react";
 import "../../App.css";
 
 import ChatBox from "./Components/ChatBox/ChatBox";
@@ -37,4 +37,4 @@ function GameScreen({ socket, username, seats, numPlayers, gameStarted }) {
   )
 }
 
-export default memo(GameScreen);
+export default GameScreen;

@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React from "react";
 import "../../../../App.css";
 
 import PlayerBox from "./PlayerBox/PlayerBox";
@@ -133,4 +133,4 @@ function GameTable({ seats, numPlayers, gameStarted, username }) {
   )
 }
 
-export default memo(GameTable);
+export default GameTable;

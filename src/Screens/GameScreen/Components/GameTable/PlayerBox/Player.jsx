@@ -1,4 +1,4 @@
-import React, { memo, useEffect } from "react";
+import React from "react";
 import "../../../../../App.css";
 
 import Fist  from "../../../../../assets/Fist.jsx"
@@ -11,4 +11,4 @@ function Player({teamStyle}) {
   )
 }
 
-export default memo(Player);
+export default Player;
