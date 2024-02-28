@@ -84,10 +84,54 @@
   justify-content: center;
   align-items: center;
 
-  height: auto;
+  height: 100%;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr 2fr 1fr;
 }
+
+.holdPlayers {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-items: center;
+  text-align: center;
+}
+
+.playerBox { /* Player Box */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 5em;
+  width: 5em;
+}
+.playerBox .status {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-items: center;
+  text-align: center;
+  flex: 25%;
+  height: 100%;
+  width: 5em;
+}
+.playerBox .status div {
+  flex: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.playerBox .fist {
+  flex: 50%;
+  height: 100%;
+}
+.playerBox .username {
+  flex: 25%;
+  height: 100%;
+  color: white;
+}
+
 
 .table { /* Actual Table */
   background-image: url("./assets/woodtable.svg");

@@ -29,7 +29,7 @@ function GameTable({ seats, numPlayers, gameStarted, username }) {
 
   return (
     <div className="fullTable">
-      <div style={playerRow(topRowLength)}>
+      <div style={playerRow(topRowLength)} className="holdPlayers">
         {
           // this map displays up to 4 players, 3 if there are <= 6 players
           seats.map(function(seat, i) {
@@ -59,14 +59,17 @@ function GameTable({ seats, numPlayers, gameStarted, username }) {
       <div style={tableRow(seats.length >= 9, seats.length >= 10)}>
         {
           seats.length >= 9 && !gameStarted ?
+          <div className="holdPlayers">
             <PlayerBox username={seats[8][0] || "waiting.."} />
-            : seats.length >= 9 && gameStarted ?
+          </div>
+          : seats.length >= 9 && gameStarted ?
+            <div className="holdPlayers">
               <PlayerBox 
                 username={seats[8][0] || "waiting.."} 
                 teamStyle={seats[8][1] === "badTeam" ? badTeamStyle : {}} 
               />
-              : null
-           
+            </div>
+            : null
         }
 
         <div className="table">
@@ -89,17 +92,21 @@ function GameTable({ seats, numPlayers, gameStarted, username }) {
 
         { 
           seats.length >= 10 && !gameStarted ?
-          <PlayerBox username={seats[9][0] || "waiting.."} />
+          <div className="holdPlayers">
+            <PlayerBox username={seats[9][0] || "waiting.."} />
+          </div>
           : seats.length >= 10 && gameStarted ?
-            <PlayerBox 
-              username={seats[9][0] || "waiting.."} 
-              teamStyle={seats[9][1] === "badTeam" ? badTeamStyle : {}} 
-            />
+            <div className="holdPlayers">
+              <PlayerBox 
+                username={seats[9][0] || "waiting.."} 
+                teamStyle={seats[9][1] === "badTeam" ? badTeamStyle : {}} 
+              />
+            </div>
             : null
         }
       </div>
 
-      <div style={playerRow(bottomRowLength)}>
+      <div style={playerRow(bottomRowLength)} className="holdPlayers">
         {
           // this map displays up to 4 players, 2 if there are 5 players, 3 if <= 7, 4 if >= 8
           seats.map(function(seat, i) {
@@ -125,8 +132,6 @@ function GameTable({ seats, numPlayers, gameStarted, username }) {
           })
         }
       </div>
-
-      
     </div>
   )
 }
