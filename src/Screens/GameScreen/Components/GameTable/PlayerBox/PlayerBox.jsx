@@ -4,7 +4,7 @@ import Fist from "../../../../../assets/Fist.jsx"
 
 import StarIcon from '@mui/icons-material/Star';
 
-function PlayerBox({ isLeader = false, teamStyle={}, username }) {
+function PlayerBox({ isLeader = false, teamStyle={}, username, ownName=false }) {
 
   return (
     <div className="playerBox">
@@ -25,7 +25,7 @@ function PlayerBox({ isLeader = false, teamStyle={}, username }) {
         <Fist />
       </div>
 
-      <div className="username">
+      <div className="username" style={{color: ownName ? "yellow" : "white" }}>
         {username}
       </div>
     </div>

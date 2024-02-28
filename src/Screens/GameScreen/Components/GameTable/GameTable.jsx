@@ -37,17 +37,19 @@ function GameTable({ seats, numPlayers, gameStarted, username }) {
             const seatTeam = seat[1];
             
             if (i < topRowLength) {
-              if (username === seatUsername) {
-                // color the username
-              }
               if (gameStarted) {
                 return <PlayerBox 
                           key={i}
                           teamStyle={seatTeam === "badTeam" ? badTeamStyle : {}} 
                           username={seatUsername}
+                          ownName={username === seatUsername}
                         />
               } else {
-                return <PlayerBox key={i} username={seatUsername || "waiting.."}/>
+                return <PlayerBox 
+                          key={i} 
+                          username={seatUsername || "waiting.."}
+                          ownName={username === seatUsername}
+                        />
               }
             } else {
               return <></>
@@ -60,13 +62,17 @@ function GameTable({ seats, numPlayers, gameStarted, username }) {
         {
           seats.length >= 9 && !gameStarted ?
           <div className="holdPlayers">
-            <PlayerBox username={seats[8][0] || "waiting.."} />
+            <PlayerBox 
+              username={seats[8][0] || "waiting.."} 
+              ownName={username === seats[8][0]}
+            />
           </div>
           : seats.length >= 9 && gameStarted ?
             <div className="holdPlayers">
               <PlayerBox 
                 username={seats[8][0] || "waiting.."} 
                 teamStyle={seats[8][1] === "badTeam" ? badTeamStyle : {}} 
+                ownName={username === seats[8][0]}
               />
             </div>
             : null
@@ -93,13 +99,17 @@ function GameTable({ seats, numPlayers, gameStarted, username }) {
         { 
           seats.length >= 10 && !gameStarted ?
           <div className="holdPlayers">
-            <PlayerBox username={seats[9][0] || "waiting.."} />
+            <PlayerBox 
+              username={seats[9][0] || "waiting.."} 
+              ownName={username === seats[9][0]}
+            />
           </div>
           : seats.length >= 10 && gameStarted ?
             <div className="holdPlayers">
               <PlayerBox 
                 username={seats[9][0] || "waiting.."} 
                 teamStyle={seats[9][1] === "badTeam" ? badTeamStyle : {}} 
+                ownName={username === seats[9][0]}
               />
             </div>
             : null
@@ -122,9 +132,14 @@ function GameTable({ seats, numPlayers, gameStarted, username }) {
                           key={i}
                           teamStyle={seatTeam === "badTeam" ? badTeamStyle : {}} 
                           username={seatUsername}
+                          ownName={username === seatUsername}
                         />
               } else {
-                return <PlayerBox key={i} username={seatUsername || "waiting.."}/>
+                return <PlayerBox 
+                          key={i} 
+                          username={seatUsername || "waiting.."}
+                          ownName={username === seatUsername}
+                        />
               }
             } else {
               return <></>
