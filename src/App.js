@@ -10,6 +10,14 @@ import GameScreen from './Screens/GameScreen/GameScreen';
 const socket = io.connect("http://localhost:3001"); // connect to socket server
 
 function App() {
+  useEffect(() => {
+    window.onbeforeunload = function(e) {
+      var dialogText = 'Dialog text here';
+      e.returnValue = dialogText;
+      return dialogText;
+    };
+  }, []);
+
   const darkTheme = createTheme({
     palette: {
       mode: 'dark',
@@ -21,16 +29,24 @@ function App() {
   const [gameEnd, setGameEnd] = useState(false);
   const [username, setUsername] = useState("");
 
-  const [numPlayers, setNumPlayers] = useState(0);
+  const [numPlayers, setNumPlayers] = useState(0); // capacity
   const [seats, setSeats] = useState([]);
 
   const onChangedUsername = (updatedUsername) => {
     setUsername(updatedUsername);
   };
 
-  socket.on("set_game_end", () => {
-    setGameEnd(true);
-  });
+  useEffect(() => {
+    const handleGameEnd = () => {
+      setGameEnd(true);
+    };
+
+    socket.on("set_game_end", handleGameEnd);
+
+    return () => {
+      socket.off("set_game_end", handleGameEnd);
+    }
+  }, [socket]);
 
   useEffect(() => {
     const handlePlayerJoin = (lobbyInfo) => {
@@ -43,6 +59,18 @@ function App() {
 
     return () => {
       socket.off("player_joined_lobby", handlePlayerJoin);
+    }
+  }, [socket]);
+
+  useEffect(() => {
+    const handlePlayerLeave = (seats) => {
+      setSeats(seats);
+    };
+
+    socket.on("player_left_lobby", handlePlayerLeave);
+
+    return () => {
+      socket.off("player_left_lobby", handlePlayerLeave);
     }
   }, [socket]);
 
@@ -67,16 +95,20 @@ function App() {
             <div className="startScreen">
               <StartScreen socket={socket} username={username} onChangedUsername={onChangedUsername}/>
             </div>
-          ) : gameScreen && !gameEnd ? (
-            <GameScreen
-              socket={socket}
-              username={username}
-              seats={seats}
-              numPlayers={numPlayers}
-              gameStarted={gameStarted}
-            />
-          ) : gameEnd ? (
-              <EndScreen />
+          ) : gameScreen ? (
+            <>
+              <GameScreen
+                socket={socket}
+                username={username}
+                seats={seats}
+                numPlayers={numPlayers}
+                gameStarted={gameStarted}
+              />
+              <EndScreen
+                open={gameEnd}
+                seats={seats}
+              />
+            </>
           ) : (
             <>Some sort of error lol</>
           )
