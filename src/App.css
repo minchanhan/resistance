@@ -1,50 +1,27 @@
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+:root {
+  --main-text-color: #F4F4F4;
+  --main-bg-color: #282c34;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.startScreen {
-  background-color: #282c34;
+.container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  box-sizing: border-box;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.gameScreen {
-  display: grid; 
+  justify-items: center;
+  align-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100vw;
   height: 100vh;
-  grid-template-columns: 3fr 2fr;
-  grid-template-rows: 4fr 1fr;
+  margin: 0;
+  background-color: var(--main-bg-color);
 }
 
-/* Media query for xs/sm screens */
-@media (max-width: 767px) {  
-  .gameScreen {    
-    grid-template-columns: 1fr; /* Single column */    
-    grid-template-rows: repeat(4, 25vh);
-  }
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Start Screen Features */
+.startScreen {
+  font-size: calc(10px + 2vmin);
+  color: var(--main-text-color);
+  margin-bottom: 10%;
 }
 
 .footer {
@@ -55,23 +32,22 @@
   font-size: xx-small;
 }
 
-.container {
-  background-color: #282c34;
-  justify-content: center;
-  align-content: center;
-  text-align: center;
-  width: 100vw;
+/* Game Screen Features */
+.gameScreen {
+  display: grid; 
   height: 100vh;
-  margin: 0;
-  box-sizing:border-box;
+  grid-template-columns: 3fr 2fr;
+  grid-template-rows: 4fr 1fr;
 }
 
-.bad {
-  filter: invert(5%) sepia(93%) saturate(6990%) hue-rotate(349deg) brightness(99%) contrast(101%);
+@media (max-width: 767px) { /* Media query for xs/sm screens */
+  .gameScreen {    
+    grid-template-columns: 1fr; /* Single column */    
+    grid-template-rows: repeat(4, 25vh);
+  }
 }
 
-/* Table */
-.fullTable {
+.fullTable { /* Game Table */
   justify-content: center;
   align-items: center;
   display: grid; 
@@ -80,7 +56,7 @@
   grid-template-rows: 1fr 2fr 1fr;
 }
 
-.table {
+.table { /* Actual Table */
   background-image: url("./assets/woodtable.svg");
   display: grid; 
   height: 100%;
@@ -102,8 +78,7 @@
   grid-template-rows: 1fr;
 }
 
-/* Mission Holes */
-.missionToken {
+.missionToken { /* Mission Holes */
   border-radius: 50%;
   background-color: #fff;
   position: relative;
@@ -125,8 +100,7 @@
   border: 1px solid yellow;
 }
 
-/* Vote Track */
-.voteHole {
+.voteHole { /* Vote Track */
   width: 2em;
   height: 2em;
   border-radius: 50%;
@@ -140,8 +114,7 @@
   background-color: #fff;
 }
 
-/* Game Master */
-.gameCommands {
+.gameCommands { /* Game Master */
   justify-content: center;
   display: grid; 
   height: 100%;
@@ -171,43 +144,7 @@
   transform: translate(-50%) rotate(45deg);
 }
 
-/* Chat Box*/
-
-.joinRoom { /* JOIN ROOM */
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-}
-.joinRoom h3 {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-}
-.joinRoom input {
-  width: 210px;
-  height: 40px;
-  margin: 7px;
-  border: 2px solid #43a047;
-  border-radius: 5px;
-  padding: 5px;
-  font-size: 16px;
-}
-.joinRoom button {
-  width: 225px;
-  height: 50px;
-  margin: 7px;
-  border: none;
-  border-radius: 5px;
-  padding: 5px;
-  font-size: 16px;
-  background: #43a047;
-  color: #fff;
-  cursor: pointer;
-}
-.joinRoom button:hover {
-  background: #2e7d32;
-}
-
-.chatWindow { /* CHAT WINDOW */
+.chatWindow { /* Chat Window */
   background-color: white;
 }
 .chatWindow p {
@@ -226,7 +163,6 @@
   font-weight: 700;
   line-height: 1.75em;
 }
-
 .chatWindow .chatBody {
   height: 24em;
   border: 1px solid #263238;
@@ -266,17 +202,14 @@
 #you {
   justify-content: flex-end;
 }
-
 #you .msgContent {
   justify-content: flex-start;
   background-color: gray;
 }
-
 #you .msgMeta {
   justify-content: flex-end;
   margin-right: 5px;
 }
-
 #you .msgTime {
   margin-right: 3px;
 }
@@ -284,17 +217,14 @@
 #other {
   justify-content: flex-start;
 }
-
 #other .msgContent {
   justify-content: flex-start;
   background-color: lightgray;
 }
-
 #other .msgMeta {
   justify-content: flex-start;
   margin-left: 5px;
 }
-
 #other .msgTime {
   margin-right: 3px;
 }
@@ -308,14 +238,12 @@
   display: flex;
   font-size: 12px;
 }
-
 .chatWindow .chatFooter {
   height: 2em;
   border: 1px solid #263238;
   border-top: none;
   display: flex;
 }
-
 .chatWindow .chatFooter input {
   height: 100%;
   flex: 85%;
@@ -327,7 +255,6 @@
   outline: none;
   font-family: "Open Sans", sans-serif;
 }
-
 .chatWindow .chatFooter button {
   border: 0;
   display: grid;
@@ -340,7 +267,6 @@
   font-size: 25px;
   color: lightgray;
 }
-
 .chatWindow .chatFooter button:hover {
   color: #43a047;
 }

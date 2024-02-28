@@ -38,7 +38,6 @@ function GameTable({ seats, numPlayers, gameStarted, username }) {
             
             if (i < topRowLength) {
               if (username === seatUsername) {
-                console.log("seatUsername and seatTeam are: ", seatUsername, seatTeam);
                 // color the username
               }
               if (gameStarted) {
@@ -109,7 +108,6 @@ function GameTable({ seats, numPlayers, gameStarted, username }) {
 
             if (i >= topRowLength && i < bottomRowLength + topRowLength) {
               if (username === seatUsername) {
-                console.log("seatUsername and seatTeam are: ", seatUsername, seatTeam);
                 // color the username
               }
               if (gameStarted) {

@@ -22,6 +22,12 @@ function App() {
     palette: {
       mode: 'dark',
     },
+    colors: {
+      text: {
+        body: '#F4F4F4',
+        link: '#FF8C00'
+      }
+    },
   });
 
   const [gameScreen, setGameScreen] = useState(false);
@@ -92,9 +98,7 @@ function App() {
       <div className="container">
         {
           !gameScreen && !gameEnd ? (
-            <div className="startScreen">
-              <StartScreen socket={socket} username={username} onChangedUsername={onChangedUsername}/>
-            </div>
+            <StartScreen socket={socket} username={username} onChangedUsername={onChangedUsername}/>
           ) : gameScreen ? (
             <>
               <GameScreen
@@ -114,8 +118,7 @@ function App() {
           )
         }
       </div>
-    </ThemeProvider>
-    
+    </ThemeProvider> 
   );
 }
 

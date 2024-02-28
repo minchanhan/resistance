@@ -42,7 +42,7 @@ function StartScreen({ socket, username, onChangedUsername }) {
   };
   
   return (
-    <div>
+    <div className="startScreen">
       <h1>
         The Resistance
       </h1>

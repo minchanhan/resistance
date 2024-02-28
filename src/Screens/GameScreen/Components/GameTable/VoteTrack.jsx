@@ -8,10 +8,7 @@ import Wood from "../../../../assets/Wood.jsx";
 function VoteTrack({ isFilled=false }) {
 
   return (
-    <div
-      className={`voteHole depth ${isFilled ? "filledVote" : ""}`} 
-      
-    >
+    <div className={`voteHole depth ${isFilled ? "filledVote" : ""}`} >
     </div>   
   )
 }

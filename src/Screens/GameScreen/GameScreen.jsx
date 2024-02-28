@@ -11,29 +11,19 @@ function GameScreen({ socket, username, seats, numPlayers, gameStarted }) {
   
   return (
     <div className="gameScreen">
-      <div>
-        <GameTable 
-          seats={seats}
-          numPlayers={numPlayers} 
-          gameStarted={gameStarted}
-          username={username} // for testing only
-        />
-      </div>
+      <GameTable 
+        seats={seats}
+        numPlayers={numPlayers} 
+        gameStarted={gameStarted}
+        username={username} // for testing only
+      />
 
-      <div>
-        <ChatBox socket={socket} username={username} />
-      </div>
+      <ChatBox socket={socket} username={username} />
 
-      <div>
-        <InfoTable numPlayers={numPlayers} seats={seats} timer={false}/>
-      </div>
+      <InfoTable numPlayers={numPlayers} seats={seats} timer={false}/>
 
-      <div>
-        <GameCommands />
-      </div>
-
+      <GameCommands />
     </div>
-    
   )
 }
 
