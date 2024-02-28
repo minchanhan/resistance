@@ -194,7 +194,6 @@
 
 .gameCommands { /* Game Master */
   display: flex; 
-  margin: 1em;
   height: 100%;
 }
 
