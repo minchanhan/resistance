@@ -36,6 +36,7 @@ function App() {
   const [username, setUsername] = useState("");
 
   const [numPlayers, setNumPlayers] = useState(0); // capacity
+  const [room, setRoom] = useState("");
   const [seats, setSeats] = useState([]);
 
   const [gameMasterSpeech, setGameMasterSpeech] = useState("Welcome... to the resistance");
@@ -67,6 +68,7 @@ function App() {
     const handlePlayerJoin = (lobbyInfo) => {
       setSeats(lobbyInfo.seats);
       setNumPlayers(lobbyInfo.numPlayers);
+      setRoom(lobbyInfo.room);
       setGameScreen(true);
     };
 
@@ -112,6 +114,7 @@ function App() {
             <>
               <GameScreen
                 socket={socket}
+                room={room}
                 username={username}
                 seats={seats}
                 numPlayers={numPlayers}
