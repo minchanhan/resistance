@@ -38,9 +38,18 @@ function App() {
   const [numPlayers, setNumPlayers] = useState(0); // capacity
   const [seats, setSeats] = useState([]);
 
+  const [gameMasterSpeech, setGameMasterSpeech] = useState("Welcome... to the resistance");
+
   const onChangedUsername = (updatedUsername) => {
     setUsername(updatedUsername);
   };
+
+  useEffect(() => {
+    socket.on("game_master_speech", (speech) => {
+      setGameMasterSpeech(speech);
+      console.log("game_master_speech called client");
+    });
+  }, [socket]);
 
   useEffect(() => {
     const handleGameEnd = () => {
@@ -107,6 +116,7 @@ function App() {
                 seats={seats}
                 numPlayers={numPlayers}
                 gameStarted={gameStarted}
+                gameMasterSpeech={gameMasterSpeech}
               />
               <EndScreen
                 open={gameEnd}

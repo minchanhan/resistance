@@ -6,7 +6,7 @@ import GameTable from "./Components/GameTable/GameTable";
 import InfoTable from "./Components/InfoTable/InfoTable";
 import GameCommands from "./Components/GameCommands/GameCommands.jsx";
 
-function GameScreen({ socket, username, seats, numPlayers, gameStarted }) {
+function GameScreen({ socket, username, seats, numPlayers, gameStarted, gameMasterSpeech }) {
   // const [instructions, setInstructions] = useState("");
   
   return (
@@ -22,7 +22,7 @@ function GameScreen({ socket, username, seats, numPlayers, gameStarted }) {
 
       <InfoTable numPlayers={numPlayers} seats={seats} timer={false}/>
 
-      <GameCommands />
+      <GameCommands gameMasterSpeech={gameMasterSpeech}/>
     </div>
   )
 }

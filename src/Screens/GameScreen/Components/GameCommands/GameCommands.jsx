@@ -1,14 +1,13 @@
 import React from "react";
 import "../../../../App.css";
-import { Grid, Typography } from "@mui/material";
 import Soldier from "../../../../assets/Solider";
 
-function GameCommands() {
+function GameCommands({gameMasterSpeech}) {
 
   return (
     <div className="gameCommands">
       <div className="masterMsg">
-        {"instructions"}
+        {gameMasterSpeech}
       </div>
       
       <Soldier/>  
