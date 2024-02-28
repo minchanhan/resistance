@@ -1,6 +1,7 @@
 :root {
   --main-text-color: #F4F4F4;
   --main-bg-color: #282c34;
+  color-scheme: dark;
 }
 
 .container {
@@ -364,5 +365,17 @@
 
 /* End Screen Features */
 .endScreenResults {
+  color: var(--main-text-color);
+}
+
+/* Instructions */
+.instructionsBox {
+  height: 60vh;
+}
+.instructions {
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
   color: var(--main-text-color);
 }

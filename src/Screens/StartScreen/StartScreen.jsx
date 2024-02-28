@@ -4,10 +4,12 @@ import "../../App.css";
 import CreateRoomModal from "./Components/CreateRoomModal";
 import { Grid, Button, TextField } from "@mui/material";
 import JoinRoomModal from "./Components/JoinRoomModal";
+import InstructionsModal from "./Components/InstructionsModal";
 
 function StartScreen({ socket, username, onChangedUsername }) {
   const [createRoomModal, setCreateRoomModal] = useState(false);
   const [joinRoomModal, setJoinRoomModal] = useState(false);
+  const [instructionsOpen, setInstructionsOpen] = useState(false);
 
   const [usernameWarningCheck, setUsernameWarningCheck] = useState(false); // activate warning if needed
 
@@ -40,6 +42,13 @@ function StartScreen({ socket, username, onChangedUsername }) {
   const handleJoinClose = () => {
     setJoinRoomModal(false);
   };
+
+  const handleInstructionsOpen = () => {
+    setInstructionsOpen(true);
+  }
+  const handleInstructionsClose = () => {
+    setInstructionsOpen(false);
+  }
   
   return (
     <div className="startScreen">
@@ -78,6 +87,14 @@ function StartScreen({ socket, username, onChangedUsername }) {
             socket={socket}
             open={joinRoomModal} 
             handleJoinClose={handleJoinClose}
+          />
+        </Grid>
+
+        <Grid item xs>
+          <Button onClick={handleInstructionsOpen}>Instructions</Button>
+          <InstructionsModal 
+            open={instructionsOpen} 
+            handleInstructionsClose={handleInstructionsClose}
           />
         </Grid>
       </Grid>
