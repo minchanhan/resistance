@@ -98,10 +98,6 @@ function App() {
     };
 
     socket.on("shuffled_seats", handleSeats);
-
-    return () => {
-      socket.off("shuffled_seats", handleSeats);
-    }
   }, [socket]);
 
   return (

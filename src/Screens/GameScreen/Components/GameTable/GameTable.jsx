@@ -35,18 +35,22 @@ function GameTable({ seats, numPlayers, gameStarted, username }) {
           seats.map(function(seat, i) {
             const seatUsername = seat[0];
             const seatTeam = seat[1];
+            const seatIsLeader = seat[2];
+            const seatOnMission = seat[3];
             
             if (i < topRowLength) {
               if (gameStarted) {
                 return <PlayerBox 
                           key={i}
+                          isLeader={seatIsLeader}
+                          onMission={seatOnMission}
                           teamStyle={seatTeam === "badTeam" ? badTeamStyle : {}} 
                           username={seatUsername}
                           ownName={username === seatUsername}
                         />
               } else {
                 return <PlayerBox 
-                          key={i} 
+                          key={i}
                           username={seatUsername || "waiting.."}
                           ownName={username === seatUsername}
                         />
@@ -62,14 +66,16 @@ function GameTable({ seats, numPlayers, gameStarted, username }) {
         {
           seats.length >= 9 && !gameStarted ?
           <div className="holdPlayers">
-            <PlayerBox 
+            <PlayerBox
               username={seats[8][0] || "waiting.."} 
               ownName={username === seats[8][0]}
             />
           </div>
           : seats.length >= 9 && gameStarted ?
             <div className="holdPlayers">
-              <PlayerBox 
+              <PlayerBox
+                isLeader={seats[8][2]}
+                onMission={seats[8][3]} 
                 username={seats[8][0] || "waiting.."} 
                 teamStyle={seats[8][1] === "badTeam" ? badTeamStyle : {}} 
                 ownName={username === seats[8][0]}
@@ -99,14 +105,16 @@ function GameTable({ seats, numPlayers, gameStarted, username }) {
         { 
           seats.length >= 10 && !gameStarted ?
           <div className="holdPlayers">
-            <PlayerBox 
+            <PlayerBox
               username={seats[9][0] || "waiting.."} 
               ownName={username === seats[9][0]}
             />
           </div>
           : seats.length >= 10 && gameStarted ?
             <div className="holdPlayers">
-              <PlayerBox 
+              <PlayerBox
+                isLeader={seats[9][2]}
+                onMission={seats[9][3]} 
                 username={seats[9][0] || "waiting.."} 
                 teamStyle={seats[9][1] === "badTeam" ? badTeamStyle : {}} 
                 ownName={username === seats[9][0]}
@@ -122,6 +130,8 @@ function GameTable({ seats, numPlayers, gameStarted, username }) {
           seats.map(function(seat, i) {
             const seatUsername = seat[0];
             const seatTeam = seat[1];
+            const seatIsLeader = seat[2];
+            const seatOnMission = seat[3];
 
             if (i >= topRowLength && i < bottomRowLength + topRowLength) {
               if (username === seatUsername) {
@@ -130,13 +140,15 @@ function GameTable({ seats, numPlayers, gameStarted, username }) {
               if (gameStarted) {
                 return <PlayerBox 
                           key={i}
+                          isLeader={seatIsLeader}
+                          onMission={seatOnMission}
                           teamStyle={seatTeam === "badTeam" ? badTeamStyle : {}} 
                           username={seatUsername}
                           ownName={username === seatUsername}
                         />
               } else {
                 return <PlayerBox 
-                          key={i} 
+                          key={i}
                           username={seatUsername || "waiting.."}
                           ownName={username === seatUsername}
                         />

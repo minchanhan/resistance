@@ -1,7 +1,6 @@
 :root {
   --main-text-color: #F4F4F4;
   --main-bg-color: #282c34;
-  color-scheme: dark;
 }
 
 .container {
@@ -370,6 +369,7 @@
 
 /* Instructions */
 .instructionsBox {
+  color-scheme: dark;
   height: 60vh;
 }
 .instructions {
