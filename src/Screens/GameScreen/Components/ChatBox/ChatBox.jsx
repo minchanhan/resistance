@@ -38,7 +38,7 @@ function ChatBox({ socket, username }) {
   return (
     <div className="chatWindow">
       <div className="chatHeader">
-        <h3>Private Messages</h3>
+        <p>Comunication</p>
       </div>
 
       <div className="chatBody">
@@ -50,7 +50,7 @@ function ChatBox({ socket, username }) {
                   className="message" 
                   id={username === msgData.sender ? "you" : "other"}
                 >
-                  <div>
+                  <div className="fullMessage">
                     <div className="msgContent">
                       <p>{msgData.msg}</p>
                     </div>
@@ -82,7 +82,6 @@ function ChatBox({ socket, username }) {
         />
         <button onClick={sendMsg}>Send</button>
       </div>
-
     </div>
   )
 };

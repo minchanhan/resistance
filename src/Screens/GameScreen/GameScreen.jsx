@@ -11,18 +11,19 @@ function GameScreen({ socket, username, seats, numPlayers, gameStarted, gameMast
   
   return (
     <div className="gameScreen">
-      <GameTable 
-        seats={seats}
-        numPlayers={numPlayers} 
-        gameStarted={gameStarted}
-        username={username} // for testing only
-      />
-
-      <ChatBox socket={socket} username={username} />
-
-      <InfoTable numPlayers={numPlayers} seats={seats} timer={false}/>
-
-      <GameCommands gameMasterSpeech={gameMasterSpeech}/>
+      <div className="left">
+        <GameTable 
+          seats={seats}
+          numPlayers={numPlayers} 
+          gameStarted={gameStarted}
+          username={username} // for testing only
+        />
+        <InfoTable numPlayers={numPlayers} seats={seats} timer={false}/>
+      </div>
+      <div className="right">
+        <ChatBox socket={socket} username={username} />
+        <GameCommands gameMasterSpeech={gameMasterSpeech}/>
+      </div>
     </div>
   )
 }

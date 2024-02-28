@@ -10,7 +10,7 @@ function GameCommands({gameMasterSpeech}) {
         {gameMasterSpeech}
       </div>
       
-      <Soldier/>  
+      <Soldier className="soldier"/>  
     </div>
   )
 }

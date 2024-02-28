@@ -5,7 +5,7 @@ import Timer from "./Timer";
 function InfoTable({ numPlayers, seats, topText="Waiting for players..", bottomText="", timer=false }) {
 
   return (
-    <div>
+    <div className="infoTable">
       <h2>
         {topText}
       </h2>
