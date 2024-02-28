@@ -30,7 +30,7 @@ function EndScreen({open, seats}) {
           {
             seats.map(function(seat, i) {
               return (
-                <div className="endScreenResults">
+                <div key={i} className="endScreenResults">
                   <p>{`${seat[0]} was ${seat[1] === "badTeam" ? "an evil spy" : "part of the rebellion"}`}</p>
                 </div>
               )

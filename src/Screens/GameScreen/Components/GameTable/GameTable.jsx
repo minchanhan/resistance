@@ -50,7 +50,7 @@ function GameTable({ seats, numPlayers, gameStarted, username }) {
                 return <PlayerBox key={i} username={seatUsername || "waiting.."}/>
               }
             } else {
-              return <></>
+              return <div key={i}></div>
             }
           })
         }
@@ -120,7 +120,7 @@ function GameTable({ seats, numPlayers, gameStarted, username }) {
                 return <PlayerBox key={i} username={seatUsername || "waiting.."}/>
               }
             } else {
-              return <></>
+              return <div key={i}></div>
             }
           })
         }

@@ -14,20 +14,20 @@ function PlayerBox({ isLeader = false, teamStyle={}, username }) {
       justifyContent="center"
       alignItems="center"
     >
-      <Grid xs={6}>
+      <Grid item xs={6}>
         {
           !isLeader ? (
             <StarIcon style={{fill: "white", fontSize:"large"}} />
           ) : <></>
         }
       </Grid>
-      <Grid xs={6} />
+      <Grid item xs={6} />
 
-      <Grid xs={12}>
+      <Grid item xs={12}>
         <Player teamStyle={teamStyle}/>
       </Grid>
 
-      <Grid xs={12}>
+      <Grid item xs={12}>
         <Typography variant="subtitle1" color="text.secondary">
           {username}
         </Typography>
