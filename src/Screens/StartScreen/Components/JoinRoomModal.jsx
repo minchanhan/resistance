@@ -48,8 +48,8 @@ function JoinRoomModal({
             Enter Room Code
           </Typography>
           
-          <Grid direction="column">
-            <Grid xs alignItems="flex-end">
+          <Grid container direction="column">
+            <Grid item alignItems="flex-end" xs>
             <TextField
               error={!validRoom && checkedRoom}
               id={!validRoom && checkedRoom ? "" : "outlined-error-helper-text"}
@@ -63,7 +63,7 @@ function JoinRoomModal({
             />
             </Grid>
             
-            <Grid xs>
+            <Grid item xs>
               <Button variant="text" onClick={joinRoom}>Join Room</Button>
             </Grid>
 

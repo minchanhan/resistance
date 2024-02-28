@@ -30,9 +30,8 @@ function EndScreen({open, seats}) {
           {
             seats.map(function(seat, i) {
               return (
-                <div>
-                  <p>{`name: ${seat[0]}`}</p>
-                  <p>{`team: ${seat[1]}`}</p>
+                <div className="endScreenResults">
+                  <p>{`${seat[0]} was ${seat[1] === "badTeam" ? "an evil spy" : "part of the rebellion"}`}</p>
                 </div>
               )
             })

@@ -274,3 +274,7 @@
   opacity: 0 !important;
 }
 
+/* End Screen Features */
+.endScreenResults {
+  color: var(--main-text-color);
+}

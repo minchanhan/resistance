@@ -47,8 +47,8 @@ function StartScreen({ socket, username, onChangedUsername }) {
         The Resistance
       </h1>
 
-      <Grid direction="column">
-        <Grid xs>
+      <Grid container direction="column">
+        <Grid item xs>
           <TextField
             error={!validUsername() && usernameWarningCheck}
             id={!validUsername() && usernameWarningCheck ? "" : "outlined-error-helper-text"}
@@ -63,7 +63,7 @@ function StartScreen({ socket, username, onChangedUsername }) {
           />
         </Grid>
 
-        <Grid xs>
+        <Grid item xs>
           <Button onClick={handleCreateOpen}>Create Room</Button>
           <CreateRoomModal 
             socket={socket}
@@ -72,7 +72,7 @@ function StartScreen({ socket, username, onChangedUsername }) {
           />
         </Grid>
 
-        <Grid xs>
+        <Grid item xs>
           <Button onClick={handleJoinOpen}>Join Room with Code</Button>
           <JoinRoomModal 
             socket={socket}

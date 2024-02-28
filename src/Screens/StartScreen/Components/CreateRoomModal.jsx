@@ -53,8 +53,8 @@ function CreateRoomModal({
             Room Settings
           </Typography>
           
-          <Grid direction="column">
-            <Grid alignItems="flex-end" xs>
+          <Grid container direction="column">
+            <Grid item alignItems="flex-end" xs>
               <FormControl sx={{ m: 1.5, minWidth: 200, mt: 3.5}} >
                 <InputLabel id="demo-simple-select-helper-label"># of Players</InputLabel>
                 <Select
@@ -77,7 +77,7 @@ function CreateRoomModal({
               </FormControl>
             </Grid>
 
-            <Grid alignItems="flex-end" xs>
+            <Grid item alignItems="flex-end" xs>
               <FormControl sx={{ m: 1.5, minWidth: 200, mt: 2.5}} >
                 <InputLabel id="demo-simple-select-helper-label">Mission Selection Time Limit</InputLabel>
                 <Select
@@ -100,7 +100,7 @@ function CreateRoomModal({
               </FormControl>
             </Grid>
             
-            <Grid xs>
+            <Grid item xs>
               <Button 
                 variant="text" 
                 onClick={createRoom}
