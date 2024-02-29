@@ -106,6 +106,7 @@
   flex-direction: column;
   height: 5em;
   width: 5em;
+  cursor: pointer;
 }
 .playerBox .status {
   display: flex;
@@ -133,13 +134,28 @@
   height: 100%;
   color: white;
 }
+.selected { /* selected for mission */
+  background-color: lightsalmon;
+}
+
+#submitBtn:disabled {
+  cursor: not-allowed;
+  background-color: #613503;
+  color: #666;
+}
+
+#submitBtn {
+  cursor: pointer;
+  background-color: #613503;
+  color: #ddd;
+}
 
 .table { /* Actual Table */
   background-image: url("./assets/woodtable.svg");
   display: grid; 
   height: 100%;
   grid-template-columns: 1fr;
-  grid-template-rows: 1fr 1fr;
+  grid-template-rows: 2fr 2fr 1fr;
 }
 
 .missionTokenGrid {

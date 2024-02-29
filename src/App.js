@@ -40,6 +40,7 @@ function App() {
   const [seats, setSeats] = useState([]);
 
   const [gameMasterSpeech, setGameMasterSpeech] = useState("Welcome... to the resistance");
+  const [leaderSelecting, setLeaderSelecting] = useState(false);
 
   const onChangedUsername = (updatedUsername) => {
     setUsername(updatedUsername);
@@ -49,6 +50,13 @@ function App() {
     socket.on("game_master_speech", (speech) => {
       setGameMasterSpeech(speech);
       console.log("game_master_speech called client");
+    });
+  }, [socket]);
+
+  useEffect(() => {
+    socket.on("leader_is_selecting", (isSelecting) => {
+      console.log("leader has been given powers");
+      setLeaderSelecting(isSelecting);
     });
   }, [socket]);
 
@@ -116,6 +124,7 @@ function App() {
                 numPlayers={numPlayers}
                 gameStarted={gameStarted}
                 gameMasterSpeech={gameMasterSpeech}
+                leaderSelecting={leaderSelecting}
               />
               <EndScreen
                 open={gameEnd}

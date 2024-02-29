@@ -5,10 +5,10 @@ import Fist from "../../../../../assets/Fist.jsx"
 import StarIcon from '@mui/icons-material/Star';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 
-function PlayerBox({ isLeader = false, onMission=false, teamStyle={}, username, ownName=false }) {
+function PlayerBox({ isLeader = false, onMission=false, inTeamVote=false, teamStyle={}, username, ownName=false, onClick}) {
 
   return (
-    <div className="playerBox">
+    <div className="playerBox" onClick={onClick}>
       <div className="status">
         <div id="isLeader">
           {
@@ -20,7 +20,7 @@ function PlayerBox({ isLeader = false, onMission=false, teamStyle={}, username, 
         
         <div id="onMission">
           {
-            onMission ? (
+            onMission || inTeamVote ? (
               <CheckBoxIcon style={{fontSize:"large"}} />
             ) : <></>
           }
