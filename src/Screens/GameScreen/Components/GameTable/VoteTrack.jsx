@@ -1,15 +1,16 @@
 import React from "react";
 import "../../../../App.css";
 
-import { Box, Grid } from "@mui/material"
-import PlayerBox from "./PlayerBox/PlayerBox";
-import Wood from "../../../../assets/Wood.jsx";
-
-function VoteTrack({ isFilled=false }) {
+function VoteTrack({ isFilled=false, number }) {
 
   return (
-    <div className={`voteHole depth ${isFilled ? "filledVote" : ""}`} >
-    </div>   
+    <div className="tableTrackDiv">
+      <div className={`voteHole depth ${isFilled ? "filledVote" : ""}`} >
+        <div className="number" style={{fontSize: "1em"}}>
+          {number}
+        </div>
+      </div>  
+    </div>
   )
 }
 

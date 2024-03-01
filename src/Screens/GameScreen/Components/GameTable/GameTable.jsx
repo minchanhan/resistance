@@ -125,18 +125,26 @@ function GameTable({ seats, numPlayers, gameStarted, username, leaderSelecting }
             <MissionToken />
             <MissionToken />
           </div>
+
+          <div className="voteTrackLabel">
+            Vote Track
+          </div>
           
           <div className="voteTrackGrid">
-            <VoteTrack isFilled/>
-            <VoteTrack />
-            <VoteTrack />
-            <VoteTrack />
-            <VoteTrack />
+            <VoteTrack isFilled number={1}/>
+            <VoteTrack number={2}/>
+            <VoteTrack number={3}/>
+            <VoteTrack number={4}/>
+            <VoteTrack number={5}/>
           </div>
 
-          <button id="submitBtn" disabled={selectedPlayers.length < 3} onClick={() => handleTeamSubmit()}>
-            Submit Team
-          </button>
+          { 
+            !leaderSelecting ? (
+              <button id="submitBtn" disabled={selectedPlayers.length < 3} onClick={() => handleTeamSubmit()}>
+                Submit Team
+              </button>
+            ) : <></>
+          }
         </div>
 
         { 
