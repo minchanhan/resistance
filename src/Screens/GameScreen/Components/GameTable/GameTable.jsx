@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "../../../../App.css";
 
 import PlayerBox from "./PlayerBox/PlayerBox";
@@ -14,13 +14,20 @@ function GameTable({
   username, 
   leaderSelecting,
   selectedPlayers,
-  setSelectedPlayers
+  setSelectedPlayers,
+  voteHappening,
+  voteApproved,
+  curMissionVoteDisapproves
 }) {
   const topRowLength = numPlayers >= 7 ? 4 : 3;
   const bottomRowLength = numPlayers >= 8 ? 4 : (numPlayers >= 6) ? 3 : 2;
   const badTeamStyle = {
     filter: 'invert(21%) sepia(76%) saturate(5785%) hue-rotate(338deg) brightness(57%) contrast(119%)'
   };
+
+  const [disableVote, setDisableVote] = useState(false);
+  const [disableMissionVote, setDisableMissionVote] = useState(false);
+  const [disableTeamSubmit, setDisableTeamSubmit] = useState(false);
 
   // for dynamic player rows
   var playerRow = (rowLength) => ({
@@ -57,9 +64,18 @@ function GameTable({
   };
 
   const handleTeamSubmit = () => {
-    // Handle the form submission logic here
-    console.log("selectedPlayers are: ", selectedPlayers);
     socket.emit("selected_players_for_vote", { selectedPlayers: selectedPlayers, room: room });
+    setDisableTeamSubmit(true);
+  };
+
+  const handleVote = (approve) => {
+    socket.emit("vote_is_in", { selectedPlayers: selectedPlayers, approve: approve, room: room });
+    setDisableVote(true);
+  };
+
+  const handleMission = (pass) => {
+    socket.emit("mission_result_is_in", { pass: pass, room: room });
+    setDisableMissionVote(true);
   };
 
   const gameStartedPlayerBox = (i, seatIsLeader, seatOnMission, seatTeam, seatUsername) => {
@@ -137,18 +153,38 @@ function GameTable({
           </div>
           
           <div className="voteTrackGrid">
-            <VoteTrack isFilled number={1}/>
-            <VoteTrack number={2}/>
-            <VoteTrack number={3}/>
-            <VoteTrack number={4}/>
-            <VoteTrack number={5}/>
+            <VoteTrack isFilled={curMissionVoteDisapproves > 0} number={1}/>
+            <VoteTrack isFilled={curMissionVoteDisapproves > 1} number={2}/>
+            <VoteTrack isFilled={curMissionVoteDisapproves > 2} number={3}/>
+            <VoteTrack isFilled={curMissionVoteDisapproves > 3} number={4}/>
+            <VoteTrack isFilled={curMissionVoteDisapproves > 4} number={5}/>
           </div>
 
           { 
             leaderSelecting ? (
-              <button id="submitBtn" disabled={selectedPlayers.length < 3} onClick={() => handleTeamSubmit()}>
-                Submit Team
-              </button>
+              <div>
+                <button id="submitBtn" disabled={selectedPlayers.length < 3 || disableTeamSubmit} onClick={() => handleTeamSubmit()}>
+                  Submit Team
+                </button>
+              </div>
+            ) : voteHappening ? (
+              <div>
+                <button id="approveBtn" disabled={disableVote} onClick={() => handleVote(true)}>
+                  Approve
+                </button>
+                <button id="disapproveBtn" disabled={disableVote} onClick={() => handleVote(false)}>
+                  Disapprove
+                </button>
+              </div>
+            ) : voteApproved ? (
+              <div>
+                <button id="passBtn" disabled={disableMissionVote} onClick={() => handleMission(true)}>
+                  Pass
+                </button>
+                <button id="failBtn" disabled={disableMissionVote} onClick={() => handleMission(false)}>
+                  Fail
+                </button>
+              </div>
             ) : <></>
           }
         </div>

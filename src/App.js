@@ -42,6 +42,9 @@ function App() {
   const [gameMasterSpeech, setGameMasterSpeech] = useState("Welcome... to the resistance");
   const [leaderSelecting, setLeaderSelecting] = useState(false);
   const [selectedPlayers, setSelectedPlayers] = useState([]);
+  const [voteHappening, setVoteHappening] = useState(false);
+  const [voteApproved, setVoteApproved] = useState(false); // vote approved
+  const [curMissionVoteDisapproves, setCurMissionVoteDisapproves] = useState(0);
 
   const onChangedUsername = (updatedUsername) => {
     setUsername(updatedUsername);
@@ -57,6 +60,7 @@ function App() {
   useEffect(() => {
     socket.on("leader_is_selecting", (isSelecting) => {
       console.log("leader has been given powers");
+      setSelectedPlayers([]); // reset
       setLeaderSelecting(isSelecting);
     });
   }, [socket]);
@@ -102,7 +106,8 @@ function App() {
 
   useEffect(() => {
     const handleSeats = (seats) => {
-      setSeats(seats);
+      console.log("receiving seats ", seats);
+      setSeats([...seats]);
       setGameStarted(true);
     };
 
@@ -110,11 +115,36 @@ function App() {
   }, [socket]);
 
   useEffect(() => {
-    socket.on("vote_on_these_players", (seats) => { 
-      setSeats(seats);
-      setSelectedPlayers([]); // reset
+    socket.on("vote_on_these_players", (info) => { 
+      console.log("vote called");
+      setSelectedPlayers(info.selectedPlayers);
+      setLeaderSelecting(false);
+      setVoteHappening(true);
     });
-  }, [socket])
+  }, [socket]);
+
+  useEffect(() => {
+    socket.on("vote_result", (voteApproved) => {
+      console.log("setting vote approved, pass or fail now");
+      setVoteHappening(false);
+      setVoteApproved(voteApproved);
+    });
+  }, [socket]);
+
+  useEffect(() => {
+    socket.on("mission_completed", () => { // only when mission completed AND new one starting
+      setVoteHappening(true);
+      setLeaderSelecting(false);
+      setVoteApproved(false); // equiv to disabling mission pass/fail btns
+    });
+  }, [socket]);
+
+  useEffect(() => {
+    socket.on("vote_track", (newCount) => {
+      console.log("vote_track called");
+      setCurMissionVoteDisapproves(newCount);
+    });
+  }, [socket]);
 
   return (
     <ThemeProvider theme={darkTheme}>
@@ -135,6 +165,9 @@ function App() {
                 leaderSelecting={leaderSelecting}
                 selectedPlayers={selectedPlayers}
                 setSelectedPlayers={setSelectedPlayers}
+                voteHappening={voteHappening}
+                voteApproved={voteApproved}
+                curMissionVoteDisapproves={curMissionVoteDisapproves}
               />
               <EndScreen
                 open={gameEnd}

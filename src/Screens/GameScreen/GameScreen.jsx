@@ -16,7 +16,10 @@ function GameScreen({
   gameMasterSpeech, 
   leaderSelecting,
   selectedPlayers,
-  setSelectedPlayers
+  setSelectedPlayers,
+  voteHappening,
+  voteApproved,
+  curMissionVoteDisapproves
 }) {
   // const [instructions, setInstructions] = useState("");
   
@@ -33,6 +36,9 @@ function GameScreen({
           leaderSelecting={leaderSelecting}
           selectedPlayers={selectedPlayers}
           setSelectedPlayers={setSelectedPlayers}
+          voteHappening={voteHappening}
+          voteApproved={voteApproved}
+          curMissionVoteDisapproves={curMissionVoteDisapproves}
         />
         <InfoTable room={room} numPlayers={numPlayers} seats={seats} timer={false}/>
       </div>
