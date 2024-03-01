@@ -41,6 +41,7 @@ function App() {
 
   const [gameMasterSpeech, setGameMasterSpeech] = useState("Welcome... to the resistance");
   const [leaderSelecting, setLeaderSelecting] = useState(false);
+  const [selectedPlayers, setSelectedPlayers] = useState([]);
 
   const onChangedUsername = (updatedUsername) => {
     setUsername(updatedUsername);
@@ -125,6 +126,8 @@ function App() {
                 gameStarted={gameStarted}
                 gameMasterSpeech={gameMasterSpeech}
                 leaderSelecting={leaderSelecting}
+                selectedPlayers={selectedPlayers}
+                setSelectedPlayers={setSelectedPlayers}
               />
               <EndScreen
                 open={gameEnd}

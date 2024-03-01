@@ -5,14 +5,21 @@ import PlayerBox from "./PlayerBox/PlayerBox";
 import MissionToken from "./MissionToken";
 import VoteTrack from "./VoteTrack";
 
-function GameTable({ seats, numPlayers, gameStarted, username, leaderSelecting }) {
+function GameTable({
+  socket,
+  seats, 
+  numPlayers, 
+  gameStarted, 
+  username, 
+  leaderSelecting,
+  selectedPlayers,
+  setSelectedPlayers
+}) {
   const topRowLength = numPlayers >= 7 ? 4 : 3;
   const bottomRowLength = numPlayers >= 8 ? 4 : (numPlayers >= 6) ? 3 : 2;
   const badTeamStyle = {
     filter: 'invert(21%) sepia(76%) saturate(5785%) hue-rotate(338deg) brightness(57%) contrast(119%)'
   };
-
-  const [selectedPlayers, setSelectedPlayers] = useState([]);
 
   // for dynamic player rows
   var playerRow = (rowLength) => ({
@@ -38,11 +45,9 @@ function GameTable({ seats, numPlayers, gameStarted, username, leaderSelecting }
     if (updatedSelection.includes(seatUsername)) {
       var index = updatedSelection.indexOf(seatUsername);
       updatedSelection.splice(index, 1);
-      console.log("unselected: ", updatedSelection);
     } else {
       if (updatedSelection.length < 3) { // need to change
         updatedSelection.push(seatUsername);
-        console.log("selected: ", updatedSelection);
       }
     }
     
@@ -53,6 +58,7 @@ function GameTable({ seats, numPlayers, gameStarted, username, leaderSelecting }
   const handleTeamSubmit = () => {
     // Handle the form submission logic here
     console.log("selectedPlayers are: ", selectedPlayers);
+    
 
   };
 
@@ -139,7 +145,7 @@ function GameTable({ seats, numPlayers, gameStarted, username, leaderSelecting }
           </div>
 
           { 
-            !leaderSelecting ? (
+            leaderSelecting ? (
               <button id="submitBtn" disabled={selectedPlayers.length < 3} onClick={() => handleTeamSubmit()}>
                 Submit Team
               </button>
