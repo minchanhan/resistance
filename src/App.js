@@ -42,6 +42,7 @@ function App() {
   const [gameMasterSpeech, setGameMasterSpeech] = useState("Welcome... to the resistance");
   const [leaderSelecting, setLeaderSelecting] = useState(false);
   const [selectedPlayers, setSelectedPlayers] = useState([]);
+  const [disableVoteBtns, setDisableVoteBtns] = useState(false);
   const [voteHappening, setVoteHappening] = useState(false);
   const [voteApproved, setVoteApproved] = useState(false); // vote approved
   const [curMissionVoteDisapproves, setCurMissionVoteDisapproves] = useState(0);
@@ -120,13 +121,14 @@ function App() {
       setSelectedPlayers(info.selectedPlayers);
       setLeaderSelecting(false);
       setVoteHappening(true);
+      setDisableVoteBtns(false);
     });
   }, [socket]);
 
   useEffect(() => {
     socket.on("vote_result", (voteApproved) => {
       console.log("setting vote approved, pass or fail now");
-      setVoteHappening(false);
+      setVoteHappening(voteApproved);
       setVoteApproved(voteApproved);
     });
   }, [socket]);
@@ -165,6 +167,8 @@ function App() {
                 leaderSelecting={leaderSelecting}
                 selectedPlayers={selectedPlayers}
                 setSelectedPlayers={setSelectedPlayers}
+                disableVoteBtns={disableVoteBtns}
+                setDisableVoteBtns={setDisableVoteBtns}
                 voteHappening={voteHappening}
                 voteApproved={voteApproved}
                 curMissionVoteDisapproves={curMissionVoteDisapproves}

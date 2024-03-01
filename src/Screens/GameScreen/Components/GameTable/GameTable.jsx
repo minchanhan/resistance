@@ -15,6 +15,8 @@ function GameTable({
   leaderSelecting,
   selectedPlayers,
   setSelectedPlayers,
+  disableVoteBtns,
+  setDisableVoteBtns,
   voteHappening,
   voteApproved,
   curMissionVoteDisapproves
@@ -25,7 +27,6 @@ function GameTable({
     filter: 'invert(21%) sepia(76%) saturate(5785%) hue-rotate(338deg) brightness(57%) contrast(119%)'
   };
 
-  const [disableVote, setDisableVote] = useState(false);
   const [disableMissionVote, setDisableMissionVote] = useState(false);
   const [disableTeamSubmit, setDisableTeamSubmit] = useState(false);
 
@@ -70,7 +71,7 @@ function GameTable({
 
   const handleVote = (approve) => {
     socket.emit("vote_is_in", { selectedPlayers: selectedPlayers, approve: approve, room: room });
-    setDisableVote(true);
+    setDisableVoteBtns(true);
   };
 
   const handleMission = (pass) => {
@@ -169,10 +170,10 @@ function GameTable({
               </div>
             ) : voteHappening ? (
               <div>
-                <button id="approveBtn" disabled={disableVote} onClick={() => handleVote(true)}>
+                <button id="approveBtn" disabled={disableVoteBtns} onClick={() => handleVote(true)}>
                   Approve
                 </button>
-                <button id="disapproveBtn" disabled={disableVote} onClick={() => handleVote(false)}>
+                <button id="disapproveBtn" disabled={disableVoteBtns} onClick={() => handleVote(false)}>
                   Disapprove
                 </button>
               </div>

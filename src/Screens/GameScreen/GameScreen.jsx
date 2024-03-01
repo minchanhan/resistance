@@ -17,6 +17,8 @@ function GameScreen({
   leaderSelecting,
   selectedPlayers,
   setSelectedPlayers,
+  disableVoteBtns,
+  setDisableVoteBtns,
   voteHappening,
   voteApproved,
   curMissionVoteDisapproves
@@ -36,6 +38,8 @@ function GameScreen({
           leaderSelecting={leaderSelecting}
           selectedPlayers={selectedPlayers}
           setSelectedPlayers={setSelectedPlayers}
+          disableVoteBtns={disableVoteBtns}
+          setDisableVoteBtns={setDisableVoteBtns}
           voteHappening={voteHappening}
           voteApproved={voteApproved}
           curMissionVoteDisapproves={curMissionVoteDisapproves}
