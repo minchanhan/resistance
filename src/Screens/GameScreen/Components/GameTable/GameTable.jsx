@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "../../../../App.css";
 
 import PlayerBox from "./PlayerBox/PlayerBox";
@@ -7,6 +7,7 @@ import VoteTrack from "./VoteTrack";
 
 function GameTable({
   socket,
+  room,
   seats, 
   numPlayers, 
   gameStarted, 
@@ -58,8 +59,7 @@ function GameTable({
   const handleTeamSubmit = () => {
     // Handle the form submission logic here
     console.log("selectedPlayers are: ", selectedPlayers);
-    
-
+    socket.emit("selected_players_for_vote", { selectedPlayers: selectedPlayers, room: room });
   };
 
   const gameStartedPlayerBox = (i, seatIsLeader, seatOnMission, seatTeam, seatUsername) => {

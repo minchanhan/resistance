@@ -25,6 +25,7 @@ function GameScreen({
       <div className="left">
         <GameTable 
           socket={socket}
+          room={room}
           seats={seats}
           numPlayers={numPlayers} 
           gameStarted={gameStarted}

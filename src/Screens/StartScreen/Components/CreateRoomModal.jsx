@@ -30,7 +30,7 @@ function CreateRoomModal({
     p: 4,
   };
 
-  const [capacity, setCapacity] = useState(6);
+  const [capacity, setCapacity] = useState(5);
   const [selectionTime, setSelectionTime] = useState(7);
 
 

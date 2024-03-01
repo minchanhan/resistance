@@ -109,6 +109,13 @@ function App() {
     socket.on("shuffled_seats", handleSeats);
   }, [socket]);
 
+  useEffect(() => {
+    socket.on("vote_on_these_players", (seats) => { 
+      setSeats(seats);
+      setSelectedPlayers([]); // reset
+    });
+  }, [socket])
+
   return (
     <ThemeProvider theme={darkTheme}>
       <div className="container">
