@@ -30,6 +30,13 @@ function GameTable({
     filter: 'invert(21%) sepia(76%) saturate(5785%) hue-rotate(338deg) brightness(57%) contrast(119%)'
   };
 
+  const missionTeamSize1 = numPlayers <= 7 ? 2 : 3;
+  const missionTeamSize2 = numPlayers <= 7 ? 3 : 4;
+  const missionTeamSize3 = numPlayers === 5 ? 2 : (numPlayers === 7) ? 3 : 4;
+  const missionTeamSize4 = numPlayers <= 6 ? 3 : (numPlayers === 7) ? 4 : 5;
+  const missionTeamSize5 = numPlayers == 5 ? 3 : (numPlayers <= 7) ? 4 : 5;
+  const missionTeamSizes = [missionTeamSize1, missionTeamSize2, missionTeamSize3, missionTeamSize4, missionTeamSize5];
+
   const [disableTeamSubmit, setDisableTeamSubmit] = useState(false);
 
   // for dynamic player rows
@@ -57,7 +64,7 @@ function GameTable({
       var index = updatedSelection.indexOf(seatUsername);
       updatedSelection.splice(index, 1);
     } else {
-      if (updatedSelection.length < 3) { // need to change
+      if (updatedSelection.length < missionTeamSizes[missionNumber - 1]) {
         updatedSelection.push(seatUsername);
       }
     }
@@ -144,11 +151,11 @@ function GameTable({
 
         <div className="table">
           <div className="missionTokenGrid">
-            <MissionToken current={missionNumber === 1}/>
-            <MissionToken current={missionNumber === 2}/>
-            <MissionToken current={missionNumber === 3}/>
-            <MissionToken current={missionNumber === 4}/>
-            <MissionToken current={missionNumber === 5}/>
+            <MissionToken current={missionNumber === 1} missionTeamSize={missionTeamSize1}/>
+            <MissionToken current={missionNumber === 2} missionTeamSize={missionTeamSize2}/>
+            <MissionToken current={missionNumber === 3} missionTeamSize={missionTeamSize3}/>
+            <MissionToken current={missionNumber === 4} missionTeamSize={missionTeamSize4}/>
+            <MissionToken current={missionNumber === 5} missionTeamSize={missionTeamSize5}/>
           </div>
 
           <div className="voteTrackLabel">
@@ -166,7 +173,11 @@ function GameTable({
           { 
             leaderSelecting ? (
               <div>
-                <button id="submitBtn" disabled={selectedPlayers.length < 3 || disableTeamSubmit} onClick={() => handleTeamSubmit()}>
+                <button 
+                  id="submitBtn" 
+                  disabled={selectedPlayers.length < missionTeamSizes[missionNumber - 1] || disableTeamSubmit} 
+                  onClick={() => handleTeamSubmit()}
+                >
                   Submit Team
                 </button>
               </div>

@@ -1,7 +1,7 @@
 import React from "react";
 import "../../../../App.css";
 
-function MissionToken({ current=false, status="none" }) {
+function MissionToken({ current=false, status="none", missionTeamSize }) {
 
   return (
     <div className="tableTrackDiv">
@@ -9,7 +9,7 @@ function MissionToken({ current=false, status="none" }) {
         className={`missionToken depth ${current ? "currentMission" : ""}`}
       >
         <div className="number" style={{fontSize: "2.5em"}}>
-          5
+          {missionTeamSize}
         </div>
       </div>  
     </div>
