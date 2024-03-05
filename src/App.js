@@ -33,6 +33,8 @@ function App() {
   const [gameScreen, setGameScreen] = useState(false);
   const [gameStarted, setGameStarted] = useState(false);
   const [gameEnd, setGameEnd] = useState(false);
+  const [endMsg, setEndMsg] = useState("");
+  const [revealedPlayers, setRevealedPlayers] = useState([]);
   const [username, setUsername] = useState("");
 
   const [numPlayers, setNumPlayers] = useState(0); // capacity
@@ -46,7 +48,6 @@ function App() {
   const [voteHappening, setVoteHappening] = useState(false);
   const [curMissionVoteDisapproves, setCurMissionVoteDisapproves] = useState(0);
   const [missionNumber, setMissionNumber] = useState(1);
-
 
   const [goingOnMission, setGoingOnMission] = useState(false);
   const [disableMissionActions, setDisableMissionActions] = useState(false);
@@ -72,7 +73,9 @@ function App() {
   }, [socket]);
 
   useEffect(() => {
-    const handleGameEnd = () => {
+    const handleGameEnd = (info) => {
+      setRevealedPlayers(info.playerRevealArr);
+      setEndMsg(info.endMsg);
       setGameEnd(true);
     };
 
@@ -139,12 +142,12 @@ function App() {
   });
 
   useEffect(() => {
-    socket.on("mission_completed", () => { // only when mission completed AND new one starting
+    socket.on("mission_completed", (missionNum) => { // only when mission completed AND new one starting
       setVoteHappening(true);
       setLeaderSelecting(true);
       setGoingOnMission(false);
       setDisableMissionActions(false);
-      setMissionNumber(missionNumber + 1);
+      setMissionNumber(missionNum);
     });
   }, [socket]);
 
@@ -185,7 +188,8 @@ function App() {
               />
               <EndScreen
                 open={gameEnd}
-                seats={seats}
+                revealedPlayers={revealedPlayers}
+                endMsg={endMsg}
               />
             </>
           ) : (

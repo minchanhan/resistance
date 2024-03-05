@@ -2,7 +2,7 @@ import React from "react";
 import "../../App.css";
 import { Box, Modal, Typography } from "@mui/material";
 
-function EndScreen({open, seats}) {
+function EndScreen({ open, revealedPlayers, endMsg }) {
   const style = {
     position: 'absolute',
     top: '50%',
@@ -24,14 +24,14 @@ function EndScreen({open, seats}) {
       >
         <Box sx={style}>
           <Typography variant="h6" component="h2" color="white">
-            Game Ended
+            {endMsg}
           </Typography>
    
           {
-            seats.map(function(seat, i) {
+            revealedPlayers.map(function(playerReveal, i) {
               return (
                 <div key={i} className="endScreenResults">
-                  <p>{`${seat[0]} was ${seat[1] === "badTeam" ? "an evil spy" : "part of the rebellion"}`}</p>
+                  <p>{playerReveal}</p>
                 </div>
               )
             })
