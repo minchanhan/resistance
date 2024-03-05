@@ -44,8 +44,11 @@ function App() {
   const [selectedPlayers, setSelectedPlayers] = useState([]);
   const [disableVoteBtns, setDisableVoteBtns] = useState(false);
   const [voteHappening, setVoteHappening] = useState(false);
-  const [voteApproved, setVoteApproved] = useState(false); // vote approved
   const [curMissionVoteDisapproves, setCurMissionVoteDisapproves] = useState(0);
+
+  const [goingOnMission, setGoingOnMission] = useState(false);
+  const [disableMissionActions, setDisableMissionActions] = useState(false);
+
 
   const onChangedUsername = (updatedUsername) => {
     setUsername(updatedUsername);
@@ -126,18 +129,19 @@ function App() {
   }, [socket]);
 
   useEffect(() => {
-    socket.on("vote_result", (voteApproved) => {
-      console.log("setting vote approved, pass or fail now");
-      setVoteHappening(voteApproved);
-      setVoteApproved(voteApproved);
+    socket.on("go_on_mission", (onMissionTeam) => {
+      setVoteHappening(false);
+      setGoingOnMission(onMissionTeam);
+      setDisableMissionActions(false);
     });
-  }, [socket]);
+  });
 
   useEffect(() => {
     socket.on("mission_completed", () => { // only when mission completed AND new one starting
       setVoteHappening(true);
-      setLeaderSelecting(false);
-      setVoteApproved(false); // equiv to disabling mission pass/fail btns
+      setLeaderSelecting(true);
+      setGoingOnMission(false);
+      setDisableMissionActions(false);
     });
   }, [socket]);
 
@@ -170,8 +174,10 @@ function App() {
                 disableVoteBtns={disableVoteBtns}
                 setDisableVoteBtns={setDisableVoteBtns}
                 voteHappening={voteHappening}
-                voteApproved={voteApproved}
                 curMissionVoteDisapproves={curMissionVoteDisapproves}
+                goingOnMission={goingOnMission}
+                disableMissionActions={disableMissionActions}
+                setDisableMissionActions={setDisableMissionActions}
               />
               <EndScreen
                 open={gameEnd}

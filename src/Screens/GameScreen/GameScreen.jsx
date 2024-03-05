@@ -20,8 +20,10 @@ function GameScreen({
   disableVoteBtns,
   setDisableVoteBtns,
   voteHappening,
-  voteApproved,
-  curMissionVoteDisapproves
+  curMissionVoteDisapproves,
+  goingOnMission,
+  disableMissionActions,
+  setDisableMissionActions
 }) {
   // const [instructions, setInstructions] = useState("");
   
@@ -41,8 +43,10 @@ function GameScreen({
           disableVoteBtns={disableVoteBtns}
           setDisableVoteBtns={setDisableVoteBtns}
           voteHappening={voteHappening}
-          voteApproved={voteApproved}
           curMissionVoteDisapproves={curMissionVoteDisapproves}
+          goingOnMission={goingOnMission}
+          disableMissionActions={disableMissionActions}
+          setDisableMissionActions={setDisableMissionActions}
         />
         <InfoTable room={room} numPlayers={numPlayers} seats={seats} timer={false}/>
       </div>

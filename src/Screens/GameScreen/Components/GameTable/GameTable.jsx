@@ -18,8 +18,10 @@ function GameTable({
   disableVoteBtns,
   setDisableVoteBtns,
   voteHappening,
-  voteApproved,
-  curMissionVoteDisapproves
+  curMissionVoteDisapproves,
+  goingOnMission,
+  disableMissionActions,
+  setDisableMissionActions
 }) {
   const topRowLength = numPlayers >= 7 ? 4 : 3;
   const bottomRowLength = numPlayers >= 8 ? 4 : (numPlayers >= 6) ? 3 : 2;
@@ -27,7 +29,6 @@ function GameTable({
     filter: 'invert(21%) sepia(76%) saturate(5785%) hue-rotate(338deg) brightness(57%) contrast(119%)'
   };
 
-  const [disableMissionVote, setDisableMissionVote] = useState(false);
   const [disableTeamSubmit, setDisableTeamSubmit] = useState(false);
 
   // for dynamic player rows
@@ -76,7 +77,7 @@ function GameTable({
 
   const handleMission = (pass) => {
     socket.emit("mission_result_is_in", { pass: pass, room: room });
-    setDisableMissionVote(true);
+    setDisableMissionActions(true);
   };
 
   const gameStartedPlayerBox = (i, seatIsLeader, seatOnMission, seatTeam, seatUsername) => {
@@ -177,12 +178,12 @@ function GameTable({
                   Disapprove
                 </button>
               </div>
-            ) : voteApproved ? (
+            ) : goingOnMission ? (
               <div>
-                <button id="passBtn" disabled={disableMissionVote} onClick={() => handleMission(true)}>
+                <button id="passBtn" disabled={disableMissionActions} onClick={() => handleMission(true)}>
                   Pass
                 </button>
-                <button id="failBtn" disabled={disableMissionVote} onClick={() => handleMission(false)}>
+                <button id="failBtn" disabled={disableMissionActions} onClick={() => handleMission(false)}>
                   Fail
                 </button>
               </div>
