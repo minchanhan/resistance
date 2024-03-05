@@ -49,6 +49,7 @@ function App() {
   const [voteHappening, setVoteHappening] = useState(false);
   const [curMissionVoteDisapproves, setCurMissionVoteDisapproves] = useState(0);
   const [missionNumber, setMissionNumber] = useState(1);
+  const [missionResultTrack, setMissionResultTrack] = useState(["none","none","none","none","none"]);
 
   const [goingOnMission, setGoingOnMission] = useState(false);
   const [disableMissionActions, setDisableMissionActions] = useState(false);
@@ -144,12 +145,14 @@ function App() {
   });
 
   useEffect(() => {
-    socket.on("mission_completed", (missionNum) => { // only when mission completed AND new one starting
+    socket.on("mission_completed", (info) => { // only when mission completed AND new one starting
       setVoteHappening(true);
       setLeaderSelecting(true);
       setGoingOnMission(false);
       setDisableMissionActions(false);
-      setMissionNumber(missionNum);
+      setMissionResultTrack(info.missionResultTrack);
+      setMissionNumber(info.mission);
+      console.log(info.missionResultTrack);
     });
   }, [socket]);
 
@@ -193,6 +196,7 @@ function App() {
                 disableMissionActions={disableMissionActions}
                 setDisableMissionActions={setDisableMissionActions}
                 missionNumber={missionNumber}
+                missionResultTrack={missionResultTrack}
               />
               <EndScreen
                 open={gameEnd}

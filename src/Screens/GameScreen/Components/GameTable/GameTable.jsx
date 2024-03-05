@@ -24,7 +24,8 @@ function GameTable({
   goingOnMission,
   disableMissionActions,
   setDisableMissionActions,
-  missionNumber
+  missionNumber,
+  missionResultTrack
 }) {
   const topRowLength = numPlayers >= 7 ? 4 : 3;
   const bottomRowLength = numPlayers >= 8 ? 4 : (numPlayers >= 6) ? 3 : 2;
@@ -36,7 +37,7 @@ function GameTable({
   const missionTeamSize2 = numPlayers <= 7 ? 3 : 4;
   const missionTeamSize3 = numPlayers === 5 ? 2 : (numPlayers === 7) ? 3 : 4;
   const missionTeamSize4 = numPlayers <= 6 ? 3 : (numPlayers === 7) ? 4 : 5;
-  const missionTeamSize5 = numPlayers == 5 ? 3 : (numPlayers <= 7) ? 4 : 5;
+  const missionTeamSize5 = numPlayers === 5 ? 3 : (numPlayers <= 7) ? 4 : 5;
   const missionTeamSizes = [missionTeamSize1, missionTeamSize2, missionTeamSize3, missionTeamSize4, missionTeamSize5];
 
   // for dynamic player rows
@@ -151,11 +152,36 @@ function GameTable({
 
         <div className="table">
           <div className="missionTokenGrid">
-            <MissionToken current={missionNumber === 1} missionTeamSize={missionTeamSize1}/>
-            <MissionToken current={missionNumber === 2} missionTeamSize={missionTeamSize2}/>
-            <MissionToken current={missionNumber === 3} missionTeamSize={missionTeamSize3}/>
-            <MissionToken current={missionNumber === 4} missionTeamSize={missionTeamSize4}/>
-            <MissionToken current={missionNumber === 5} missionTeamSize={missionTeamSize5}/>
+            <MissionToken 
+              isPassed={missionResultTrack[0] === "pass"} 
+              isFailed={missionResultTrack[0] === "fail"}
+              current={missionNumber === 1} 
+              missionTeamSize={missionTeamSize1}
+            />
+            <MissionToken
+              isPassed={missionResultTrack[1] === "pass"} 
+              isFailed={missionResultTrack[1] === "fail"}
+              current={missionNumber === 2} 
+              missionTeamSize={missionTeamSize2}
+            />
+            <MissionToken
+              isPassed={missionResultTrack[2] === "pass"} 
+              isFailed={missionResultTrack[2] === "fail"}
+              current={missionNumber === 3} 
+              missionTeamSize={missionTeamSize3}
+            />
+            <MissionToken
+              isPassed={missionResultTrack[3] === "pass"} 
+              isFailed={missionResultTrack[3] === "fail"}
+              current={missionNumber === 4} 
+              missionTeamSize={missionTeamSize4}
+            />
+            <MissionToken
+              isPassed={missionResultTrack[4] === "pass"} 
+              isFailed={missionResultTrack[4] === "fail"}
+              current={missionNumber === 5} 
+              missionTeamSize={missionTeamSize5}
+            />
           </div>
 
           <div className="voteTrackLabel">
