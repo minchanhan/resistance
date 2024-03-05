@@ -79,7 +79,7 @@ function GameTable({
   };
 
   const handleVote = (approve) => {
-    socket.emit("vote_is_in", { selectedPlayers: selectedPlayers, approve: approve, room: room });
+    socket.emit("vote_is_in", { username: username, selectedPlayers: selectedPlayers, approve: approve, room: room });
     setDisableVoteBtns(true);
   };
 

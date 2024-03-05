@@ -327,7 +327,7 @@
   width: auto;
   height: auto;
   min-height: 2em;
-  max-width: 16em;
+  max-width: 18em;
   border-radius: 5px;
   color: white;
   align-items: center;
@@ -339,6 +339,7 @@
 
 #you {
   justify-content: flex-end;
+  text-align: left;
 }
 #you .msgContent {
   justify-content: flex-start;
@@ -354,6 +355,7 @@
 
 #other {
   justify-content: flex-start;
+  text-align: left;
 }
 #other .msgContent {
   justify-content: flex-start;
@@ -366,6 +368,24 @@
 #other .msgTime {
   margin-right: 3px;
 }
+
+#voteResult {
+  justify-content: flex-start;
+  text-align: left;
+}
+#voteResult .msgContent {
+  justify-content: flex-start;
+  background-color: yellow;
+  color: black;
+}
+#voteResult .msgMeta {
+  justify-content: flex-start;
+  margin-left: 5px;
+}
+#voteResult .msgTime {
+  margin-right: 3px;
+}
+
 .msgMeta #author {
   margin-left: 10px;
   font-weight: bold;

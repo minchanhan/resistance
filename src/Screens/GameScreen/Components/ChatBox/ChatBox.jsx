@@ -48,7 +48,7 @@ function ChatBox({ socket, username }) {
               return (
                 <div
                   className="message" 
-                  id={username === msgData.sender ? "you" : "other"}
+                  id={username === msgData.sender ? "you" : (msgData.sender === "PUBLIC TALLY") ? "voteResult" : "other"}
                 >
                   <div className="fullMessage">
                     <div className="msgContent">
