@@ -134,6 +134,9 @@
   height: 100%;
   color: white;
 }
+.selected { /* selected for mission */
+  background-color: lightsalmon;
+}
 
 #submitBtn:disabled {
   cursor: not-allowed;
