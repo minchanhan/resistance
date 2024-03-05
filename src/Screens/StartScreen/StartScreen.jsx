@@ -14,7 +14,7 @@ function StartScreen({ socket, username, onChangedUsername }) {
   const [usernameWarningCheck, setUsernameWarningCheck] = useState(false); // activate warning if needed
 
   const validUsername = () => {
-    if (username.length >= 1) { // change to 5 later
+    if (username.length >= 1 && username.length <= 9) { // change min to 5 later
       return true;
     } else {
       return false;
@@ -63,7 +63,7 @@ function StartScreen({ socket, username, onChangedUsername }) {
             id={!validUsername() && usernameWarningCheck ? "" : "outlined-error-helper-text"}
             label={!validUsername() && usernameWarningCheck ? "Warning" : "Username"}
             defaultValue=""
-            helperText={!validUsername() && usernameWarningCheck ? "Minimum 5 characters" : ""}
+            helperText={!validUsername() && usernameWarningCheck ? "Name must be 1-9 chars" : ""}
             onChange={ (event) => {
               setCreateRoomModal(false); // ensure modals don't open until user clicks
               setJoinRoomModal(false);

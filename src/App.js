@@ -165,7 +165,11 @@ function App() {
       <div className="container">
         {
           !gameScreen && !gameEnd ? (
-            <StartScreen socket={socket} username={username} onChangedUsername={onChangedUsername}/>
+            <StartScreen 
+              socket={socket} 
+              username={username} 
+              onChangedUsername={onChangedUsername}
+            />
           ) : gameScreen ? (
             <>
               <GameScreen
