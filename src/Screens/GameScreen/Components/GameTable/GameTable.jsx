@@ -79,12 +79,12 @@ function GameTable({
     setDisableMissionVote(true);
   };
 
-  const gameStartedPlayerBox = (i, seatIsLeader, seatOnMission, seatTeam, seatUsername) => {
+  const gameStartedPlayerBox = (i, seatIsLeader, seatOnVote, seatTeam, seatUsername) => {
     return (
       <PlayerBox 
         key={i}
         isLeader={seatIsLeader}
-        onMission={seatOnMission}
+        onVote={seatOnVote}
         inTeamVote={selectedPlayers.includes(seatUsername)}
         teamStyle={seatTeam === "badTeam" ? badTeamStyle : {}} 
         username={seatUsername}
@@ -105,11 +105,11 @@ function GameTable({
             const seatUsername = seat[0];
             const seatTeam = seat[1];
             const seatIsLeader = seat[2];
-            const seatOnMission = seat[3];
+            const seatOnVote = seat[3];
             
             if (i < topRowLength) {
               if (gameStarted) {
-                return gameStartedPlayerBox(i, seatIsLeader, seatOnMission, seatTeam, seatUsername);
+                return gameStartedPlayerBox(i, seatIsLeader, seatOnVote, seatTeam, seatUsername);
               } else {
                 return <PlayerBox 
                           key={i}
@@ -213,14 +213,14 @@ function GameTable({
             const seatUsername = seat[0];
             const seatTeam = seat[1];
             const seatIsLeader = seat[2];
-            const seatOnMission = seat[3];
+            const seatOnVote = seat[3];
 
             if (i >= topRowLength && i < bottomRowLength + topRowLength) {
               if (username === seatUsername) {
                 // color the username
               }
               if (gameStarted) {
-                return gameStartedPlayerBox(i, seatIsLeader, seatOnMission, seatTeam, seatUsername);
+                return gameStartedPlayerBox(i, seatIsLeader, seatOnVote, seatTeam, seatUsername);
               } else {
                 return <PlayerBox 
                           key={i}
