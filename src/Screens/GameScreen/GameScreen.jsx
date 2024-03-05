@@ -15,6 +15,8 @@ function GameScreen({
   gameStarted, 
   gameMasterSpeech, 
   leaderSelecting,
+  disableTeamSubmit,
+  setDisableTeamSubmit,
   selectedPlayers,
   setSelectedPlayers,
   disableVoteBtns,
@@ -39,6 +41,8 @@ function GameScreen({
           gameStarted={gameStarted}
           username={username} // for testing only
           leaderSelecting={leaderSelecting}
+          disableTeamSubmit={disableTeamSubmit}
+          setDisableTeamSubmit={setDisableTeamSubmit}
           selectedPlayers={selectedPlayers}
           setSelectedPlayers={setSelectedPlayers}
           disableVoteBtns={disableVoteBtns}

@@ -13,6 +13,8 @@ function GameTable({
   gameStarted, 
   username, 
   leaderSelecting,
+  disableTeamSubmit,
+  setDisableTeamSubmit,
   selectedPlayers,
   setSelectedPlayers,
   disableVoteBtns,
@@ -36,8 +38,6 @@ function GameTable({
   const missionTeamSize4 = numPlayers <= 6 ? 3 : (numPlayers === 7) ? 4 : 5;
   const missionTeamSize5 = numPlayers == 5 ? 3 : (numPlayers <= 7) ? 4 : 5;
   const missionTeamSizes = [missionTeamSize1, missionTeamSize2, missionTeamSize3, missionTeamSize4, missionTeamSize5];
-
-  const [disableTeamSubmit, setDisableTeamSubmit] = useState(false);
 
   // for dynamic player rows
   var playerRow = (rowLength) => ({

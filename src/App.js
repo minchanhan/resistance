@@ -43,6 +43,7 @@ function App() {
 
   const [gameMasterSpeech, setGameMasterSpeech] = useState("Welcome... to the resistance");
   const [leaderSelecting, setLeaderSelecting] = useState(false);
+  const [disableTeamSubmit, setDisableTeamSubmit] = useState(false);
   const [selectedPlayers, setSelectedPlayers] = useState([]);
   const [disableVoteBtns, setDisableVoteBtns] = useState(false);
   const [voteHappening, setVoteHappening] = useState(false);
@@ -69,6 +70,7 @@ function App() {
       console.log("leader has been given powers");
       setSelectedPlayers([]); // reset
       setLeaderSelecting(isSelecting);
+      setDisableTeamSubmit(false);
     });
   }, [socket]);
 
@@ -175,6 +177,8 @@ function App() {
                 gameStarted={gameStarted}
                 gameMasterSpeech={gameMasterSpeech}
                 leaderSelecting={leaderSelecting}
+                disableTeamSubmit={disableTeamSubmit}
+                setDisableTeamSubmit={setDisableTeamSubmit}
                 selectedPlayers={selectedPlayers}
                 setSelectedPlayers={setSelectedPlayers}
                 disableVoteBtns={disableVoteBtns}
