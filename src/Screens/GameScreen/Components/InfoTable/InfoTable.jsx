@@ -9,8 +9,8 @@ function InfoTable({ room, numPlayers, seats, topText="Waiting for players..", b
       <h2>
         {topText}
       </h2>
-      <p>
-        {`Room Code: ${room}`}
+      <p style={{cursor: "pointer"}} onClick={() => {navigator.clipboard.writeText(room)}}>
+        {`Room Code [click to copy]: ${room}`}
       </p>
       {
         timer ? <Timer /> : `${seats.length}/${numPlayers} players joined`
