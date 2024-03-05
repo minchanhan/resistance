@@ -21,7 +21,8 @@ function GameTable({
   curMissionVoteDisapproves,
   goingOnMission,
   disableMissionActions,
-  setDisableMissionActions
+  setDisableMissionActions,
+  missionNumber
 }) {
   const topRowLength = numPlayers >= 7 ? 4 : 3;
   const bottomRowLength = numPlayers >= 8 ? 4 : (numPlayers >= 6) ? 3 : 2;
@@ -143,11 +144,11 @@ function GameTable({
 
         <div className="table">
           <div className="missionTokenGrid">
-            <MissionToken current/>
-            <MissionToken />
-            <MissionToken />
-            <MissionToken />
-            <MissionToken />
+            <MissionToken current={missionNumber === 1}/>
+            <MissionToken current={missionNumber === 2}/>
+            <MissionToken current={missionNumber === 3}/>
+            <MissionToken current={missionNumber === 4}/>
+            <MissionToken current={missionNumber === 5}/>
           </div>
 
           <div className="voteTrackLabel">

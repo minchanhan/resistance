@@ -23,7 +23,8 @@ function GameScreen({
   curMissionVoteDisapproves,
   goingOnMission,
   disableMissionActions,
-  setDisableMissionActions
+  setDisableMissionActions,
+  missionNumber
 }) {
   // const [instructions, setInstructions] = useState("");
   
@@ -47,6 +48,7 @@ function GameScreen({
           goingOnMission={goingOnMission}
           disableMissionActions={disableMissionActions}
           setDisableMissionActions={setDisableMissionActions}
+          missionNumber={missionNumber}
         />
         <InfoTable room={room} numPlayers={numPlayers} seats={seats} timer={false}/>
       </div>

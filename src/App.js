@@ -45,6 +45,8 @@ function App() {
   const [disableVoteBtns, setDisableVoteBtns] = useState(false);
   const [voteHappening, setVoteHappening] = useState(false);
   const [curMissionVoteDisapproves, setCurMissionVoteDisapproves] = useState(0);
+  const [missionNumber, setMissionNumber] = useState(1);
+
 
   const [goingOnMission, setGoingOnMission] = useState(false);
   const [disableMissionActions, setDisableMissionActions] = useState(false);
@@ -142,6 +144,7 @@ function App() {
       setLeaderSelecting(true);
       setGoingOnMission(false);
       setDisableMissionActions(false);
+      setMissionNumber(missionNumber + 1);
     });
   }, [socket]);
 
@@ -178,6 +181,7 @@ function App() {
                 goingOnMission={goingOnMission}
                 disableMissionActions={disableMissionActions}
                 setDisableMissionActions={setDisableMissionActions}
+                missionNumber={missionNumber}
               />
               <EndScreen
                 open={gameEnd}
