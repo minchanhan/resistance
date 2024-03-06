@@ -36,6 +36,7 @@ function App() {
   const [endMsg, setEndMsg] = useState("");
   const [revealedPlayers, setRevealedPlayers] = useState([]);
   const [username, setUsername] = useState("");
+  const [randomStatusMsg, setRandomStatusMsg] = useState("");
 
   const [numPlayers, setNumPlayers] = useState(0); // capacity
   const [room, setRoom] = useState("");
@@ -95,6 +96,7 @@ function App() {
       setNumPlayers(lobbyInfo.numPlayers);
       setRoom(lobbyInfo.room);
       setGameScreen(true);
+      setRandomStatusMsg("");
     };
 
     socket.on("player_joined_lobby", handlePlayerJoin);
@@ -163,6 +165,13 @@ function App() {
     });
   }, [socket]);
 
+  useEffect(() => {
+    socket.on("no_random_game", (msg) => {
+      console.log(msg);
+      setRandomStatusMsg(msg);
+    });
+  }, [socket]);
+
   return (
     <ThemeProvider theme={darkTheme}>
       <div className="container">
@@ -172,6 +181,7 @@ function App() {
               socket={socket} 
               username={username} 
               onChangedUsername={onChangedUsername}
+              randomStatusMsg={randomStatusMsg}
             />
           ) : gameScreen ? (
             <>

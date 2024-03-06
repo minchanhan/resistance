@@ -6,7 +6,7 @@ import { Grid, Button, TextField } from "@mui/material";
 import JoinRoomModal from "./Components/JoinRoomModal";
 import InstructionsModal from "./Components/InstructionsModal";
 
-function StartScreen({ socket, username, onChangedUsername }) {
+function StartScreen({ socket, username, onChangedUsername, randomStatusMsg }) {
   const [createRoomModal, setCreateRoomModal] = useState(false);
   const [joinRoomModal, setJoinRoomModal] = useState(false);
   const [instructionsOpen, setInstructionsOpen] = useState(false);
@@ -42,6 +42,14 @@ function StartScreen({ socket, username, onChangedUsername }) {
   const handleJoinClose = () => {
     setJoinRoomModal(false);
   };
+
+  const handleRandomJoin = () => {
+    setUsernameWarningCheck(true);
+    if (validUsername()) {
+      socket.emit("set_username", username);
+      socket.emit("join_room", "random_join");
+    }
+  }
 
   const handleInstructionsOpen = () => {
     setInstructionsOpen(true);
@@ -90,6 +98,14 @@ function StartScreen({ socket, username, onChangedUsername }) {
           />
         </Grid>
 
+        <Grid item xs>
+          <Button onClick={handleRandomJoin}>Join Random Room</Button>
+        </Grid>
+        {
+          randomStatusMsg !== "" ? <p style={{ fontSize: "0.75em", color: "red" }}>{randomStatusMsg}</p> : <></>
+        }
+
+        <br />
         <Grid item xs>
           <Button onClick={handleInstructionsOpen}>Instructions</Button>
           <InstructionsModal 
