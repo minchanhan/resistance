@@ -3,12 +3,14 @@ import "../../../App.css";
 import { Box, 
   Button, 
   FormControl, 
+  FormControlLabel, 
   FormHelperText, 
   Grid, 
   InputLabel, 
   MenuItem, 
   Modal, 
   Select, 
+  Switch, 
   Typography 
 } from "@mui/material";
 import "../../../data/Enums.js";
@@ -32,10 +34,15 @@ function CreateRoomModal({
 
   const [capacity, setCapacity] = useState(5);
   const [selectionTime, setSelectionTime] = useState(7);
+  const [privateRoom, setPrivateRoom] = useState(true);
 
+  const handlePrivateRoom = () => {
+    setPrivateRoom(!privateRoom);
+  };
 
   const createRoom = () => {
     socket.emit("set_capacity", capacity); // order matters
+    socket.emit("set_private", privateRoom);
     socket.emit("set_selection_time", selectionTime);
     socket.emit("create_room");
   };
@@ -98,6 +105,21 @@ function CreateRoomModal({
                 </Select>
                 <FormHelperText>Recommended: 7 mins</FormHelperText>
               </FormControl>
+            </Grid>
+
+            <Grid item alignItems="flex-end" xs>
+            <FormControlLabel 
+              control={
+                <Switch
+                  checked={privateRoom}
+                  onChange={handlePrivateRoom}
+                  inputProps={{ 'aria-label': 'controlled' }}
+                />
+              } 
+              label="Private Room"
+              labelPlacement="start"
+              sx={{ marginBottom: 1, color: "white"}}
+            />
             </Grid>
             
             <Grid item xs>
