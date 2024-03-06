@@ -100,11 +100,13 @@ function App() {
     };
 
     socket.on("player_joined_lobby", handlePlayerJoin);
-
-    return () => {
-      socket.off("player_joined_lobby", handlePlayerJoin);
-    }
   }, [socket]);
+
+  useEffect(() => {
+    socket.on("final_username_set", (username) => {
+      setUsername(username);
+    });
+  });
 
   useEffect(() => {
     const handlePlayerLeave = (seats) => {
@@ -182,6 +184,7 @@ function App() {
               username={username} 
               onChangedUsername={onChangedUsername}
               randomStatusMsg={randomStatusMsg}
+              seats={seats}
             />
           ) : gameScreen ? (
             <>

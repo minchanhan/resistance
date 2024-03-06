@@ -6,7 +6,7 @@ import { Grid, Button, TextField } from "@mui/material";
 import JoinRoomModal from "./Components/JoinRoomModal";
 import InstructionsModal from "./Components/InstructionsModal";
 
-function StartScreen({ socket, username, onChangedUsername, randomStatusMsg }) {
+function StartScreen({ socket, username, onChangedUsername, randomStatusMsg, seats }) {
   const [createRoomModal, setCreateRoomModal] = useState(false);
   const [joinRoomModal, setJoinRoomModal] = useState(false);
   const [instructionsOpen, setInstructionsOpen] = useState(false);
