@@ -67,13 +67,11 @@ function App() {
   useEffect(() => {
     socket.on("game_master_speech", (speech) => {
       setGameMasterSpeech(speech);
-      console.log("game_master_speech called client");
     });
   }, [socket]);
 
   useEffect(() => {
     socket.on("leader_is_selecting", (isSelecting) => {
-      console.log("leader has been given powers");
       setSelectedPlayers([]); // reset
       setLeaderSelecting(isSelecting);
       setDisableTeamSubmit(false);
@@ -126,7 +124,6 @@ function App() {
 
   useEffect(() => {
     const handleSeats = (seats) => {
-      console.log("receiving seats ", seats);
       setSeats([...seats]);
       setGameStarted(true);
     };
@@ -136,7 +133,6 @@ function App() {
 
   useEffect(() => {
     socket.on("vote_on_these_players", (info) => { 
-      console.log("vote called");
       setSelectedPlayers(info.selectedPlayers);
       setLeaderSelecting(false);
       setVoteHappening(true);
@@ -160,20 +156,17 @@ function App() {
       setDisableMissionActions(false);
       setMissionResultTrack(info.missionResultTrack);
       setMissionNumber(info.mission);
-      console.log(info.missionResultTrack);
     });
   }, [socket]);
 
   useEffect(() => {
     socket.on("vote_track", (newCount) => {
-      console.log("vote_track called");
       setCurMissionVoteDisapproves(newCount);
     });
   }, [socket]);
 
   useEffect(() => {
     socket.on("no_random_game", (msg) => {
-      console.log(msg);
       setRandomStatusMsg(msg);
     });
   }, [socket]);
