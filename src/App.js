@@ -35,6 +35,7 @@ function App() {
 
   // Client Settings
   const [username, setUsername] = useState("");
+  const [isAdmin, setIsAdmin] = useState(false);
 
   // Game Settings
   // Mutable before game start 
@@ -78,7 +79,7 @@ function App() {
 
   // Listening for socket messages:
   // Joins/Disconnects:
-  useEffect(() => {
+  useEffect(() => { // When player clicks join
     const handlePlayerJoin = (lobbyInfo) => {
       setSeats(lobbyInfo.seats);
       setCapacity(lobbyInfo.capacity);
@@ -196,6 +197,7 @@ function App() {
               socket={socket} 
               username={username} 
               onChangedUsername={onChangedUsername}
+              setIsAdmin={setIsAdmin}
               randomStatusMsg={randomStatusMsg}
               capacity={capacity}
               setCapacity={setCapacity}
@@ -208,8 +210,9 @@ function App() {
             <>
               <GameScreen
                 socket={socket}
-                room={room}
                 username={username}
+                room={room}
+                isAdmin={isAdmin}
                 seats={seats}
                 capacity={capacity}
                 gameStarted={gameStarted}

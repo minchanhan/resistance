@@ -10,6 +10,7 @@ function StartScreen({
   socket, 
   username, 
   onChangedUsername, 
+  setIsAdmin,
   randomStatusMsg, 
   capacity,
   setCapacity,
@@ -97,6 +98,7 @@ function StartScreen({
             socket={socket}
             open={createRoomModal} 
             handleCreateClose={handleCreateClose}
+            setIsAdmin={setIsAdmin}
             capacity={capacity}
             setCapacity={setCapacity}
             selectionTime={selectionTime}

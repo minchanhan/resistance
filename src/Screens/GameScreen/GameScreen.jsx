@@ -8,8 +8,9 @@ import GameCommands from "./Components/GameCommands/GameCommands.jsx";
 
 function GameScreen({ 
   socket, 
-  room, 
   username, 
+  room, 
+  isAdmin,
   seats, 
   capacity, 
   gameStarted, 
@@ -64,7 +65,14 @@ function GameScreen({
       </div>
       <div className="right">
         <ChatBox socket={socket} username={username} />
-        <GameCommands gameMasterSpeech={gameMasterSpeech}/>
+        {
+          gameStarted ? (
+            <GameCommands gameMasterSpeech={gameMasterSpeech}/>
+          ) : (
+            <p>{isAdmin ? "hi" : "no"}</p>
+          )
+        }
+        
       </div>
     </div>
   )

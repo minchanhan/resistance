@@ -19,6 +19,7 @@ function CreateRoomModal({
   socket,
   open, 
   handleCreateClose,
+  setIsAdmin,
   capacity,
   setCapacity,
   selectionTime,
@@ -43,7 +44,9 @@ function CreateRoomModal({
   };
 
   const createRoom = () => {
-    socket.emit("set_capacity", capacity); // order matters
+    setIsAdmin(true);
+    socket.emit("set_room_admin", true);
+    socket.emit("set_capacity", capacity);
     socket.emit("set_selection_time", selectionTime);
     socket.emit("set_private", privateRoom);
     socket.emit("create_room");
