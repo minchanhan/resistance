@@ -55,6 +55,10 @@ function App() {
   const [goingOnMission, setGoingOnMission] = useState(false);
   const [disableMissionActions, setDisableMissionActions] = useState(false);
 
+  // Game Settings:
+  const [capacity, setCapacity] = useState(5);
+  const [selectionTime, setSelectionTime] = useState(7);
+  const [privateRoom, setPrivateRoom] = useState(true);
 
   const onChangedUsername = (updatedUsername) => {
     setUsername(updatedUsername);
@@ -184,7 +188,12 @@ function App() {
               username={username} 
               onChangedUsername={onChangedUsername}
               randomStatusMsg={randomStatusMsg}
-              seats={seats}
+              capacity={capacity}
+              setCapacity={setCapacity}
+              selectionTime={selectionTime}
+              setSelectionTime={setSelectionTime}
+              privateRoom={privateRoom}
+              setPrivateRoom={setPrivateRoom}
             />
           ) : gameScreen ? (
             <>

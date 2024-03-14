@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "../../../App.css";
 import { Box, 
   Button, 
@@ -18,7 +18,13 @@ import "../../../data/Enums.js";
 function CreateRoomModal({
   socket,
   open, 
-  handleCreateClose, 
+  handleCreateClose,
+  capacity,
+  setCapacity,
+  selectionTime,
+  setSelectionTime,
+  privateRoom,
+  setPrivateRoom
 }) {
   const style = {
     position: 'absolute',
@@ -32,18 +38,14 @@ function CreateRoomModal({
     p: 4,
   };
 
-  const [capacity, setCapacity] = useState(5);
-  const [selectionTime, setSelectionTime] = useState(7);
-  const [privateRoom, setPrivateRoom] = useState(true);
-
   const handlePrivateRoom = () => {
     setPrivateRoom(!privateRoom);
   };
 
   const createRoom = () => {
     socket.emit("set_capacity", capacity); // order matters
-    socket.emit("set_private", privateRoom);
     socket.emit("set_selection_time", selectionTime);
+    socket.emit("set_private", privateRoom);
     socket.emit("create_room");
   };
   

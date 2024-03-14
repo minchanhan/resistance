@@ -6,7 +6,18 @@ import { Grid, Button, TextField } from "@mui/material";
 import JoinRoomModal from "./Components/JoinRoomModal";
 import InstructionsModal from "./Components/InstructionsModal";
 
-function StartScreen({ socket, username, onChangedUsername, randomStatusMsg, seats }) {
+function StartScreen({ 
+  socket, 
+  username, 
+  onChangedUsername, 
+  randomStatusMsg, 
+  capacity,
+  setCapacity,
+  selectionTime,
+  setSelectionTime,
+  privateRoom,
+  setPrivateRoom
+}) {
   const [createRoomModal, setCreateRoomModal] = useState(false);
   const [joinRoomModal, setJoinRoomModal] = useState(false);
   const [instructionsOpen, setInstructionsOpen] = useState(false);
@@ -86,6 +97,12 @@ function StartScreen({ socket, username, onChangedUsername, randomStatusMsg, sea
             socket={socket}
             open={createRoomModal} 
             handleCreateClose={handleCreateClose}
+            capacity={capacity}
+            setCapacity={setCapacity}
+            selectionTime={selectionTime}
+            setSelectionTime={setSelectionTime}
+            privateRoom={privateRoom}
+            setPrivateRoom={setPrivateRoom}
           />
         </Grid>
 
