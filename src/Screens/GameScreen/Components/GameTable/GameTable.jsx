@@ -41,11 +41,12 @@ function GameTable({
   const missionTeamSizes = [missionTeamSize1, missionTeamSize2, missionTeamSize3, missionTeamSize4, missionTeamSize5];
 
   // for dynamic player rows
-  var playerRow = (rowLength) => ({
+  var playerRow = (rowLength, isBottomRow=false) => ({
     display: 'grid',
     height: '100%',
     gridTemplateColumns: `repeat(${rowLength}, 1fr)`,
     gridTemplateRows: '1fr',
+    direction: isBottomRow ? 'rtl' : '',
   });
 
   var tableRow = (ninth, tenth) => ({
@@ -245,7 +246,7 @@ function GameTable({
         }
       </div>
 
-      <div style={playerRow(bottomRowLength)} className="holdPlayers">
+      <div style={playerRow(bottomRowLength, true)} className="holdPlayers">
         {
           // this map displays up to 4 players, 2 if there are 5 players, 3 if <= 7, 4 if >= 8
           seats.map(function(seat, i) {
