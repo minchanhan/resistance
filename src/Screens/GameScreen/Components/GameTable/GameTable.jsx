@@ -9,7 +9,7 @@ function GameTable({
   socket,
   room,
   seats, 
-  numPlayers, 
+  capacity, 
   gameStarted, 
   username, 
   leaderSelecting,
@@ -27,17 +27,17 @@ function GameTable({
   missionNumber,
   missionResultTrack
 }) {
-  const topRowLength = numPlayers >= 7 ? 4 : 3;
-  const bottomRowLength = numPlayers >= 8 ? 4 : (numPlayers >= 6) ? 3 : 2;
+  const topRowLength = capacity >= 7 ? 4 : 3;
+  const bottomRowLength = capacity >= 8 ? 4 : (capacity >= 6) ? 3 : 2;
   const badTeamStyle = {
     filter: 'invert(21%) sepia(76%) saturate(5785%) hue-rotate(338deg) brightness(57%) contrast(119%)'
   };
 
-  const missionTeamSize1 = numPlayers <= 7 ? 2 : 3;
-  const missionTeamSize2 = numPlayers <= 7 ? 3 : 4;
-  const missionTeamSize3 = numPlayers === 5 ? 2 : (numPlayers === 7) ? 3 : 4;
-  const missionTeamSize4 = numPlayers <= 6 ? 3 : (numPlayers === 7) ? 4 : 5;
-  const missionTeamSize5 = numPlayers === 5 ? 3 : (numPlayers <= 7) ? 4 : 5;
+  const missionTeamSize1 = capacity <= 7 ? 2 : 3;
+  const missionTeamSize2 = capacity <= 7 ? 3 : 4;
+  const missionTeamSize3 = capacity === 5 ? 2 : (capacity === 7) ? 3 : 4;
+  const missionTeamSize4 = capacity <= 6 ? 3 : (capacity === 7) ? 4 : 5;
+  const missionTeamSize5 = capacity === 5 ? 3 : (capacity <= 7) ? 4 : 5;
   const missionTeamSizes = [missionTeamSize1, missionTeamSize2, missionTeamSize3, missionTeamSize4, missionTeamSize5];
 
   // for dynamic player rows

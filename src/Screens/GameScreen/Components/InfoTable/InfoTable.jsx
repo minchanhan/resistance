@@ -2,7 +2,7 @@ import { Typography } from "@mui/material";
 import React from "react";
 import Timer from "./Timer";
 
-function InfoTable({ room, numPlayers, seats, topText="Waiting for players..", bottomText="", timer=false }) {
+function InfoTable({ room, capacity, seats, topText="Waiting for players..", bottomText="", timer=false }) {
 
   return (
     <div className="infoTable">
@@ -13,7 +13,7 @@ function InfoTable({ room, numPlayers, seats, topText="Waiting for players..", b
         {`Room Code [click to copy]: ${room}`}
       </p>
       {
-        timer ? <Timer /> : `${seats.length}/${numPlayers} players joined`
+        timer ? <Timer /> : `${seats.length}/${capacity} players joined`
       }
     </div>
   )

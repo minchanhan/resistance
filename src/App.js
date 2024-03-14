@@ -30,39 +30,114 @@ function App() {
     },
   });
 
-  const [gameScreen, setGameScreen] = useState(false);
-  const [gameStarted, setGameStarted] = useState(false);
-  const [gameEnd, setGameEnd] = useState(false);
-  const [endMsg, setEndMsg] = useState("");
-  const [revealedPlayers, setRevealedPlayers] = useState([]);
+  // Screen States
+  const [gameScreen, setGameScreen] = useState(false); // Start screen or lobby/game screen
+
+  // Client Settings
   const [username, setUsername] = useState("");
-  const [randomStatusMsg, setRandomStatusMsg] = useState("");
 
-  const [numPlayers, setNumPlayers] = useState(0); // capacity
-  const [room, setRoom] = useState("");
-  const [seats, setSeats] = useState([]);
-
-  const [gameMasterSpeech, setGameMasterSpeech] = useState("Welcome... to the resistance");
-  const [leaderSelecting, setLeaderSelecting] = useState(false);
-  const [disableTeamSubmit, setDisableTeamSubmit] = useState(false);
-  const [selectedPlayers, setSelectedPlayers] = useState([]);
-  const [disableVoteBtns, setDisableVoteBtns] = useState(false);
-  const [voteHappening, setVoteHappening] = useState(false);
-  const [curMissionVoteDisapproves, setCurMissionVoteDisapproves] = useState(0);
-  const [missionNumber, setMissionNumber] = useState(1);
-  const [missionResultTrack, setMissionResultTrack] = useState(["none","none","none","none","none"]);
-
-  const [goingOnMission, setGoingOnMission] = useState(false);
-  const [disableMissionActions, setDisableMissionActions] = useState(false);
-
-  // Game Settings:
+  // Game Settings
+  // Mutable before game start 
   const [capacity, setCapacity] = useState(5);
   const [selectionTime, setSelectionTime] = useState(7);
   const [privateRoom, setPrivateRoom] = useState(true);
 
-  const onChangedUsername = (updatedUsername) => {
+  // Immuatable before game start 
+  const [room, setRoom] = useState("");
+  
+  // End Game
+  const [endMsg, setEndMsg] = useState("");
+  const [revealedPlayers, setRevealedPlayers] = useState([]);
+
+  // Other msgs
+  const [randomStatusMsg, setRandomStatusMsg] = useState("");
+  const [gameMasterSpeech, setGameMasterSpeech] = useState("Welcome... to the resistance");
+
+  // Game States
+  const [seats, setSeats] = useState([]);
+  const [gameStarted, setGameStarted] = useState(false); // If false, then in lobby
+  const [gameEnd, setGameEnd] = useState(false); // is end modal showing
+
+  const [leaderSelecting, setLeaderSelecting] = useState(false); // leader selecting
+  const [disableTeamSubmit, setDisableTeamSubmit] = useState(false);
+
+  const [voteHappening, setVoteHappening] = useState(false); // vote
+  const [disableVoteBtns, setDisableVoteBtns] = useState(false);
+
+  const [goingOnMission, setGoingOnMission] = useState(false); // mission
+  const [disableMissionActions, setDisableMissionActions] = useState(false);
+
+  const [missionNumber, setMissionNumber] = useState(1);
+  const [curMissionVoteDisapproves, setCurMissionVoteDisapproves] = useState(0);
+  const [missionResultTrack, setMissionResultTrack] = useState(["none","none","none","none","none"]); // pass/fail
+  const [selectedPlayers, setSelectedPlayers] = useState([]); // selected players for vote/mission  
+
+  const onChangedUsername = (updatedUsername) => { // from StartScreen
     setUsername(updatedUsername);
   };
+
+  // Listening for socket messages:
+  // Joins/Disconnects:
+  useEffect(() => {
+    const handlePlayerJoin = (lobbyInfo) => {
+      setSeats(lobbyInfo.seats);
+      setCapacity(lobbyInfo.capacity);
+      setRoom(lobbyInfo.room);
+      setGameScreen(true);
+      setRandomStatusMsg("");
+    };
+
+    socket.on("player_joined_lobby", handlePlayerJoin);
+  }, [socket]);
+
+  useEffect(() => {
+    const handlePlayerLeave = (seats) => {
+      setSeats(seats);
+    };
+
+    socket.on("player_left_lobby", handlePlayerLeave);
+
+    return () => {
+      socket.off("player_left_lobby", handlePlayerLeave);
+    }
+  }, [socket]);
+
+  useEffect(() => {
+    socket.on("no_random_game", (msg) => {
+      setRandomStatusMsg(msg);
+    });
+  }, [socket]);
+
+  // Game States:
+  useEffect(() => {
+    const handleGameEnd = (info) => {
+      setRevealedPlayers(info.playerRevealArr);
+      setEndMsg(info.endMsg);
+      setGameEnd(true);
+    };
+
+    socket.on("set_game_end", handleGameEnd);
+
+    return () => {
+      socket.off("set_game_end", handleGameEnd);
+    }
+  }, [socket]);
+
+  useEffect(() => {
+    socket.on("final_username_set", (username) => {
+      setUsername(username);
+    });
+  });
+
+  // Game Updates:
+  useEffect(() => {
+    const handleSeats = (seats) => {
+      setSeats([...seats]);
+      setGameStarted(true);
+    };
+
+    socket.on("shuffled_seats", handleSeats);
+  }, [socket]);
 
   useEffect(() => {
     socket.on("game_master_speech", (speech) => {
@@ -79,64 +154,17 @@ function App() {
   }, [socket]);
 
   useEffect(() => {
-    const handleGameEnd = (info) => {
-      setRevealedPlayers(info.playerRevealArr);
-      setEndMsg(info.endMsg);
-      setGameEnd(true);
-    };
-
-    socket.on("set_game_end", handleGameEnd);
-
-    return () => {
-      socket.off("set_game_end", handleGameEnd);
-    }
-  }, [socket]);
-
-  useEffect(() => {
-    const handlePlayerJoin = (lobbyInfo) => {
-      setSeats(lobbyInfo.seats);
-      setNumPlayers(lobbyInfo.numPlayers);
-      setRoom(lobbyInfo.room);
-      setGameScreen(true);
-      setRandomStatusMsg("");
-    };
-
-    socket.on("player_joined_lobby", handlePlayerJoin);
-  }, [socket]);
-
-  useEffect(() => {
-    socket.on("final_username_set", (username) => {
-      setUsername(username);
-    });
-  });
-
-  useEffect(() => {
-    const handlePlayerLeave = (seats) => {
-      setSeats(seats);
-    };
-
-    socket.on("player_left_lobby", handlePlayerLeave);
-
-    return () => {
-      socket.off("player_left_lobby", handlePlayerLeave);
-    }
-  }, [socket]);
-
-  useEffect(() => {
-    const handleSeats = (seats) => {
-      setSeats([...seats]);
-      setGameStarted(true);
-    };
-
-    socket.on("shuffled_seats", handleSeats);
-  }, [socket]);
-
-  useEffect(() => {
     socket.on("vote_on_these_players", (info) => { 
       setSelectedPlayers(info.selectedPlayers);
       setLeaderSelecting(false);
       setVoteHappening(true);
       setDisableVoteBtns(false);
+    });
+  }, [socket]);
+
+  useEffect(() => {
+    socket.on("vote_track", (newCount) => {
+      setCurMissionVoteDisapproves(newCount);
     });
   }, [socket]);
 
@@ -159,23 +187,11 @@ function App() {
     });
   }, [socket]);
 
-  useEffect(() => {
-    socket.on("vote_track", (newCount) => {
-      setCurMissionVoteDisapproves(newCount);
-    });
-  }, [socket]);
-
-  useEffect(() => {
-    socket.on("no_random_game", (msg) => {
-      setRandomStatusMsg(msg);
-    });
-  }, [socket]);
-
   return (
     <ThemeProvider theme={darkTheme}>
       <div className="container">
         {
-          !gameScreen && !gameEnd ? (
+          !gameScreen ? (
             <StartScreen 
               socket={socket} 
               username={username} 
@@ -195,7 +211,7 @@ function App() {
                 room={room}
                 username={username}
                 seats={seats}
-                numPlayers={numPlayers}
+                capacity={capacity}
                 gameStarted={gameStarted}
                 gameMasterSpeech={gameMasterSpeech}
                 leaderSelecting={leaderSelecting}

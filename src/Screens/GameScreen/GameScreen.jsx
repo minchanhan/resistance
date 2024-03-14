@@ -11,7 +11,7 @@ function GameScreen({
   room, 
   username, 
   seats, 
-  numPlayers, 
+  capacity, 
   gameStarted, 
   gameMasterSpeech, 
   leaderSelecting,
@@ -29,7 +29,6 @@ function GameScreen({
   missionNumber,
   missionResultTrack
 }) {
-  // const [instructions, setInstructions] = useState("");
   
   return (
     <div className="gameScreen">
@@ -38,7 +37,7 @@ function GameScreen({
           socket={socket}
           room={room}
           seats={seats}
-          numPlayers={numPlayers} 
+          capacity={capacity} 
           gameStarted={gameStarted}
           username={username} // for testing only
           leaderSelecting={leaderSelecting}
@@ -56,7 +55,12 @@ function GameScreen({
           missionNumber={missionNumber}
           missionResultTrack={missionResultTrack}
         />
-        <InfoTable room={room} numPlayers={numPlayers} seats={seats} timer={false}/>
+        <InfoTable 
+          room={room} 
+          capacity={capacity} 
+          seats={seats} 
+          timer={false}
+        />
       </div>
       <div className="right">
         <ChatBox socket={socket} username={username} />
