@@ -74,6 +74,10 @@ function App() {
   const [missionResultTrack, setMissionResultTrack] = useState(["none","none","none","none","none"]); // pass/fail
   const [selectedPlayers, setSelectedPlayers] = useState([]); // selected players for vote/mission  
 
+  const startGame = () => {
+    socket.emit("admin_start_game");
+  }
+
   const onChangedUsername = (updatedUsername) => { // from StartScreen
     setUsername(updatedUsername);
   };
@@ -261,6 +265,7 @@ function App() {
                 missionNumber={missionNumber}
                 missionResultTrack={missionResultTrack}
                 roomAdminName={roomAdminName}
+                startGame={startGame}
               />
               <EndScreen
                 open={gameEnd}

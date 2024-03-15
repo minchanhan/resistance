@@ -21,7 +21,8 @@ function GameSettings({
   onChangedSelectionTime,
   privateRoom,
   onChangedPrivateRoom,
-  isAdmin
+  isAdmin,
+  startGame
 }) {
 
   const capacityMenuItems = [5,6,7,8,9,10];
@@ -101,9 +102,11 @@ function GameSettings({
               console.log("private room state: ", privateRoom);
               console.log("capacity state: ", capacity);
               console.log("selection time state: ", selectionTime);
+              startGame();
             }}
+            disabled={curNumPlayers < capacity || !isAdmin}
           >
-            game settings
+            Start Game
           </Button>
         </Grid>
       </Box>

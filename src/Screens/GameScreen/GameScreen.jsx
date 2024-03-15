@@ -35,7 +35,8 @@ function GameScreen({
   setDisableMissionActions,
   missionNumber,
   missionResultTrack,
-  roomAdminName
+  roomAdminName,
+  startGame
 }) {
   
   return (
@@ -86,6 +87,7 @@ function GameScreen({
                 privateRoom={privateRoom}
                 onChangedPrivateRoom={onChangedPrivateRoom}
                 isAdmin={isAdmin}
+                startGame={startGame}
               />
             </div>
             
