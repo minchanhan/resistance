@@ -46,7 +46,6 @@ function GameScreen({
           room={room}
           seats={seats}
           capacity={capacity} 
-          gameStarted={gameStarted}
           username={username} // for testing only
           leaderSelecting={leaderSelecting}
           disableTeamSubmit={disableTeamSubmit}

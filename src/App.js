@@ -177,6 +177,7 @@ function App() {
   useEffect(() => {
     socket.on("leader_is_selecting", (isSelecting) => {
       setGameStarted(true); // GAME START WHEN LEADER STARTS SELECTING
+      setGameEnd(false); // If the modal is still up for some reason, take it down
 
       setSelectedPlayers([]); // reset
       setLeaderSelecting(isSelecting); // 1a

@@ -10,7 +10,6 @@ function GameTable({
   room,
   seats, 
   capacity, 
-  gameStarted, 
   username, 
   leaderSelecting,
   disableTeamSubmit,
@@ -52,7 +51,7 @@ function GameTable({
   var tableRow = (ninth, tenth) => ({
     display: 'grid',
     height: '100%',
-    gridTemplateColumns: tenth ? '1fr 5fr 1fr' : ninth ? '1fr 6fr' : '1fr',
+    gridTemplateColumns: tenth ? '1fr 5fr 1fr' : ninth ? '0.01fr 5fr 1fr' : '0.01fr 5fr 0.01fr',
     gridTemplateRows: '1fr',
   });
 
@@ -128,20 +127,13 @@ function GameTable({
         }
       </div>
 
-      <div style={tableRow(seats.length >= 9, seats.length >= 10)}>
+      <div style={tableRow(capacity >= 9, capacity >= 10)}>
         {
-          seats.length >= 9 && !gameStarted ?
-          <div className="holdPlayers">
-            <PlayerBox
-              username={seats[8][0] || "waiting.."} 
-              ownName={username === seats[8][0]}
-            />
-          </div>
-          : seats.length >= 9 && gameStarted ?
+          seats.length >= 10 && capacity >= 10 ? 
             <div className="holdPlayers">
-              { gameStartedPlayerBox(seats[8][0], seats[8][2], seats[8][3], seats[8][1], seats[8][0]) }
+              { gameStartedPlayerBox(seats[9][2], seats[9][3], seats[9][1], seats[9][0]) }
             </div>
-            : null
+          : <span></span>
         }
 
         <div className="table">
@@ -223,19 +215,12 @@ function GameTable({
           }
         </div>
 
-        { 
-          seats.length >= 10 && !gameStarted ?
-          <div className="holdPlayers">
-            <PlayerBox
-              username={seats[9][0] || "waiting.."} 
-              ownName={username === seats[9][0]}
-            />
-          </div>
-          : seats.length >= 10 && gameStarted ?
+        {
+          seats.length >= 5 && capacity >= 9 ?
             <div className="holdPlayers">
-              { gameStartedPlayerBox(seats[9][0], seats[9][2], seats[9][3], seats[9][1], seats[9][0]) }
+              { gameStartedPlayerBox(seats[4][2], seats[4][3], seats[4][1], seats[4][0]) }
             </div>
-            : null
+          : <span></span>
         }
       </div>
 
@@ -248,12 +233,22 @@ function GameTable({
             const seatIsLeader = seat[2];
             const seatOnMission = seat[3];
 
-            if (i >= topRowLength && i < bottomRowLength + topRowLength) {
-              return (
-                <div key={seatUsername}>
-                  {gameStartedPlayerBox(seatIsLeader, seatOnMission, seatTeam, seatUsername)}
-                </div>
-              )
+            if (capacity < 9) {
+              if (i >= topRowLength && i < bottomRowLength + topRowLength) {
+                return (
+                  <div key={seatUsername}>
+                    {gameStartedPlayerBox(seatIsLeader, seatOnMission, seatTeam, seatUsername)}
+                  </div>
+                )
+              }
+            } else {
+              if (i >= 5 && i <= 8) { // 6th to 9th
+                return (
+                  <div key={seatUsername}>
+                    {gameStartedPlayerBox(seatIsLeader, seatOnMission, seatTeam, seatUsername)}
+                  </div>
+                )
+              }
             }
           })
         }
