@@ -23,8 +23,8 @@ function InstructionsModal({open, handleInstructionsClose}) {
 
   If a mission is approved, the resistance players must "pass" the mission, but the spies have a choice to pass or fail the mission.
   Players cannot see who voted what, they can just see the tally.
-  On most missions, just one fail is required to fail the entire mission. Once the mission has ended, the leader to the right suggests a 
-  team for the next mission.
+  On most missions, just one fail is required to fail the entire mission (Mission 4 for 7+ players require 2 fails to fail).
+  Once the mission has ended, the leader to the right suggests a team for the next mission.
 
   There are 5 missions, and the winning team is decided by best 3 out of 5. However, the spies can win if 
   a mission team is voted against 5 times (see vote tracker at the bottom of table). Spies can also see who

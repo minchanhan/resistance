@@ -161,6 +161,7 @@ function GameTable({
               isFailed={missionResultTrack[3] === "fail"}
               current={missionNumber === 4} 
               missionTeamSize={missionTeamSize4}
+              twoFails={capacity >= 7}
             />
             <MissionToken
               isPassed={missionResultTrack[4] === "pass"} 
