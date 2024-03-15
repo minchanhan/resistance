@@ -1,8 +1,8 @@
 import React from "react";
 import "../../App.css";
-import { Box, Modal, Typography } from "@mui/material";
+import { Box, Button, Modal, Typography } from "@mui/material";
 
-function EndScreen({ open, revealedPlayers, endMsg }) {
+function EndScreen({ open, handleEndModalClose, revealedPlayers, endMsg }) {
   const style = {
     position: 'absolute',
     top: '50%',
@@ -19,6 +19,7 @@ function EndScreen({ open, revealedPlayers, endMsg }) {
     <div>
       <Modal
         open={open}
+        onClose={handleEndModalClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
@@ -36,6 +37,8 @@ function EndScreen({ open, revealedPlayers, endMsg }) {
               )
             })
           }
+
+          <Button onClick={handleEndModalClose}>Return to Lobby</Button>
           
         </Box>
       </Modal>

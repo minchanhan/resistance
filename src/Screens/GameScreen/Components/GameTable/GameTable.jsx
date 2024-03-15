@@ -77,17 +77,17 @@ function GameTable({
 
   const handleTeamSubmit = () => {
     socket.emit("selected_players_for_vote", { selectedPlayers: selectedPlayers, room: room });
-    setDisableTeamSubmit(true);
+    setDisableTeamSubmit(true); // 1b
   };
 
   const handleVote = (approve) => {
     socket.emit("vote_is_in", { username: username, selectedPlayers: selectedPlayers, approve: approve, room: room });
-    setDisableVoteBtns(true);
+    setDisableVoteBtns(true); // 2b
   };
 
   const handleMission = (pass) => {
     socket.emit("mission_result_is_in", { pass: pass, room: room });
-    setDisableMissionActions(true);
+    setDisableMissionActions(true); // 3b
   };
 
   const gameStartedPlayerBox = (seatIsLeader, seatOnMission, seatTeam, seatUsername) => {

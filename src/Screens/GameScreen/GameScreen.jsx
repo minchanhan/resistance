@@ -34,7 +34,8 @@ function GameScreen({
   disableMissionActions,
   setDisableMissionActions,
   missionNumber,
-  missionResultTrack
+  missionResultTrack,
+  roomAdminName
 }) {
   
   return (
@@ -66,6 +67,7 @@ function GameScreen({
           room={room} 
           capacity={capacity} 
           seats={seats} 
+          topText={`Room Admin: ${roomAdminName}`}
           timer={false}
         />
       </div>

@@ -36,6 +36,7 @@ function App() {
   // Client Settings
   const [username, setUsername] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
+  const [roomAdminName, setRoomAdminName] = useState("");
 
   // Game Settings
   // Mutable before game start 
@@ -92,12 +93,17 @@ function App() {
     setPrivateRoom(!privateRoom);
   };
 
+  const handleEndModalClose = () => {
+    setGameEnd(false);
+  }
+
   // Listening for socket messages:
   // Joins/Disconnects:
   useEffect(() => { // When player clicks join
     const handlePlayerJoin = (lobbyInfo) => {
       setSeats(lobbyInfo.seats);
       setRoom(lobbyInfo.room);
+      setRoomAdminName(lobbyInfo.roomAdmin);
       setGameScreen(true);
       setRandomStatusMsg("");
     };
@@ -106,16 +112,10 @@ function App() {
   }, [socket]);
 
   useEffect(() => {
-    const handlePlayerLeave = (seats) => {
-      setSeats(seats);
-    };
-
-    socket.on("player_left_lobby", handlePlayerLeave);
-
-    return () => {
-      socket.off("player_left_lobby", handlePlayerLeave);
-    }
-  }, [socket]);
+    socket.on("final_username_set", (username) => {
+      setUsername(username);
+    });
+  });
 
   useEffect(() => {
     socket.on("no_random_game", (msg) => {
@@ -135,32 +135,37 @@ function App() {
   // Game States:
   useEffect(() => {
     const handleGameEnd = (info) => {
+      // handle end game
       setRevealedPlayers(info.playerRevealArr);
       setEndMsg(info.endMsg);
       setGameEnd(true);
+
+      // reset game actions to defaults
+      setLeaderSelecting(false);
+      setDisableTeamSubmit(false);
+      setVoteHappening(false);
+      setDisableVoteBtns(false);
+      setGoingOnMission(false);
+      setDisableMissionActions(false);
+
+      // reset lobby
+      setGameStarted(false);
+      setMissionNumber(1);
+      setCurMissionVoteDisapproves(0);
+      setMissionResultTrack(["none","none","none","none","none"]);
+      setSelectedPlayers([]);
     };
 
     socket.on("set_game_end", handleGameEnd);
-
-    return () => {
-      socket.off("set_game_end", handleGameEnd);
-    }
   }, [socket]);
-
-  useEffect(() => {
-    socket.on("final_username_set", (username) => {
-      setUsername(username);
-    });
-  });
 
   // Game Updates:
   useEffect(() => {
     const handleSeats = (seats) => {
       setSeats([...seats]);
-      setGameStarted(true);
     };
 
-    socket.on("shuffled_seats", handleSeats);
+    socket.on("seats_info_share", handleSeats);
   }, [socket]);
 
   useEffect(() => {
@@ -171,18 +176,20 @@ function App() {
 
   useEffect(() => {
     socket.on("leader_is_selecting", (isSelecting) => {
+      setGameStarted(true); // GAME START WHEN LEADER STARTS SELECTING
+
       setSelectedPlayers([]); // reset
-      setLeaderSelecting(isSelecting);
-      setDisableTeamSubmit(false);
+      setLeaderSelecting(isSelecting); // 1a
+      setDisableTeamSubmit(false); // 1a
     });
   }, [socket]);
 
   useEffect(() => {
     socket.on("vote_on_these_players", (info) => { 
       setSelectedPlayers(info.selectedPlayers);
-      setLeaderSelecting(false);
-      setVoteHappening(true);
-      setDisableVoteBtns(false);
+      setLeaderSelecting(false); // 1c
+      setVoteHappening(true); // 2a
+      setDisableVoteBtns(false); // 2a
     });
   }, [socket]);
 
@@ -194,18 +201,17 @@ function App() {
 
   useEffect(() => {
     socket.on("go_on_mission", (onMissionTeam) => {
-      setVoteHappening(false);
-      setGoingOnMission(onMissionTeam);
-      setDisableMissionActions(false);
+      setVoteHappening(false); // 2c
+      setGoingOnMission(onMissionTeam); // 3a
+      setDisableMissionActions(false); // 3a
     });
   });
 
   useEffect(() => {
     socket.on("mission_completed", (info) => { // only when mission completed AND new one starting
-      setVoteHappening(true);
-      setLeaderSelecting(true);
-      setGoingOnMission(false);
-      setDisableMissionActions(false);
+      setGoingOnMission(false); // 3c
+
+      // update mission stats
       setMissionResultTrack(info.missionResultTrack);
       setMissionNumber(info.mission);
     });
@@ -253,9 +259,11 @@ function App() {
                 setDisableMissionActions={setDisableMissionActions}
                 missionNumber={missionNumber}
                 missionResultTrack={missionResultTrack}
+                roomAdminName={roomAdminName}
               />
               <EndScreen
                 open={gameEnd}
+                handleEndModalClose={handleEndModalClose}
                 revealedPlayers={revealedPlayers}
                 endMsg={endMsg}
               />
