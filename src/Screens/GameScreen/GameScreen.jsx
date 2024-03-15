@@ -5,6 +5,7 @@ import ChatBox from "./Components/ChatBox/ChatBox";
 import GameTable from "./Components/GameTable/GameTable";
 import InfoTable from "./Components/InfoTable/InfoTable";
 import GameCommands from "./Components/GameCommands/GameCommands.jsx";
+import GameSettings from "../../Components/GameSettings.jsx";
 
 function GameScreen({ 
   socket, 
@@ -12,7 +13,12 @@ function GameScreen({
   room, 
   isAdmin,
   seats, 
-  capacity, 
+  capacity,
+  onChangedCapacity,
+  selectionTime,
+  onChangedSelectionTime,
+  privateRoom,
+  onChangedPrivateRoom,
   gameStarted, 
   gameMasterSpeech, 
   leaderSelecting,
@@ -69,7 +75,19 @@ function GameScreen({
           gameStarted ? (
             <GameCommands gameMasterSpeech={gameMasterSpeech}/>
           ) : (
-            <p>{isAdmin ? "hi" : "no"}</p>
+            <div>
+              <GameSettings
+                capacity={capacity}
+                curNumPlayers={seats.length}
+                onChangedCapacity={onChangedCapacity}
+                selectionTime={selectionTime}
+                onChangedSelectionTime={onChangedSelectionTime}
+                privateRoom={privateRoom}
+                onChangedPrivateRoom={onChangedPrivateRoom}
+                isAdmin={isAdmin}
+              />
+            </div>
+            
           )
         }
         

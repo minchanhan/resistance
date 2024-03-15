@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "../../App.css";
 
-import CreateRoomModal from "./Components/CreateRoomModal";
 import { Grid, Button, TextField } from "@mui/material";
 import JoinRoomModal from "./Components/JoinRoomModal";
 import InstructionsModal from "./Components/InstructionsModal";
@@ -11,15 +10,8 @@ function StartScreen({
   username, 
   onChangedUsername, 
   setIsAdmin,
-  randomStatusMsg, 
-  capacity,
-  setCapacity,
-  selectionTime,
-  setSelectionTime,
-  privateRoom,
-  setPrivateRoom
+  randomStatusMsg
 }) {
-  const [createRoomModal, setCreateRoomModal] = useState(false);
   const [joinRoomModal, setJoinRoomModal] = useState(false);
   const [instructionsOpen, setInstructionsOpen] = useState(false);
 
@@ -33,15 +25,17 @@ function StartScreen({
     }
   };
 
-  const handleCreateOpen = () => {
+  const handleCreate = () => {
     setUsernameWarningCheck(true); // start checking for username
     if (validUsername()) {
-      setCreateRoomModal(true);
       socket.emit("set_username", username);
+      socket.emit("set_room_admin", true);
+      socket.emit("set_capacity", 5); // default values
+      socket.emit("set_selection_time", 7); // default values
+      socket.emit("set_private", true); // default values
+      setIsAdmin(true);
+      socket.emit("create_room");
     }
-  };
-  const handleCreateClose = () => {
-    setCreateRoomModal(false);
   };
 
   const handleJoinOpen = () => {
@@ -85,7 +79,6 @@ function StartScreen({
             defaultValue=""
             helperText={!validUsername() && usernameWarningCheck ? "Name must be 1-9 chars" : ""}
             onChange={ (event) => {
-              setCreateRoomModal(false); // ensure modals don't open until user clicks
               setJoinRoomModal(false);
               onChangedUsername(event.target.value);
             }}
@@ -93,19 +86,7 @@ function StartScreen({
         </Grid>
 
         <Grid item xs>
-          <Button onClick={handleCreateOpen}>Create Room</Button>
-          <CreateRoomModal 
-            socket={socket}
-            open={createRoomModal} 
-            handleCreateClose={handleCreateClose}
-            setIsAdmin={setIsAdmin}
-            capacity={capacity}
-            setCapacity={setCapacity}
-            selectionTime={selectionTime}
-            setSelectionTime={setSelectionTime}
-            privateRoom={privateRoom}
-            setPrivateRoom={setPrivateRoom}
-          />
+          <Button onClick={handleCreate}>Create Room</Button>
         </Grid>
 
         <Grid item xs>

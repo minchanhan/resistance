@@ -77,12 +77,26 @@ function App() {
     setUsername(updatedUsername);
   };
 
+  const onChangedCapacity = (updatedCapacity) => { // from StartScreen
+    setCapacity(updatedCapacity);
+    socket.emit("set_capacity", updatedCapacity);
+  };
+
+  const onChangedSelectionTime = (updatedSelectionTime) => { // from StartScreen
+    setSelectionTime(updatedSelectionTime);
+    socket.emit("set_selection_time", updatedSelectionTime);
+  };
+
+  const onChangedPrivateRoom = () => { // from StartScreen
+    socket.emit("set_private", !privateRoom);
+    setPrivateRoom(!privateRoom);
+  };
+
   // Listening for socket messages:
   // Joins/Disconnects:
   useEffect(() => { // When player clicks join
     const handlePlayerJoin = (lobbyInfo) => {
       setSeats(lobbyInfo.seats);
-      setCapacity(lobbyInfo.capacity);
       setRoom(lobbyInfo.room);
       setGameScreen(true);
       setRandomStatusMsg("");
@@ -106,6 +120,15 @@ function App() {
   useEffect(() => {
     socket.on("no_random_game", (msg) => {
       setRandomStatusMsg(msg);
+    });
+  }, [socket]);
+
+  // Game Settings Changed:
+  useEffect(() => {
+    socket.on("game_settings_changed", (settings) => { 
+      setCapacity(settings.capacity);
+      setSelectionTime(settings.selectionTime);
+      setPrivateRoom(settings.privateRoom);
     });
   }, [socket]);
 
@@ -199,12 +222,6 @@ function App() {
               onChangedUsername={onChangedUsername}
               setIsAdmin={setIsAdmin}
               randomStatusMsg={randomStatusMsg}
-              capacity={capacity}
-              setCapacity={setCapacity}
-              selectionTime={selectionTime}
-              setSelectionTime={setSelectionTime}
-              privateRoom={privateRoom}
-              setPrivateRoom={setPrivateRoom}
             />
           ) : gameScreen ? (
             <>
@@ -215,6 +232,11 @@ function App() {
                 isAdmin={isAdmin}
                 seats={seats}
                 capacity={capacity}
+                onChangedCapacity={onChangedCapacity}
+                selectionTime={selectionTime}
+                onChangedSelectionTime={onChangedSelectionTime}
+                privateRoom={privateRoom}
+                onChangedPrivateRoom={onChangedPrivateRoom}
                 gameStarted={gameStarted}
                 gameMasterSpeech={gameMasterSpeech}
                 leaderSelecting={leaderSelecting}

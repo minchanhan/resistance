@@ -90,10 +90,9 @@ function GameTable({
     setDisableMissionActions(true);
   };
 
-  const gameStartedPlayerBox = (i, seatIsLeader, seatOnMission, seatTeam, seatUsername) => {
+  const gameStartedPlayerBox = (seatIsLeader, seatOnMission, seatTeam, seatUsername) => {
     return (
       <PlayerBox 
-        key={i}
         isLeader={seatIsLeader}
         onMission={seatOnMission}
         inTeamVote={selectedPlayers.includes(seatUsername)}
@@ -119,17 +118,11 @@ function GameTable({
             const seatOnMission = seat[3];
             
             if (i < topRowLength) {
-              if (gameStarted) {
-                return gameStartedPlayerBox(i, seatIsLeader, seatOnMission, seatTeam, seatUsername);
-              } else {
-                return <PlayerBox 
-                          key={i}
-                          username={seatUsername || "waiting.."}
-                          ownName={username === seatUsername}
-                        />
-              }
-            } else {
-              return <></>
+              return (
+                <div key={seatUsername}>
+                  {gameStartedPlayerBox(seatIsLeader, seatOnMission, seatTeam, seatUsername)}
+                </div>
+              )
             }
           })
         }
@@ -146,7 +139,7 @@ function GameTable({
           </div>
           : seats.length >= 9 && gameStarted ?
             <div className="holdPlayers">
-              { gameStartedPlayerBox(8, seats[8][2], seats[8][3], seats[8][1], seats[8][0]) }
+              { gameStartedPlayerBox(seats[8][0], seats[8][2], seats[8][3], seats[8][1], seats[8][0]) }
             </div>
             : null
         }
@@ -240,7 +233,7 @@ function GameTable({
           </div>
           : seats.length >= 10 && gameStarted ?
             <div className="holdPlayers">
-              { gameStartedPlayerBox(9, seats[9][2], seats[9][3], seats[9][1], seats[9][0]) }
+              { gameStartedPlayerBox(seats[9][0], seats[9][2], seats[9][3], seats[9][1], seats[9][0]) }
             </div>
             : null
         }
@@ -256,20 +249,11 @@ function GameTable({
             const seatOnMission = seat[3];
 
             if (i >= topRowLength && i < bottomRowLength + topRowLength) {
-              if (username === seatUsername) {
-                // color the username
-              }
-              if (gameStarted) {
-                return gameStartedPlayerBox(i, seatIsLeader, seatOnMission, seatTeam, seatUsername);
-              } else {
-                return <PlayerBox 
-                          key={i}
-                          username={seatUsername || "waiting.."}
-                          ownName={username === seatUsername}
-                        />
-              }
-            } else {
-              return <></>
+              return (
+                <div key={seatUsername}>
+                  {gameStartedPlayerBox(seatIsLeader, seatOnMission, seatTeam, seatUsername)}
+                </div>
+              )
             }
           })
         }

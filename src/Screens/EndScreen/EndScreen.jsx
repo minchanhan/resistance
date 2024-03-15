@@ -30,7 +30,7 @@ function EndScreen({ open, revealedPlayers, endMsg }) {
           {
             revealedPlayers.map(function(playerReveal, i) {
               return (
-                <div key={i} className="endScreenResults">
+                <div key={playerReveal} className="endScreenResults">
                   <p>{playerReveal}</p>
                 </div>
               )

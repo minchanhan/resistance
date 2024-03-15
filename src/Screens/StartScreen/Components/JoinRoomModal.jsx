@@ -59,7 +59,7 @@ function JoinRoomModal({
               onChange={ (event) => {
                 setRoomCode(event.target.value);
               }}
-              sx={{ m: 1.5, minWidth: 200, mt: 2.4}}
+              sx={{ m: 1.5, minWidth: 200, mt: 0}}
             />
             </Grid>
             
