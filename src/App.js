@@ -136,13 +136,29 @@ function App() {
     });
   }, [socket]);
 
+  useEffect(() => {
+    socket.on("kicked_player", () => { 
+      setGameScreen(false);
+      setRoomAdminName("");
+      setRoom("");
+    });
+  }, [socket]);
+
+  useEffect(() => {
+    socket.on("room_admin_changed", (adminInfo) => { 
+      setIsAdmin(adminInfo.isAdmin);
+      setRoomAdminName(adminInfo.adminName);
+      socket.emit("set_room_admin", adminInfo.isAdmin);
+    });
+  }, [socket]);
+
   // Game States:
   useEffect(() => {
     const handleGameEnd = (info) => {
       // handle end game
       setRevealedPlayers(info.playerRevealArr);
       setEndMsg(info.endMsg);
-      setGameEnd(true);
+      if (!info.kicked) setGameEnd(true);
 
       // reset game actions to defaults
       setLeaderSelecting(false);
