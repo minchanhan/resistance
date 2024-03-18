@@ -65,55 +65,53 @@ function StartScreen({
   }
   
   return (
-    <div className="startScreen">
-      <h1>
-        The Resistance
-      </h1>
+    <div className="startScreen" style={{display: "flex", flexDirection: "column"}}>
+      <div style={{flex: "20%"}}>
+        <h1>The Resistance</h1>
+      </div>
+      
+      <div style={{flex: "20%"}}>
+        <TextField
+          error={!validUsername() && usernameWarningCheck}
+          id={!validUsername() && usernameWarningCheck ? "" : "outlined-error-helper-text"}
+          label={!validUsername() && usernameWarningCheck ? "Warning" : "Username"}
+          defaultValue=""
+          helperText={!validUsername() && usernameWarningCheck ? "Name must be 1-9 chars" : ""}
+          onChange={ (event) => {
+            setJoinRoomModal(false);
+            onChangedUsername(event.target.value);
+          }}
+        />
+      </div>
+      
+      <div style={{flex: "15%"}}>
+        <Button onClick={handleCreate}>Create Room</Button>
+      </div>
 
-      <Grid container direction="column">
-        <Grid item xs>
-          <TextField
-            error={!validUsername() && usernameWarningCheck}
-            id={!validUsername() && usernameWarningCheck ? "" : "outlined-error-helper-text"}
-            label={!validUsername() && usernameWarningCheck ? "Warning" : "Username"}
-            defaultValue=""
-            helperText={!validUsername() && usernameWarningCheck ? "Name must be 1-9 chars" : ""}
-            onChange={ (event) => {
-              setJoinRoomModal(false);
-              onChangedUsername(event.target.value);
-            }}
-          />
-        </Grid>
+      <div style={{flex: "15%"}}>
+        <Button onClick={handleJoinOpen}>Join Room with Code</Button>
+        <JoinRoomModal 
+          socket={socket}
+          open={joinRoomModal} 
+          handleJoinClose={handleJoinClose}
+        />
+      </div>
 
-        <Grid item xs>
-          <Button onClick={handleCreate}>Create Room</Button>
-        </Grid>
+      <div style={{flex: "15%"}}>
+        <Button onClick={handleRandomJoin}>Join Random Room</Button>
+      </div>
+      {
+        randomStatusMsg !== "" ? <p style={{ fontSize: "0.7em", color: "red" }}>{randomStatusMsg}</p> : <></>
+      }
 
-        <Grid item xs>
-          <Button onClick={handleJoinOpen}>Join Room with Code</Button>
-          <JoinRoomModal 
-            socket={socket}
-            open={joinRoomModal} 
-            handleJoinClose={handleJoinClose}
-          />
-        </Grid>
-
-        <Grid item xs>
-          <Button onClick={handleRandomJoin}>Join Random Room</Button>
-        </Grid>
-        {
-          randomStatusMsg !== "" ? <p style={{ fontSize: "0.75em", color: "red" }}>{randomStatusMsg}</p> : <></>
-        }
-
-        <br />
-        <Grid item xs>
-          <Button onClick={handleInstructionsOpen}>Instructions</Button>
-          <InstructionsModal 
-            open={instructionsOpen} 
-            handleInstructionsClose={handleInstructionsClose}
-          />
-        </Grid>
-      </Grid>
+      <br />
+      <div style={{flex: "15%"}}>
+        <Button onClick={handleInstructionsOpen}>Instructions</Button>
+        <InstructionsModal 
+          open={instructionsOpen} 
+          handleInstructionsClose={handleInstructionsClose}
+        />
+      </div>
 
       <footer className="footer">
         credits: wood - 
