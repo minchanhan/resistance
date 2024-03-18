@@ -44,7 +44,7 @@ function JoinRoomModal({
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography variant="h6" component="h2" color="white">
+          <Typography variant="h6" component="h2" color="var(--main-text-color)">
             Enter Room Code
           </Typography>
           

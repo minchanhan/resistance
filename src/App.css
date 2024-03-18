@@ -1,6 +1,11 @@
 :root {
   --main-text-color: #F4F4F4;
-  --main-bg-color: #282c34;
+  --main-bg-color: #394A3E;
+  --secondary-color: #F5A65B;
+  --disabled-color: #808080;
+  --my-green: #8BBD8B;
+  --my-red: #DF4730;
+  --my-blue: #778DA9;
 }
 
 .container {
@@ -132,23 +137,23 @@
 .playerBox .username {
   flex: 25%;
   height: 100%;
-  color: white;
+  color: var(--main-text-color);
 }
 .selected { /* selected for mission */
-  background-color: lightsalmon;
+  background-color: var(--secondary-color);
 }
 
 #submitBtn:disabled {
   cursor: not-allowed;
-  background-color: #613503;
-  color: #666;
+  background-color: var(--my-red);
+  color: var(--disabled-color);
 }
 
 #submitBtn {
   flex: 10%;
   cursor: pointer;
-  background-color: #613503;
-  color: #ddd;
+  background-color: var(--secondary-color);
+  color: white;
 }
 
 .table { /* Actual Table */
@@ -199,15 +204,15 @@
 }
 
 .currentMission {
-  border: 1px solid yellow;
+  border: 1px solid var(--secondary-color);
 }
 
 .passed {
-  background-color: #0a511c;
+  background-color: var(--my-green);
 }
 
 .failed {
-  background-color: rgb(214, 50, 50);
+  background-color: var(--my-red);
 }
 
 .voteTrackGrid {
@@ -245,7 +250,7 @@
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 }
 .filledVote {
-  background-color: #f47a00;
+  background-color: var(--secondary-color);
 }
 
 .gameCommands { /* Game Master */
@@ -258,7 +263,7 @@
   width: 100%;
   height: auto;
   background-color: black;
-  color: #fff;
+  color: white;
   border-radius: 1em;
   padding: 1em;
   position: relative;
@@ -299,7 +304,7 @@
   flex: 7.5%;
   justify-content: center;
   align-items: center;
-  background: lightgray;
+  background: var(--my-blue);
 }
 .chatWindow .chatHeader p {
   color: black;
@@ -310,8 +315,8 @@
   flex: 85%;
   height: 100%;
   max-height: 51vh; /* 0.85 * 60vh */
-  border: 1px solid #263238;
-  background: #fff;
+  border: 1px solid black;
+  background: white;
 }
 .chatWindow .chatBody .msgContainer {
   width: 100%;
@@ -336,7 +341,7 @@
   min-height: 2em;
   max-width: 18em;
   border-radius: 5px;
-  color: white;
+  color: var(--main-text-color);
   align-items: center;
   padding-right: 5px;
   padding-left: 5px;
@@ -350,7 +355,7 @@
 }
 #you .msgContent {
   justify-content: flex-start;
-  background-color: gray;
+  background-color: var(--my-blue);
 }
 #you .msgMeta {
   justify-content: flex-end;
@@ -382,7 +387,7 @@
 }
 #voteResult .msgContent {
   justify-content: flex-start;
-  background-color: yellow;
+  background-color: var(--secondary-color);
   color: black;
 }
 #voteResult .msgMeta {
@@ -406,7 +411,7 @@
   display: flex;
   flex: 7.5%;
   height: 100%;
-  border: 1px solid #263238;
+  border: 1px solid var(--my-blue);
   border-top: none;
 }
 .chatWindow .chatFooter input {
@@ -415,7 +420,7 @@
   border: 0;
   padding: 0 0.7em;
   font-size: 1em;
-  border-right: 1px dotted #607d8b;
+  border-right: 1px dotted var(--my-blue);
 
   outline: none;
   font-family: "Open Sans", sans-serif;
@@ -432,7 +437,7 @@
   color: lightgray;
 }
 .chatWindow .chatFooter button:hover {
-  color: #f47a00;
+  color: var(--secondary-color);
 }
 .hide {
   opacity: 0 !important;

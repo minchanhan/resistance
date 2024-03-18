@@ -45,7 +45,7 @@ function InstructionsModal({open, handleInstructionsClose}) {
       aria-describedby="modal-modal-description"
     >
       <Box sx={style}>
-        <div style={{color: "white", fontSize: "x-large", fontWeight: "700", marginBottom: "0"}}>
+        <div style={{color: "var(--main-text-color)", fontSize: "x-large", fontWeight: "700", marginBottom: "0"}}>
           Instructions:
         </div>
 
