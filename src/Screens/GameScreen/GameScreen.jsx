@@ -68,7 +68,8 @@ function GameScreen({
           capacity={capacity} 
           seats={seats} 
           topText={`Room Admin: ${roomAdminName}`}
-          timer={false}
+          missionNumber={missionNumber}
+          gameStarted={gameStarted}
         />
       </div>
       <div className="right">

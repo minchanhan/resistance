@@ -2,19 +2,31 @@ import { Typography } from "@mui/material";
 import React from "react";
 import Timer from "./Timer";
 
-function InfoTable({ room, capacity, seats, topText, bottomText="", timer=false }) {
+function InfoTable({ room, capacity, seats, topText, missionNumber, gameStarted=false, mins=7 }) {
 
   return (
     <div className="infoTable">
-      <h2>
-        {topText}
-      </h2>
-      <p style={{cursor: "pointer"}} onClick={() => {navigator.clipboard.writeText(room)}}>
-        {`Room Code [click to copy]: ${room}`}
-      </p>
       {
-        timer ? <Timer /> : `${seats.length}/${capacity} players joined`
+        !gameStarted ? (
+          <div>
+            <h2>
+              {topText}
+            </h2>
+            <p style={{cursor: "pointer"}} onClick={() => {navigator.clipboard.writeText(room)}}>
+              {`Room Code [click to copy]: ${room}`}
+            </p>
+            <p>{`${seats.length}/${capacity} players joined`}</p>
+          </div>
+        ) : (
+          <div>
+            <h2>
+              {`Mission: ${missionNumber}`}
+            </h2>
+            <Timer/>
+          </div>
+        )
       }
+      
     </div>
   )
 }
