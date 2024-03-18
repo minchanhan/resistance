@@ -334,12 +334,12 @@
   display: flex;
   width: auto;
   height: auto;
-  min-height: 2em;
+  min-height: 1.6em;
   max-width: 18em;
   border-radius: 10px;
   color: var(--main-text-color);
   align-items: center;
-  padding: 5px;
+  padding: 2.5px 10px 2.5px 10px;
   overflow-wrap: break-word;
   word-break: break-word;
 }
