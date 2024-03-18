@@ -41,7 +41,7 @@ function GameScreen({
   
   return (
     <div className="gameScreen">
-      <div className="left">
+      <div className="gameScreenCol">
         <GameTable 
           socket={socket}
           room={room}
@@ -72,8 +72,9 @@ function GameScreen({
           gameStarted={gameStarted}
         />
       </div>
-      <div className="right">
+      <div className="gameScreenCol">
         <ChatBox socket={socket} username={username} />
+        
         {
           gameStarted ? (
             <GameCommands gameMasterSpeech={gameMasterSpeech}/>
