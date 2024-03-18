@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../../../App.css";
-import { Box, Button, Grid, Modal, TextField, Typography } from "@mui/material";
+import { Box, Button, Modal, TextField } from "@mui/material";
 import "../../../data/Enums.js";
 
 function JoinRoomModal({

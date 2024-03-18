@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../../App.css";
 
-import { Grid, Button, TextField } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import JoinRoomModal from "./Components/JoinRoomModal";
 import InstructionsModal from "./Components/InstructionsModal";
 
