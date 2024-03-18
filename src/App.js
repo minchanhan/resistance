@@ -21,6 +21,15 @@ function App() {
   const darkTheme = createTheme({
     palette: {
       mode: 'dark',
+      secondary: {
+        main: getComputedStyle(document.body).getPropertyValue('--secondary-color')
+      },
+      green: {
+        main: getComputedStyle(document.body).getPropertyValue('--my-green')
+      },
+      red: {
+        main: getComputedStyle(document.body).getPropertyValue('--my-red')
+      },
     },
     colors: {
       text: {

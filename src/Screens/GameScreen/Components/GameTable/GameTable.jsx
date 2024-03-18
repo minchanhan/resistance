@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import "../../../../App.css";
 
 import PlayerBox from "./PlayerBox/PlayerBox";
 import MissionToken from "./MissionToken";
 import VoteTrack from "./VoteTrack";
+import { Button } from "@mui/material";
 
 function GameTable({
   socket,
@@ -136,8 +137,8 @@ function GameTable({
           : <span></span>
         }
 
-        <div className="table">
-          <div className="missionTokenGrid">
+        <div className="table" style={{display: "flex", flexDirection: "column"}}>
+          <div className="missionTokenGrid" style={{flex: "70%"}}>
             <MissionToken 
               isPassed={missionResultTrack[0] === "pass"} 
               isFailed={missionResultTrack[0] === "fail"}
@@ -170,12 +171,8 @@ function GameTable({
               missionTeamSize={missionTeamSize5}
             />
           </div>
-
-          <div className="voteTrackLabel">
-            Vote Track
-          </div>
           
-          <div className="voteTrackGrid">
+          <div className="voteTrackGrid" style={{flex: "20%"}}>
             <VoteTrack isFilled={curMissionVoteDisapproves > 0} number={1}/>
             <VoteTrack isFilled={curMissionVoteDisapproves > 1} number={2}/>
             <VoteTrack isFilled={curMissionVoteDisapproves > 2} number={3}/>
@@ -183,37 +180,51 @@ function GameTable({
             <VoteTrack isFilled={curMissionVoteDisapproves > 4} number={5}/>
           </div>
 
-          { 
-            leaderSelecting ? (
-              <div>
-                <button 
+          <div style={{flex: "10%"}}>
+            {
+              leaderSelecting ? (
+                <Button
                   id="submitBtn" 
+                  color="secondary"
                   disabled={selectedPlayers.length < missionTeamSizes[missionNumber - 1] || disableTeamSubmit} 
                   onClick={() => handleTeamSubmit()}
                 >
                   Submit Team
-                </button>
-              </div>
-            ) : voteHappening ? (
-              <div>
-                <button id="approveBtn" disabled={disableVoteBtns} onClick={() => handleVote(true)}>
-                  Approve
-                </button>
-                <button id="disapproveBtn" disabled={disableVoteBtns} onClick={() => handleVote(false)}>
-                  Disapprove
-                </button>
-              </div>
-            ) : goingOnMission ? (
-              <div>
-                <button id="passBtn" disabled={disableMissionActions} onClick={() => handleMission(true)}>
-                  Pass
-                </button>
-                <button id="failBtn" disabled={disableMissionActions} onClick={() => handleMission(false)}>
-                  Fail
-                </button>
-              </div>
-            ) : <></>
-          }
+                </Button>
+              ) : voteHappening ? (
+                <div>
+                  <Button color="green" id="approveBtn" disabled={disableVoteBtns} onClick={() => handleVote(true)}>
+                    Approve
+                  </Button>
+                  <Button color="red" id="disapproveBtn" disabled={disableVoteBtns} onClick={() => handleVote(false)}>
+                    Disapprove
+                  </Button>
+                </div>
+              ) : goingOnMission ? (
+                <div>
+                  <Button color="green" id="passBtn" disabled={disableMissionActions} onClick={() => handleMission(true)}>
+                    Pass
+                  </Button>
+                  <Button color="red" id="failBtn" disabled={disableMissionActions} onClick={() => handleMission(false)}>
+                    Fail
+                  </Button>
+                </div>
+              ) : (
+                <div 
+                  className="voteTrackLabel" 
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    textAlign: "center",
+                    color: "var(--main-text-color)"
+                  }}
+                >
+                  Vote Track
+                </div>
+              )
+            }
+          </div>
         </div>
 
         {

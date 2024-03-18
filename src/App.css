@@ -80,7 +80,7 @@
   }
 }
 
-.infoTable {
+.infoTable { /* Info Table */
   height: auto;
 }
 
@@ -143,23 +143,8 @@
   background-color: var(--secondary-color);
 }
 
-#submitBtn:disabled {
-  cursor: not-allowed;
-  background-color: var(--my-red);
-  color: var(--disabled-color);
-}
-
-#submitBtn {
-  flex: 10%;
-  cursor: pointer;
-  background-color: var(--secondary-color);
-  color: white;
-}
-
 .table { /* Actual Table */
   background-image: url("./assets/woodtable.svg");
-  display: flex;
-  flex-direction: column;
   height: 100%;
   background-size: cover;
   background-repeat: no-repeat;
@@ -167,7 +152,6 @@
 }
 
 .missionTokenGrid {
-  flex: 60%;
   display: grid;
   height: 100%;
   justify-content: center;
@@ -175,6 +159,13 @@
   text-align: center;
   align-content: center;
   grid-template-columns: repeat(5, 1fr);;
+  grid-template-rows: 1fr;
+}
+
+.voteTrackGrid {
+  display: grid;
+  height: 100%;
+  grid-template-columns: repeat(5, 1fr);
   grid-template-rows: 1fr;
 }
 
@@ -216,22 +207,6 @@
 
 .failed {
   background-color: var(--my-red);
-}
-
-.voteTrackGrid {
-  flex: 25%;
-  display: grid;
-  height: 100%;
-  grid-template-columns: repeat(5, 1fr);;
-  grid-template-rows: 1fr;
-}
-
-.voteTrackLabel {
-  flex: 5%;
-  height: 100%;
-  justify-content: start;
-  text-align: start;
-  margin-left: 2em;
 }
 
 .depth {

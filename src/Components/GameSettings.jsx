@@ -11,7 +11,6 @@ import { Box,
   Select, 
   Switch, 
 } from "@mui/material";
-import { alpha, styled } from '@mui/material/styles';
 import "../data/Enums.js";
 
 function GameSettings({
@@ -27,18 +26,6 @@ function GameSettings({
 }) {
 
   const capacityMenuItems = [5,6,7,8,9,10];
-
-  const PrivateSwitch = styled(Switch)(({ theme }) => ({
-    '& .MuiSwitch-switchBase.Mui-checked': {
-      color: getComputedStyle(document.body).getPropertyValue('--my-blue'),
-      '&:hover': {
-        backgroundColor: alpha(getComputedStyle(document.body).getPropertyValue('--my-blue'), theme.palette.action.hoverOpacity),
-      },
-    },
-    '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
-      backgroundColor: getComputedStyle(document.body).getPropertyValue('--my-blue'),
-    },
-  }));
   
   return (
     <div>
@@ -94,7 +81,7 @@ function GameSettings({
           <Grid item alignItems="flex-end" xs>
           <FormControlLabel 
             control={
-              <PrivateSwitch
+              <Switch
                 checked={privateRoom}
                 onChange={(event) => {
                   onChangedPrivateRoom();
