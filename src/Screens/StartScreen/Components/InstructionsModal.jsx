@@ -2,18 +2,12 @@ import React from "react";
 import "../../../App.css";
 import { Box, Modal } from "@mui/material";
 
-function InstructionsModal({open, handleInstructionsClose}) {
-  const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 550,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
-  };
+function InstructionsModal({
+  open, 
+  handleInstructionsClose, 
+  style, 
+  modalHeader
+}) {
 
   const instructions = `Resistance is a mafia style game where players need to debate and make decisions on who the "bad guys are".
   Resistance Team is good, Spy team is bad.
@@ -45,7 +39,7 @@ function InstructionsModal({open, handleInstructionsClose}) {
       aria-describedby="modal-modal-description"
     >
       <Box sx={style}>
-        <div style={{color: "var(--main-text-color)", fontSize: "x-large", fontWeight: "700", marginBottom: "0"}}>
+        <div style={modalHeader}>
           Instructions:
         </div>
 

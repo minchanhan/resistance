@@ -17,6 +17,25 @@ function StartScreen({
 
   const [usernameWarningCheck, setUsernameWarningCheck] = useState(false); // activate warning if needed
 
+  const modalStyle = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: joinRoomModal ? "35%" : "75%",
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+  };
+
+  const modalHeader = {
+    color: "var(--main-text-color)", 
+    fontSize: "x-large", 
+    fontWeight: "700", 
+    marginBottom: "0"
+  };
+
   const validUsername = () => {
     if (username.length >= 1 && username.length <= 9) { // change min to 5 later
       return true;
@@ -94,6 +113,8 @@ function StartScreen({
           socket={socket}
           open={joinRoomModal} 
           handleJoinClose={handleJoinClose}
+          style={modalStyle}
+          modalHeader={modalHeader}
         />
       </div>
 
@@ -110,6 +131,8 @@ function StartScreen({
         <InstructionsModal 
           open={instructionsOpen} 
           handleInstructionsClose={handleInstructionsClose}
+          style={modalStyle}
+          modalHeader={modalHeader}
         />
       </div>
 

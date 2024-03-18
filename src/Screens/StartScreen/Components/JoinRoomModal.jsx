@@ -7,23 +7,13 @@ function JoinRoomModal({
   socket,
   open, 
   handleJoinClose, 
+  style,
+  modalHeader
 }) {
   const [checkedRoom, setCheckedRoom] = useState(false);
   const [validRoom, setValidRoom] = useState(true);
   const [roomCode, setRoomCode] = useState("");
   const [roomStatus, setRoomStatus] = useState("");
-
-  const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
-  };
 
   const joinRoom = () => {
     setCheckedRoom(true);
@@ -36,41 +26,39 @@ function JoinRoomModal({
   });
 
   return (
-    <div>
-      <Modal
-        open={open}
-        onClose={handleJoinClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <Typography variant="h6" component="h2" color="var(--main-text-color)">
-            Enter Room Code
-          </Typography>
-          
-          <Grid container direction="column">
-            <Grid item alignItems="flex-end" xs>
-            <TextField
-              error={!validRoom && checkedRoom}
-              id={!validRoom && checkedRoom ? "" : "outlined-error-helper-text"}
-              label={!validRoom && checkedRoom ? "Warning" : "Room code"}
-              defaultValue=""
-              helperText={!validRoom && checkedRoom ? roomStatus : ""}
-              onChange={ (event) => {
-                setRoomCode(event.target.value);
-              }}
-              sx={{ m: 1.5, minWidth: 200, mt: 0}}
-            />
-            </Grid>
-            
-            <Grid item xs>
-              <Button variant="text" onClick={joinRoom}>Join Room</Button>
-            </Grid>
-
-          </Grid>
-        </Box>
-      </Modal>
-    </div>
+    <Modal
+      open={open}
+      onClose={handleJoinClose}
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
+    >
+      <Box sx={style}>
+        <div style={modalHeader}>
+          Enter Room Code
+        </div>
+        
+        <div style={{
+          display: "flex", 
+          flexDirection: "column", 
+          marginTop: "0.5em",
+          justifyContent: "center",
+          alignItems: "center"
+        }}>
+          <TextField
+            error={!validRoom && checkedRoom}
+            id={!validRoom && checkedRoom ? "" : "outlined-error-helper-text"}
+            label={!validRoom && checkedRoom ? "Warning" : "Room code"}
+            defaultValue=""
+            helperText={!validRoom && checkedRoom ? roomStatus : ""}
+            onChange={ (event) => {
+              setRoomCode(event.target.value);
+            }}
+            sx={{ m: 1.5, width: "50%", mt: 1}}
+          />
+          <Button onClick={joinRoom}>Join Room</Button>
+        </div>
+      </Box>
+    </Modal>
     
   )
 }
