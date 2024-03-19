@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import './App.css';
 import io from 'socket.io-client';
 
@@ -63,6 +63,9 @@ function App() {
   // Other msgs
   const [randomStatusMsg, setRandomStatusMsg] = useState("");
   const [gameMasterSpeech, setGameMasterSpeech] = useState("Welcome... to the resistance");
+
+  const [msg, setMsg] = useState("");
+  const [msgList, setMsgList] = useState([]);
 
   // Game States
   const [seats, setSeats] = useState([]);
@@ -247,6 +250,13 @@ function App() {
     });
   }, [socket]);
 
+  // messages:
+  useMemo(() => { // listen
+    socket.on("receive_msg", (msgData) => {
+      setMsgList((msgList) => [...msgList, msgData]);
+    });
+  }, [socket]);
+
   return (
     <ThemeProvider theme={darkTheme}>
       <div className="container">
@@ -291,6 +301,10 @@ function App() {
                 missionResultTrack={missionResultTrack}
                 roomAdminName={roomAdminName}
                 startGame={startGame}
+                msg={msg}
+                setMsg={setMsg}
+                msgList={msgList}
+                setMsgList={setMsgList}
               />
               <EndScreen
                 open={gameEnd}

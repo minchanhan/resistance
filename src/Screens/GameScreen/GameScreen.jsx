@@ -38,7 +38,11 @@ function GameScreen({
   missionNumber,
   missionResultTrack,
   roomAdminName,
-  startGame
+  startGame,
+  msg,
+  setMsg,
+  msgList,
+  setMsgList
 }) {
   const isTabletOrMobile = useMediaQuery({ maxWidth: 770 });
   const isPortrait = useMediaQuery({ orientation: 'portrait' });
@@ -90,11 +94,20 @@ function GameScreen({
     startGame: startGame,
   };
 
+  const chatBoxProps = {
+    socket: socket,
+    username: username,
+    msg: msg,
+    setMsg: setMsg,
+    msgList: msgList,
+    setMsgList: setMsgList,
+  }
+
   return (
     <>
       {
-        showHiddenChat ? (
-          <ChatBox socket={socket} username={username} />
+        showHiddenChat && isPortrait ? (
+          <ChatBox {...chatBoxProps} />
         ) : <></>
       }
 
@@ -130,7 +143,7 @@ function GameScreen({
               <InfoTable {...infoTableProps} />
             </div>
             <div className="gameScreenCol">
-              <ChatBox socket={socket} username={username} />
+              <ChatBox {...chatBoxProps} />
               {
                 gameStarted ? (<GameCommands gameMasterSpeech={gameMasterSpeech} />) : (
                   <div><GameSettings {...gameSettingsProps} /></div>

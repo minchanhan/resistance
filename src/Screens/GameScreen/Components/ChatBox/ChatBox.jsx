@@ -1,10 +1,7 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import ScrollToBottom from "react-scroll-to-bottom";
 
-function ChatBox({ socket, username }) {
-  const [msg, setMsg] = useState("");
-  const [msgList, setMsgList] = useState([]);
-
+function ChatBox({ socket, username, msg, setMsg, msgList, setMsgList }) {
   const getTime = () => {
     var mins = new Date(Date.now()).getMinutes();
     if (mins < 10) {
@@ -28,12 +25,6 @@ function ChatBox({ socket, username }) {
     setMsgList((msgList) => [...msgList, msgData]);
     setMsg("");
   };
-
-  useMemo(() => { // listen
-    socket.on("receive_msg", (msgData) => {
-      setMsgList((msgList) => [...msgList, msgData]);
-    });
-  }, [socket]);
 
   return (
     <div className="chatWindow">
