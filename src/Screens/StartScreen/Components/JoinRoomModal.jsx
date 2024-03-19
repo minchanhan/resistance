@@ -53,7 +53,7 @@ function JoinRoomModal({
             onChange={ (event) => {
               setRoomCode(event.target.value);
             }}
-            sx={{ m: 1.5, width: "50%", mt: 1}}
+            sx={{ m: 1.5, width: "90%", mt: 2}}
           />
           <Button onClick={joinRoom}>Join Room</Button>
         </div>

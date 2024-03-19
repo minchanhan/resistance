@@ -28,7 +28,7 @@ function GameSettings({
   
   return (
     <div className="gameSettings" style={{flex: "35%", height: "100%", width: "100%"}}>
-      <FormControl>
+      <FormControl id="numPlayersSelect">
         <InputLabel id="demo-simple-select-helper-label"># of Players</InputLabel>
         <Select
           id="demo-simple-select-helper"
@@ -49,21 +49,23 @@ function GameSettings({
         <FormHelperText>Minimum 5 Players</FormHelperText>
       </FormControl>
 
-      <FormControlLabel 
-        control={
-          <Switch
-            checked={privateRoom}
-            onChange={(event) => {
-              onChangedPrivateRoom();
-            }}
-            inputProps={{ 'aria-label': 'controlled' }}
-            disabled={!isAdmin}
-          />
-        } 
-        label="Private Room"
-        labelPlacement="start"
-        sx={{color: "var(--main-text-color)", mb: "1.5em", ml: "1.5em"}}
-      />
+      <div>
+        <FormControlLabel 
+          control={
+            <Switch
+              checked={privateRoom}
+              onChange={(event) => {
+                onChangedPrivateRoom();
+              }}
+              inputProps={{ 'aria-label': 'controlled' }}
+              disabled={!isAdmin}
+            />
+          } 
+          label="Private Room"
+          labelPlacement="start"
+          sx={{color: "var(--main-text-color)", ml: "1.5em"}}
+        />
+      </div>
 
       <FormControl>
         <InputLabel id="demo-simple-select-helper-label">Team Select Time Limit</InputLabel>
@@ -87,19 +89,21 @@ function GameSettings({
         <FormHelperText>Recommended: 7 mins</FormHelperText>
       </FormControl>
 
-      <Button 
-        variant="text" 
-        onClick={() => {
-          console.log("private room state: ", privateRoom);
-          console.log("capacity state: ", capacity);
-          console.log("selection time state: ", selectionTime);
-          startGame();
-        }}
-        disabled={curNumPlayers < capacity || !isAdmin}
-        sx={{mb: "1.5em", ml: "1.5em"}}
-      >
-        Start Game
-      </Button>
+      <div>
+        <Button 
+          variant="text" 
+          onClick={() => {
+            console.log("private room state: ", privateRoom);
+            console.log("capacity state: ", capacity);
+            console.log("selection time state: ", selectionTime);
+            startGame();
+          }}
+          disabled={curNumPlayers < capacity || !isAdmin}
+          sx={{ml: "1.5em"}}
+        >
+          Start Game
+        </Button>
+      </div>
     </div>
   )
 }

@@ -4,29 +4,28 @@ import Timer from "./Timer";
 function InfoTable({ room, capacity, seats, topText, missionNumber, gameStarted=false, mins=7 }) {
 
   return (
-    <div className="infoTable">
+    <>
       {
         !gameStarted ? (
-          <div>
-            <h2>
+          <div className="infoTable">
+            <h3>
               {topText}
-            </h2>
+            </h3>
             <p style={{cursor: "pointer"}} onClick={() => {navigator.clipboard.writeText(room)}}>
               {`Room Code [click to copy]: ${room}`}
             </p>
             <p>{`${seats.length}/${capacity} players joined`}</p>
           </div>
         ) : (
-          <div>
-            <h2>
+          <div className="infoTable">
+            <h3>
               {`Mission: ${missionNumber}`}
-            </h2>
+            </h3>
             <Timer/>
           </div>
         )
       }
-      
-    </div>
+    </>
   )
 }
 

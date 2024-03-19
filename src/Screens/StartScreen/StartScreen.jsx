@@ -22,7 +22,7 @@ function StartScreen({
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: joinRoomModal ? "35%" : "75%",
+    width: joinRoomModal ? "60svw" : "85svw",
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
