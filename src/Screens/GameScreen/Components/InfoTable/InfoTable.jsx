@@ -1,13 +1,17 @@
 import React from "react";
 import Timer from "./Timer";
+import TitleLogo from "./TitleLogo.jsx";
 
 function InfoTable({ room, capacity, seats, topText, missionNumber, gameStarted=false, mins=7 }) {
 
   return (
-    <>
+    <div className="infoTable">
+      <div className="titleLogo">
+        <TitleLogo />
+      </div>
       {
         !gameStarted ? (
-          <div className="infoTable">
+          <div className="information">
             <h3>
               {topText}
             </h3>
@@ -17,7 +21,7 @@ function InfoTable({ room, capacity, seats, topText, missionNumber, gameStarted=
             <p>{`${seats.length}/${capacity} players joined`}</p>
           </div>
         ) : (
-          <div className="infoTable">
+          <div className="information">
             <h3>
               {`Mission: ${missionNumber}`}
             </h3>
@@ -25,7 +29,7 @@ function InfoTable({ room, capacity, seats, topText, missionNumber, gameStarted=
           </div>
         )
       }
-    </>
+    </div>
   )
 }
 

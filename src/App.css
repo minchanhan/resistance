@@ -40,23 +40,48 @@
   font-size: xx-small;
 }
 
-/* Title Logo */
-#titleLogo {
-  fill: url(#gradient);
-}
-
 /* Game Screen Features */
 .gameScreen {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-flow: column wrap;
+  flex-flow: column nowrap;
   height: 100%;
   width: 100%;
 }
 
 .infoTable { /* Info Table */
   flex: 0 1 auto;
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column nowrap;
+}
+
+/* Title Logo */
+.titleLogo {
+  flex: 0 1 50%;
+  width: 100%;
+}
+
+.information {
+  flex: 0 1 50%;
+  height: auto;
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column wrap;
+  color: gray;
+}
+
+/* timer */
+.timer > p {
+  color: gray;
+  height: auto;
   width: 100%;
 }
 
@@ -475,6 +500,13 @@
 
 /* Portrait screens */
 @media screen and (orientation:portrait) {
+  .infoTable {
+    margin: 3.5em 0 0 0;
+  }
+  .showChatBtn {
+    margin: 0 0 2em 0;
+  }
+
   .chatWindow {
     position: absolute;
     z-index: 2;
@@ -545,5 +577,15 @@
 
   .infoTable, .masterMsg {
     font-size: smaller;
+  }
+}
+
+/* WHACK galaxy fold */
+@media all and (max-width: 285px) {
+  .fullTable {
+    -ms-transform: scale(0.5, 0.5); /* IE 9 */
+    -webkit-transform: scale(0.5, 0.5); /* Safari */
+    transform: scale(0.5, 0.5);
+    max-height: 50svh;
   }
 }

@@ -26,19 +26,19 @@ function Timer({ initialSecs=15, initialMins=1 }) {
   });
 
   return (
-    <div>
+    <div className="timer">
       { mins === 0 && secs === 0 ?
-          <Typography variant="h4" color="text.secondary" sx={{ flex: 1 }}>
+          <p>
             End of Round
-          </Typography>
+          </p>
         : mins === 0 && secs <= 30 ?
-          <Typography variant="h4" color="red" sx={{ flex: 1 }}>
+          <p sx={{ color: "red" }}>
             Time: {mins}:{secs < 10 ?  `0${secs}` : secs}
-          </Typography>
+          </p>
         :
-          <Typography variant="h4" color="text.secondary" sx={{ flex: 1 }}>
+          <p>
             Time: {mins}:{secs < 10 ?  `0${secs}` : secs}
-          </Typography>
+          </p>
       }
     </div>   
   )
