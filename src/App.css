@@ -458,7 +458,7 @@
 }
 
 /* other screen sizes */
-@media (max-width: 1100px) { /* Media query for sm/md screens */
+@media (max-width: 1000px) { /* Media query for sm/md screens */
   .container {
     height: 100dvh;
     width: 100dvw;
@@ -513,16 +513,11 @@
 
   .masterMsg {
     flex: 85%;
-    height: 85%;
-    width: 97%;
-    font-size: smaller;
     margin-left: 1em;
   }
-  
+
   .masterMsg::after {
-    right: -2.5%;
-    height: 10px;
-    width: 10px;
+    right: -3%;
   }
   
   .soldier {
@@ -561,6 +556,18 @@
     -ms-transform: scale(0.85, 0.85); /* IE 9 */
     -webkit-transform: scale(0.85, 0.85); /* Safari */
     transform: scale(0.85, 0.85);
+  }
+
+  .masterMsg {
+    height: 85%;
+    width: 97%;
+    font-size: smaller;
+  }
+
+  .masterMsg::after {
+    right: -2.5%;
+    height: 10px;
+    width: 10px;
   }
 }
 
