@@ -106,16 +106,17 @@ function GameScreen({
   return (
     <>
       <div className="gameScreen">
-      {
-        showHiddenChat && isPortrait ? (
-          <ChatBox {...chatBoxProps} />
-        ) : <></>
-      }
+        {
+          showHiddenChat && isPortrait ? (
+            <ChatBox {...chatBoxProps} />
+          ) : <></>
+        }
+        
         <InfoTable {...infoTableProps} />
         <GameTable {...gameTableProps} />
         {
           !isPortrait ? <ChatBox {...chatBoxProps} /> : <></>
-        }      
+        }
 
         {
           gameStarted ? (<GameCommands gameMasterSpeech={gameMasterSpeech} />) : (

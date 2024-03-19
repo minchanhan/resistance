@@ -29,7 +29,6 @@
 .startScreen {
   font-size: calc(10px + 2vmin);
   color: var(--main-text-color);
-  margin-bottom: 10%;
 }
 
 .footer {
@@ -43,21 +42,22 @@
 /* Game Screen Features */
 .gameScreen {
   display: flex;
-  justify-content: center;
+  
+  justify-content: space-around;
   align-items: center;
-  flex-flow: column nowrap;
+  flex-flow: column wrap;
   height: 100%;
   width: 100%;
 }
 
 .infoTable { /* Info Table */
-  flex: 0 1 auto;
-  width: 100%;
+  flex: 1 1 30%;
+  width: 40%;
 
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-flow: column nowrap;
+  flex-flow: row nowrap;
 }
 
 /* Title Logo */
@@ -86,8 +86,8 @@
 }
 
 .fullTable { /* Game Table */
-  flex: 4 1 auto;
-  width: 100%;
+  flex: 1 1 70%;
+  width: 40%;
 
   display: grid;
   justify-content: center;
@@ -104,8 +104,8 @@
 
 /* Game Settings */
 .gameSettings {
-  flex: 2 1 auto;
-  width: 100%;
+  flex: 0 0 30%;
+  width: 40%;
 
   display: flex;
   flex-flow: row wrap;
@@ -120,8 +120,8 @@
 }
 
 .chatWindow { /* Chat Window */ 
-  flex: 5 1 auto;
-  width: 98%;
+  flex: 0 0 65%;
+  width: 40%;
 
   display: flex;
   flex-direction: column;
@@ -131,8 +131,8 @@
 
 /* Game Master */
 .gameCommands {
-  flex: 3 1 auto;
-  width: 100%;
+  flex: 0 0 30%;
+  width: 40%;
 
   display: flex;
   flex-flow: row nowrap;
@@ -334,7 +334,7 @@
   margin: 0;
 }
 .chatWindow .chatHeader { /* header */
-  flex: 1 auto;
+  flex: 0 5%;
   height: 100%;
 
   display: flex;
@@ -348,7 +348,7 @@
 }
 
 .chatWindow .chatBody { /* body */
-  flex: 8 auto;
+  flex: 8 90%;
   height: 100%;
 
   max-height: 60vh; /* 0.93 flex * 65vh colHeight*/
@@ -444,7 +444,7 @@
 }
 
 .chatWindow .chatFooter { /* footer */
-  flex: 1 auto;
+  flex: 0 5%;
   height: 100%;
 
   display: flex;
@@ -500,14 +500,33 @@
 
 /* Portrait screens */
 @media screen and (orientation:portrait) {
+  .gameScreen {
+    flex-flow: column nowrap;
+    justify-content: center;
+  }
+
   .infoTable {
-    margin: 3.5em 0 0 0;
+    margin-top: 8em;
+    flex-flow: column nowrap;
+    flex: 0 1 auto;
+    width: 100%;
+    max-height: 15svh;
+  }
+
+  .fullTable {
+    flex: 4 1 auto;
+    width: 100%;
   }
   .showChatBtn {
     margin: 0 0 2em 0;
   }
 
+  .gameSettings{
+    width: 100%;
+    max-height: 15svh;
+  }
   .chatWindow {
+    flex: 5 1 auto;
     position: absolute;
     z-index: 2;
     height: 80svh;
@@ -518,6 +537,12 @@
   }
   .chatWindow .chatFooter, .chatWindow .chatHeader{
     height: 3em;
+    flex: 1 auto;
+  }
+
+  .gameCommands {
+    flex: 3 1 auto;
+    width: 100%;
   }
 
   .soldier {
@@ -566,17 +591,22 @@
     -ms-transform: scale(0.63, 0.63); /* IE 9 */
     -webkit-transform: scale(0.63, 0.63); /* Safari */
     transform: scale(0.63, 0.63);
-    max-height: 50svh;
+    max-height: 40svh;
   }
 
   .gameSettings {
     -ms-transform: scale(0.75, 0.75); /* IE 9 */
     -webkit-transform: scale(0.75, 0.75); /* Safari */
     transform: scale(0.75, 0.75);
+    max-height: 20svh;
   }
 
   .infoTable, .masterMsg {
     font-size: smaller;
+  }
+  .infoTable {
+    max-height: 20svh;
+    margin-top: 10em;
   }
 }
 
@@ -586,6 +616,11 @@
     -ms-transform: scale(0.5, 0.5); /* IE 9 */
     -webkit-transform: scale(0.5, 0.5); /* Safari */
     transform: scale(0.5, 0.5);
-    max-height: 50svh;
+    max-height: 30svh;
+  }
+  .infoTable {
+    font-size: smaller;
+    max-height: 15svh;
+    margin-top: 6em;
   }
 }
