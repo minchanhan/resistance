@@ -47,6 +47,7 @@ function GameTable({
     gridTemplateColumns: `repeat(${rowLength}, 1fr)`,
     gridTemplateRows: '1fr',
     direction: isBottomRow ? 'rtl' : '',
+    margin: '0.5em 0 0.5em 0',
   });
 
   var tableRow = (ninth, tenth) => ({

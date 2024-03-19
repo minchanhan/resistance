@@ -27,29 +27,55 @@ function GameSettings({
   const capacityMenuItems = [5,6,7,8,9,10];
   
   return (
-    <div className="gameSettings" style={{flex: "35%", height: "100%", width: "100%"}}>
-      <FormControl id="numPlayersSelect">
-        <InputLabel id="demo-simple-select-helper-label"># of Players</InputLabel>
-        <Select
-          id="demo-simple-select-helper"
-          labelId="demo-simple-select-helper-label"
-          label="# of Players"
-          value={capacity}
-          onChange={(event) => {
-            onChangedCapacity(event.target.value);
-          }}
-          disabled={!isAdmin}
-        >
-          {
-            capacityMenuItems.map(function(val, i) {
-              return <MenuItem key={i} value={val} disabled={val < curNumPlayers}>{val} players</MenuItem>
-            })
-          }
-        </Select>
-        <FormHelperText>Minimum 5 Players</FormHelperText>
-      </FormControl>
+    <div className="gameSettings">
+      <div style={{flex: "0 auto", width: "50%"}}>
+        <FormControl sx={{width: "90%"}}>
+          <InputLabel id="demo-simple-select-helper-label"># of Players</InputLabel>
+          <Select
+            id="demo-simple-select-helper"
+            labelId="demo-simple-select-helper-label"
+            label="# of Players"
+            value={capacity}
+            onChange={(event) => {
+              onChangedCapacity(event.target.value);
+            }}
+            disabled={!isAdmin}
+          >
+            {
+              capacityMenuItems.map(function(val, i) {
+                return <MenuItem key={i} value={val} disabled={val < curNumPlayers}>{val} players</MenuItem>
+              })
+            }
+          </Select>
+          <FormHelperText>Minimum 5 Players</FormHelperText>
+        </FormControl>
+      </div>
 
-      <div>
+      <div style={{flex: "0 auto", width: "50%"}}>
+        <FormControl sx={{width: "90%"}}>
+          <InputLabel id="demo-simple-select-helper-label">Team Select Time Limit</InputLabel>
+          <Select
+            id="demo-simple-select-helper"
+            labelId="demo-simple-select-helper-label"
+            label="Team Select Time Limit"
+            value={selectionTime}
+            onChange={(event) => {
+              onChangedSelectionTime(event.target.value)
+            }}
+            disabled={!isAdmin}
+          >
+            <MenuItem value={3}>3 mins</MenuItem>
+            <MenuItem value={5}>5 mins</MenuItem>
+            <MenuItem value={7}>7 mins</MenuItem>
+            <MenuItem value={10}>10 mins</MenuItem>
+            <MenuItem value={15}>15 mins</MenuItem>
+            <MenuItem value={200}>Unlimited</MenuItem>
+          </Select>
+          <FormHelperText>7mins: ~1hr Game</FormHelperText>
+        </FormControl>
+      </div>
+      
+      <div style={{flex: "0 auto", width: "50%"}}>
         <FormControlLabel 
           control={
             <Switch
@@ -63,33 +89,11 @@ function GameSettings({
           } 
           label="Private Room"
           labelPlacement="start"
-          sx={{color: "var(--main-text-color)", ml: "1.5em"}}
+          sx={{color: "var(--main-text-color)", mb: "0.25em"}}
         />
       </div>
 
-      <FormControl>
-        <InputLabel id="demo-simple-select-helper-label">Team Select Time Limit</InputLabel>
-        <Select
-          id="demo-simple-select-helper"
-          labelId="demo-simple-select-helper-label"
-          label="Team Select Time Limit"
-          value={selectionTime}
-          onChange={(event) => {
-            onChangedSelectionTime(event.target.value)
-          }}
-          disabled={!isAdmin}
-        >
-          <MenuItem value={3}>3 mins</MenuItem>
-          <MenuItem value={5}>5 mins</MenuItem>
-          <MenuItem value={7}>7 mins</MenuItem>
-          <MenuItem value={10}>10 mins</MenuItem>
-          <MenuItem value={15}>15 mins</MenuItem>
-          <MenuItem value={200}>Unlimited</MenuItem>
-        </Select>
-        <FormHelperText>Recommended: 7 mins</FormHelperText>
-      </FormControl>
-
-      <div>
+      <div style={{flex: "0 auto", width: "50%"}}>
         <Button 
           variant="text" 
           onClick={() => {
@@ -99,7 +103,6 @@ function GameSettings({
             startGame();
           }}
           disabled={curNumPlayers < capacity || !isAdmin}
-          sx={{ml: "1.5em"}}
         >
           Start Game
         </Button>

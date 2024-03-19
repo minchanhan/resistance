@@ -40,54 +40,23 @@
   font-size: xx-small;
 }
 
-/* Game Settings */
-.gameSettings {
-  flex: 35%;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  box-sizing:border-box;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -ms-box-sizing: border-box;
-  -o-box-sizing: border-box;
-  margin-top: 1em;
-}
-
 /* Game Screen Features */
 .gameScreen {
-  display: grid;
-  flex-direction: row;
-  height: 100%;
-  width: 100%;
-  grid-template-columns: 3fr 2fr;
-}
-
-.gameScreenCol {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  text-align: center;
-  
+  flex-flow: column wrap;
   height: 100%;
-  box-sizing:border-box;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -ms-box-sizing: border-box;
-  -o-box-sizing: border-box;
-  padding: 1em;
+  width: 100%;
 }
 
 .infoTable { /* Info Table */
-  flex: 20%;
-  height: auto;
-  width: auto;
+  flex: 0 1 auto;
+  width: 100%;
 }
 
 .fullTable { /* Game Table */
-  flex: 80%;
-  height: 100%;
+  flex: 4 1 auto;
   width: 100%;
 
   display: grid;
@@ -103,6 +72,63 @@
   -o-box-sizing: border-box;
 }
 
+/* Game Settings */
+.gameSettings {
+  flex: 2 1 auto;
+  width: 100%;
+
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  -o-box-sizing: border-box;
+}
+
+.chatWindow { /* Chat Window */ 
+  flex: 5 1 auto;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border: 2px solid var(--secondary-color);
+}
+
+/* Game Master */
+.gameCommands {
+  flex: 3 1 auto;
+  width: 100%;
+
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  -o-box-sizing: border-box;
+}
+
+.showChatBtn {
+  flex: 1 1 auto;
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+
+/* game table features */
 .holdPlayers {
   display: flex;
   justify-content: center;
@@ -238,21 +264,12 @@
   background-color: var(--secondary-color);
 }
 
-.gameCommands { /* Game Master */
-  flex: 35%;
-  height: 100%;
-  width: 100%;
-  display: flex;
-
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
+/* game master features */
 .masterMsg {
-  flex: 65%;
-  height: 70%;
-  width: 95%;
+  flex: 0 0 80%;
+  height: 80%;
+  width: 100%;
+  min-width: 0;
 
   background-color: black;
   color: white;
@@ -273,31 +290,24 @@
 }
 
 .soldier {
-  flex: 35%;
+  flex: 0 0 20%;
   height: 100%;
-  width: 100%;
+  min-width: 0;
 
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.chatWindow { /* Chat Window */ 
-  flex: 65%;
-  height: 100%;
-  width: 100%;
-
-  display: flex;
-  flex-direction: column;
-  background-color: white;
-}
+/* chat window features */
 .chatWindow p {
   margin: 0;
 }
 .chatWindow .chatHeader { /* header */
-  display: flex;
+  flex: 1 auto;
   height: 100%;
-  flex: 3.5%;
+
+  display: flex;
   justify-content: center;
   align-items: center;
   background: var(--secondary-color);
@@ -308,8 +318,9 @@
 }
 
 .chatWindow .chatBody { /* body */
-  flex: 93%;
+  flex: 8 auto;
   height: 100%;
+
   max-height: 60vh; /* 0.93 flex * 65vh colHeight*/
   border: 1px solid black;
   background: white;
@@ -403,9 +414,10 @@
 }
 
 .chatWindow .chatFooter { /* footer */
-  display: flex;
-  flex: 3.5%;
+  flex: 1 auto;
   height: 100%;
+
+  display: flex;
   border: 1px solid var(--secondary-color);
   border-top: none;
 }
@@ -456,136 +468,77 @@
   color: var(--main-text-color);
 }
 
-/* other screen sizes */
-@media (max-width: 1000px) { /* Media query for sm/md screens */
-  .container {
-    height: 100dvh;
-    width: 100dvw;
+/* Portrait screens */
+@media screen and (orientation:portrait) {
+  .chatWindow {
+    position: absolute;
+    z-index: 2;
+    height: 80svh;
+    width: 95svw;
+  }
+  .chatWindow .chatBody {
+    max-height: 76svh;
+  }
+  .chatWindow .chatFooter, .chatWindow .chatHeader{
+    height: 3em;
   }
 
-  .gameScreen {
-    display: flex;
-    flex-direction: column;
-    box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -ms-box-sizing: border-box;
-    -o-box-sizing: border-box;
-  }
-
-  .infoTable, .gameSettings, .tableTrackDiv, .voteTrackLabel {
-    -ms-transform: scale(0.8, 0.8); /* IE 9 */
-    -webkit-transform: scale(0.8, 0.8); /* Safari */
-    transform: scale(0.8, 0.8);
-  }
-
-  .infoTable { /* Info Table */
-    flex: 5%;
-    max-height: 15svh;
-  }
-  .gameCommands, .gameSettings {
-    flex: 35%;
-  }
-  .gameCommands {
-    min-height: 25svh;
-  }
-  .gameSettings {
-    margin-top: 0em;
-  }
-  .fullTable { 
-    flex: 60%;
-    box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -ms-box-sizing: border-box;
-    -o-box-sizing: border-box;
-    min-height: 55svh;
-
-    -ms-transform: scale(0.9, 0.9); /* IE 9 */
-    -webkit-transform: scale(0.9, 0.9); /* Safari */
-    transform: scale(0.9, 0.9);
-  }
-
-  #numPlayersSelect {
-    margin-bottom: 1em;
-  }
-
-  .masterMsg {
-    flex: 85%;
-    margin-left: 1em;
-  }
-
-  .masterMsg::after {
-    right: -3%;
-  }
-  
   .soldier {
     -ms-transform: scale(0.5, 0.5); /* IE 9 */
     -webkit-transform: scale(0.5, 0.5); /* Safari */
     transform: scale(0.5, 0.5);
-    flex: 15%;
-    height: 25%;
-    width: 25%;
   }
-
-  .chatWindow {
-    position: absolute;
-    z-index: 2;
-    -ms-transform: scale(0.92, 0.92); /* IE 9 */
-    -webkit-transform: scale(0.92, 0.92); /* Safari */
-    transform: scale(0.92, 0.92);
-    max-height: 70svh;
-  }
-
-  .chatWindow .chatHeader {
-    max-height: 5em;
-  }
-  .chatWindow .chatFooter {
-    max-height: 5em;
-  }
-}
-
-@media (max-width: 770px) {
-  .fullTable {
-    -ms-transform: scale(0.7, 0.7); /* IE 9 */
-    -webkit-transform: scale(0.7, 0.7); /* Safari */
-    transform: scale(0.7, 0.7);
-  }
-  .playerBox {
-    -ms-transform: scale(0.85, 0.85); /* IE 9 */
-    -webkit-transform: scale(0.85, 0.85); /* Safari */
-    transform: scale(0.85, 0.85);
-  }
-
   .masterMsg {
-    height: 85%;
-    width: 97%;
-    font-size: smaller;
-  }
-
-  .masterMsg::after {
-    right: -2.5%;
-    height: 10px;
-    width: 10px;
-  }
-
-  .chatWindow .chatHeader {
-    max-height: 3em;
-  }
-  .chatWindow .chatFooter {
-    max-height: 3em;
+    -ms-transform: scale(0.9, 0.9); /* IE 9 */
+    -webkit-transform: scale(0.9, 0.9); /* Safari */
+    transform: scale(0.9, 0.9);
+    font-size: larger;
   }
 }
 
-@media (max-width: 410px) { /* xxs widths */
+/* Larger screens */
+@media all and (max-width: 1000px) {
+  .gameSettings {
+    max-width: 90svw;
+  }
+  .masterMsg::after {
+    right: -3%;
+  }
+}
+
+/* Medium screens */
+@media all and (max-width: 600px) {
   .fullTable {
-    -ms-transform: scale(0.6, 0.6); /* IE 9 */
-    -webkit-transform: scale(0.6, 0.6); /* Safari */
-    transform: scale(0.6, 0.6);
+    -ms-transform: scale(0.725, 0.725); /* IE 9 */
+    -webkit-transform: scale(0.725, 0.725); /* Safari */
+    transform: scale(0.725, 0.725);
   }
   .playerBox {
     -ms-transform: scale(0.85, 0.85); /* IE 9 */
     -webkit-transform: scale(0.85, 0.85); /* Safari */
     transform: scale(0.85, 0.85);
+  }
+  .masterMsg::after {
+    right: -6%;
+  }
+}
+
+/* xxs widths */
+@media all and (max-width: 410px) {
+  .fullTable {
+    -ms-transform: scale(0.63, 0.63); /* IE 9 */
+    -webkit-transform: scale(0.63, 0.63); /* Safari */
+    transform: scale(0.63, 0.63);
+    max-height: 50svh;
+  }
+
+  .gameSettings {
+    -ms-transform: scale(0.75, 0.75); /* IE 9 */
+    -webkit-transform: scale(0.75, 0.75); /* Safari */
+    transform: scale(0.75, 0.75);
+  }
+
+  .infoTable, .masterMsg {
+    font-size: smaller;
   }
 }
