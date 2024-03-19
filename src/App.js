@@ -37,6 +37,11 @@ function App() {
         link: '#FF8C00'
       }
     },
+    typography: {
+      "fontFamily": `'Impact', 'Arial Narrow Bold', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif`,   
+     }
   });
 
   // Screen States

@@ -40,6 +40,11 @@
   font-size: xx-small;
 }
 
+/* Title Logo */
+#titleLogo {
+  fill: url(#gradient);
+}
+
 /* Game Screen Features */
 .gameScreen {
   display: flex;
@@ -91,7 +96,7 @@
 
 .chatWindow { /* Chat Window */ 
   flex: 5 1 auto;
-  width: 100%;
+  width: 98%;
 
   display: flex;
   flex-direction: column;
