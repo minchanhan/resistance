@@ -448,10 +448,12 @@
   padding: 1em;
   overflow-wrap: break-word;
   word-break: break-word;
+  border-radius: 0.7em;
 
   display: flex;
   justify-content: start;
   align-items: center;
+  text-align: left;
 }
 
 .you {
@@ -562,6 +564,7 @@
 }
 
 /* ----- Different Screens ----- */
+/* Horizontal */
 @media all and (max-width: 1000px) { /* isGettingThin */
   .fullTable, .soldier {
     -ms-transform: scale(0.9, 0.9); /* IE 9 */
@@ -601,6 +604,7 @@
     z-index: 2;
     height: 70svh;
     width: 95svw;
+    align-self: center;
   }
   .depth {
     width: 4.5em;
@@ -627,6 +631,12 @@
     -webkit-transform: scale(0.8, 0.8); /* Safari */
     transform: scale(0.8, 0.8);
   }
+  .infoTable {
+    margin-bottom: -10%;
+  }
+  .gameSettings, .gameCommands {
+    margin-top: -10%;
+  }
 }
 
 @media all and (max-width: 385px) { /* isREALLYThin */
@@ -634,13 +644,37 @@
     font-size: 0.6em;
   }
   .fullTable {
-    -ms-transform: scale(0.5, 0.5); /* IE 9 */
-    -webkit-transform: scale(0.5, 0.5); /* Safari */
-    transform: scale(0.5, 0.5);
+    -ms-transform: scale(0.6, 0.6); /* IE 9 */
+    -webkit-transform: scale(0.6, 0.6); /* Safari */
+    transform: scale(0.6, 0.6);
   }
   .gameSettings, .gameCommands {
     -ms-transform: scale(0.7, 0.7); /* IE 9 */
     -webkit-transform: scale(0.7, 0.7); /* Safari */
     transform: scale(0.7, 0.7);
+  }
+}
+
+@media all and (max-width: 285px) { /* whack galaxy fold */
+  .chatInput > input, .chatSendBtn {
+    font-size: 0.5em;
+  }
+  .fullTable {
+    -ms-transform: scale(0.5, 0.5); /* IE 9 */
+    -webkit-transform: scale(0.5, 0.5); /* Safari */
+    transform: scale(0.5, 0.5);
+  }
+  .titleLogo > svg {
+    width: 75%;
+  }
+}
+
+/* Vertical */
+@media all and (max-height: 700px) and (max-width: 385px) { /* small height and REALLY thin */
+  .infoTable {
+    margin-bottom: -20%;
+  }
+  .gameSettings, .gameCommands {
+    margin-top: -20%;
   }
 }
