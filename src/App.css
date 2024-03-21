@@ -693,7 +693,6 @@
 /* Landscape Mobile Devices */
 @media all and (max-height: 600px) and (orientation: landscape) {
   .gameScreen {
-    background-color: pink;
     flex-flow: row nowrap;
   }
 
