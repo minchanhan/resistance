@@ -56,7 +56,7 @@
   -ms-box-sizing: border-box;
   -o-box-sizing: border-box;
 }
-.gameScreen { 
+.gameScreen {
   display: flex;
 
   box-sizing: border-box;
@@ -86,7 +86,7 @@
 }
 
 /* --- Info Table --- */
-.infoTable {
+.infoTable { 
   flex: 1 1 30%;
   
   display: flex;
@@ -95,7 +95,7 @@
 }
 
 /* Title Logo */
-.titleLogo {
+.titleLogo { 
   flex: 2;
 
   display: flex;
@@ -106,7 +106,7 @@
   width: 100%;
 }
 
-.information {
+.information { 
   flex: 1;
   
   display: flex;
@@ -124,7 +124,7 @@
 }
 
 /* --- Game Table --- */
-.fullTable * {
+.fullTable * { 
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -145,7 +145,7 @@
 }
 
 /* --- Chat Window --- */ 
-.chatWindow * {
+.chatWindow * { 
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -171,7 +171,7 @@
 }
 
 /* --- Game Settings --- */
-.gameSettings * {
+.gameSettings * { 
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -183,19 +183,23 @@
 
   display: flex;
   flex-flow: row wrap;
-  justify-content: center;
-  align-items: center;
+  justify-content: space-evenly;
+  align-items: stretch;
+  align-content: space-around;
+  margin: auto;
 
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   -ms-box-sizing: border-box;
   -o-box-sizing: border-box;
-  margin: auto;
+}
+.settingsSelect, .settingsSwitch, .settingsStartBtn {
+  flex: 1 1 50%;
 }
 
 /* --- Game Master --- */
-.gameCommands > * {
+.gameCommands * { 
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -210,9 +214,15 @@
   align-items: center;
   padding: 0.25em 0;
   margin: auto;
+
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  -o-box-sizing: border-box;
 }
 
-.showChatBtn {
+.showChatBtn { 
   flex: 1 1 auto;
   width: 100%;
 
@@ -573,6 +583,8 @@
   .gameScreen {
     display: flex;
     flex-flow: column nowrap;
+    justify-content: space-around;
+    padding: 3em 0 1em 0;
   }
   .infoTable {
     flex: 1 2 auto;

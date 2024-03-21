@@ -28,8 +28,8 @@ function GameSettings({
   
   return (
     <div className="gameSettings">
-      <div style={{flex: "0 auto", width: "50%"}}>
-        <FormControl sx={{width: "90%"}}>
+      <div className="settingsSelect">
+        <FormControl>
           <InputLabel id="demo-simple-select-helper-label"># of Players</InputLabel>
           <Select
             id="demo-simple-select-helper"
@@ -51,8 +51,8 @@ function GameSettings({
         </FormControl>
       </div>
 
-      <div style={{flex: "0 auto", width: "50%"}}>
-        <FormControl sx={{width: "90%"}}>
+      <div className="settingsSelect">
+        <FormControl>
           <InputLabel id="demo-simple-select-helper-label">Team Select Time Limit</InputLabel>
           <Select
             id="demo-simple-select-helper"
@@ -75,7 +75,7 @@ function GameSettings({
         </FormControl>
       </div>
       
-      <div style={{flex: "0 auto", width: "50%"}}>
+      <div className="settingsSwitch">
         <FormControlLabel 
           control={
             <Switch
@@ -93,7 +93,7 @@ function GameSettings({
         />
       </div>
 
-      <div style={{flex: "0 auto", width: "50%"}}>
+      <div className="settingsStartBtn">
         <Button 
           variant="text" 
           onClick={() => {

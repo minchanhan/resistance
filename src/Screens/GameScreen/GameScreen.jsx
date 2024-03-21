@@ -46,12 +46,7 @@ function GameScreen({
 }) {
   // const isPortrait = useMediaQuery({ orientation: 'portrait' });
   // const isRetina = useMediaQuery({ minResolution: '2dppx' });
-  const isGettingThin = useMediaQuery({ maxWidth: 1000 });
   const isThin = useMediaQuery({ maxWidth: 900 }); // turn to portrait mode
-  // maxWidth: 500 -> big height more thin
-  // maxWidth: 500 -> big height REALLY thin
-  // maxHeight: 500 -> big height thin (landscape phones)
-
 
   const [showHiddenChat, setShowHiddenChat] = useState(false);
 
