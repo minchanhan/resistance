@@ -79,7 +79,6 @@
 }
 .colRight {
   flex: 1 1 40%;
-  min-width: 300px;
 }
 .colLeft > *, .colRight > *{
   margin: 1em;
