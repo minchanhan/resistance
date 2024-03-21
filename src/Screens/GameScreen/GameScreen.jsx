@@ -46,6 +46,7 @@ function GameScreen({
 }) {
   // const isTabletOrMobile = useMediaQuery({ maxWidth: 770 });
   const isPortrait = useMediaQuery({ orientation: 'portrait' });
+  const isThin = useMediaQuery({ maxWidth: 950 });
   // const isRetina = useMediaQuery({ minResolution: '2dppx' });
 
   const [showHiddenChat, setShowHiddenChat] = useState(false);
@@ -107,14 +108,14 @@ function GameScreen({
     <>
       <div className="gameScreen">
         {
-          showHiddenChat && isPortrait ? (
+          showHiddenChat && isThin ? (
             <ChatBox {...chatBoxProps} />
           ) : <></>
         }
         <InfoTable {...infoTableProps} />
         <GameTable {...gameTableProps} />
         {
-          !isPortrait ? <ChatBox {...chatBoxProps} /> : <></>
+          !isThin ? <ChatBox {...chatBoxProps} /> : <></>
         }
 
         {
@@ -124,7 +125,7 @@ function GameScreen({
         }
 
         {
-          isPortrait ? (
+          isThin ? (
             <div className="showChatBtn">
               <Button
                 color="secondary"
@@ -139,7 +140,6 @@ function GameScreen({
             
           ) : <></>
         }   
-
       </div>
     </>
   )

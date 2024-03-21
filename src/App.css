@@ -564,3 +564,73 @@
   overflow-x: hidden;
   color: var(--main-text-color);
 }
+
+/* ----- Different Screens ----- */
+@media all and (max-width: 950px) { /* isThin */
+  .gameScreen {
+    flex-flow: column wrap;
+    padding: 5% 1% 2% 1%;
+  }
+  .infoTable {
+    height: 20%;
+    width: 100%;
+    flex-direction: column
+  }
+  .titleLogo, .information {
+    height: 50%;
+    width: 100%;
+  }
+  .fullTable {
+    height: 35%;
+    width: 100%;
+  }
+  .gameSettings, .gameCommands {
+    height: 30%;
+    width: 100%;
+  }
+  .showChatBtn {
+    height: 7.5%;
+    width: 100%;
+  }
+
+  .chatWindow {
+    position: absolute;
+    z-index: 2;
+    height: 70svh;
+    width: 95svw;
+  }
+}
+
+@media all and (max-width: 500px) { /* isMoreThin */
+  .infoTable, .holdPlayers {
+    -ms-transform: scale(0.9, 0.9); /* IE 9 */
+    -webkit-transform: scale(0.9, 0.9); /* Safari */
+    transform: scale(0.9, 0.9);
+  }
+  .fullTable {
+    -ms-transform: scale(0.7, 0.7); /* IE 9 */
+    -webkit-transform: scale(0.7, 0.7); /* Safari */
+    transform: scale(0.7, 0.7);
+  }
+  .gameSettings, .gameCommands {
+    -ms-transform: scale(0.8, 0.8); /* IE 9 */
+    -webkit-transform: scale(0.8, 0.8); /* Safari */
+    transform: scale(0.8, 0.8);
+  }
+}
+
+@media all and (max-width: 385px) { /* isREALLYThin */
+  .chatInput > input, .chatSendBtn {
+    font-size: 0.6em;
+  }
+  .fullTable {
+    -ms-transform: scale(0.5, 0.5); /* IE 9 */
+    -webkit-transform: scale(0.5, 0.5); /* Safari */
+    transform: scale(0.5, 0.5);
+  }
+  .gameSettings, .gameCommands {
+    -ms-transform: scale(0.7, 0.7); /* IE 9 */
+    -webkit-transform: scale(0.7, 0.7); /* Safari */
+    transform: scale(0.7, 0.7);
+  }
+}
