@@ -607,7 +607,7 @@
     width: 95svw;
     align-self: center;
   }
-  .depth {
+  .missionToken {
     width: 4.5em;
     height: 4.5em;
   }
@@ -634,9 +634,6 @@
   }
   .infoTable {
     margin-bottom: -10%;
-  }
-  .gameSettings, .gameCommands {
-    margin-top: -10%;
   }
 }
 
@@ -672,10 +669,15 @@
 
 /* Vertical */
 @media all and (max-height: 700px) and (max-width: 385px) { /* small height and REALLY thin */
-  .infoTable {
-    margin-bottom: -20%;
+  .fullTable {
+    margin-top: -10%;
+    margin-bottom: -15%;
   }
-  .gameSettings, .gameCommands {
-    margin-top: -20%;
+}
+
+@media all and (max-height: 700px) and (max-width: 285px) { /* Galaxy fold... */
+  .fullTable {
+    margin-top: -25%;
+    margin-bottom: -25%;
   }
 }
