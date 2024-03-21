@@ -6,19 +6,16 @@ function InfoTable({ room, capacity, seats, topText, missionNumber, gameStarted=
 
   return (
     <div className="infoTable">
-      <div className="titleLogo">
-        <TitleLogo />
-      </div>
+      <TitleLogo />
+
       {
         !gameStarted ? (
           <div className="information">
-            <h3>
-              {topText}
-            </h3>
-            <p style={{cursor: "pointer"}} onClick={() => {navigator.clipboard.writeText(room)}}>
-              {`Room Code [click to copy]: ${room}`}
-            </p>
-            <p>{`${seats.length}/${capacity} players joined`}</p>
+            <div>{topText}</div>
+            <div style={{cursor: "pointer"}} onClick={() => {navigator.clipboard.writeText(room)}}>
+              {`Copy Room Code: ${room}`}
+            </div>
+            <div>{`${seats.length}/${capacity} players joined`}</div>
           </div>
         ) : (
           <div className="information">

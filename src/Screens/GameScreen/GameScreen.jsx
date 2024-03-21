@@ -111,7 +111,6 @@ function GameScreen({
             <ChatBox {...chatBoxProps} />
           ) : <></>
         }
-        
         <InfoTable {...infoTableProps} />
         <GameTable {...gameTableProps} />
         {

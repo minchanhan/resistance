@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 import ScrollToBottom from "react-scroll-to-bottom";
 
 function ChatBox({ socket, username, msg, setMsg, msgList, setMsgList }) {
@@ -32,18 +32,17 @@ function ChatBox({ socket, username, msg, setMsg, msgList, setMsgList }) {
         <p>Comunication</p>
       </div>
 
-      <div className="chatBody">
-        <ScrollToBottom className="msgContainer">
-          {
-            msgList.map((msgData) => {
-              return (
-                <div
-                  className="message" 
-                  id={username === msgData.sender ? "you" : (
-                      msgData.sender === "PUBLIC TALLY" || msgData.sender === "THE UNIVERSE"
-                    ) ? "voteResult" : "other"}
-                >
-                  <div className="fullMessage">
+      <ScrollToBottom className="chatScroller">
+        <div className="chatBody">
+            {
+              msgList.map((msgData) => {
+                return (
+                  <div
+                    className={`message ${username === msgData.sender ? "you" : (
+                        msgData.sender === "PUBLIC TALLY" || msgData.sender === "THE UNIVERSE"
+                      ) ? "voteResult" : "other"}`
+                    }
+                  >
                     <div className="msgContent">
                       <p>{msgData.msg}</p>
                     </div>
@@ -52,28 +51,32 @@ function ChatBox({ socket, username, msg, setMsg, msgList, setMsgList }) {
                       <p>{msgData.sender}</p>
                     </div>
                   </div>
-                </div>
-              )
-            })
-          }
-        </ScrollToBottom>
-      </div>
+                )
+              })
+            }
+        </div>
+      </ScrollToBottom>
 
       <div className="chatFooter">
-        <input
-          type="text"
-          placeholder="Enter message"
-          value={msg}
-          onChange={(event) => {
-            setMsg(event.target.value);
-          }}
-          onKeyDown={(event) => {
-            if (event.code === "Enter") {
-              sendMsg();
-            }
-          }}
-        />
-        <button onClick={sendMsg}>Send</button>
+        <div className="chatInput">
+          <input
+            defaultValue=""
+            placeholder="Enter message"
+            value={msg}
+            onChange={(event) => {
+              setMsg(event.target.value);
+            }}
+            onKeyDown={(event) => {
+              if (event.code === "Enter") {
+                sendMsg();
+              }
+            }}
+          ></input>
+        </div>
+        
+        <div onClick={sendMsg} className="chatSendBtn">
+          Send
+        </div>
       </div>
     </div>
   )

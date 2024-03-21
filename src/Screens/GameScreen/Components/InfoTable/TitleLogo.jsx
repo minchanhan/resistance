@@ -3,7 +3,8 @@ import "../../../../App.css";
 
 function TitleLogo() {
   return (
-    <svg id="titleLogo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 100">
+    <div className="titleLogo">
+      <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 100">
       <text
         x="50%"
         y="50%"
@@ -17,6 +18,7 @@ function TitleLogo() {
         {"The Rebellion"}
       </text>
     </svg>
+    </div>
   )
 }
 

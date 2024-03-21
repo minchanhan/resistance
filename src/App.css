@@ -7,25 +7,34 @@
   --my-red: #DF4730;
 }
 
-.container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+*::before, *::after {
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   -ms-box-sizing: border-box;
   -o-box-sizing: border-box;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  -o-box-sizing: border-box;
+
   width: 100vw;
   height: 100vh;
   margin: 0;
-  padding: 1;
   background-color: var(--main-bg-color);
   overflow-y: auto;
 }
 
-/* Start Screen Features */
+/* ----- Start Screen Features ----- */
 .startScreen {
   font-size: calc(10px + 2vmin);
   color: var(--main-text-color);
@@ -39,38 +48,60 @@
   font-size: xx-small;
 }
 
-/* Game Screen Features */
+/* ----- Game Screen Features ----- */
+.gameScreen > * {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  -o-box-sizing: border-box;
+}
 .gameScreen {
   display: flex;
-  
-  justify-content: space-around;
-  align-items: center;
   flex-flow: column wrap;
+  justify-content: space-evenly;
+  align-items: center;
+  align-content: space-around;
+  margin: 0 auto;
+
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  -o-box-sizing: border-box;
+
+  min-height: 0;
   height: 100%;
   width: 100%;
 }
 
-.infoTable { /* Info Table */
-  flex: 1 1 30%;
-  width: 40%;
-
+/* --- Info Table --- */
+.infoTable {
+  height: 30%;
+  width: 50%;
+  
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-flow: row nowrap;
 }
 
 /* Title Logo */
 .titleLogo {
-  flex: 0 1 50%;
+  height: 100%;
+  width: 50%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.titleLogo > svg {
   width: 100%;
 }
 
 .information {
-  flex: 0 1 50%;
-  height: auto;
-  width: 100%;
-
+  height: 100%;
+  width: 50%;
+  
   display: flex;
   justify-content: center;
   align-items: center;
@@ -85,9 +116,17 @@
   width: 100%;
 }
 
-.fullTable { /* Game Table */
-  flex: 1 1 70%;
-  width: 40%;
+/* --- Game Table --- */
+.fullTable * {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  -o-box-sizing: border-box;
+}
+.fullTable {
+  height: 55%;
+  width: 50%;
 
   display: grid;
   justify-content: center;
@@ -95,17 +134,47 @@
   grid-template-columns: 1fr;
   grid-template-rows: 1fr 2.2fr 1fr;
 
-  box-sizing:border-box;
+  margin: auto;
+}
+
+/* --- Chat Window --- */ 
+.chatWindow * {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  -o-box-sizing: border-box;
+}
+.chatWindow { 
+  height: 60%;
+  width: 45%;
+  padding: 0.5em;
+  border-radius: 0.5em;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column nowrap;
+  background-color: var(--secondary-color);
+
+  box-sizing: border-box;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   -ms-box-sizing: border-box;
   -o-box-sizing: border-box;
 }
 
-/* Game Settings */
+/* --- Game Settings --- */
+.gameSettings * {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  -o-box-sizing: border-box;
+}
 .gameSettings {
-  flex: 0 0 30%;
-  width: 40%;
+  height: 25%;
+  width: 45%;
 
   display: flex;
   flex-flow: row wrap;
@@ -117,34 +186,25 @@
   -moz-box-sizing: border-box;
   -ms-box-sizing: border-box;
   -o-box-sizing: border-box;
+  margin: auto;
 }
 
-.chatWindow { /* Chat Window */ 
-  flex: 0 0 65%;
-  width: 40%;
-
-  display: flex;
-  flex-direction: column;
-  background-color: white;
-  border: 2px solid var(--secondary-color);
-}
-
-/* Game Master */
-.gameCommands {
-  flex: 0 0 30%;
-  width: 40%;
-
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-
+/* --- Game Master --- */
+.gameCommands > * {
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   -ms-box-sizing: border-box;
   -o-box-sizing: border-box;
+}
+.gameCommands {
+  height: 25%;
+  width: 45%;
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0.25em 0;
 }
 
 .showChatBtn {
@@ -167,7 +227,8 @@
   text-align: center;
 }
 
-.playerBox { /* Player Box */
+/* Player Box */
+.playerBox { 
   display: flex;
   justify-content: center;
   align-items: center;
@@ -221,7 +282,7 @@
   align-items: center;
   text-align: center;
   align-content: center;
-  grid-template-columns: repeat(5, 1fr);;
+  grid-template-columns: repeat(5, 1fr);
   grid-template-rows: 1fr;
 }
 
@@ -294,35 +355,36 @@
   background-color: var(--secondary-color);
 }
 
-/* game master features */
+/* game master command features */
 .masterMsg {
-  flex: 0 0 80%;
-  height: 85%;
-  width: 100%;
-  min-width: 0;
+  height: 100%;
+  width: 70%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   background-color: black;
   color: white;
   border-radius: 2em;
+  
   padding: 0.6em;
   position: relative;
 }
 
 .masterMsg::after {
-  background-color: black;
-  content: "";
-  height: 25px;
-  width: 25px;
+  background-color: var(--main-bg-color);
+  border-top: 1em solid transparent;
+  border-bottom: 1em solid transparent;
+  border-left: 1em solid black;
   position: absolute;
-  top: 50%;
-  right: -5%;
-  transform: translate(-50%) rotate(45deg);
+  left: 100%;
+  content: "";
 }
 
 .soldier {
-  flex: 0 0 20%;
   height: 100%;
-  min-width: 0;
+  width: 25%;
 
   display: flex;
   justify-content: center;
@@ -334,150 +396,155 @@
   margin: 0;
 }
 .chatWindow .chatHeader { /* header */
-  flex: 0 5%;
-  height: 100%;
+  height: 5%;
+  width: 100%;
+  background: var(--secondary-color);
 
   display: flex;
   justify-content: center;
   align-items: center;
-  background: var(--secondary-color);
 }
 .chatWindow .chatHeader p {
   color: black;
   font-weight: 700;
 }
 
-.chatWindow .chatBody { /* body */
-  flex: 8 90%;
-  height: 100%;
-
-  max-height: 60vh; /* 0.93 flex * 65vh colHeight*/
-  border: 1px solid black;
-  background: white;
-}
-.chatWindow .chatBody .msgContainer {
-  width: 100%;
+.chatScroller {
+  width: 92.5%;
   height: 100%;
   overflow-y: scroll;
   overflow-x: hidden;
+
+  height: 100%;
+  width: 100%;
+  border-radius: 0.5em 0.5em 0 0;
+  background: white;
+
+  display: flex;
+  flex: column nowrap;
 }
-.chatWindow .chatBody .msgContainer::-webkit-scrollbar {
+.chatScroller::-webkit-scrollbar {
   display: none;
 }
-.chatWindow .chatBody .message {
-  height: auto;
+
+.chatBody { /* body */
   display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
-.chatWindow .chatBody .fullMessage {
-  margin: 0.15em 0.25em 0.15em 0.25em;
-}
-.chatWindow .chatBody .message .msgContent {
+
+.message {
+  min-width: 25%;
+  max-width: 75%;
+  margin: 0.3em;
+  
   display: flex;
+  flex-flow: column wrap;
+}
+
+.message .msgContent {
   width: auto;
   height: auto;
-  min-height: 1.6em;
-  max-width: 18em;
-  border-radius: 10px;
+  min-height: 1em;
+
   color: var(--main-text-color);
-  align-items: center;
-  padding: 2.5px 10px 2.5px 10px;
+  padding: 1em;
   overflow-wrap: break-word;
   word-break: break-word;
-}
-
-#you {
-  justify-content: flex-end;
-  text-align: left;
-}
-#you .msgContent {
-  justify-content: flex-start;
-  background-color: var(--secondary-color);
-}
-#you .msgMeta {
-  justify-content: flex-end;
-  margin-right: 5px;
-}
-#you .msgTime {
-  margin-right: 3px;
-}
-
-#other {
-  justify-content: flex-start;
-  text-align: left;
-}
-#other .msgContent {
-  justify-content: flex-start;
-  background-color: gray;
-}
-#other .msgMeta {
-  justify-content: flex-start;
-  margin-left: 5px;
-}
-#other .msgTime {
-  margin-right: 3px;
-}
-
-#voteResult {
-  justify-content: flex-start;
-  text-align: left;
-}
-#voteResult .msgContent {
-  justify-content: flex-start;
-  background-color: var(--secondary-color);
-  color: black;
-}
-#voteResult .msgMeta {
-  justify-content: flex-start;
-  margin-left: 5px;
-}
-#voteResult .msgTime {
-  margin-right: 3px;
-}
-
-.msgMeta #author {
-  margin-left: 10px;
-  font-weight: bold;
-}
-.chatWindow .chatBody .message .msgMeta {
-  display: flex;
-  font-size: 12px;
-}
-
-.chatWindow .chatFooter { /* footer */
-  flex: 0 5%;
-  height: 100%;
 
   display: flex;
-  border: 1px solid var(--secondary-color);
-  border-top: none;
+  justify-content: start;
+  align-items: center;
 }
-.chatWindow .chatFooter input {
-  flex: 85%;
-  height: 100%;
-  border: 0;
-  padding: 0 0.7em;
+
+.you {
+  align-self: flex-end;
+}
+.you .msgContent {
+  background-color: var(--secondary-color);
+}
+.you .msgMeta {
+  margin-right: 1em;
+  align-self: flex-end;
+}
+.you .msgTime {
+  margin-right: 0.5em;
+}
+
+.other .msgContent {
+  background-color: pink;
+}
+.voteResult .msgContent {
+  background-color: silver;
+}
+.other .msgMeta, .voteResult .msgMeta {
+  margin-left: 1em;
+}
+.other .msgTime, .voteResult .msgTime {
+  margin-right: 0.5em;
+}
+
+.msgMeta {
+  display: flex;
+  font-size: 0.7em;
+}
+
+.chatFooter * {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  -o-box-sizing: border-box;
+}
+.chatFooter { /* footer */
+  height: 7.5%;
+  width: 100%;
+  border-top: 0.025em solid black;
+  border-radius: 0 0 0.5em 0.5em;
+
+  display: flex;
+
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  -o-box-sizing: border-box;
+}
+.chatInput {
+  flex: 90%;
+  width: 100%;
+  border-radius: 0 0 0 0.5em;
+  background-color: white;
+}
+.chatInput > input {
+  width: 100%;
+  height: 90%;
+  margin-left: 0.25em;
+  border: none;
+  border-radius: 0 0 0 0.5em;
+  outline: none;
+  resize: none;
   font-size: 1em;
-  border-right: 1.5px dotted var(--secondary-color);
-
-  outline: none;
-  font-family: "Open Sans", sans-serif;
+  font-family: inherit;
 }
-.chatWindow .chatFooter button {
-  flex: 15%;
-  height: 100%;
-  border: 0;
-  place-items: center;
+.chatSendBtn {
+  flex: 10%;
+  width: 100%;
+  
+  border-left: 1px dotted black;
+  border-radius: 0 0 0.5em 0;
+  font-size: 1em;
+  background-color: white;
+  color: black;
   cursor: pointer;
-  background: transparent;
-  outline: none;
-  font-size: 1.3em;
-  color: lightgray;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.chatWindow .chatFooter button:hover {
+.chatSendBtn:hover {
   color: var(--secondary-color);
-}
-.hide {
-  opacity: 0 !important;
 }
 
 /* End Screen Features */
@@ -496,131 +563,4 @@
   overflow-y: scroll;
   overflow-x: hidden;
   color: var(--main-text-color);
-}
-
-/* Portrait screens */
-@media screen and (orientation:portrait) {
-  .gameScreen {
-    flex-flow: column nowrap;
-    justify-content: center;
-  }
-
-  .infoTable {
-    margin-top: 8em;
-    flex-flow: column nowrap;
-    flex: 0 1 auto;
-    width: 100%;
-    max-height: 15svh;
-  }
-
-  .fullTable {
-    flex: 4 1 auto;
-    width: 100%;
-  }
-  .showChatBtn {
-    margin: 0 0 2em 0;
-  }
-
-  .gameSettings{
-    width: 100%;
-    max-height: 15svh;
-  }
-  .chatWindow {
-    flex: 5 1 auto;
-    position: absolute;
-    z-index: 2;
-    height: 80svh;
-    width: 95svw;
-  }
-  .chatWindow .chatBody {
-    max-height: 76svh;
-  }
-  .chatWindow .chatFooter, .chatWindow .chatHeader{
-    height: 3em;
-    flex: 1 auto;
-  }
-
-  .gameCommands {
-    flex: 3 1 auto;
-    width: 100%;
-  }
-
-  .soldier {
-    -ms-transform: scale(0.5, 0.5); /* IE 9 */
-    -webkit-transform: scale(0.5, 0.5); /* Safari */
-    transform: scale(0.5, 0.5);
-  }
-  .masterMsg {
-    -ms-transform: scale(0.9, 0.9); /* IE 9 */
-    -webkit-transform: scale(0.9, 0.9); /* Safari */
-    transform: scale(0.9, 0.9);
-    font-size: larger;
-  }
-}
-
-/* Larger screens */
-@media all and (max-width: 1000px) {
-  .gameSettings {
-    max-width: 90svw;
-  }
-  .masterMsg::after {
-    right: -3%;
-  }
-}
-
-/* Medium screens */
-@media all and (max-width: 600px) {
-  .fullTable {
-    -ms-transform: scale(0.725, 0.725); /* IE 9 */
-    -webkit-transform: scale(0.725, 0.725); /* Safari */
-    transform: scale(0.725, 0.725);
-  }
-  .playerBox {
-    -ms-transform: scale(0.85, 0.85); /* IE 9 */
-    -webkit-transform: scale(0.85, 0.85); /* Safari */
-    transform: scale(0.85, 0.85);
-  }
-  .masterMsg::after {
-    right: -6%;
-  }
-}
-
-/* xxs widths */
-@media all and (max-width: 410px) {
-  .fullTable {
-    -ms-transform: scale(0.63, 0.63); /* IE 9 */
-    -webkit-transform: scale(0.63, 0.63); /* Safari */
-    transform: scale(0.63, 0.63);
-    max-height: 40svh;
-  }
-
-  .gameSettings {
-    -ms-transform: scale(0.75, 0.75); /* IE 9 */
-    -webkit-transform: scale(0.75, 0.75); /* Safari */
-    transform: scale(0.75, 0.75);
-    max-height: 20svh;
-  }
-
-  .infoTable, .masterMsg {
-    font-size: smaller;
-  }
-  .infoTable {
-    max-height: 20svh;
-    margin-top: 10em;
-  }
-}
-
-/* WHACK galaxy fold */
-@media all and (max-width: 285px) {
-  .fullTable {
-    -ms-transform: scale(0.5, 0.5); /* IE 9 */
-    -webkit-transform: scale(0.5, 0.5); /* Safari */
-    transform: scale(0.5, 0.5);
-    max-height: 30svh;
-  }
-  .infoTable {
-    font-size: smaller;
-    max-height: 15svh;
-    margin-top: 6em;
-  }
 }

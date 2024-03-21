@@ -47,7 +47,7 @@ function GameSettings({
               })
             }
           </Select>
-          <FormHelperText>Minimum 5 Players</FormHelperText>
+          <FormHelperText>5+ Players</FormHelperText>
         </FormControl>
       </div>
 

@@ -1,0 +1,241 @@
+/* Portrait screens */
+@media screen and (orientation:portrait) {
+  .gameScreen { 
+    flex-flow: column nowrap;
+    justify-content: center;
+  }
+
+  .infoTable {
+    margin-top: 6em;
+    flex-flow: column nowrap;
+    flex: 0 1 auto;
+    width: 100%;
+    max-height: 15svh;
+  }
+
+  .fullTable {
+    flex: 3 1 auto;
+    width: 100%;
+  }
+  .showChatBtn {
+    margin: 0 0 2em 0;
+  }
+
+  .gameSettings {
+    width: 100%;
+    flex: 0 1 auto;
+    max-height: 15svh;
+  }
+  .chatWindow {
+    flex: 5 1 auto;
+    position: absolute;
+    z-index: 2;
+    height: 80svh;
+    width: 95svw;
+  }
+  .chatWindow .chatBody {
+    max-height: 76svh;
+  }
+  .chatWindow .chatFooter, .chatWindow .chatHeader{
+    height: 3em;
+    flex: 1 auto;
+  }
+
+  .gameCommands {
+    flex: 3 1 auto;
+    width: 100%;
+  }
+
+  .soldier {
+    -ms-transform: scale(0.5, 0.5); /* IE 9 */
+    -webkit-transform: scale(0.5, 0.5); /* Safari */
+    transform: scale(0.5, 0.5);
+  }
+  .masterMsg {
+    -ms-transform: scale(0.9, 0.9); /* IE 9 */
+    -webkit-transform: scale(0.9, 0.9); /* Safari */
+    transform: scale(0.9, 0.9);
+    font-size: larger;
+  }
+}
+
+/* Laptop Screen Shrinking Vertically */
+@media all and (min-width: 535px) and (max-width: 1000px) {
+  .infoTable {
+    margin-top: 2em;
+  }
+  .fullTable, .gameSettings, .gameCommands {
+    -ms-transform: scale(0.9, 0.9); /* IE 9 */
+    -webkit-transform: scale(0.9, 0.9); /* Safari */
+    transform: scale(0.9, 0.9);
+  }
+  .gameSettings {
+    margin-bottom: 1em;
+  }
+}
+
+/* Portrait Tablets */
+@media screen and (orientation:portrait) and (min-width: 535px) {
+  .infoTable {
+    margin-top: 2em;
+  }
+  .fullTable, .gameSettings, .gameCommands {
+    -ms-transform: scale(0.9, 0.9); /* IE 9 */
+    -webkit-transform: scale(0.9, 0.9); /* Safari */
+    transform: scale(0.9, 0.9);
+  }
+  .gameSettings {
+    margin-bottom: 1em;
+  }
+}
+
+/* Medium screens */
+@media all and (max-width: 600px) {
+  .fullTable {
+    -ms-transform: scale(0.725, 0.725); /* IE 9 */
+    -webkit-transform: scale(0.725, 0.725); /* Safari */
+    transform: scale(0.725, 0.725);
+  }
+  .playerBox {
+    -ms-transform: scale(0.85, 0.85); /* IE 9 */
+    -webkit-transform: scale(0.85, 0.85); /* Safari */
+    transform: scale(0.85, 0.85);
+  }
+  .masterMsg::after {
+    right: -6%;
+  }
+}
+
+/* xxs widths */
+@media all and (max-width: 410px) {
+  .fullTable {
+    -ms-transform: scale(0.63, 0.63); /* IE 9 */
+    -webkit-transform: scale(0.63, 0.63); /* Safari */
+    transform: scale(0.63, 0.63);
+    max-height: 40svh;
+  }
+
+  .gameSettings {
+    -ms-transform: scale(0.75, 0.75); /* IE 9 */
+    -webkit-transform: scale(0.75, 0.75); /* Safari */
+    transform: scale(0.75, 0.75);
+    max-height: 20svh;
+  }
+
+  .infoTable, .masterMsg {
+    font-size: smaller;
+  }
+  .infoTable {
+    max-height: 20svh;
+    margin-top: 4em;
+  }
+}
+
+@media all and (max-width: 285px) {
+  .fullTable {
+    -ms-transform: scale(0.5, 0.5); /* IE 9 */
+    -webkit-transform: scale(0.5, 0.5); /* Safari */
+    transform: scale(0.5, 0.5);
+  }
+  .infoTable {
+    font-size: smaller;
+    max-height: 10svh;
+    margin-top: 4em;
+  }
+  .chatWindow {
+    height: 65svh;
+  }
+}
+
+/* Landscape mobile phones */
+@media only screen and (max-height: 780px) and (orientation: landscape) {
+  .fullTable, .holdPlayers {
+    -ms-transform: scale(0.87, 0.87); /* IE 9 */
+    -webkit-transform: scale(0.87, 0.87); /* Safari */
+    transform: scale(0.87, 0.87);
+  }
+}
+
+@media only screen and (max-height: 575.98px) and (orientation: landscape) {
+  .gameScreen {
+    flex-flow: column wrap;
+    justify-content: center;
+  }
+  .infoTable {
+    flex: 1 1 40%;
+    width: 40%;
+    height: 40%;
+    order: 1;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column wrap;
+  }
+  .titleLogo, .information {
+    flex: 0 1 50%;
+    width: 100%;
+    height: 50%;
+  }
+  .information {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column wrap;
+  }
+
+  .gameSettings, .gameCommands {
+    flex: 1 1 55%;
+    width: 40%;
+    height: 55%;
+    order: 2;
+  }
+
+  .fullTable {
+    flex: 1 1 100%;
+    width: 55%;
+    order: 3;
+  }
+  .fullTable, .holdPlayers {
+    -ms-transform: scale(0.75, 0.75); /* IE 9 */
+    -webkit-transform: scale(0.75, 0.75); /* Safari */
+    transform: scale(0.75, 0.75);
+  }
+
+  .chatWindow {
+    flex: 1 1 100%;
+    order: 4;
+  }
+  .chatWindow .chatBody {
+    max-height: 76svh;
+  }
+  .chatWindow .chatFooter, .chatWindow .chatHeader{
+    height: 3em;
+    flex: 1 auto;
+  }
+
+  .showChatBtn {
+    margin: 0 0 2em 0;
+  }
+  .soldier {
+    -ms-transform: scale(0.5, 0.5); /* IE 9 */
+    -webkit-transform: scale(0.5, 0.5); /* Safari */
+    transform: scale(0.5, 0.5);
+  }
+  .masterMsg {
+    font-size: smaller;
+    width: 90%;
+  }
+}
+
+/* WHACK galaxy fold and iPhone SE */
+@media only screen and (max-height: 400px) and (orientation: landscape) {
+  .infoTable {
+    font-size: smaller;
+  }
+  .gameCommands, .gameSettings, .fullTable {
+    -ms-transform: scale(0.7, 0.7); /* IE 9 */
+    -webkit-transform: scale(0.7, 0.7); /* Safari */
+    transform: scale(0.7, 0.7);
+  }
+}
