@@ -566,7 +566,15 @@
 }
 
 /* ----- Different Screens ----- */
-@media all and (max-width: 950px) { /* isThin */
+@media all and (max-width: 950px) { /* isGettingThin */
+  .fullTable {
+    -ms-transform: scale(0.9, 0.9); /* IE 9 */
+    -webkit-transform: scale(0.9, 0.9); /* Safari */
+    transform: scale(0.9, 0.9);
+  }
+}
+
+@media all and (max-width: 600px) { /* isThin */
   .gameScreen {
     flex-flow: column wrap;
     padding: 5% 1% 2% 1%;
