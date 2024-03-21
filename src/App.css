@@ -132,6 +132,8 @@
 }
 .fullTable { 
   flex: 1 1 55%;
+  width: 80%;
+  align-self: center;
 
   display: grid;
   justify-content: center;
