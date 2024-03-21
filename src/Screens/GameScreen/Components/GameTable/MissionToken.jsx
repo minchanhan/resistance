@@ -13,11 +13,11 @@ function MissionToken({
   return (
     <div className="tableTrackDiv">
       <div style={{color: "var(--main-text-color)", minHeight: "16px", fontSize: "16px"}}>
-        {twoFails ? "2 fails required" : ""}
+        {twoFails ? "2 fails" : ""}
       </div>
       <div 
         className={
-          `missionToken depth ${current ? "currentMission" : ""} ${isPassed ? "passed" : ""} ${isFailed ? "failed" : ""}`
+          `missionToken ${current ? "currentMission" : ""} ${isPassed ? "passed" : ""} ${isFailed ? "failed" : ""}`
         }
       >
         <div className="number" style={{fontSize: "2.5em"}}>

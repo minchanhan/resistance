@@ -138,8 +138,8 @@ function GameTable({
           : <span></span>
         }
 
-        <div className="table" style={{display: "flex", flexDirection: "column"}}>
-          <div className="missionTokenGrid" style={{flex: "70%"}}>
+        <div className="table">
+          <div className="missionTokenGrid">
             <MissionToken 
               isPassed={missionResultTrack[0] === "pass"} 
               isFailed={missionResultTrack[0] === "fail"}
@@ -173,7 +173,7 @@ function GameTable({
             />
           </div>
           
-          <div className="voteTrackGrid" style={{flex: "20%"}}>
+          <div className="voteTrackGrid">
             <VoteTrack isFilled={curMissionVoteDisapproves > 0} number={1}/>
             <VoteTrack isFilled={curMissionVoteDisapproves > 1} number={2}/>
             <VoteTrack isFilled={curMissionVoteDisapproves > 2} number={3}/>
@@ -181,7 +181,7 @@ function GameTable({
             <VoteTrack isFilled={curMissionVoteDisapproves > 4} number={5}/>
           </div>
 
-          <div style={{flex: "10%"}}>
+          <div className="tableBtns">
             {
               leaderSelecting ? (
                 <Button

@@ -272,28 +272,25 @@
 
 .table { /* Actual Table */
   background-image: url("./assets/woodtable.svg");
-  height: 100%;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
-.missionTokenGrid {
-  display: grid;
-  height: 100%;
-  justify-content: center;
+.missionTokenGrid, .voteTrackGrid, .tableBtns {
+  flex: 1 1 auto;
+
+  display: flex;
+  justify-content: space-around;
   align-items: center;
   text-align: center;
-  align-content: center;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: 1fr;
 }
-
-.voteTrackGrid {
-  display: grid;
-  height: 100%;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: 1fr;
+.missionTokenGrid {
+  flex: 1 1 60%;
 }
 
 .tableTrackDiv {
@@ -305,13 +302,13 @@
   align-content: center;
 }
 
-.missionToken { /* Mission Holes */
-  border-radius: 50%;
-  position: relative;
+.missionToken, .voteHole {
+  display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
-  overflow: hidden;
+  position: relative;
+  border-radius: 50%;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.7);
 }
 
 .number {
@@ -324,35 +321,26 @@
   text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }
 
+.missionToken { /* Mission Holes */
+  flex: 1 1 auto;
+  width: 5em;
+  height: 5em;
+}
 .currentMission {
   border: 1px solid var(--secondary-color);
 }
-
 .passed {
   background-color: var(--my-green);
 }
-
 .failed {
   background-color: var(--my-red);
 }
 
-.depth {
-  width: 5em;
-  height: 5em;
-  border-radius: 50%;
-  position: relative;
-  box-shadow: 0 0 40px rgba(0, 0, 0, 0.7);
-}
-
 .voteHole { /* Vote Track */
+  flex: 1 1 auto;
   width: 2em;
   height: 2em;
-  border-radius: 50%;
   background-color: #3d3a3a;
-  position: relative;
-  top: 0;
-  left: 0;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 }
 .filledVote {
   background-color: var(--secondary-color);
@@ -608,6 +596,10 @@
     height: 70svh;
     width: 95svw;
   }
+  .depth {
+    width: 4.5em;
+    height: 4.5em;
+  }
 }
 
 @media all and (max-width: 500px) { /* isMoreThin */
@@ -625,6 +617,10 @@
     -ms-transform: scale(0.8, 0.8); /* IE 9 */
     -webkit-transform: scale(0.8, 0.8); /* Safari */
     transform: scale(0.8, 0.8);
+  }
+  .depth {
+    width: 3.5em;
+    height: 3.5em;
   }
 }
 
