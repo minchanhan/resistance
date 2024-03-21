@@ -47,6 +47,8 @@ function GameScreen({
   // const isPortrait = useMediaQuery({ orientation: 'portrait' });
   // const isRetina = useMediaQuery({ minResolution: '2dppx' });
   const isThin = useMediaQuery({ maxWidth: 900 }); // turn to portrait mode
+  const isLandscape = useMediaQuery({ orientation: 'landscape' });
+  const isShort = useMediaQuery({ maxHeight: 600 });
 
   const [showHiddenChat, setShowHiddenChat] = useState(false);
 
@@ -106,7 +108,41 @@ function GameScreen({
   return (
     <>
       {
-        isThin ? (
+        isLandscape && isShort ? (
+          <div className="gameScreen">
+            {
+              showHiddenChat ? (
+                <ChatBox {...chatBoxProps} />
+              ) : <></>
+            }
+
+            <div className="colLeft">
+              <InfoTable {...infoTableProps} />
+              {
+                gameStarted ? (<GameCommands gameMasterSpeech={gameMasterSpeech} />) : (
+                  <GameSettings {...gameSettingsProps} />
+                )
+              }
+            </div>
+            <div className="colRight">
+              <GameTable {...gameTableProps} />
+            </div>
+
+            <div className="showChatBtn">
+              <Button
+                color="secondary"
+                onClick={() => {setShowHiddenChat(!showHiddenChat)}}
+                sx={{
+                  border: `1px solid ${getComputedStyle(document.body).getPropertyValue('--secondary-color')}`,
+                }}
+              >
+                {showHiddenChat ? "Close Chat" : "Show Chat"}
+              </Button>
+            </div>
+
+            
+          </div>
+        ) : isThin ? (
           <div className="gameScreen">
             {
               showHiddenChat ? (

@@ -575,7 +575,7 @@
   }
 }
 
-@media all and (max-width: 900px) { /* isThin */
+@media all and (max-width: 900px) and (min-height: 700px) { /* isThin */
   .gameScreen {
     display: flex;
     flex-flow: column nowrap;
@@ -603,6 +603,7 @@
     z-index: 2;
     height: 70svh;
     width: 95svw;
+    max-height: 70%;
     align-self: center;
   }
   .missionToken {
@@ -611,7 +612,7 @@
   }
 }
 
-@media all and (max-width: 600px) { /* isMoreThin */
+@media all and (max-width: 600px) and (min-height: 700px) { /* isMoreThin */
   .chatInput > input, .chatSendBtn {
     font-size: 0.8em;
   }
@@ -638,7 +639,7 @@
   }
 }
 
-@media all and (max-width: 385px) { /* isREALLYThin */
+@media all and (max-width: 385px) and (min-height: 700px) { /* isREALLYThin */
   .chatInput > input, .chatSendBtn {
     font-size: 0.6em;
   }
@@ -654,7 +655,7 @@
   }
 }
 
-@media all and (max-width: 285px) { /* whack galaxy fold */
+@media all and (max-width: 285px) and (min-height: 700px) { /* whack galaxy fold */
   .chatInput > input, .chatSendBtn {
     font-size: 0.5em;
   }
@@ -686,5 +687,27 @@
   }
   .gameCommands {
     margin-top: -25%;
+  }
+}
+
+/* Landscape Mobile Devices */
+@media all and (max-height: 600px) and (orientation: landscape) {
+  .gameScreen {
+    background-color: pink;
+    flex-flow: row nowrap;
+  }
+
+  .showChatBtn {
+    position: absolute;
+    z-index: 1;
+    bottom: 0%;
+  }
+  .chatWindow {
+    position: absolute;
+    z-index: 2;
+    height: 80%;
+    max-height: 80%;
+    width: 95svw;
+    align-self: center;
   }
 }
