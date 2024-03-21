@@ -118,8 +118,6 @@
 /* timer */
 .timer > p {
   color: gray;
-  height: auto;
-  width: 100%;
 }
 
 /* --- Game Table --- */
@@ -635,6 +633,9 @@
   .infoTable {
     margin-bottom: -10%;
   }
+  .gameCommands {
+    margin-top: -15%;
+  }
 }
 
 @media all and (max-width: 385px) { /* isREALLYThin */
@@ -673,11 +674,17 @@
     margin-top: -10%;
     margin-bottom: -15%;
   }
+  .titleLogo > svg {
+    width: 65%;
+  }
 }
 
 @media all and (max-height: 700px) and (max-width: 285px) { /* Galaxy fold... */
   .fullTable {
     margin-top: -25%;
     margin-bottom: -25%;
+  }
+  .gameCommands {
+    margin-top: -25%;
   }
 }

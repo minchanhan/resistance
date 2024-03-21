@@ -28,17 +28,17 @@ function Timer({ initialSecs=15, initialMins=1 }) {
   return (
     <div className="timer">
       { mins === 0 && secs === 0 ?
-          <p>
+          <div>
             End of Round
-          </p>
+          </div>
         : mins === 0 && secs <= 30 ?
-          <p sx={{ color: "red" }}>
+          <div sx={{ color: "red" }}>
             Time: {mins}:{secs < 10 ?  `0${secs}` : secs}
-          </p>
+          </div>
         :
-          <p>
+          <div>
             Time: {mins}:{secs < 10 ?  `0${secs}` : secs}
-          </p>
+          </div>
       }
     </div>   
   )
