@@ -75,10 +75,11 @@
   flex-flow: column nowrap;
 }
 .colLeft {
-  flex: 1 2.5 50%;
+  flex: 1 1 60%;
 }
 .colRight {
-  flex: 1 1 50%;
+  flex: 1 1 40%;
+  min-width: 300px;
 }
 .colLeft > *, .colRight > *{
   margin: 1em;
@@ -132,7 +133,7 @@
 }
 .fullTable {
   flex: 1 1 55%;
-  min-width: 75%;
+  min-width: 80%;
 
   display: grid;
   justify-content: center;
@@ -569,9 +570,15 @@
 }
 
 /* ----- Different Screens ----- */
+@media all and (max-width: 1000px) { /* isGettingThin */
+  .fullTable {
+    -ms-transform: scale(0.9, 0.9); /* IE 9 */
+    -webkit-transform: scale(0.9, 0.9); /* Safari */
+    transform: scale(0.9, 0.9);
+  }
+}
 
-
-@media all and (max-width: 800px) { /* isThin */
+@media all and (max-width: 900px) { /* isThin */
   .gameScreen {
     display: flex;
     flex-flow: column wrap;
