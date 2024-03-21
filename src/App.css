@@ -56,14 +56,8 @@
   -ms-box-sizing: border-box;
   -o-box-sizing: border-box;
 }
-.gameScreen {
+.gameScreen { 
   display: flex;
-  flex-flow: column wrap;
-  justify-content: space-evenly;
-  align-items: center;
-  align-content: space-around;
-  margin: 0 auto;
-  padding: 1em;
 
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -71,15 +65,28 @@
   -ms-box-sizing: border-box;
   -o-box-sizing: border-box;
 
-  min-height: 0;
   height: 100%;
   width: 100%;
+  padding: 1.5em;
+}
+
+.colLeft, .colRight {
+  display: flex;
+  flex-flow: column nowrap;
+}
+.colLeft {
+  flex: 1 2.5 50%;
+}
+.colRight {
+  flex: 1 1 50%;
+}
+.colLeft > *, .colRight > *{
+  margin: 1em;
 }
 
 /* --- Info Table --- */
 .infoTable {
-  height: 30%;
-  width: 50%;
+  flex: 1 1 30%;
   
   display: flex;
   justify-content: center;
@@ -88,8 +95,7 @@
 
 /* Title Logo */
 .titleLogo {
-  height: 100%;
-  width: 50%;
+  flex: 1;
 
   display: flex;
   justify-content: center;
@@ -100,8 +106,7 @@
 }
 
 .information {
-  height: 100%;
-  width: 50%;
+  flex: 1;
   
   display: flex;
   justify-content: center;
@@ -126,8 +131,8 @@
   -o-box-sizing: border-box;
 }
 .fullTable {
-  height: 55%;
-  width: 50%;
+  flex: 1 1 55%;
+  max-width: 85%;
 
   display: grid;
   justify-content: center;
@@ -147,8 +152,7 @@
   -o-box-sizing: border-box;
 }
 .chatWindow { 
-  height: 60%;
-  width: 45%;
+  flex: 1 0 55%;
   padding: 0.5em;
   border-radius: 0.5em;
   
@@ -174,8 +178,7 @@
   -o-box-sizing: border-box;
 }
 .gameSettings {
-  height: 25%;
-  width: 45%;
+  flex: 1 0 30%;
 
   display: flex;
   flex-flow: row wrap;
@@ -199,13 +202,13 @@
   -o-box-sizing: border-box;
 }
 .gameCommands {
-  height: 25%;
-  width: 45%;
+  flex: 1 0 30%;
 
   display: flex;
   justify-content: space-around;
   align-items: center;
   padding: 0.25em 0;
+  margin: auto;
 }
 
 .showChatBtn {
@@ -566,33 +569,35 @@
 }
 
 /* ----- Different Screens ----- */
-@media all and (max-width: 950px) { /* isGettingThin */
-  .fullTable {
-    -ms-transform: scale(0.9, 0.9); /* IE 9 */
-    -webkit-transform: scale(0.9, 0.9); /* Safari */
-    transform: scale(0.9, 0.9);
-  }
-}
 
-@media all and (max-width: 600px) { /* isThin */
+
+@media all and (max-width: 800px) { /* isThin */
   .gameScreen {
+    display: flex;
     flex-flow: column wrap;
-    padding: 5% 1% 2% 1%;
+    justify-content: space-evenly;
+    align-items: center;
+    align-content: space-around;
+    padding: 1em;
   }
   .infoTable {
+    flex: auto;
     height: 20%;
     width: 100%;
-    flex-direction: column
+    flex-direction: column;
   }
   .titleLogo, .information {
+    flex: auto;
     height: 50%;
     width: 100%;
   }
   .fullTable {
+    flex: auto;
     height: 35%;
     width: 100%;
   }
   .gameSettings, .gameCommands {
+    flex: auto;
     height: 30%;
     width: 100%;
   }

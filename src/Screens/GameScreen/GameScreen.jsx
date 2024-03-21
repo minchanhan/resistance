@@ -47,7 +47,7 @@ function GameScreen({
   // const isPortrait = useMediaQuery({ orientation: 'portrait' });
   // const isRetina = useMediaQuery({ minResolution: '2dppx' });
   const isGettingThin = useMediaQuery({ maxWidth: 950 })
-  const isThin = useMediaQuery({ maxWidth: 600 });
+  const isThin = useMediaQuery({ maxWidth: 800 }); // turn to portrait mode
   // maxWidth: 500 -> big height more thin
   // maxWidth: 500 -> big height REALLY thin
   // maxHeight: 500 -> big height thin (landscape phones)
@@ -110,26 +110,21 @@ function GameScreen({
 
   return (
     <>
-      <div className="gameScreen">
-        {
-          showHiddenChat && isThin ? (
-            <ChatBox {...chatBoxProps} />
-          ) : <></>
-        }
-        <InfoTable {...infoTableProps} />
-        <GameTable {...gameTableProps} />
-        {
-          !isThin ? <ChatBox {...chatBoxProps} /> : <></>
-        }
-
-        {
-          gameStarted ? (<GameCommands gameMasterSpeech={gameMasterSpeech} />) : (
-            <GameSettings {...gameSettingsProps} />
-          )
-        }
-
-        {
-          isThin ? (
+      {
+        isThin ? (
+          <div className="gameScreen">
+            {
+              showHiddenChat ? (
+                <ChatBox {...chatBoxProps} />
+              ) : <></>
+            }
+            <InfoTable {...infoTableProps} />
+            <GameTable {...gameTableProps} />
+            {
+              gameStarted ? (<GameCommands gameMasterSpeech={gameMasterSpeech} />) : (
+                <GameSettings {...gameSettingsProps} />
+              )
+            }
             <div className="showChatBtn">
               <Button
                 color="secondary"
@@ -141,10 +136,24 @@ function GameScreen({
                 {showHiddenChat ? "Close Chat" : "Show Chat"}
               </Button>
             </div>
-            
-          ) : <></>
-        }   
-      </div>
+          </div>
+        ) : (
+          <div className="gameScreen">
+            <div className="colLeft">
+              <InfoTable {...infoTableProps} />
+              <GameTable {...gameTableProps} />
+            </div>
+            <div className="colRight">
+              <ChatBox {...chatBoxProps} />
+              {
+                gameStarted ? (<GameCommands gameMasterSpeech={gameMasterSpeech} />) : (
+                  <GameSettings {...gameSettingsProps} />
+                )
+              }
+            </div>
+          </div>
+        )
+      }
     </>
   )
 }
