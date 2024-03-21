@@ -19,9 +19,9 @@ function InfoTable({ room, capacity, seats, topText, missionNumber, gameStarted=
           </div>
         ) : (
           <div className="information">
-            <h3>
+            <div>
               {`Mission: ${missionNumber}`}
-            </h3>
+            </div>
             <Timer/>
           </div>
         )
