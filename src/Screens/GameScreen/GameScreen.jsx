@@ -44,10 +44,13 @@ function GameScreen({
   msgList,
   setMsgList
 }) {
-  // const isTabletOrMobile = useMediaQuery({ maxWidth: 770 });
-  const isPortrait = useMediaQuery({ orientation: 'portrait' });
-  const isThin = useMediaQuery({ maxWidth: 950 });
+  // const isPortrait = useMediaQuery({ orientation: 'portrait' });
   // const isRetina = useMediaQuery({ minResolution: '2dppx' });
+  const isThin = useMediaQuery({ maxWidth: 950 });
+  // maxWidth: 500 -> big height more thin
+  // maxWidth: 500 -> big height REALLY thin
+  // maxHeight: 500 -> big height thin (landscape phones)
+
 
   const [showHiddenChat, setShowHiddenChat] = useState(false);
 

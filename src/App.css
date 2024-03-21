@@ -63,6 +63,7 @@
   align-items: center;
   align-content: space-around;
   margin: 0 auto;
+  padding: 1em;
 
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
