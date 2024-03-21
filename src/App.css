@@ -234,8 +234,6 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  height: 5em;
-  width: 5em;
   cursor: pointer;
 }
 .playerBox .status {
@@ -364,12 +362,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: start;
 
   background-color: black;
   color: white;
   border-radius: 2em;
   
-  padding: 0.6em;
+  padding: 0.6em 0.6em 0.6em 1em;
   position: relative;
 }
 
