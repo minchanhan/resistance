@@ -43,7 +43,6 @@ function GameTable({
   // for dynamic player rows
   var playerRow = (rowLength, isBottomRow=false) => ({
     display: 'grid',
-    height: '100%',
     gridTemplateColumns: `repeat(${rowLength}, 1fr)`,
     gridTemplateRows: '1fr',
     direction: isBottomRow ? 'rtl' : '',
@@ -52,7 +51,7 @@ function GameTable({
 
   var tableRow = (ninth, tenth) => ({
     display: 'grid',
-    height: '100%',
+    height: '95%',
     gridTemplateColumns: tenth ? '1fr 5fr 1fr' : ninth ? '0.01fr 5fr 1fr' : '0.01fr 5fr 0.01fr',
     gridTemplateRows: '1fr',
   });
