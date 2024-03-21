@@ -133,7 +133,6 @@
 }
 .fullTable { 
   flex: 1 1 55%;
-  min-width: 80%;
 
   display: grid;
   justify-content: center;
