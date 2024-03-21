@@ -56,7 +56,7 @@
   -ms-box-sizing: border-box;
   -o-box-sizing: border-box;
 }
-.gameScreen {
+.gameScreen { 
   display: flex;
 
   box-sizing: border-box;
@@ -86,7 +86,7 @@
 }
 
 /* --- Info Table --- */
-.infoTable { 
+.infoTable {  
   flex: 1 1 30%;
   
   display: flex;
@@ -131,7 +131,7 @@
   -ms-box-sizing: border-box;
   -o-box-sizing: border-box;
 }
-.fullTable {
+.fullTable { 
   flex: 1 1 55%;
   min-width: 80%;
 
@@ -140,8 +140,6 @@
   align-items: center;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr 2.2fr 1fr;
-
-  margin: auto;
 }
 
 /* --- Chat Window --- */ 
@@ -152,7 +150,7 @@
   -ms-box-sizing: border-box;
   -o-box-sizing: border-box;
 }
-.chatWindow { 
+.chatWindow {  
   flex: 1 0 55%;
   padding: 0.5em;
   border-radius: 0.5em;
@@ -178,7 +176,7 @@
   -ms-box-sizing: border-box;
   -o-box-sizing: border-box;
 }
-.gameSettings {
+.gameSettings { 
   flex: 1 0 30%;
 
   display: flex;
@@ -186,7 +184,6 @@
   justify-content: space-evenly;
   align-items: stretch;
   align-content: space-around;
-  margin: auto;
 
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -206,14 +203,13 @@
   -ms-box-sizing: border-box;
   -o-box-sizing: border-box;
 }
-.gameCommands {
+.gameCommands { 
   flex: 1 0 30%;
 
   display: flex;
   justify-content: space-around;
   align-items: center;
   padding: 0.25em 0;
-  margin: auto;
 
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -594,13 +590,13 @@
     flex: 1 5 auto;
   }
   .fullTable {
-    flex: 4 2 auto;
+    flex: 1 2 auto;
   }
   .gameSettings, .gameCommands {
-    flex: 3 1 auto;
+    flex: 1 1 auto;
   }
   .showChatBtn {
-    flex: 2 1 auto;
+    flex: 1 1 auto;
   }
   .chatWindow {
     position: absolute;
@@ -614,7 +610,10 @@
   }
 }
 
-@media all and (max-width: 500px) { /* isMoreThin */
+@media all and (max-width: 600px) { /* isMoreThin */
+  .chatInput > input, .chatSendBtn {
+    font-size: 0.8em;
+  }
   .infoTable, .holdPlayers {
     -ms-transform: scale(0.9, 0.9); /* IE 9 */
     -webkit-transform: scale(0.9, 0.9); /* Safari */
@@ -629,10 +628,6 @@
     -ms-transform: scale(0.8, 0.8); /* IE 9 */
     -webkit-transform: scale(0.8, 0.8); /* Safari */
     transform: scale(0.8, 0.8);
-  }
-  .depth {
-    width: 3.5em;
-    height: 3.5em;
   }
 }
 
