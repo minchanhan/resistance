@@ -124,9 +124,7 @@ function GameScreen({
                 )
               }
             </div>
-            <div className="colRight">
-              <GameTable {...gameTableProps} />
-            </div>
+            <GameTable {...gameTableProps} />
 
             <div className="showChatBtn">
               <Button

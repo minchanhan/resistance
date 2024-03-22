@@ -693,7 +693,27 @@
 /* Landscape Mobile Devices */
 @media all and (max-height: 600px) and (orientation: landscape) {
   .gameScreen {
+    display: flex;
     flex-flow: row nowrap;
+    justify-content: space-around;
+    padding: 3em 0 1em 0;
+  }
+  .colLeft {
+    flex: 1 1 60%;
+  }
+  .fullTable {
+    flex: 1 1 40%;
+    width: auto;
+  }
+  .infoTable {  
+    flex: 1 1 40%;
+    display: flex;
+    flex-flow: column wrap;
+  }
+  
+  .gameSettings {
+    display: flex;
+    flex-flow: row wrap;
   }
 
   .showChatBtn {
@@ -708,5 +728,23 @@
     max-height: 80%;
     width: 95svw;
     align-self: center;
+  }
+}
+
+@media all and (max-height: 385px) and (orientation: landscape) { /* small width and REALLY short */
+  .fullTable {
+    -ms-transform: scale(0.75, 0.75); /* IE 9 */
+    -webkit-transform: scale(0.75, 0.75); /* Safari */
+    transform: scale(0.75, 0.75);
+  }
+}
+
+@media all and (max-height: 285px) and (orientation: landscape) { /* Galaxy fold... */
+  .fullTable {
+    margin-top: -25%;
+    margin-bottom: -25%;
+  }
+  .gameCommands {
+    margin-top: -25%;
   }
 }
