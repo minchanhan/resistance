@@ -64,7 +64,7 @@ function ChatBox({ socket, username, msg, setMsg, msgList, setMsgList }) {
             placeholder="Enter message"
             value={msg}
             onChange={(event) => {
-              setMsg(event.target.value);
+              if (msg.length < 150) setMsg(event.target.value);
             }}
             onKeyDown={(event) => {
               if (event.code === "Enter") {
