@@ -720,9 +720,11 @@
     position: absolute;
     z-index: 1;
     bottom: 0%;
+    width: 20%;
   }
   .chatWindow {
     position: absolute;
+    top: 5%;
     z-index: 2;
     height: 80%;
     max-height: 80%;
@@ -731,11 +733,16 @@
   }
 }
 
-@media all and (max-height: 385px) and (orientation: landscape) { /* small width and REALLY short */
+@media all and (max-height: 385px) and (max-width: 700px) and (orientation: landscape) { /* small width and REALLY short */
   .fullTable {
     -ms-transform: scale(0.75, 0.75); /* IE 9 */
     -webkit-transform: scale(0.75, 0.75); /* Safari */
     transform: scale(0.75, 0.75);
+    max-width: 60%;
+  }
+  .colLeft {
+    min-width: 30%;
+    flex: 1 1 30%;
   }
 }
 
@@ -743,8 +750,26 @@
   .fullTable {
     margin-top: -25%;
     margin-bottom: -25%;
+    max-width: 70%;
   }
   .gameCommands {
     margin-top: -25%;
+  }
+  .colLeft {
+    min-width: 30%;
+    flex: 1 1 30%;
+  }
+}
+
+@media all and (min-width: 600px) and (orientation: landscape) and (max-height: 600px) { /* thin landscape*/
+  .colLeft {
+    min-width: 30%;
+    flex: 1 1 30%;
+  }
+  .fullTable {
+    max-width: 70%;
+  }
+  .settingsSelect {
+    margin: 0.5em 0 0.5em 0;
   }
 }
