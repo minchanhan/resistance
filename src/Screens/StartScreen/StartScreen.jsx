@@ -37,7 +37,7 @@ function StartScreen({
   };
 
   const validUsername = () => {
-    if (username.length >= 1 && username.length <= 9) { // change min to 5 later
+    if (username.length >= 3 && username.length <= 10) {
       return true;
     } else {
       return false;
@@ -95,10 +95,11 @@ function StartScreen({
           id={!validUsername() && usernameWarningCheck ? "" : "outlined-error-helper-text"}
           label={!validUsername() && usernameWarningCheck ? "Warning" : "Username"}
           defaultValue=""
-          helperText={!validUsername() && usernameWarningCheck ? "Name must be 1-9 chars" : ""}
+          value={username}
+          helperText={!validUsername() && usernameWarningCheck ? "Name must be 3-10 chars" : ""}
           onChange={ (event) => {
             setJoinRoomModal(false);
-            onChangedUsername(event.target.value);
+            if (event.target.value.slice(-1) !== " ") onChangedUsername(event.target.value);
           }}
         />
       </div>
