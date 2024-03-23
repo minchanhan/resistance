@@ -276,11 +276,6 @@
 }
 
 .table { /* Actual Table */
-  background-image: url("./assets/woodtable.svg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
-
   display: flex;
   flex-direction: column;
   justify-content: space-around;

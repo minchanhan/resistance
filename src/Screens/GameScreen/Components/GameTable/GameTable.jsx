@@ -27,8 +27,8 @@ function GameTable({
   missionNumber,
   missionResultTrack
 }) {
-  const topRowLength = capacity >= 7 ? 4 : 3;
-  const bottomRowLength = capacity >= 8 ? 4 : (capacity >= 6) ? 3 : 2;
+  const topRowLength = capacity >= 9 ? 5 : capacity >= 7 ? 4 : 3;
+  const bottomRowLength = capacity >= 10 ? 5 : capacity >= 8 ? 4 : capacity >= 6 ? 3 : 2;
   const badTeamStyle = {
     filter: 'invert(21%) sepia(76%) saturate(5785%) hue-rotate(338deg) brightness(57%) contrast(119%)'
   };
@@ -46,14 +46,6 @@ function GameTable({
     gridTemplateColumns: `repeat(${rowLength}, 1fr)`,
     gridTemplateRows: '1fr',
     direction: isBottomRow ? 'rtl' : '',
-    margin: '0.5em 0 0.5em 0',
-  });
-
-  var tableRow = (ninth, tenth) => ({
-    display: 'grid',
-    height: '95%',
-    gridTemplateColumns: tenth ? '1fr 5fr 1fr' : ninth ? '0.01fr 5fr 1fr' : '0.01fr 5fr 0.01fr',
-    gridTemplateRows: '1fr',
   });
 
   const handleMissionSelection = (seatUsername) => {
@@ -128,139 +120,110 @@ function GameTable({
         }
       </div>
 
-      <div style={tableRow(capacity >= 9, capacity >= 10)}>
-        {
-          seats.length >= 10 && capacity >= 10 ? 
-            <div className="holdPlayers">
-              { gameStartedPlayerBox(seats[9][2], seats[9][3], seats[9][1], seats[9][0]) }
-            </div>
-          : <span></span>
-        }
-
-        <div className="table">
-          <div className="missionTokenGrid">
-            <MissionToken 
-              isPassed={missionResultTrack[0] === "pass"} 
-              isFailed={missionResultTrack[0] === "fail"}
-              current={missionNumber === 1} 
-              missionTeamSize={missionTeamSize1}
-            />
-            <MissionToken
-              isPassed={missionResultTrack[1] === "pass"} 
-              isFailed={missionResultTrack[1] === "fail"}
-              current={missionNumber === 2} 
-              missionTeamSize={missionTeamSize2}
-            />
-            <MissionToken
-              isPassed={missionResultTrack[2] === "pass"} 
-              isFailed={missionResultTrack[2] === "fail"}
-              current={missionNumber === 3} 
-              missionTeamSize={missionTeamSize3}
-            />
-            <MissionToken
-              isPassed={missionResultTrack[3] === "pass"} 
-              isFailed={missionResultTrack[3] === "fail"}
-              current={missionNumber === 4} 
-              missionTeamSize={missionTeamSize4}
-              twoFails={capacity >= 7}
-            />
-            <MissionToken
-              isPassed={missionResultTrack[4] === "pass"} 
-              isFailed={missionResultTrack[4] === "fail"}
-              current={missionNumber === 5} 
-              missionTeamSize={missionTeamSize5}
-            />
-          </div>
-          
-          <div className="voteTrackGrid">
-            <VoteTrack isFilled={curMissionVoteDisapproves > 0} number={1}/>
-            <VoteTrack isFilled={curMissionVoteDisapproves > 1} number={2}/>
-            <VoteTrack isFilled={curMissionVoteDisapproves > 2} number={3}/>
-            <VoteTrack isFilled={curMissionVoteDisapproves > 3} number={4}/>
-            <VoteTrack isFilled={curMissionVoteDisapproves > 4} number={5}/>
-          </div>
-
-          <div className="tableBtns">
-            {
-              leaderSelecting ? (
-                <Button
-                  id="submitBtn" 
-                  color="secondary"
-                  disabled={selectedPlayers.length < missionTeamSizes[missionNumber - 1] || disableTeamSubmit} 
-                  onClick={() => handleTeamSubmit()}
-                >
-                  Submit Team
-                </Button>
-              ) : voteHappening ? (
-                <div>
-                  <Button color="green" id="approveBtn" disabled={disableVoteBtns} onClick={() => handleVote(true)}>
-                    Approve
-                  </Button>
-                  <Button color="red" id="disapproveBtn" disabled={disableVoteBtns} onClick={() => handleVote(false)}>
-                    Disapprove
-                  </Button>
-                </div>
-              ) : goingOnMission ? (
-                <div>
-                  <Button color="green" id="passBtn" disabled={disableMissionActions} onClick={() => handleMission(true)}>
-                    Pass
-                  </Button>
-                  <Button color="red" id="failBtn" disabled={disableMissionActions} onClick={() => handleMission(false)}>
-                    Fail
-                  </Button>
-                </div>
-              ) : (
-                <div 
-                  className="voteTrackLabel" 
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    textAlign: "center",
-                    color: "var(--main-text-color)"
-                  }}
-                >
-                  Vote Track
-                </div>
-              )
-            }
-          </div>
+      <div className="table">
+        <div className="missionTokenGrid">
+          <MissionToken 
+            isPassed={missionResultTrack[0] === "pass"} 
+            isFailed={missionResultTrack[0] === "fail"}
+            current={missionNumber === 1} 
+            missionTeamSize={missionTeamSize1}
+          />
+          <MissionToken
+            isPassed={missionResultTrack[1] === "pass"} 
+            isFailed={missionResultTrack[1] === "fail"}
+            current={missionNumber === 2} 
+            missionTeamSize={missionTeamSize2}
+          />
+          <MissionToken
+            isPassed={missionResultTrack[2] === "pass"} 
+            isFailed={missionResultTrack[2] === "fail"}
+            current={missionNumber === 3} 
+            missionTeamSize={missionTeamSize3}
+          />
+          <MissionToken
+            isPassed={missionResultTrack[3] === "pass"} 
+            isFailed={missionResultTrack[3] === "fail"}
+            current={missionNumber === 4} 
+            missionTeamSize={missionTeamSize4}
+            twoFails={capacity >= 7}
+          />
+          <MissionToken
+            isPassed={missionResultTrack[4] === "pass"} 
+            isFailed={missionResultTrack[4] === "fail"}
+            current={missionNumber === 5} 
+            missionTeamSize={missionTeamSize5}
+          />
+        </div>
+        
+        <div className="voteTrackGrid">
+          <VoteTrack isFilled={curMissionVoteDisapproves > 0} number={1}/>
+          <VoteTrack isFilled={curMissionVoteDisapproves > 1} number={2}/>
+          <VoteTrack isFilled={curMissionVoteDisapproves > 2} number={3}/>
+          <VoteTrack isFilled={curMissionVoteDisapproves > 3} number={4}/>
+          <VoteTrack isFilled={curMissionVoteDisapproves > 4} number={5}/>
         </div>
 
-        {
-          seats.length >= 5 && capacity >= 9 ?
-            <div className="holdPlayers">
-              { gameStartedPlayerBox(seats[4][2], seats[4][3], seats[4][1], seats[4][0]) }
-            </div>
-          : <span></span>
-        }
+        <div className="tableBtns">
+          {
+            leaderSelecting ? (
+              <Button
+                id="submitBtn" 
+                color="secondary"
+                disabled={selectedPlayers.length < missionTeamSizes[missionNumber - 1] || disableTeamSubmit} 
+                onClick={() => handleTeamSubmit()}
+              >
+                Submit Team
+              </Button>
+            ) : voteHappening ? (
+              <div>
+                <Button color="green" id="approveBtn" disabled={disableVoteBtns} onClick={() => handleVote(true)}>
+                  Approve
+                </Button>
+                <Button color="red" id="disapproveBtn" disabled={disableVoteBtns} onClick={() => handleVote(false)}>
+                  Disapprove
+                </Button>
+              </div>
+            ) : goingOnMission ? (
+              <div>
+                <Button color="green" id="passBtn" disabled={disableMissionActions} onClick={() => handleMission(true)}>
+                  Pass
+                </Button>
+                <Button color="red" id="failBtn" disabled={disableMissionActions} onClick={() => handleMission(false)}>
+                  Fail
+                </Button>
+              </div>
+            ) : (
+              <div 
+                className="voteTrackLabel" 
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  textAlign: "center",
+                  color: "var(--main-text-color)"
+                }}
+              >
+                Vote Track
+              </div>
+            )
+          }
+        </div>
       </div>
 
       <div style={playerRow(bottomRowLength, true)} className="holdPlayers">
         {
-          // this map displays up to 4 players, 2 if there are 5 players, 3 if <= 7, 4 if >= 8
           seats.map(function(seat, i) {
             const seatUsername = seat[0];
             const seatTeam = seat[1];
             const seatIsLeader = seat[2];
             const seatOnMission = seat[3];
 
-            if (capacity < 9) {
-              if (i >= topRowLength && i < bottomRowLength + topRowLength) {
-                return (
-                  <div key={seatUsername}>
-                    {gameStartedPlayerBox(seatIsLeader, seatOnMission, seatTeam, seatUsername)}
-                  </div>
-                )
-              }
-            } else {
-              if (i >= 5 && i <= 8) { // 6th to 9th
-                return (
-                  <div key={seatUsername}>
-                    {gameStartedPlayerBox(seatIsLeader, seatOnMission, seatTeam, seatUsername)}
-                  </div>
-                )
-              }
+            if (i >= topRowLength) {
+              return (
+                <div key={seatUsername}>
+                  {gameStartedPlayerBox(seatIsLeader, seatOnMission, seatTeam, seatUsername)}
+                </div>
+              )
             }
           })
         }
