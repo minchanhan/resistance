@@ -256,6 +256,9 @@
 
 .table { /* Actual Table */
   flex: 2 1 auto;
+  align-self: center;
+  width: 90%;
+  padding-bottom: 2%;
   
   display: flex;
   flex-direction: column;
@@ -539,7 +542,8 @@
 
 /* Borders */
 .infoTable,
-.fullTable
+.fullTable,
+.table
 {
   border: 2px solid #abb5aa;
   border-radius: 10px;
@@ -547,14 +551,6 @@
   -moz-box-shadow: 0px 0px 10px #abb5aa;
   box-shadow: 0px 0px 10px #abb5aa;
 }
-
-.table {
-  width: 90%;
-  align-self: center;
-  border: 1px solid white;
-  padding-bottom: 2%;
-}
-
 
 /* ----- Different Screens ----- */
 /* Vertical */
