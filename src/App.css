@@ -93,7 +93,8 @@
 
 /* Title Logo */
 .titleLogo { 
-  flex: 2;
+  flex: 1.5;
+  margin-left: 5%;
 
   display: flex;
   justify-content: center;
@@ -142,7 +143,7 @@
 .chatWindow {
   flex: 0 2 75%;
   padding: 0.5em;
-  border-radius: 0.5em;
+  border-radius: 1em;
   max-height: 75%;
 
   display: flex;
@@ -272,6 +273,7 @@
   justify-content: space-around;
   align-items: center;
   text-align: center;
+  margin: 0.1em 0;
 }
 .missionTokenGrid {
   flex: 1 1 60%;
@@ -390,7 +392,7 @@
   width: 100%;
   height: 100%;
 
-  border-radius: 0.5em 0.5em 0 0;
+  border-radius: 1em 1em 0 0;
   background: white;
 
   display: flex;
@@ -478,7 +480,7 @@
   flex: 1 7%;
   width: 100%;
   border-top: 0.025em solid black;
-  border-radius: 0 0 0.5em 0.5em;
+  border-radius: 0 0 1em 1em;
 
   display: flex;
 
@@ -491,7 +493,7 @@
 .chatInput {
   flex: 1 1 85%;
   width: 100%;
-  border-radius: 0 0 0 0.5em;
+  border-radius: 0 0 0 1em;
   background-color: white;
 }
 .chatInput > input {
@@ -499,7 +501,7 @@
   height: 90%;
   margin-left: 0.25em;
   border: none;
-  border-radius: 0 0 0 0.5em;
+  border-radius: 0 0 0 1em;
   outline: none;
   resize: none;
   font-size: 1em;
@@ -510,7 +512,7 @@
   width: 100%;
   
   border-left: 1px dotted black;
-  border-radius: 0 0 0.5em 0;
+  border-radius: 0 0 1em 0;
   font-size: 1em;
   background-color: white;
   color: black;
@@ -548,13 +550,98 @@
 .table
 {
   border: 2px solid #abb5aa;
-  border-radius: 10px;
-  -webkit-box-shadow :0px 0px 10px #abb5aa;
-  -moz-box-shadow: 0px 0px 10px #abb5aa;
-  box-shadow: 0px 0px 10px #abb5aa;
+  border-radius: 1em;
 }
 
 /* ----- Different Screens ----- */
+/* Horizontal */
+@media all and (max-height: 600px) and (orientation: landscape) {
+  .gameScreen {
+    justify-content: space-around;
+    padding: 1em;
+  }
+  .colLeft, .colRight {
+    flex: 1;
+  }
+  .infoTable {
+    flex: 1;
+    display: flex;
+    flex-flow: column nowrap;
+  }
+  .titleLogo {
+    flex: 1;
+    margin-bottom: -3%;
+  }
+  .information {
+    margin-bottom: 1.5em;
+  }
+  
+  .fullTable {
+    flex: 2;
+  }
+  .showChatBtn {
+    max-height: 5em;
+  }
+
+  .chatWindow {
+    position: absolute;
+    top: 5%;
+    z-index: 2;
+    height: 80%;
+    max-height: 80%;
+    width: 95svw;
+    align-self: center;
+  }
+}
+
+@media all and (max-height: 385px) and (max-width: 700px) and (orientation: landscape) { /* small width and REALLY short */
+  .fullTable {
+    -ms-transform: scale(0.75, 0.75); /* IE 9 */
+    -webkit-transform: scale(0.75, 0.75); /* Safari */
+    transform: scale(0.75, 0.75);
+    max-width: 60%;
+  }
+  .colLeft {
+    min-width: 30%;
+    flex: 1 1 30%;
+  }
+}
+
+@media all and (max-height: 285px) and (orientation: landscape) { /* Galaxy fold... */
+  .fullTable {
+    margin-top: -25%;
+    margin-bottom: -25%;
+    max-width: 70%;
+  }
+  .gameCommands {
+    margin-top: -25%;
+  }
+  .colLeft {
+    min-width: 30%;
+    flex: 1 1 30%;
+  }
+}
+
+@media all and (max-height: 700px) and (max-width: 385px) { /* small height and REALLY thin */
+  .fullTable {
+    margin-top: -10%;
+    margin-bottom: -15%;
+  }
+  .titleLogo > svg {
+    width: 65%;
+  }
+}
+
+@media all and (max-height: 700px) and (max-width: 285px) { /* Galaxy fold... */
+  .fullTable {
+    margin-top: -25%;
+    margin-bottom: -25%;
+  }
+  .gameCommands {
+    margin-top: -25%;
+  }
+}
+
 /* Vertical */
 @media all and (max-width: 1000px) { /* isGettingThin */
   .soldier {
@@ -658,110 +745,5 @@
   }
   .titleLogo > svg {
     width: 75%;
-  }
-}
-
-/* Horizontal */
-@media all and (max-height: 700px) and (max-width: 385px) { /* small height and REALLY thin */
-  .fullTable {
-    margin-top: -10%;
-    margin-bottom: -15%;
-  }
-  .titleLogo > svg {
-    width: 65%;
-  }
-}
-
-@media all and (max-height: 700px) and (max-width: 285px) { /* Galaxy fold... */
-  .fullTable {
-    margin-top: -25%;
-    margin-bottom: -25%;
-  }
-  .gameCommands {
-    margin-top: -25%;
-  }
-}
-
-/* Landscape Mobile Devices */
-@media all and (max-height: 600px) and (orientation: landscape) {
-  .gameScreen {
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-around;
-    padding: 3em 0 1em 0;
-  }
-  .colLeft {
-    flex: 1 1 60%;
-  }
-  .fullTable {
-    flex: 1 1 40%;
-    width: auto;
-  }
-  .infoTable {  
-    flex: 1 1 40%;
-    display: flex;
-    flex-flow: column wrap;
-  }
-  
-  .gameSettings {
-    display: flex;
-    flex-flow: row wrap;
-  }
-
-  .showChatBtn {
-    position: absolute;
-    z-index: 1;
-    bottom: 0%;
-    width: 20%;
-  }
-  .chatWindow {
-    position: absolute;
-    top: 5%;
-    z-index: 2;
-    height: 80%;
-    max-height: 80%;
-    width: 95svw;
-    align-self: center;
-  }
-}
-
-@media all and (max-height: 385px) and (max-width: 700px) and (orientation: landscape) { /* small width and REALLY short */
-  .fullTable {
-    -ms-transform: scale(0.75, 0.75); /* IE 9 */
-    -webkit-transform: scale(0.75, 0.75); /* Safari */
-    transform: scale(0.75, 0.75);
-    max-width: 60%;
-  }
-  .colLeft {
-    min-width: 30%;
-    flex: 1 1 30%;
-  }
-}
-
-@media all and (max-height: 285px) and (orientation: landscape) { /* Galaxy fold... */
-  .fullTable {
-    margin-top: -25%;
-    margin-bottom: -25%;
-    max-width: 70%;
-  }
-  .gameCommands {
-    margin-top: -25%;
-  }
-  .colLeft {
-    min-width: 30%;
-    flex: 1 1 30%;
-  }
-}
-
-@media all and (min-width: 600px) and (orientation: landscape) and (max-height: 600px) { /* thin landscape*/
-  .colLeft {
-    min-width: 30%;
-    flex: 1 1 30%;
-  }
-  .fullTable {
-    max-width: 70%;
-  }
-  .settingsSelect {
-    margin: 0.5em 0 0.5em 0;
   }
 }

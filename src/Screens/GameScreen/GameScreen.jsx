@@ -47,6 +47,7 @@ function GameScreen({
   // const isPortrait = useMediaQuery({ orientation: 'portrait' });
   // const isRetina = useMediaQuery({ minResolution: '2dppx' });
   const isThin = useMediaQuery({ maxWidth: 900 }); // turn to portrait mode
+
   const isLandscape = useMediaQuery({ orientation: 'landscape' });
   const isShort = useMediaQuery({ maxHeight: 600 });
 
@@ -124,18 +125,19 @@ function GameScreen({
                 )
               }
             </div>
-            <GameTable {...gameTableProps} />
-
-            <div className="showChatBtn">
-              <Button
-                color="secondary"
-                onClick={() => {setShowHiddenChat(!showHiddenChat)}}
-                sx={{
-                  border: `1px solid ${getComputedStyle(document.body).getPropertyValue('--secondary-color')}`,
-                }}
-              >
-                {showHiddenChat ? "Close Chat" : "Show Chat"}
-              </Button>
+            <div className="colRight">
+              <GameTable {...gameTableProps} />
+              <div className="showChatBtn">
+                <Button
+                  color="secondary"
+                  onClick={() => {setShowHiddenChat(!showHiddenChat)}}
+                  sx={{
+                    border: `1px solid ${getComputedStyle(document.body).getPropertyValue('--secondary-color')}`,
+                  }}
+                >
+                  {showHiddenChat ? "Close Chat" : "Show Chat"}
+                </Button>
+              </div>
             </div>
 
             
