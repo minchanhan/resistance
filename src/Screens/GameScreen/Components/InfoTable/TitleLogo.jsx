@@ -12,9 +12,9 @@ function TitleLogo() {
         textAnchor="middle"
         fontFamily="Impact, sans-serif"
         fontSize={40}
-        fill="#000000"
+        fill="#FFFFFF"
       >
-        <animate attributeName="fill" values="#DF4730;#000000;#000000;#000000;#DF4730" dur="8s" repeatCount="indefinite" />
+        <animate attributeName="fill" values="#DF4730;#FFFFFF;#FFFFFF;#FFFFFF;#DF4730" dur="8s" repeatCount="indefinite" />
         {"The Rebellion"}
       </text>
     </svg>
