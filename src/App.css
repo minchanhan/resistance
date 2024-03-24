@@ -332,6 +332,18 @@
   background-color: var(--secondary-color);
 }
 
+.tableText {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+  font-size: 1em;
+}
+.twoFailsText {
+  min-height: 1em;
+}
+
 /* game master command features */
 .masterMsg {
   height: 100%;
@@ -604,7 +616,7 @@
   }
 }
 
-@media all and (max-height: 450px) and (orientation: landscape) { /* small width and REALLY short */
+@media all and (max-height: 450px) and (orientation: landscape) { /* small width */
   .missionToken {
     width: 3em;
     height: 3em;

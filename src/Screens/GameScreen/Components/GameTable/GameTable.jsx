@@ -193,16 +193,7 @@ function GameTable({
                 </Button>
               </div>
             ) : (
-              <div 
-                className="voteTrackLabel" 
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  textAlign: "center",
-                  color: "var(--main-text-color)"
-                }}
-              >
+              <div className="tableText">
                 Vote Track
               </div>
             )

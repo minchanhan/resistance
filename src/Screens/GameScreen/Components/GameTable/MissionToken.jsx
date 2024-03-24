@@ -12,7 +12,7 @@ function MissionToken({
 
   return (
     <div className="tableTrackDiv">
-      <div style={{color: "var(--main-text-color)", minHeight: "16px", fontSize: "16px"}}>
+      <div className="tableText twoFailsText">
         {twoFails ? "2 fails" : ""}
       </div>
       <div 
