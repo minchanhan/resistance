@@ -11,23 +11,24 @@ function PlayerBox({ isLeader = false, onMission=false, inTeamVote=false, teamSt
     <div className="playerBox" onClick={onClick}>
       <div className="status">
         <div id="isLeader">
-          {
-            isLeader ? (
-              <StarIcon style={{fill: "white", fontSize:"large"}} />
-            ) : <></>
-          }
+          <StarIcon style={{
+              fill: "white", 
+              fontSize: "large",
+              fillOpacity: isLeader ? "1" : "0"
+            }} 
+          />
         </div>
         
         <div id="onMission">
-          {
-            onMission || inTeamVote ? (
-              <CheckBoxIcon style={{fontSize:"large"}} />
-            ) : <></>
-          }
+          <CheckBoxIcon style={{
+              fill: "white",
+              fontSize:"large", 
+              fillOpacity: onMission || inTeamVote ? "1" : "0"
+            }} 
+          />
         </div>
       </div>
       
-
       <div className="fist" style={teamStyle}>
         <Fist />
       </div>
