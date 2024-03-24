@@ -33,7 +33,12 @@ function PlayerBox({ isLeader = false, onMission=false, inTeamVote=false, teamSt
         <Fist />
       </div>
 
-      <div className="username" style={{color: ownName ? "orange" : "var(--main-text-color)" }}>
+      <div 
+        className="playerBoxUsername" 
+        style={{
+          color: ownName ? "orange" : "var(--main-text-color)"
+        }}
+      >
         {username}
       </div>
     </div>
