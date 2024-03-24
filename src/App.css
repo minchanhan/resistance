@@ -167,6 +167,7 @@
   -o-box-sizing: border-box;
 }
 .gameSettings { 
+  flex: 1 0 auto;
   display: flex;
   flex-flow: row wrap;
   justify-content: space-evenly;
@@ -192,6 +193,7 @@
   -o-box-sizing: border-box;
 }
 .gameCommands { 
+  flex: 1 0 auto;
   display: flex;
   justify-content: space-around;
   align-items: center;
