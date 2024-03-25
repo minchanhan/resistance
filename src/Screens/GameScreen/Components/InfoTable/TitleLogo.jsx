@@ -14,7 +14,7 @@ function TitleLogo() {
         fontSize={40}
         fill="#FFFFFF"
       >
-        <animate attributeName="fill" values="#DF4730;#FFFFFF;#FFFFFF;#FFFFFF;#DF4730" dur="8s" repeatCount="indefinite" />
+        <animate attributeName="fill" values="#DF4730;#FFFFFF;#FFFFFF;#FFFFFF;#FFFFFF;#DF4730" dur="10s" repeatCount="indefinite" />
         {"The Rebellion"}
       </text>
     </svg>
