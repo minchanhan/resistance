@@ -116,7 +116,7 @@ function GameScreen({
     setMsgList: setMsgList,
     showHiddenChat: showHiddenChat,
     setShowHiddenChat: setShowHiddenChat,
-    haveCloseOnWindow: isLandscape && isShort || isThin || isPortrait
+    haveCloseOnWindow: (isLandscape && isShort) || isThin || isPortrait
   }
 
   return (
