@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../../../../App.css";
-import { Typography } from "@mui/material";
 
-function Timer({ initialSecs=15, initialMins=1 }) {
+function Timer({ initialSecs=0, initialMins=1 }) {
   const [secs, setSecs] = useState(initialSecs);
   const [mins, setMins] = useState(initialMins);
 
@@ -27,18 +26,15 @@ function Timer({ initialSecs=15, initialMins=1 }) {
 
   return (
     <div className="timer">
-      { mins === 0 && secs === 0 ?
+      { mins === 0 && secs === 0 ? (
           <div>
-            End of Round
+            Team Select Done
           </div>
-        : mins === 0 && secs <= 30 ?
-          <div sx={{ color: "red" }}>
+        ) : (
+          <div sx={{ color: mins === 0 && secs <= 30 ? "red" : "" }}>
             Time: {mins}:{secs < 10 ?  `0${secs}` : secs}
           </div>
-        :
-          <div>
-            Time: {mins}:{secs < 10 ?  `0${secs}` : secs}
-          </div>
+        )
       }
     </div>   
   )

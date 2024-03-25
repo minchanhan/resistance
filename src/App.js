@@ -54,7 +54,7 @@ function App() {
 
   // Game Settings
   // Mutable before game start 
-  const [capacity, setCapacity] = useState(5);
+  const [capacity, setCapacity] = useState(6);
   const [selectionTime, setSelectionTime] = useState(7);
   const [privateRoom, setPrivateRoom] = useState(true);
 

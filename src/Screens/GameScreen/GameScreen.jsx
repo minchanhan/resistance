@@ -95,7 +95,8 @@ function GameScreen({
     seats: seats, 
     topText: `Room Admin: ${roomAdminName}`,
     missionNumber: missionNumber,
-    gameStarted: gameStarted
+    gameStarted: gameStarted,
+    selectionTime: selectionTime
   };
   
   const gameSettingsProps = {

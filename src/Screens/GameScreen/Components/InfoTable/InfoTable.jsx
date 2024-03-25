@@ -2,7 +2,7 @@ import React from "react";
 import Timer from "./Timer";
 import TitleLogo from "./TitleLogo.jsx";
 
-function InfoTable({ room, capacity, seats, topText, missionNumber, gameStarted=false, mins=7 }) {
+function InfoTable({ room, capacity, seats, topText, missionNumber, gameStarted=false, selectionTime }) {
 
   return (
     <div className="infoTable">
@@ -22,7 +22,7 @@ function InfoTable({ room, capacity, seats, topText, missionNumber, gameStarted=
             <div>
               {`Mission: ${missionNumber}`}
             </div>
-            <Timer/>
+            <Timer initialMins={selectionTime}/>
           </div>
         )
       }
