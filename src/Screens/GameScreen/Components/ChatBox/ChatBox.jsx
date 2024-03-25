@@ -9,6 +9,8 @@ function ChatBox({
   setMsg, 
   msgList, 
   setMsgList,
+  newMsg,
+  setNewMsg,
   showHiddenChat,
   setShowHiddenChat,
   haveCloseOnWindow

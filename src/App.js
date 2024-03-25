@@ -71,6 +71,7 @@ function App() {
 
   const [msg, setMsg] = useState("");
   const [msgList, setMsgList] = useState([]);
+  const [newMsg, setNewMsg] = useState(false);
 
   // Game States
   const [seats, setSeats] = useState([]);
@@ -259,6 +260,7 @@ function App() {
   useMemo(() => { // listen
     socket.on("receive_msg", (msgData) => {
       setMsgList((msgList) => [...msgList, msgData]);
+      setNewMsg(true);
     });
   }, [socket]);
 
@@ -310,6 +312,8 @@ function App() {
                 setMsg={setMsg}
                 msgList={msgList}
                 setMsgList={setMsgList}
+                newMsg={newMsg}
+                setNewMsg={setNewMsg}
               />
               <EndScreen
                 open={gameEnd}

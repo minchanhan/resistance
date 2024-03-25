@@ -1,4 +1,5 @@
 import { React, useState } from "react";
+import NotificationsIcon from '@mui/icons-material/Notifications';
 import { useMediaQuery } from 'react-responsive';
 import "../../App.css";
 
@@ -42,7 +43,9 @@ function GameScreen({
   msg,
   setMsg,
   msgList,
-  setMsgList
+  setMsgList,
+  newMsg,
+  setNewMsg
 }) {
   // const isPortrait = useMediaQuery({ orientation: 'portrait' });
   // const isRetina = useMediaQuery({ minResolution: '2dppx' });
@@ -114,6 +117,8 @@ function GameScreen({
     setMsg: setMsg,
     msgList: msgList,
     setMsgList: setMsgList,
+    newMsg: newMsg,
+    setNewMsg: setNewMsg,
     showHiddenChat: showHiddenChat,
     setShowHiddenChat: setShowHiddenChat,
     haveCloseOnWindow: (isLandscape && isShort) || isThin || isPortrait
@@ -141,19 +146,27 @@ function GameScreen({
             <div className="colRight">
               <GameTable {...gameTableProps} />
               <div className="showChatBtn">
-                <Button
-                  color="secondary"
-                  onClick={() => {setShowHiddenChat(!showHiddenChat)}}
-                  sx={{
-                    border: `1px solid ${getComputedStyle(document.body).getPropertyValue('--secondary-color')}`,
-                  }}
-                >
-                  {showHiddenChat ? "Close Chat" : "Show Chat"}
-                </Button>
+                <div className="showChatBtnBox">
+                  {
+                    newMsg && !showHiddenChat ? (
+                      <NotificationsIcon className="newMsgAlert" />
+                    ) : <></>
+                  }
+                  <Button
+                    color="secondary"
+                    onClick={() => {
+                      setShowHiddenChat(!showHiddenChat);
+                      setNewMsg(false);
+                    }}
+                    sx={{
+                      border: `1px solid ${getComputedStyle(document.body).getPropertyValue('--secondary-color')}`,
+                    }}
+                  >
+                    {showHiddenChat ? "Close Chat" : "Show Chat"}
+                  </Button>
+                </div>
               </div>
             </div>
-
-            
           </div>
         ) : isThin || isPortrait ? (
           <div className="gameScreen">
@@ -170,15 +183,25 @@ function GameScreen({
               )
             }
             <div className="showChatBtn">
-              <Button
-                color="secondary"
-                onClick={() => {setShowHiddenChat(!showHiddenChat)}}
-                sx={{
-                  border: `1px solid ${getComputedStyle(document.body).getPropertyValue('--secondary-color')}`,
-                }}
-              >
-                {showHiddenChat ? "Close Chat" : "Show Chat"}
-              </Button>
+              <div className="showChatBtnBox">
+                {
+                  newMsg && !showHiddenChat ? (
+                    <NotificationsIcon className="newMsgAlert" />
+                  ) : <></>
+                }
+                <Button
+                  color="secondary"
+                  onClick={() => {
+                    setShowHiddenChat(!showHiddenChat);
+                    setNewMsg(false);
+                  }}
+                  sx={{
+                    border: `1px solid ${getComputedStyle(document.body).getPropertyValue('--secondary-color')}`,
+                  }}
+                >
+                  {showHiddenChat ? "Close Chat" : "Show Chat"}
+                </Button>
+              </div>
             </div>
           </div>
         ) : (

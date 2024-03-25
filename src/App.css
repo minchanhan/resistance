@@ -226,11 +226,23 @@
   align-items: center;
   text-align: center;
 }
+.showChatBtnBox {
+  width: 6rem;
+  align-self: center;
+  position: relative;
+}
 .closeChatOnWindow {
   position: absolute;
   top: 1.75%;
   right: 5%;
   z-index: 3;
+}
+.newMsgAlert {
+  position: absolute;
+  top: -22.5%;
+  right: -5%;
+  z-index: 3;
+  filter: invert(65%) sepia(80%) saturate(362%) hue-rotate(339deg) brightness(98%) contrast(97%);
 }
 
 /* game table features */
