@@ -1,7 +1,18 @@
 import React from "react";
 import ScrollToBottom from "react-scroll-to-bottom";
+import CloseIcon from '@mui/icons-material/Close';
 
-function ChatBox({ socket, username, msg, setMsg, msgList, setMsgList }) {
+function ChatBox({ 
+  socket, 
+  username, 
+  msg, 
+  setMsg, 
+  msgList, 
+  setMsgList,
+  showHiddenChat,
+  setShowHiddenChat,
+  haveCloseOnWindow
+ }) {
   const getTime = () => {
     var mins = new Date(Date.now()).getMinutes();
     if (mins < 10) {
@@ -28,6 +39,14 @@ function ChatBox({ socket, username, msg, setMsg, msgList, setMsgList }) {
 
   return (
     <div className="chatWindow">
+      {
+        haveCloseOnWindow ? (
+          <CloseIcon 
+            className="closeChatOnWindow" 
+            onClick={() => {setShowHiddenChat(!showHiddenChat)}} 
+          />
+        ) : <></>
+      }
       <div className="chatHeader">
         <p>Comunication</p>
       </div>

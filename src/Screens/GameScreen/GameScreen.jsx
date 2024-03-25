@@ -47,6 +47,8 @@ function GameScreen({
   // const isPortrait = useMediaQuery({ orientation: 'portrait' });
   // const isRetina = useMediaQuery({ minResolution: '2dppx' });
   const isThin = useMediaQuery({ maxWidth: 900 }); // turn to portrait mode
+  const isPortrait = useMediaQuery({ orientation: 'portrait' });
+  const isReallyThin = useMediaQuery({ maxWidth: 425 });
 
   const isLandscape = useMediaQuery({ orientation: 'landscape' });
   const isShort = useMediaQuery({ maxHeight: 650 });
@@ -80,7 +82,8 @@ function GameScreen({
     missionResultTrack: missionResultTrack,
     isHighRes: isHighRes,
     is4K: is4K,
-    isReallyShort: isReallyShort
+    isReallyShort: isReallyShort,
+    isReallyThin: isReallyThin
   };
 
   const infoTableProps = {
@@ -111,6 +114,9 @@ function GameScreen({
     setMsg: setMsg,
     msgList: msgList,
     setMsgList: setMsgList,
+    showHiddenChat: showHiddenChat,
+    setShowHiddenChat: setShowHiddenChat,
+    haveCloseOnWindow: isLandscape && isShort || isThin || isPortrait
   }
 
   return (
@@ -149,7 +155,7 @@ function GameScreen({
 
             
           </div>
-        ) : isThin ? (
+        ) : isThin || isPortrait ? (
           <div className="gameScreen">
             {
               showHiddenChat ? (

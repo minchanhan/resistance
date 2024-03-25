@@ -8,7 +8,8 @@ function MissionToken({
   status="none", 
   missionTeamSize, 
   twoFails=false,
-  isReallyShort=false
+  isReallyShort=false,
+  isReallyThin=false
 }) {
 
   return (
@@ -21,7 +22,7 @@ function MissionToken({
           `missionToken ${current ? "currentMission" : ""} ${isPassed ? "passed" : ""} ${isFailed ? "failed" : ""}`
         }
       >
-        <div className="number" style={{fontSize: isReallyShort ? "2rem" : "2.5rem"}}>
+        <div className="number" style={{fontSize: isReallyThin ? "1.5em" : isReallyShort ? "2rem" : "2.5rem"}}>
           {missionTeamSize}
         </div>
       </div>

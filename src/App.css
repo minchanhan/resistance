@@ -226,6 +226,12 @@
   align-items: center;
   text-align: center;
 }
+.closeChatOnWindow {
+  position: absolute;
+  top: 1.75%;
+  right: 5%;
+  z-index: 3;
+}
 
 /* game table features */
 .holdPlayers {
@@ -574,7 +580,7 @@
 .table
 {
   border: 2px solid #abb5aa;
-  border-radius: 1rem;
+  border-radius: 0.5rem;
 }
 
 /* ----- Different Screens ----- */
@@ -717,7 +723,6 @@
   }
 }
 
-
 /* Vertical */
 @media all and (max-width: 1000px) { /* isGettingThin */
   .soldier {
@@ -739,13 +744,15 @@
   }
 }
 
-@media all and (max-width: 900px) and (min-height: 700px) { /* isThin */
-  /* Screen Switch */
+@media all and (max-width: 900px) and (min-height: 700px),
+  (orientation: portrait) { 
+  /* Screen Switch, isThin */
   .gameScreen {
     display: flex;
     flex-flow: column nowrap;
     justify-content: space-around;
-    padding: 3em 0 1em 0;
+    padding: 3rem 2rem 1rem 2rem;
+    gap: 2rem;
   }
   .infoTable {
     flex: 1 2 auto;
@@ -754,8 +761,17 @@
   .titleLogo, .information {
     flex: 1 5 auto;
   }
+  .information {
+    margin: 0 0 0.25rem 0;
+  }
+  .titleLogo {
+    margin: 0 0 -1rem 0;
+  }
+  .titleLogo > svg {
+    width: 75%;
+  }
   .fullTable {
-    flex: 1 2 auto;
+    flex: 2 2 auto;
   }
   .gameSettings, .gameCommands {
     flex: 1 1 auto;
@@ -777,59 +793,79 @@
   }
 }
 
-@media all and (max-width: 600px) and (min-height: 700px) { /* isMoreThin */
+@media all and (min-height: 1200px) and (orientation: portrait) { /* isTall */
   .chatInput > input, .chatSendBtn {
-    font-size: 0.8rem;
+    font-size: 1rem;
   }
-  .infoTable, .holdPlayers {
-    -ms-transform: scale(0.9, 0.9); /* IE 9 */
-    -webkit-transform: scale(0.9, 0.9); /* Safari */
-    transform: scale(0.9, 0.9);
-  }
-  .fullTable {
-    -ms-transform: scale(0.7, 0.7); /* IE 9 */
-    -webkit-transform: scale(0.7, 0.7); /* Safari */
-    transform: scale(0.7, 0.7);
-  }
-  .gameSettings, .gameCommands {
-    -ms-transform: scale(0.8, 0.8); /* IE 9 */
-    -webkit-transform: scale(0.8, 0.8); /* Safari */
-    transform: scale(0.8, 0.8);
-  }
-  .infoTable {
-    margin-bottom: -10%;
-  }
-  .gameCommands {
-    margin-top: -15%;
-  }
-}
-
-@media all and (max-width: 385px) and (min-height: 700px) { /* isREALLYThin */
-  .chatInput > input, .chatSendBtn {
-    font-size: 0.6rem;
-  }
-  .fullTable {
-    -ms-transform: scale(0.6, 0.6); /* IE 9 */
-    -webkit-transform: scale(0.6, 0.6); /* Safari */
-    transform: scale(0.6, 0.6);
-  }
-  .gameSettings, .gameCommands {
-    -ms-transform: scale(0.7, 0.7); /* IE 9 */
-    -webkit-transform: scale(0.7, 0.7); /* Safari */
-    transform: scale(0.7, 0.7);
-  }
-}
-
-@media all and (max-width: 285px) and (min-height: 700px) { /* whack galaxy fold */
-  .chatInput > input, .chatSendBtn {
-    font-size: 0.5rem;
-  }
-  .fullTable {
-    -ms-transform: scale(0.5, 0.5); /* IE 9 */
-    -webkit-transform: scale(0.5, 0.5); /* Safari */
-    transform: scale(0.5, 0.5);
+  .information > * {
+    font-size: 1rem;
   }
   .titleLogo > svg {
-    width: 75%;
+    width: 100%;
+  }
+  .playerBoxUsername {
+    font-size: 1rem;
+  }
+  .msgContent {
+    font-size: 1rem;
+  }
+}
+
+@media all and (max-width: 600px) and (orientation: portrait) {
+  .missionToken {
+    width: 4rem;
+    height: 4rem;
+  }
+  .voteHole {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+  .playerBoxUsername {
+    font-size: 0.6rem;
+  }
+}
+@media all and (max-width: 500px) and (orientation: portrait) {
+  .startTitle {
+    font-size: 3rem;
+    margin: 1rem 0;
+  }
+  .missionToken {
+    width: 3.25rem;
+    height: 3.25rem;
+  }
+  .fullTable {
+    border: none;
+  }
+}
+@media all and (max-width: 425px) and (orientation: portrait) {
+  .missionToken {
+    width: 3.25rem;
+    height: 3.25rem;
+  }
+}
+@media all and (max-width: 380px) and (orientation: portrait) {
+  .missionToken {
+    width: 2.25rem;
+    height: 2.25rem;
+  }
+}
+
+@media all and (max-width: 300px) and (orientation: portrait) {
+  .gameSettings {
+    flex-flow: column nowrap;
+    justify-content: space-around;
+    align-items: stretch;
+    align-content: space-around;
+  }
+  .settingsSelect, .settingsSwitch, .settingsStartBtn {
+    flex: 1 1 25%;
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 1rem;
+  }
+  .settingsSelect {
+    margin: 0.5rem 0;
   }
 }

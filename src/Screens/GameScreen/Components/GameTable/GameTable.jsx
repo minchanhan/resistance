@@ -28,7 +28,8 @@ function GameTable({
   missionResultTrack,
   isHighRes,
   is4K,
-  isReallyShort
+  isReallyShort,
+  isReallyThin
 }) {
   const topRowLength = capacity >= 9 ? 5 : capacity >= 7 ? 4 : 3;
   const bottomRowLength = capacity >= 10 ? 5 : capacity >= 8 ? 4 : capacity >= 6 ? 3 : 2;
@@ -134,6 +135,7 @@ function GameTable({
             current={missionNumber === 1} 
             missionTeamSize={missionTeamSize1}
             isReallyShort={isReallyShort}
+            isReallyThin={isReallyThin}
           />
           <MissionToken
             isPassed={missionResultTrack[1] === "pass"} 
@@ -141,6 +143,7 @@ function GameTable({
             current={missionNumber === 2} 
             missionTeamSize={missionTeamSize2}
             isReallyShort={isReallyShort}
+            isReallyThin={isReallyThin}
           />
           <MissionToken
             isPassed={missionResultTrack[2] === "pass"} 
@@ -148,6 +151,7 @@ function GameTable({
             current={missionNumber === 3} 
             missionTeamSize={missionTeamSize3}
             isReallyShort={isReallyShort}
+            isReallyThin={isReallyThin}
           />
           <MissionToken
             isPassed={missionResultTrack[3] === "pass"} 
@@ -156,6 +160,7 @@ function GameTable({
             missionTeamSize={missionTeamSize4}
             twoFails={capacity >= 7}
             isReallyShort={isReallyShort}
+            isReallyThin={isReallyThin}
           />
           <MissionToken
             isPassed={missionResultTrack[4] === "pass"} 
@@ -163,6 +168,7 @@ function GameTable({
             current={missionNumber === 5} 
             missionTeamSize={missionTeamSize5}
             isReallyShort={isReallyShort}
+            isReallyThin={isReallyThin}
           />
         </div>
         
