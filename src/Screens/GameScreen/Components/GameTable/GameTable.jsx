@@ -25,7 +25,10 @@ function GameTable({
   disableMissionActions,
   setDisableMissionActions,
   missionNumber,
-  missionResultTrack
+  missionResultTrack,
+  isHighRes,
+  is4K,
+  isReallyShort
 }) {
   const topRowLength = capacity >= 9 ? 5 : capacity >= 7 ? 4 : 3;
   const bottomRowLength = capacity >= 10 ? 5 : capacity >= 8 ? 4 : capacity >= 6 ? 3 : 2;
@@ -94,6 +97,9 @@ function GameTable({
         onClick={() => {
           handleMissionSelection(seatUsername);
         }}
+        isHighRes={isHighRes}
+        is4K={is4K}
+        isReallyShort={isReallyShort}
       />
     )
   }
@@ -127,18 +133,21 @@ function GameTable({
             isFailed={missionResultTrack[0] === "fail"}
             current={missionNumber === 1} 
             missionTeamSize={missionTeamSize1}
+            isReallyShort={isReallyShort}
           />
           <MissionToken
             isPassed={missionResultTrack[1] === "pass"} 
             isFailed={missionResultTrack[1] === "fail"}
             current={missionNumber === 2} 
             missionTeamSize={missionTeamSize2}
+            isReallyShort={isReallyShort}
           />
           <MissionToken
             isPassed={missionResultTrack[2] === "pass"} 
             isFailed={missionResultTrack[2] === "fail"}
             current={missionNumber === 3} 
             missionTeamSize={missionTeamSize3}
+            isReallyShort={isReallyShort}
           />
           <MissionToken
             isPassed={missionResultTrack[3] === "pass"} 
@@ -146,12 +155,14 @@ function GameTable({
             current={missionNumber === 4} 
             missionTeamSize={missionTeamSize4}
             twoFails={capacity >= 7}
+            isReallyShort={isReallyShort}
           />
           <MissionToken
             isPassed={missionResultTrack[4] === "pass"} 
             isFailed={missionResultTrack[4] === "fail"}
             current={missionNumber === 5} 
             missionTeamSize={missionTeamSize5}
+            isReallyShort={isReallyShort}
           />
         </div>
         

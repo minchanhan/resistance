@@ -40,7 +40,7 @@ function JoinRoomModal({
         <div style={{
           display: "flex", 
           flexDirection: "column", 
-          marginTop: "0.5em",
+          marginTop: "0.5rem",
           justifyContent: "center",
           alignItems: "center"
         }}>

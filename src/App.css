@@ -36,8 +36,13 @@
 
 /* ----- Start Screen Features ----- */
 .startScreen {
-  font-size: calc(10px + 2vmin);
   color: var(--main-text-color);
+  display: flex;
+  flex-flow: column nowrap;
+}
+.startTitle {
+  font-size: 4rem;
+  margin: 1rem 0;
 }
 
 .footer {
@@ -67,7 +72,7 @@
 
   height: 100%;
   width: 100%;
-  padding: 1.5em;
+  padding: 1.5rem;
 }
 
 .colLeft, .colRight {
@@ -81,7 +86,7 @@
   flex: 1 1 40%;
 }
 .colLeft > *, .colRight > *{
-  margin: 1em;
+  margin: 1rem;
 }
 
 /* --- Info Table --- */
@@ -109,6 +114,7 @@
   align-items: center;
   flex-flow: column wrap;
   color: gray;
+  margin-right: 0.5rem;
 }
 
 /* timer */
@@ -142,8 +148,8 @@
 }
 .chatWindow {
   flex: 0 2 75%;
-  padding: 0.5em;
-  border-radius: 1em;
+  padding: 0.5rem;
+  border-radius: 1rem;
   max-height: 75%;
 
   display: flex;
@@ -171,7 +177,7 @@
   flex: 1 0 auto;
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-evenly;
+  justify-content: space-around;
   align-items: stretch;
   align-content: space-around;
 
@@ -183,6 +189,11 @@
 }
 .settingsSelect, .settingsSwitch, .settingsStartBtn {
   flex: 1 1 50%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 1rem;
 }
 
 /* --- Game Master --- */
@@ -221,10 +232,11 @@
   flex: 1 1 auto;
 
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-around;
   justify-items: center;
   align-items: center;
   text-align: center;
+  gap: 0.5em;
 }
 
 /* Player Box */
@@ -247,11 +259,11 @@
   align-items: center;
 }
 .status {
-  width: 3.5em;
+  width: 3.5rem;
 }
 
 .playerBoxUsername {
-  font-size: 0.85em;
+  font-size: 0.85rem;
 }
 .selected { /* selected for mission */
   background-color: var(--secondary-color);
@@ -309,8 +321,8 @@
 
 .missionToken { /* Mission Holes */
   flex: 1 1 auto;
-  width: 5em;
-  height: 5em;
+  width: 5rem;
+  height: 5rem;
 }
 .currentMission {
   border: 1px solid var(--secondary-color);
@@ -324,8 +336,8 @@
 
 .voteHole { /* Vote Track */
   flex: 1 1 auto;
-  width: 2em;
-  height: 2em;
+  width: 2rem;
+  height: 2rem;
   background-color: #3d3a3a;
 }
 .filledVote {
@@ -338,10 +350,10 @@
   align-items: center;
   text-align: center;
   color: white;
-  font-size: 1em;
+  font-size: 1rem;
 }
 .twoFailsText {
-  min-height: 1em;
+  min-height: 1rem;
 }
 
 /* game master command features */
@@ -356,9 +368,9 @@
 
   background-color: black;
   color: white;
-  border-radius: 2em;
+  border-radius: 2rem;
   
-  padding: 0.6em 0.6em 0.6em 1em;
+  padding: 0.6em 0.6em 0.6em 1rem;
   position: relative;
 }
 
@@ -426,7 +438,7 @@
 .message {
   min-width: 25%;
   max-width: 75%;
-  margin: 0.3em;
+  margin: 0.3rem;
   
   display: flex;
   flex-flow: column wrap;
@@ -435,13 +447,13 @@
 .message .msgContent {
   width: auto;
   height: auto;
-  min-height: 1em;
+  min-height: 1rem;
 
   color: var(--main-text-color);
-  padding: 1em;
+  padding: 1rem;
   overflow-wrap: break-word;
   word-break: break-word;
-  border-radius: 0.7em;
+  border-radius: 0.7rem;
 
   display: flex;
   justify-content: start;
@@ -456,11 +468,11 @@
   background-color: var(--secondary-color);
 }
 .you .msgMeta {
-  margin-right: 1em;
+  margin-right: 0.25rem;
   align-self: flex-end;
 }
 .you .msgTime {
-  margin-right: 0.5em;
+  margin-right: 0.4rem;
 }
 
 .other .msgContent {
@@ -470,15 +482,15 @@
   background-color: silver;
 }
 .other .msgMeta, .voteResult .msgMeta {
-  margin-left: 1em;
+  margin-left: 0.25rem;
 }
 .other .msgTime, .voteResult .msgTime {
-  margin-right: 0.5em;
+  margin-right: 0.4rem;
 }
 
 .msgMeta {
   display: flex;
-  font-size: 0.7em;
+  font-size: 0.7rem;
 }
 
 .chatFooter * {
@@ -492,7 +504,7 @@
   flex: 1 7%;
   width: 100%;
   border-top: 0.025em solid black;
-  border-radius: 0 0 1em 1em;
+  border-radius: 0 0 1em 1rem;
 
   display: flex;
 
@@ -505,18 +517,18 @@
 .chatInput {
   flex: 1 1 85%;
   width: 100%;
-  border-radius: 0 0 0 1em;
+  border-radius: 0 0 0 1rem;
   background-color: white;
 }
 .chatInput > input {
   width: 100%;
   height: 90%;
-  margin-left: 0.25em;
+  margin-left: 0.25rem;
   border: none;
-  border-radius: 0 0 0 1em;
+  border-radius: 0 0 0 1rem;
   outline: none;
   resize: none;
-  font-size: 1em;
+  font-size: 1rem;
   font-family: inherit;
 }
 .chatSendBtn {
@@ -525,7 +537,7 @@
   
   border-left: 1px dotted black;
   border-radius: 0 0 1em 0;
-  font-size: 1em;
+  font-size: 1rem;
   background-color: white;
   color: black;
   cursor: pointer;
@@ -562,15 +574,72 @@
 .table
 {
   border: 2px solid #abb5aa;
-  border-radius: 1em;
+  border-radius: 1rem;
 }
 
 /* ----- Different Screens ----- */
+/* 4K */
+@media all and (min-width: 2560px) {
+  .startTitle {
+    font-size: 6rem;
+  }
+  .startScreen .usernameField {
+    flex: 1 1 5rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    align-content: stretch;
+    padding: 0 10rem;
+  }
+  .usernameTextField {
+    flex: 1;
+  }
+  .startScreen Button {
+    font-size: 1.5rem;
+  }
+
+  .information > * {
+    font-size: 2rem;
+  }
+
+  .playerBoxUsername {
+    font-size: 1.3rem;
+  }
+  .missionToken {
+    width: 8rem;
+    height: 8rem;
+  }
+  .voteHole{
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+  .tableText {
+    font-size: 1.5rem;
+  }
+  .twoFailsText {
+    min-height: 1.5rem;
+  }
+  .chatHeader {
+    font-size: 1.75rem;
+  }
+  .msgContent p {
+    font-size: 1.5rem;
+  }
+  .msgMeta p {
+    font-size: 1.25rem;
+  }
+  .chatInput > input, .chatSendBtn { 
+    font-size: 1.25rem;
+  }
+}
+
 /* Horizontal */
-@media all and (max-height: 600px) and (orientation: landscape) {
+@media all and (max-height: 650px) and (orientation: landscape) {
+  /* Screen Switch, isShort */
   .gameScreen {
     justify-content: space-around;
-    padding: 1em;
+    padding: 1rem;
   }
   .colLeft, .colRight {
     flex: 1;
@@ -591,14 +660,17 @@
     margin-bottom: -3%;
   }
   .information {
-    margin-bottom: 1.5em;
+    margin-bottom: 1.5rem;
   }
   
   .fullTable {
     flex: 2;
   }
+  .holdPlayers {
+    margin-bottom: 0.5rem;
+  }
   .showChatBtn {
-    max-height: 5em;
+    max-height: 5rem;
   }
 
   .chatWindow {
@@ -612,32 +684,39 @@
   }
 
   .playerBoxUsername {
-    font-size: 0.7em;
+    font-size: 0.7rem;
+  }
+
+  .missionToken {
+    width: 4rem;
+    height: 4rem;
   }
 }
 
-@media all and (max-height: 450px) and (orientation: landscape) { /* small width */
+@media all and (max-height: 450px) and (orientation: landscape) { /* really short landscape */
+  /* isReallyShort */
+  .voteHole {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
   .missionToken {
     width: 3em;
     height: 3em;
   }
-  
-  
-}
-
-@media all and (max-height: 285px) and (orientation: landscape) { /* Galaxy fold... */
-  
-}
-
-@media all and (max-height: 700px) and (max-width: 385px) { /* small height and REALLY thin */
-  .titleLogo > svg {
-    width: 65%;
+  .tableText {
+    font-size: 0.8rem;
+  }
+  .twoFailsText {
+    min-height: 0.8rem;
   }
 }
 
-@media all and (max-height: 700px) and (max-width: 285px) { /* Galaxy fold... */
-  
+@media all and (max-width: 870px) and (orientation: landscape) { /* really thin landscape */
+  .settingsSelect {
+    padding: 0.5rem 0;
+  }
 }
+
 
 /* Vertical */
 @media all and (max-width: 1000px) { /* isGettingThin */
@@ -647,11 +726,21 @@
     transform: scale(0.9, 0.9);
   }
   .chatInput > input, .chatSendBtn {
-    font-size: 0.8em;
+    font-size: 0.8rem;
+  }
+  .information > * {
+    font-size: 0.85rem;
+  }
+  .playerBoxUsername {
+    font-size: 0.7rem;
+  }
+  .msgContent {
+    font-size: 0.75rem;
   }
 }
 
 @media all and (max-width: 900px) and (min-height: 700px) { /* isThin */
+  /* Screen Switch */
   .gameScreen {
     display: flex;
     flex-flow: column nowrap;
@@ -683,14 +772,14 @@
     align-self: center;
   }
   .missionToken {
-    width: 4.5em;
-    height: 4.5em;
+    width: 4.5rem;
+    height: 4.5rem;
   }
 }
 
 @media all and (max-width: 600px) and (min-height: 700px) { /* isMoreThin */
   .chatInput > input, .chatSendBtn {
-    font-size: 0.8em;
+    font-size: 0.8rem;
   }
   .infoTable, .holdPlayers {
     -ms-transform: scale(0.9, 0.9); /* IE 9 */
@@ -717,7 +806,7 @@
 
 @media all and (max-width: 385px) and (min-height: 700px) { /* isREALLYThin */
   .chatInput > input, .chatSendBtn {
-    font-size: 0.6em;
+    font-size: 0.6rem;
   }
   .fullTable {
     -ms-transform: scale(0.6, 0.6); /* IE 9 */
@@ -733,7 +822,7 @@
 
 @media all and (max-width: 285px) and (min-height: 700px) { /* whack galaxy fold */
   .chatInput > input, .chatSendBtn {
-    font-size: 0.5em;
+    font-size: 0.5rem;
   }
   .fullTable {
     -ms-transform: scale(0.5, 0.5); /* IE 9 */

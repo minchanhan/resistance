@@ -6,7 +6,7 @@
   }
 
   .infoTable {
-    margin-top: 6em;
+    margin-top: 6rem;
     flex-flow: column nowrap;
     flex: 0 1 auto;
     width: 100%;
@@ -37,7 +37,7 @@
     max-height: 76svh;
   }
   .chatWindow .chatFooter, .chatWindow .chatHeader{
-    height: 3em;
+    height: 3rem;
     flex: 1 auto;
   }
 
@@ -62,7 +62,7 @@
 /* Laptop Screen Shrinking Vertically */
 @media all and (min-width: 535px) and (max-width: 1000px) {
   .infoTable {
-    margin-top: 2em;
+    margin-top: 2rem;
   }
   .fullTable, .gameSettings, .gameCommands {
     -ms-transform: scale(0.9, 0.9); /* IE 9 */
@@ -70,14 +70,14 @@
     transform: scale(0.9, 0.9);
   }
   .gameSettings {
-    margin-bottom: 1em;
+    margin-bottom: 1rem;
   }
 }
 
 /* Portrait Tablets */
 @media screen and (orientation:portrait) and (min-width: 535px) {
   .infoTable {
-    margin-top: 2em;
+    margin-top: 2rem;
   }
   .fullTable, .gameSettings, .gameCommands {
     -ms-transform: scale(0.9, 0.9); /* IE 9 */
@@ -85,7 +85,7 @@
     transform: scale(0.9, 0.9);
   }
   .gameSettings {
-    margin-bottom: 1em;
+    margin-bottom: 1rem;
   }
 }
 
@@ -127,7 +127,7 @@
   }
   .infoTable {
     max-height: 20svh;
-    margin-top: 4em;
+    margin-top: 4rem;
   }
 }
 
@@ -140,7 +140,7 @@
   .infoTable {
     font-size: smaller;
     max-height: 10svh;
-    margin-top: 4em;
+    margin-top: 4rem;
   }
   .chatWindow {
     height: 65svh;
@@ -210,7 +210,7 @@
     max-height: 76svh;
   }
   .chatWindow .chatFooter, .chatWindow .chatHeader{
-    height: 3em;
+    height: 3rem;
     flex: 1 auto;
   }
 

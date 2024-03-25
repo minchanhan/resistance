@@ -1,6 +1,6 @@
 import React from "react";
 
-function Fist({width="3em", height="3em"}) {
+function Fist({width="3rem", height="3rem"}) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

@@ -6,7 +6,7 @@ function VoteTrack({ isFilled=false, number }) {
   return (
     <div className="tableTrackDiv">
       <div className={`voteHole ${isFilled ? "filledVote" : ""}`} >
-        <div className="number" style={{fontSize: "1em"}}>
+        <div className="number" style={{fontSize: "1rem"}}>
           {number}
         </div>
       </div>  

@@ -84,13 +84,12 @@ function StartScreen({
   }
   
   return (
-    <div className="startScreen" style={{display: "flex", flexDirection: "column"}}>
-      <div style={{flex: "20%"}}>
-        <h1>The Resistance</h1>
-      </div>
+    <div className="startScreen">
+      <div className="startTitle">The Resistance</div>
       
-      <div style={{flex: "20%"}}>
+      <div className="usernameField">
         <TextField
+          className="usernameTextField"
           error={!validUsername() && usernameWarningCheck}
           id={!validUsername() && usernameWarningCheck ? "" : "outlined-error-helper-text"}
           label={!validUsername() && usernameWarningCheck ? "Warning" : "Username"}
@@ -104,11 +103,11 @@ function StartScreen({
         />
       </div>
       
-      <div style={{flex: "15%"}}>
+      <div>
         <Button onClick={handleCreate}>Create Room</Button>
       </div>
 
-      <div style={{flex: "15%"}}>
+      <div>
         <Button onClick={handleJoinOpen}>Join Room with Code</Button>
         <JoinRoomModal 
           socket={socket}
@@ -119,15 +118,15 @@ function StartScreen({
         />
       </div>
 
-      <div style={{flex: "15%"}}>
+      <div>
         <Button onClick={handleRandomJoin}>Join Random Room</Button>
       </div>
       {
-        randomStatusMsg !== "" ? <p style={{ fontSize: "0.7em", color: "red" }}>{randomStatusMsg}</p> : <></>
+        randomStatusMsg !== "" ? <p style={{ fontSize: "0.7rem", color: "red" }}>{randomStatusMsg}</p> : <></>
       }
 
       <br />
-      <div style={{flex: "15%"}}>
+      <div>
         <Button onClick={handleInstructionsOpen}>Instructions</Button>
         <InstructionsModal 
           open={instructionsOpen} 
@@ -138,8 +137,7 @@ function StartScreen({
       </div>
 
       <footer className="footer">
-        credits: wood - 
-        <a href="https://www.freepik.com/free-vector/wooden-background-texture-brown-wood-planks_13327400.htm#page=2&query=wood%20table%20top&position=32&from_view=search&track=ais&uuid=78cbee26-baa7-4307-9fed-5ea5d0d061aa">Image by upklyak</a> on Freepik
+        By Minchan Han
       </footer>
     </div>
   )

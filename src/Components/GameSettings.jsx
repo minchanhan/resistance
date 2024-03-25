@@ -29,7 +29,7 @@ function GameSettings({
   return (
     <div className="gameSettings">
       <div className="settingsSelect">
-        <FormControl>
+        <FormControl style={{ flex: "1 1 auto" }}>
           <InputLabel id="demo-simple-select-helper-label"># of Players</InputLabel>
           <Select
             id="demo-simple-select-helper"
@@ -52,7 +52,7 @@ function GameSettings({
       </div>
 
       <div className="settingsSelect">
-        <FormControl>
+        <FormControl style={{ flex: "1 1 auto" }}>
           <InputLabel id="demo-simple-select-helper-label">Team Select Time Limit</InputLabel>
           <Select
             id="demo-simple-select-helper"
@@ -64,14 +64,14 @@ function GameSettings({
             }}
             disabled={!isAdmin}
           >
-            <MenuItem value={3}>3 mins</MenuItem>
-            <MenuItem value={5}>5 mins</MenuItem>
-            <MenuItem value={7}>7 mins</MenuItem>
-            <MenuItem value={10}>10 mins</MenuItem>
-            <MenuItem value={15}>15 mins</MenuItem>
+            <MenuItem value={3}>3 min</MenuItem>
+            <MenuItem value={5}>5 min</MenuItem>
+            <MenuItem value={7}>7 min</MenuItem>
+            <MenuItem value={10}>10 min</MenuItem>
+            <MenuItem value={15}>15 min</MenuItem>
             <MenuItem value={200}>Unlimited</MenuItem>
           </Select>
-          <FormHelperText>7mins: ~1hr Game</FormHelperText>
+          <FormHelperText>3 min - Ꝏ</FormHelperText>
         </FormControl>
       </div>
       
@@ -89,7 +89,7 @@ function GameSettings({
           } 
           label="Private Room"
           labelPlacement="start"
-          sx={{color: "var(--main-text-color)", mb: "0.25em"}}
+          sx={{color: "var(--main-text-color)", mb: "0.25rem"}}
         />
       </div>
 

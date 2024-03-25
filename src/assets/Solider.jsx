@@ -2,7 +2,7 @@ import React from "react";
 
 function Soldier() {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="9em" height="9em" viewBox="0 0 492 597" transform="scale(-1, 1)">
+    <svg xmlns="http://www.w3.org/2000/svg" width="9rem" height="9rem" viewBox="0 0 492 597" transform="scale(-1, 1)">
       <g fill="#000" stroke="#000" strokeWidth="0.7">
         <path
           fillRule="evenodd"

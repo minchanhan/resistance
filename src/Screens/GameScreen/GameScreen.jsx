@@ -49,7 +49,11 @@ function GameScreen({
   const isThin = useMediaQuery({ maxWidth: 900 }); // turn to portrait mode
 
   const isLandscape = useMediaQuery({ orientation: 'landscape' });
-  const isShort = useMediaQuery({ maxHeight: 600 });
+  const isShort = useMediaQuery({ maxHeight: 650 });
+  const isReallyShort = useMediaQuery({ maxHeight: 450 });
+
+  const isHighRes = useMediaQuery({ minWidth: 1440 });
+  const is4K = useMediaQuery({ minWidth: 2560 });
 
   const [showHiddenChat, setShowHiddenChat] = useState(false);
 
@@ -73,7 +77,10 @@ function GameScreen({
     disableMissionActions: disableMissionActions,
     setDisableMissionActions: setDisableMissionActions,
     missionNumber: missionNumber,
-    missionResultTrack: missionResultTrack
+    missionResultTrack: missionResultTrack,
+    isHighRes: isHighRes,
+    is4K: is4K,
+    isReallyShort: isReallyShort
   };
 
   const infoTableProps = {
