@@ -51,7 +51,7 @@ function GameScreen({
   const isReallyThin = useMediaQuery({ maxWidth: 425 });
 
   const isLandscape = useMediaQuery({ orientation: 'landscape' });
-  const isShort = useMediaQuery({ maxHeight: 650 });
+  const isShort = useMediaQuery({ maxHeight: 700 });
   const isReallyShort = useMediaQuery({ maxHeight: 450 });
 
   const isHighRes = useMediaQuery({ minWidth: 1440 });

@@ -641,7 +641,7 @@
 }
 
 /* Horizontal */
-@media all and (max-height: 650px) and (orientation: landscape) {
+@media all and (max-height: 700px) and (orientation: landscape) {
   /* Screen Switch, isShort */
   .gameScreen {
     justify-content: space-around;
