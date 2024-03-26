@@ -24,7 +24,7 @@ function StartScreen({
     transform: 'translate(-50%, -50%)',
     width: joinRoomModal ? "60svw" : "85svw",
     maxWidth: joinRoomModal ? "20rem" : "85svw",
-    bgcolor: 'background.paper',
+    bgcolor: 'gray',
     border: '2px solid #000',
     boxShadow: 24,
     p: 4,
@@ -36,7 +36,7 @@ function StartScreen({
 
   const modalHeader = {
     color: "var(--main-text-color)", 
-    fontSize: "x-large", 
+    fontSize: joinRoomModal ? "x-large" : "xx-large", 
     fontWeight: "700", 
     marginBottom: "0",
   };

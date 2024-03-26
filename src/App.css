@@ -572,9 +572,10 @@
 /* Join Room */
 
 /* Instructions */
-.instructionsBox {
+.instructionsContainer {
   color-scheme: dark;
   height: 60vh;
+
 }
 .instructions {
   width: 100%;
@@ -582,6 +583,31 @@
   overflow-y: scroll;
   overflow-x: hidden;
   color: var(--main-text-color);
+
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+  gap: 1rem;
+}
+.instructionsSubtitle {
+  font-size: x-large;
+}
+.instructionsText {
+  font-weight: 500;
+}
+
+.holdInstructionPics {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+}
+.numSpiesChart {
+  border-collapse: collapse;
+  border: 1px solid var(--secondary-color);
+  min-width: 15rem;
+}
+.numSpiesChart * {
+  border: 1px dotted var(--secondary-color);
 }
 
 /* Borders */
