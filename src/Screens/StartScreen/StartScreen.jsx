@@ -85,7 +85,7 @@ function StartScreen({
   
   return (
     <div className="startScreen">
-      <div className="startTitle">The Resistance</div>
+      <div className="startTitle">The Rebellion</div>
       
       <div className="usernameField">
         <TextField

@@ -67,7 +67,7 @@ function App() {
 
   // Other msgs
   const [randomStatusMsg, setRandomStatusMsg] = useState("");
-  const [gameMasterSpeech, setGameMasterSpeech] = useState("Welcome... to the resistance");
+  const [gameMasterSpeech, setGameMasterSpeech] = useState("Welcome... to the rebellion");
 
   const [msg, setMsg] = useState("");
   const [msgList, setMsgList] = useState([]);
