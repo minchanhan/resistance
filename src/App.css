@@ -259,6 +259,7 @@
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
+  direction: ltr;
 }
 .playerBox .status {
 
