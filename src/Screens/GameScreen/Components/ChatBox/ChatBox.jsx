@@ -9,8 +9,6 @@ function ChatBox({
   setMsg, 
   msgList, 
   setMsgList,
-  newMsg,
-  setNewMsg,
   showHiddenChat,
   setShowHiddenChat,
   haveCloseOnWindow
@@ -56,9 +54,10 @@ function ChatBox({
       <ScrollToBottom className="chatScroller">
         <div className="chatBody">
             {
-              msgList.map((msgData) => {
+              msgList.map((msgData, i) => {
                 return (
                   <div
+                    key={i}
                     className={`message ${username === msgData.sender ? "you" : (
                         msgData.sender === "PUBLIC TALLY" || msgData.sender === "THE UNIVERSE"
                       ) ? "voteResult" : "other"}`
@@ -81,7 +80,6 @@ function ChatBox({
       <div className="chatFooter">
         <div className="chatInput">
           <input
-            defaultValue=""
             placeholder="Enter message"
             value={msg}
             onChange={(event) => {
