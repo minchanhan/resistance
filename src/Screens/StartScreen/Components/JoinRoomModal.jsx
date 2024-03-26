@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import "../../../App.css";
-import { Box, Button, Modal, TextField } from "@mui/material";
 import "../../../data/Enums.js";
+
+import { Box, Modal, TextField } from "@mui/material";
+import DisplayButton from "../../../Components/DisplayButton.jsx";
 
 function JoinRoomModal({
   socket,
@@ -56,7 +58,7 @@ function JoinRoomModal({
             }}
             sx={{ m: 1.5, mt: 2}}
           />
-          <Button onClick={joinRoom}>Join Room</Button>
+          <DisplayButton onClick={joinRoom} text="Join Room" />
         </div>
       </Box>
     </Modal>

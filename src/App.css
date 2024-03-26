@@ -40,11 +40,68 @@
   overflow-y: auto;
 }
 
+/* Custom Components */
+.displayButton {
+  height: 2rem;
+  width: 13rem;
+  font-size: 1rem;
+  cursor: pointer;
+  text-align: center;
+  color: white;
+  outline: none;
+  border: none;
+  background-color: var(--secondary-color);
+  border-radius: 0.2rem;
+  -moz-box-shadow:0 0.15rem 0.15rem rgba(40, 38, 38, 0.75);
+  -webkit-box-shadow: 0 0.15rem 0.15rem rgba(40, 38, 38, 0.75);
+  box-shadow: 0 0.15rem 0.15rem rgba(40, 38, 38, 0.75); 
+}
+.displayButton:hover {
+  background-color: #dd871e;
+}
+.displayButton:active {
+  background-color: #dd871e;
+  transform: translateY(0.1rem);
+  -moz-box-shadow:0 0.05rem 0.05rem rgba(40, 38, 38, 0.75);
+  -webkit-box-shadow: 0 0.05rem 0.05rem rgba(40, 38, 38, 0.75);
+  box-shadow: 0 0.05rem 0.05rem rgba(40, 38, 38, 0.75); 
+}
+
+.userInput {
+  z-index: 1;
+  color: white;
+  background-color: rgb(88, 107, 94);
+  border-radius: 0.25rem;
+  border: 1px solid white;
+  height: 2rem;
+  width: 13rem;
+  padding: 0.2rem 0.2rem 0.2rem 0.5rem;
+}
+.userInput::placeholder {
+  color: silver
+}
+.userInput:focus {
+  background-color: var(--main-bg-color);
+  -moz-box-shadow: 0 0 0 0.1rem silver;
+  -webkit-box-shadow: 0 0 0 0.1rem silver;
+  box-shadow: 0 0 0 0.1rem silver;
+  outline: none;
+}
+.inputError {
+  border: 1px solid red;
+}
+.nameHelperText {
+  color: red;
+  font-size: 0.7rem;
+  margin-top: 0.1rem;
+}
+
 /* ----- Start Screen Features ----- */
 .startScreen {
   color: var(--main-text-color);
   display: flex;
   flex-flow: column nowrap;
+  gap: 0.5rem;
 }
 .startScreen * {
   font-weight: 700;

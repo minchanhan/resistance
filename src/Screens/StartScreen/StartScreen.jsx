@@ -5,6 +5,8 @@ import "../../App.css";
 import { Button, TextField } from "@mui/material";
 import JoinRoomModal from "./Components/JoinRoomModal";
 import InstructionsModal from "./Components/InstructionsModal";
+import DisplayButton from "../../Components/DisplayButton";
+import UserInput from "../../Components/UserInput";
 
 function StartScreen({ 
   socket, 
@@ -96,35 +98,24 @@ function StartScreen({
       <div className="startTitle">The Rebellion</div>
       
       <div className="usernameField">
-        <TextField
-          inputProps={{style: {
-            fontWeight: 500,
-            fontSize: is4K ? "1.65rem" : "",
-            height: is4K ? "3.5rem" : ""
-          }}}
-          InputLabelProps={{style: {
-            fontWeight: 500,
-            fontSize: is4K ? "1.65rem" : ""
-          }}}
-          className="usernameTextField"
-          error={!validUsername() && usernameWarningCheck}
-          id={!validUsername() && usernameWarningCheck ? "" : "outlined-error-helper-text"}
-          label={!validUsername() && usernameWarningCheck ? "Warning" : "Username"}
-          value={username}
-          helperText={!validUsername() && usernameWarningCheck ? "Name must be 3-10 chars" : ""}
+        <UserInput 
+          className="usernameTextField" 
+          value={username} 
           onChange={ (event) => {
             setJoinRoomModal(false);
             if (event.target.value.slice(-1) !== " ") onChangedUsername(event.target.value);
           }}
+          helperText={!validUsername() && usernameWarningCheck ? "Name must be 3-10 chars" : ""}
+          showError={!validUsername() && usernameWarningCheck}
         />
       </div>
       
       <div>
-        <Button sx={{fontWeight: 600}} onClick={handleCreate}>Create Room</Button>
+        <DisplayButton onClick={handleCreate} text="Create Room" />
       </div>
 
       <div>
-        <Button sx={{fontWeight: 600}} onClick={handleJoinOpen}>Join Room with Code</Button>
+        <DisplayButton onClick={handleJoinOpen} text="Join Room with Code" />
         <JoinRoomModal 
           socket={socket}
           open={joinRoomModal} 
@@ -135,7 +126,7 @@ function StartScreen({
       </div>
 
       <div>
-        <Button sx={{fontWeight: 600}} onClick={handleRandomJoin}>Join Random Room</Button>
+        <DisplayButton onClick={handleRandomJoin} text="Join Random Room" />
       </div>
       {
         randomStatusMsg !== "" ? <p style={{ color: "red" }}>{randomStatusMsg}</p> : <></>
@@ -143,7 +134,7 @@ function StartScreen({
 
       <br />
       <div>
-        <Button sx={{fontWeight: 600}} onClick={handleInstructionsOpen}>Instructions</Button>
+        <DisplayButton onClick={handleInstructionsOpen} text="Instructions" />
         <InstructionsModal 
           open={instructionsOpen} 
           handleInstructionsClose={handleInstructionsClose}
