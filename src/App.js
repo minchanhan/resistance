@@ -247,8 +247,6 @@ function App() {
   useEffect(() => {
     socket.on("leader_is_selecting", (info) => {
       const now = Math.floor(new Date().getTime() / 1000);
-      console.log(now);
-      console.log(now + (info.mins * 60));
       setTimerGoal(now + (info.mins * 60));
       setTimerOn(true);
 

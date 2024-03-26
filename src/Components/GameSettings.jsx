@@ -98,9 +98,6 @@ function GameSettings({
         <Button 
           variant="text" 
           onClick={() => {
-            console.log("private room state: ", privateRoom);
-            console.log("capacity state: ", capacity);
-            console.log("selection time state: ", selectionTime);
             startGame();
           }}
           disabled={curNumPlayers < capacity || !isAdmin}
