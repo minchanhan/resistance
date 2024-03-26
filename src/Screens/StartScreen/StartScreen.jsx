@@ -93,7 +93,6 @@ function StartScreen({
           error={!validUsername() && usernameWarningCheck}
           id={!validUsername() && usernameWarningCheck ? "" : "outlined-error-helper-text"}
           label={!validUsername() && usernameWarningCheck ? "Warning" : "Username"}
-          defaultValue=""
           value={username}
           helperText={!validUsername() && usernameWarningCheck ? "Name must be 3-10 chars" : ""}
           onChange={ (event) => {
