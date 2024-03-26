@@ -142,10 +142,10 @@
   -o-box-sizing: border-box;
 }
 .chatWindow {
-  flex: 0 2 75%;
+  flex: 0 2 65%;
   padding: 0.5rem;
   border-radius: 1rem;
-  max-height: 75%;
+  max-height: 65%;
 
   display: flex;
   justify-content: center;
