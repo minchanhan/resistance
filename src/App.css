@@ -569,6 +569,8 @@
   color: var(--main-text-color);
 }
 
+/* Join Room */
+
 /* Instructions */
 .instructionsBox {
   color-scheme: dark;

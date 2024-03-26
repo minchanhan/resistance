@@ -23,17 +23,22 @@ function StartScreen({
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: joinRoomModal ? "60svw" : "85svw",
+    maxWidth: joinRoomModal ? "20rem" : "85svw",
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
     p: 4,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-around",
+    alignItmes: "center",
   };
 
   const modalHeader = {
     color: "var(--main-text-color)", 
     fontSize: "x-large", 
     fontWeight: "700", 
-    marginBottom: "0"
+    marginBottom: "0",
   };
 
   const validUsername = () => {
