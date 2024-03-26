@@ -60,7 +60,7 @@ function ChatBox({
                     key={i}
                     className={`message ${username === msgData.sender ? "you" : (
                         msgData.sender === "PUBLIC TALLY" || msgData.sender === "THE UNIVERSE"
-                      ) ? "voteResult" : "other"}`
+                      ) ? "public" : "other"}`
                     }
                   >
                     <div className="msgContent">

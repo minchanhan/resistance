@@ -10,9 +10,8 @@ function TitleLogo() {
         y="50%"
         dominantBaseline="middle"
         textAnchor="middle"
-        fontFamily="Impact, sans-serif"
-        fontSize={40}
         fill="#FFFFFF"
+        fontSize={36}
       >
         <animate attributeName="fill" values="#DF4730;#FFFFFF;#FFFFFF;#FFFFFF;#FFFFFF;#DF4730" dur="15s" repeatCount="indefinite" />
         {"The Rebellion"}

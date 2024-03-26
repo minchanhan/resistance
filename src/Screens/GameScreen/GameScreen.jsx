@@ -60,7 +60,7 @@ function GameScreen({
   const isReallyShort = useMediaQuery({ maxHeight: 450 });
 
   const isHighRes = useMediaQuery({ minWidth: 1440 });
-  const is4K = useMediaQuery({ minWidth: 2560 });
+  const is4K = useMediaQuery({ minWidth: 2400 });
 
   const [showHiddenChat, setShowHiddenChat] = useState(false);
 

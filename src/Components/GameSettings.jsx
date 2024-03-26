@@ -8,7 +8,8 @@ import {
   InputLabel, 
   MenuItem, 
   Select, 
-  Switch, 
+  Switch,
+  Typography, 
 } from "@mui/material";
 import "../data/Enums.js";
 
@@ -88,14 +89,16 @@ function GameSettings({
               disabled={!isAdmin}
             />
           } 
-          label="Private Room"
+          label={<Typography fontWeight={500} color="white">Private Room</Typography>}
           labelPlacement="start"
           sx={{color: "var(--main-text-color)", mb: "0.25rem"}}
+          
         />
       </div>
 
       <div className="settingsStartBtn">
         <Button 
+          sx={{fontWeight: 500}}
           variant="text" 
           onClick={() => {
             startGame();

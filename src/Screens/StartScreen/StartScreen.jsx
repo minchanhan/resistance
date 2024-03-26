@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useMediaQuery } from 'react-responsive';
 import "../../App.css";
 
 import { Button, TextField } from "@mui/material";
@@ -16,6 +17,8 @@ function StartScreen({
   const [instructionsOpen, setInstructionsOpen] = useState(false);
 
   const [usernameWarningCheck, setUsernameWarningCheck] = useState(false); // activate warning if needed
+
+  const is4K = useMediaQuery({ minWidth: 2400 });
 
   const modalStyle = {
     position: 'absolute',
@@ -94,6 +97,15 @@ function StartScreen({
       
       <div className="usernameField">
         <TextField
+          inputProps={{style: {
+            fontWeight: 500,
+            fontSize: is4K ? "1.65rem" : "",
+            height: is4K ? "3.5rem" : ""
+          }}}
+          InputLabelProps={{style: {
+            fontWeight: 500,
+            fontSize: is4K ? "1.65rem" : ""
+          }}}
           className="usernameTextField"
           error={!validUsername() && usernameWarningCheck}
           id={!validUsername() && usernameWarningCheck ? "" : "outlined-error-helper-text"}
@@ -108,11 +120,11 @@ function StartScreen({
       </div>
       
       <div>
-        <Button onClick={handleCreate}>Create Room</Button>
+        <Button sx={{fontWeight: 600}} onClick={handleCreate}>Create Room</Button>
       </div>
 
       <div>
-        <Button onClick={handleJoinOpen}>Join Room with Code</Button>
+        <Button sx={{fontWeight: 600}} onClick={handleJoinOpen}>Join Room with Code</Button>
         <JoinRoomModal 
           socket={socket}
           open={joinRoomModal} 
@@ -123,15 +135,15 @@ function StartScreen({
       </div>
 
       <div>
-        <Button onClick={handleRandomJoin}>Join Random Room</Button>
+        <Button sx={{fontWeight: 600}} onClick={handleRandomJoin}>Join Random Room</Button>
       </div>
       {
-        randomStatusMsg !== "" ? <p style={{ fontSize: "0.7rem", color: "red" }}>{randomStatusMsg}</p> : <></>
+        randomStatusMsg !== "" ? <p style={{ color: "red" }}>{randomStatusMsg}</p> : <></>
       }
 
       <br />
       <div>
-        <Button onClick={handleInstructionsOpen}>Instructions</Button>
+        <Button sx={{fontWeight: 600}} onClick={handleInstructionsOpen}>Instructions</Button>
         <InstructionsModal 
           open={instructionsOpen} 
           handleInstructionsClose={handleInstructionsClose}
