@@ -92,6 +92,12 @@ function App() {
   const [missionResultTrack, setMissionResultTrack] = useState(["none","none","none","none","none"]); // pass/fail
   const [selectedPlayers, setSelectedPlayers] = useState([]); // selected players for vote/mission  
 
+  // Timer
+  const [secs, setSecs] = useState(0);
+  const [mins, setMins] = useState(0);
+  const [timerGoal, setTimerGoal] = useState(null); // seconds since jan 1970 + selectionTime
+  const [timerOn, setTimerOn] = useState(false);
+
   const startGame = () => {
     socket.emit("admin_start_game");
   }
@@ -118,6 +124,27 @@ function App() {
   const handleEndModalClose = () => {
     setGameEnd(false);
   }
+
+  useEffect(() => {
+    let interval = setInterval(() => {
+      if (!timerOn) return;
+      const now = Math.floor(new Date().getTime() / 1000);
+      const mins = Math.floor((timerGoal - now) / 60);
+      const secs = (timerGoal - now) - (mins * 60);
+      setSecs(secs);
+      setMins(mins);
+      if (!(secs > 0 || mins > 0)) {
+        setSecs(0);
+        setMins(0);
+        setTimerOn(false);
+        return;
+      }
+    }, 900);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [timerOn, mins, secs]);
 
   // Listening for socket messages:
   // Joins/Disconnects:
@@ -192,6 +219,11 @@ function App() {
       setCurMissionVoteDisapproves(0);
       setMissionResultTrack(["none","none","none","none","none"]);
       setSelectedPlayers([]);
+
+      // reset team select timer
+      setTimerOn(false);
+      setSecs(0);
+      setMins(0);
     };
 
     socket.on("set_game_end", handleGameEnd);
@@ -213,12 +245,17 @@ function App() {
   }, [socket]);
 
   useEffect(() => {
-    socket.on("leader_is_selecting", (isSelecting) => {
+    socket.on("leader_is_selecting", (info) => {
+      const now = Math.floor(new Date().getTime() / 1000);
+      console.log(now);
+      console.log(now + (info.mins * 60));
+      setTimerGoal(now + (info.mins * 60));
+      setTimerOn(true);
+
       setGameStarted(true); // GAME START WHEN LEADER STARTS SELECTING
       setGameEnd(false); // If the modal is still up for some reason, take it down
-
       setSelectedPlayers([]); // reset
-      setLeaderSelecting(isSelecting); // 1a
+      setLeaderSelecting(info.isSelecting); // 1a
       setDisableTeamSubmit(false); // 1a
     });
   }, [socket]);
@@ -314,6 +351,8 @@ function App() {
                 setMsgList={setMsgList}
                 newMsg={newMsg}
                 setNewMsg={setNewMsg}
+                mins={mins}
+                secs={secs}
               />
               <EndScreen
                 open={gameEnd}

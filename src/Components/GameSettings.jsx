@@ -1,6 +1,6 @@
 import React from "react";
 import "../App.css";
-import { Box, 
+import { 
   Button, 
   FormControl, 
   FormControlLabel, 
@@ -64,6 +64,7 @@ function GameSettings({
             }}
             disabled={!isAdmin}
           >
+            <MenuItem value={1}>1 min</MenuItem>
             <MenuItem value={3}>3 min</MenuItem>
             <MenuItem value={5}>5 min</MenuItem>
             <MenuItem value={7}>7 min</MenuItem>

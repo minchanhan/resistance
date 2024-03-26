@@ -45,7 +45,9 @@ function GameScreen({
   msgList,
   setMsgList,
   newMsg,
-  setNewMsg
+  setNewMsg,
+  mins,
+  secs
 }) {
   // const isPortrait = useMediaQuery({ orientation: 'portrait' });
   // const isRetina = useMediaQuery({ minResolution: '2dppx' });
@@ -96,7 +98,10 @@ function GameScreen({
     topText: `Room Admin: ${roomAdminName}`,
     missionNumber: missionNumber,
     gameStarted: gameStarted,
-    selectionTime: selectionTime
+    mins: mins,
+    secs: secs,
+    voteHappening: voteHappening,
+    goingOnMission: goingOnMission
   };
   
   const gameSettingsProps = {
