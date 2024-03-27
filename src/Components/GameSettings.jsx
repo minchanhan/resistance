@@ -66,6 +66,9 @@ function GameSettings({
                   onChangedCapacity(event.target.value);
                 }}
                 disabled={!isAdmin}
+                style={{
+                  cursor: !isAdmin ? "not-allowed" : ""
+                }}
               >
                 {
                   capacityMenuItems.map(function(val, i) {
@@ -84,6 +87,9 @@ function GameSettings({
                   onChangedSelectionTime(event.target.value)
                 }}
                 disabled={!isAdmin}
+                style={{
+                  cursor: !isAdmin ? "not-allowed" : ""
+                }}
               >
                   <option value={1}>1 min</option>
                   <option value={3}>3 min</option>
@@ -95,8 +101,18 @@ function GameSettings({
               </select>
             </div>
         
-            <div className="privRoomSettingsContainer">
-              <label class="privRoom">Private Room
+            <div 
+              className="privRoomSettingsContainer" 
+              style={{backgroundColor: !isAdmin ? "#d08c54" : ""}}
+            >
+              <label 
+                class="privRoom" 
+                style={{
+                  color: !isAdmin ? "#e0dcdc" : "",
+                  cursor: !isAdmin ? "not-allowed" : ""
+                }}
+              >
+                Private Room
                 <input
                   type="checkbox" 
                   checked={privateRoom} 
@@ -105,7 +121,13 @@ function GameSettings({
                   }}
                   disabled={!isAdmin}
                 />
-                <span class="checkbox">
+                <span 
+                  class="checkbox" 
+                  style={{
+                    backgroundColor: !isAdmin ? "#e0dcdc" : "",
+                    cursor: !isAdmin ? "not-allowed" : ""
+                  }}
+                >
                   {
                     privateRoom ? <CheckIcon fontSize="x-small" /> : <></>
                   }
