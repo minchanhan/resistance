@@ -27,23 +27,19 @@ function StartScreen({
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
+
     width: joinRoomModal ? "60svw" : "85svw",
     maxWidth: joinRoomModal ? "20rem" : "85svw",
     bgcolor: 'gray',
     border: '2px solid #000',
     boxShadow: 24,
     p: 4,
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-around",
-    alignItmes: "center",
   };
 
   const modalHeader = {
     color: "white", 
     fontSize: joinRoomModal ? "x-large" : "xx-large", 
     fontWeight: "700", 
-    marginBottom: "0",
   };
 
   const validUsername = () => {
@@ -122,6 +118,7 @@ function StartScreen({
           }}
           helperText={!validUsername() && usernameWarningCheck ? "Name must be 3-10 chars" : ""}
           showError={!validUsername() && usernameWarningCheck}
+          placeholder="Username"
         />
         {
           randomStatusMsg !== "" ? <p style={{ color: "red" }}>{randomStatusMsg}</p> : <></>

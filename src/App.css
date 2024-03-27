@@ -1,6 +1,6 @@
 /* IMPORTANT */
 :root {
-  --secondary-color: #F5A65B;
+  --secondary-color: #f0933c;
   --disabled-color: #808080;
   --my-green: #8BBD8B;
   --my-red: #DF4730;
@@ -49,12 +49,8 @@
   flex-flow: column nowrap;
   width: 50%;
 }
-.startScreen * {
-  font-weight: 600;
-}
 .startTitle {
-  font-size: 4rem;
-  margin: 1rem 0;
+  margin: 0.5rem 0;
 }
 
 .userOptionsBox {
@@ -66,7 +62,7 @@
   padding: 0.25rem 0;
 }
 .userOptionsBox > * {
-  width: 75%;
+  width: 60%;
 }
 
 .footer {
@@ -126,8 +122,6 @@
 /* ----- Title Logo ----- */
 .titleLogo { 
   flex: 1.5;
-  margin-left: 5%;
-  font-weight: 700;
 
   display: flex;
   justify-content: center;
@@ -611,11 +605,6 @@
 /* ----- Different Screens ----- */
 /* 4K */
 @media all and (min-width: 2400px) {
-  /* Start Screen */
-  .startTitle {
-    font-size: 6rem;
-  }
-
   /* Info Table */
   .information > * {
     font-size: 2rem;
@@ -686,8 +675,6 @@
   }
   .titleLogo {
     flex: 1;
-    margin-bottom: -3%;
-    margin-left: 0;
   }
   .information {
     margin-bottom: 1.5rem;
@@ -805,12 +792,6 @@
   .information {
     margin: 0 0 0.25rem 0;
   }
-  .titleLogo {
-    margin: 0 0 -1rem 0;
-  }
-  .titleLogo > svg {
-    width: 75%;
-  }
 
   /* Game Table */
   .fullTable {
@@ -843,9 +824,6 @@
   /* Info Table */
   .information > * {
     font-size: 1rem;
-  }
-  .titleLogo > svg {
-    width: 100%;
   }
 
   /* Chat */
@@ -882,12 +860,6 @@
 
 /* Thinner, Portrait */
 @media all and (max-width: 500px) and (orientation: portrait) {
-  /* Start Screen */
-  .startTitle {
-    font-size: 3rem;
-    margin: 1rem 0;
-  }
-
   /* Game Table */
   .fullTable {
     border: none;

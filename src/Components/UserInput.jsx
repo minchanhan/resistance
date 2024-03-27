@@ -5,17 +5,20 @@ function UserInput({
   value, 
   onChange,
   helperText,
-  showError
+  showError,
+  placeholder,
+  extraStyle={},
 }) {
 
   return (
-    <div className="usernameField">
+    <div className="userInputField">
       <input
-        className={`usernameInput ${showError ? "inputError" : ""}`}
+        className={`userTextInput ${showError ? "inputError" : ""}`}
         type="text" 
         value={value} 
         onChange={onChange}
-        placeholder="Username"
+        placeholder={placeholder}
+        style={extraStyle}
       />
       {
         <div className="nameHelperText">{helperText}</div>

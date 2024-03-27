@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import "../../../App.css";
+import "./joinRoom.css";
 import "../../../data/Enums.js";
 
-import { Box, Modal, TextField } from "@mui/material";
+import { Box, Modal } from "@mui/material";
 import DisplayButton from "../../../Components/DisplayButton.jsx";
+import UserInput from "../../../Components/UserInput.jsx";
 
 function JoinRoomModal({
   socket,
@@ -39,24 +40,15 @@ function JoinRoomModal({
           Enter Room Code
         </div>
         
-        <div 
-          style={{
-          display: "flex", 
-          flexDirection: "column", 
-          marginTop: "0.5rem",
-          justifyContent: "center",
-          alignItems: "center"
-        }}>
-          <TextField
-            error={!validRoom && checkedRoom}
-            id={!validRoom && checkedRoom ? "" : "outlined-error-helper-text"}
-            label={!validRoom && checkedRoom ? "Warning" : "Room code"}
-            defaultValue=""
-            helperText={!validRoom && checkedRoom ? roomStatus : ""}
+        <div className="joinRoom">
+          <UserInput
+            value={roomCode} 
             onChange={ (event) => {
               setRoomCode(event.target.value);
             }}
-            sx={{ m: 1.5, mt: 2}}
+            helperText={!validRoom && checkedRoom ? roomStatus : ""}
+            showError={!validRoom && checkedRoom}
+            placeholder="Room Code"
           />
           <DisplayButton onClick={joinRoom} text="Join Room" />
         </div>
