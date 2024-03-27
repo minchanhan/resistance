@@ -170,6 +170,7 @@ function GameScreen({
                     }}
                     sx={{
                       border: `1px solid ${getComputedStyle(document.body).getPropertyValue('--secondary-color')}`,
+                      fontWeight: 600
                     }}
                   >
                     {showHiddenChat ? "Close Chat" : "Show Chat"}
@@ -207,6 +208,7 @@ function GameScreen({
                   }}
                   sx={{
                     border: `1px solid ${getComputedStyle(document.body).getPropertyValue('--secondary-color')}`,
+                    fontWeight: 600
                   }}
                 >
                   {showHiddenChat ? "Close Chat" : "Show Chat"}
