@@ -10,7 +10,7 @@ function Timer({ mins, secs }) {
             Team Select Done
           </div>
         ) : (
-          <div style={{ color: mins === 0 && secs <= 30 ? "red" : "silver" }}>
+          <div style={{ color: mins === 0 && secs <= 30 ? "red" : "black" }}>
             Time: {mins}:{secs < 10 ? `0${secs}` : secs}
           </div>
         )
