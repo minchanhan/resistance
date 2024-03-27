@@ -5,9 +5,9 @@ function DisplayButton({ text="click", onClick }) {
 
   return (
     <button onClick={onClick} className="displayButton">
-      {text}
+      <p style={{color: "white"}}>{text}</p>
     </button>
-  )
+  );
 }
 
 export default DisplayButton;

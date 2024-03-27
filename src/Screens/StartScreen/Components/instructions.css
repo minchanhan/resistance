@@ -1,3 +1,26 @@
+/* IMPORTANT */
+:root {
+  --main-bg-color: #394A3E;
+  --secondary-color: #F5A65B;
+  --disabled-color: #808080;
+  --my-green: #8BBD8B;
+  --my-red: #DF4730;
+
+  font-family: Inter, sans-serif;
+  font-feature-settings: 'liga' 1, 'calt' 1; /* fix for Chrome */
+}
+@supports (font-variation-settings: normal) {
+  :root { font-family: InterVariable, sans-serif; }
+}
+
+*::before, *::after {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  -o-box-sizing: border-box;
+}
+
 /* Instructions */
 .instructionsContainer {
   color-scheme: dark;

@@ -1,13 +1,36 @@
+/* IMPORTANT */
+:root {
+  --main-bg-color: #394A3E;
+  --secondary-color: #F5A65B;
+  --disabled-color: #808080;
+  --my-green: #8BBD8B;
+  --my-red: #DF4730;
+
+  font-family: Inter, sans-serif;
+  font-feature-settings: 'liga' 1, 'calt' 1; /* fix for Chrome */
+}
+@supports (font-variation-settings: normal) {
+  :root { font-family: InterVariable, sans-serif; }
+}
+
+*::before, *::after {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  -o-box-sizing: border-box;
+}
+
 /* ----- Custom Components ----- */
 .displayButton {
-  font-size: 1rem;
   cursor: pointer;
   text-align: center;
-  color: white;
+  background-color: var(--secondary-color);
+
   outline: none;
   border: none;
-  background-color: var(--secondary-color);
   border-radius: 0.2rem;
+
   -moz-box-shadow:0 0.15rem 0.15rem rgba(40, 38, 38, 0.75);
   -webkit-box-shadow: 0 0.15rem 0.15rem rgba(40, 38, 38, 0.75);
   box-shadow: 0 0.15rem 0.15rem rgba(40, 38, 38, 0.75); 
@@ -18,13 +41,10 @@
 .displayButton:active {
   background-color: #dd871e;
   transform: translateY(0.1rem);
+
   -moz-box-shadow:0 0.05rem 0.05rem rgba(40, 38, 38, 0.75);
   -webkit-box-shadow: 0 0.05rem 0.05rem rgba(40, 38, 38, 0.75);
   box-shadow: 0 0.05rem 0.05rem rgba(40, 38, 38, 0.75); 
-}
-.displayButton, .inputButton {
-  height: 5rem;
-  width: 75%;
 }
 
 .usernameField {
@@ -35,21 +55,24 @@
 .usernameInput {
   flex-grow: 1;
   z-index: 1;
+  padding: 0.2rem 0.2rem 0.2rem 0.5rem;
+
   color: white;
   background-color: rgb(88, 107, 94);
+
   border-radius: 0.25rem;
   border: 1px solid white;
-  padding: 0.2rem 0.2rem 0.2rem 0.5rem;
 }
 .usernameInput::placeholder {
   color: silver
 }
 .usernameInput:focus {
   background-color: var(--main-bg-color);
+
+  outline: none;
   -moz-box-shadow: 0 0 0 0.1rem silver;
   -webkit-box-shadow: 0 0 0 0.1rem silver;
   box-shadow: 0 0 0 0.1rem silver;
-  outline: none;
 }
 
 .inputError {
@@ -61,11 +84,8 @@
   margin-top: 0.1rem;
 }
 
+
+/* 4K */
 @media all and (min-width: 2400px) {
-  .nameHelperText {
-    font-size: 1.5rem;
-  }
-  .displayButton, .usernameInput {
-    font-size: 1.75rem;
-  }
+  
 }

@@ -95,62 +95,51 @@ function StartScreen({
   
   return (
     <div className="startScreen">
+      <JoinRoomModal 
+        socket={socket}
+        open={joinRoomModal} 
+        handleJoinClose={handleJoinClose}
+        style={modalStyle}
+        modalHeader={modalHeader}
+      />
+      <InstructionsModal 
+        open={instructionsOpen} 
+        handleInstructionsClose={handleInstructionsClose}
+        style={modalStyle}
+        modalHeader={modalHeader}
+      />
+
       <div className="startTitle">
         <RebellionLogo />
       </div>
       
       <div className="userOptionsBox">
+        <UserInput 
+          value={username} 
+          onChange={ (event) => {
+            setJoinRoomModal(false);
+            if (event.target.value.slice(-1) !== " ") onChangedUsername(event.target.value);
+          }}
+          helperText={!validUsername() && usernameWarningCheck ? "Name must be 3-10 chars" : ""}
+          showError={!validUsername() && usernameWarningCheck}
+        />
+        {
+          randomStatusMsg !== "" ? <p style={{ color: "red" }}>{randomStatusMsg}</p> : <></>
+        }
 
-      </div>
-      
-      <UserInput 
-        value={username} 
-        onChange={ (event) => {
-          setJoinRoomModal(false);
-          if (event.target.value.slice(-1) !== " ") onChangedUsername(event.target.value);
-        }}
-        helperText={!validUsername() && usernameWarningCheck ? "Name must be 3-10 chars" : ""}
-        showError={!validUsername() && usernameWarningCheck}
-      />
-      
-      <div>
         <DisplayButton onClick={handleCreate} text="Create Room" />
-      </div>
-
-      <div>
         <DisplayButton onClick={handleJoinOpen} text="Join Room with Code" />
-        <JoinRoomModal 
-          socket={socket}
-          open={joinRoomModal} 
-          handleJoinClose={handleJoinClose}
-          style={modalStyle}
-          modalHeader={modalHeader}
-        />
-      </div>
-
-      <div>
         <DisplayButton onClick={handleRandomJoin} text="Join Random Room" />
-      </div>
-      {
-        randomStatusMsg !== "" ? <p style={{ color: "red" }}>{randomStatusMsg}</p> : <></>
-      }
 
-      <br />
-      <div>
-        <DisplayButton onClick={handleInstructionsOpen} text="Instructions" />
-        <InstructionsModal 
-          open={instructionsOpen} 
-          handleInstructionsClose={handleInstructionsClose}
-          style={modalStyle}
-          modalHeader={modalHeader}
-        />
       </div>
+      
+      <DisplayButton onClick={handleInstructionsOpen} text="Instructions" />
 
       <footer className="footer">
         By Minchan Han
       </footer>
     </div>
-  )
+  );
 }
 
 export default StartScreen;

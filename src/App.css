@@ -1,3 +1,4 @@
+/* IMPORTANT */
 :root {
   --main-bg-color: #394A3E;
   --secondary-color: #F5A65B;
@@ -20,6 +21,7 @@
   -o-box-sizing: border-box;
 }
 
+/* ----- Container ----- */
 .container {
   display: flex;
   justify-content: center;
@@ -35,19 +37,20 @@
   width: 100vw;
   height: 100vh;
   margin: 0;
-  background-color: var(--main-bg-color);
+  background-image: url("./assets/rebellionBackgroundPlain.svg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
   overflow-y: auto;
 }
 
-/* ----- Start Screen Features ----- */
+/* ----- Start Screen ----- */
 .startScreen {
-  color: white;
   display: flex;
   flex-flow: column nowrap;
-  gap: 0.5rem;
 }
 .startScreen * {
-  font-weight: 700;
+  font-weight: 600;
 }
 .startTitle {
   font-size: 4rem;
