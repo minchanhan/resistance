@@ -40,10 +40,8 @@
   overflow-y: auto;
 }
 
-/* Custom Components */
+/* ----- Custom Components ----- */
 .displayButton {
-  height: 2rem;
-  width: 13rem;
   font-size: 1rem;
   cursor: pointer;
   text-align: center;
@@ -67,14 +65,18 @@
   box-shadow: 0 0.05rem 0.05rem rgba(40, 38, 38, 0.75); 
 }
 
+.usernameField {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+}
 .userInput {
+  flex-grow: 1;
   z-index: 1;
   color: white;
   background-color: rgb(88, 107, 94);
   border-radius: 0.25rem;
   border: 1px solid white;
-  height: 2rem;
-  width: 13rem;
   padding: 0.2rem 0.2rem 0.2rem 0.5rem;
 }
 .userInput::placeholder {
@@ -87,6 +89,12 @@
   box-shadow: 0 0 0 0.1rem silver;
   outline: none;
 }
+
+.displayButton, .inputButton {
+  height: 5rem;
+  width: 75%;
+}
+
 .inputError {
   border: 1px solid red;
 }
@@ -695,21 +703,13 @@
   .startTitle {
     font-size: 6rem;
   }
-  .startScreen .usernameField {
-    flex: 1 1 5rem;
-
-    display: flex;
-    justify-content: center;
-    align-items: stretch;
-    align-content: stretch;
-    padding: 0 10rem;
+  .startScreen Button, .startScreen Input {
+    font-size: 1.75rem;
   }
-  .usernameTextField {
-    flex: 1;
-  }
-  .startScreen Button {
+  .nameHelperText {
     font-size: 1.5rem;
   }
+  
 
   .information > * {
     font-size: 2rem;

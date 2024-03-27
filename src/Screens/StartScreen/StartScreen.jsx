@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { useMediaQuery } from 'react-responsive';
 import "../../App.css";
 
-import { Button, TextField } from "@mui/material";
 import JoinRoomModal from "./Components/JoinRoomModal";
 import InstructionsModal from "./Components/InstructionsModal";
 import DisplayButton from "../../Components/DisplayButton";
 import UserInput from "../../Components/UserInput";
+import RebellionLogo from "../../assets/RebellionLogo.jsx";
 
 function StartScreen({ 
   socket, 
@@ -95,7 +95,9 @@ function StartScreen({
   
   return (
     <div className="startScreen">
-      <div className="startTitle">The Rebellion</div>
+      <div className="startTitle">
+        <RebellionLogo />
+      </div>
       
       <div className="usernameField">
         <UserInput 
