@@ -18,7 +18,7 @@ function InstructionsModal({
   The Rebellion Team is good, Spy team is bad. `;
 
   const pregameTitle = `Pregame/Board Info`;
-  const pregame = `When room admin click Start, players will be put into the Rebellion or the Spies. The chart below shows how many
+  const pregame = `When the room admin clicks Start, players will be put into the Rebellion or the Spies. The chart below shows how many
   players are on each team based on total number of players. The Rebellion will not know any players' teams, but the spies will.
   Spies will be colored red.
   
@@ -38,11 +38,8 @@ function InstructionsModal({
   Each game consists of 5 rounds (each with one mission) and the winning team is decided by best 3 out of 5. `;
 
   const additionalTitle = "Additional Notes";
-  const additional = `Additional Notes:
-
-  - This game is best played over voice chat! Consider using a Discord server.
-  - A leader (player with star) has X minutes to discuss and submit a team for vote (click on players and click "submit").
-    If they run out of time, the team will be "voted down", and a new leader is suggested.`;
+  const additional = `- This game is best played over voice chat! Consider using a Discord server.
+  - A leader (player with star) has X minutes to discuss and submit a team for vote (click on players and click "submit"). If they run out of time, the team will be "voted down", and a new leader is suggested.`;
 
   return (
     <Modal

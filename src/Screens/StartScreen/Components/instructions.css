@@ -28,6 +28,7 @@
 .instructionsSubtitle {
   font-size: x-large;
   font-weight: 700;
+  margin-bottom: 0.25rem;
 }
 .instructionsText {
   font-weight: 500;
