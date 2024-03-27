@@ -57,7 +57,7 @@ function InstructionsModal({
         </div>
 
         <div className="instructionsContainer">
-          <div className="instructions" style={{ whiteSpace: 'pre-line' }}>
+          <div className="instructions">
             <div className="instructionsBox">
               <div className="instructionsSubtitle">{objectiveTitle}</div>
               <div className="instructionsText">{objective}</div>

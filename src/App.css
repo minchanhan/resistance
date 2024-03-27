@@ -660,14 +660,17 @@
   overflow-y: scroll;
   overflow-x: hidden;
   color: white;
+  white-space: pre-line;
 
   display: flex;
   flex-direction: column;
   margin-top: 1rem;
+  margin-bottom: 0.35rem;
   gap: 1rem;
 }
 .instructionsSubtitle {
   font-size: x-large;
+  font-weight: 700;
 }
 .instructionsText {
   font-weight: 500;
