@@ -136,7 +136,9 @@ function StartScreen({
       <DisplayButton onClick={handleInstructionsOpen} text="Instructions" />
 
       <footer className="footer">
-        By Minchan Han
+        <a href="http://localhost:3000/">Contact</a>
+        <a href="http://localhost:3000/">Terms of Service</a>
+        <a href="http://localhost:3000/">Credits</a>
       </footer>
     </div>
   );

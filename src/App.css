@@ -58,11 +58,14 @@
 }
 
 .footer {
-  bottom: 0;
+  position: absolute;
+  left: 0;
   right: 0;
-  position: fixed;
-  margin: 0 auto;
-  font-size: xx-small;
+  bottom: 2%;
+  font-size: x-small;
+}
+.footer > * {
+  margin: 0 0.2rem;
 }
 
 /* ----- Game Screen Features ----- */
