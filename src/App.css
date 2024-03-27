@@ -47,6 +47,7 @@
 .startScreen {
   display: flex;
   flex-flow: column nowrap;
+  width: 50%;
 }
 .startScreen * {
   font-weight: 600;
@@ -54,6 +55,18 @@
 .startTitle {
   font-size: 4rem;
   margin: 1rem 0;
+}
+
+.userOptionsBox {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-around;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0;
+}
+.userOptionsBox > * {
+  width: 75%;
 }
 
 .footer {

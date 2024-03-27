@@ -130,11 +130,9 @@ function StartScreen({
         <DisplayButton onClick={handleCreate} text="Create Room" />
         <DisplayButton onClick={handleJoinOpen} text="Join Room with Code" />
         <DisplayButton onClick={handleRandomJoin} text="Join Random Room" />
-
+        <DisplayButton onClick={handleInstructionsOpen} text="Instructions" />
       </div>
       
-      <DisplayButton onClick={handleInstructionsOpen} text="Instructions" />
-
       <footer className="footer">
         <a href="http://localhost:3000/">Contact</a>
         <a href="http://localhost:3000/">Terms of Service</a>
