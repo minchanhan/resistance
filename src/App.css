@@ -593,12 +593,25 @@
 /* ----- Different Screens ----- */
 /* 4K */
 @media all and (min-width: 2400px) {
+  /* Start Screen */
   .startTitle {
     font-size: 6rem;
   }
+
+  /* Info Table */
   .information > * {
     font-size: 2rem;
   }
+
+  /* Game Table */
+  .tableText {
+    font-size: 1.5rem;
+  }
+  .twoFailsText {
+    min-height: 1.5rem;
+  }
+
+  /* Player Box */
   .playerBoxUsername {
     font-size: 1.3rem;
   }
@@ -610,12 +623,8 @@
     width: 2.5rem;
     height: 2.5rem;
   }
-  .tableText {
-    font-size: 1.5rem;
-  }
-  .twoFailsText {
-    min-height: 1.5rem;
-  }
+
+  /* Chat */
   .chatHeader {
     font-size: 1.75rem;
   }
@@ -633,6 +642,7 @@
 /* Horizontal */
 @media all and (max-height: 700px) and (orientation: landscape) {
   /* Screen Switch, isShort */
+  /* Game Screen */
   .gameScreen {
     justify-content: space-around;
     padding: 1rem;
@@ -646,6 +656,11 @@
   .colRight {
     flex: 1 1 60%;
   }
+  .showChatBtn {
+    max-height: 5rem;
+  }
+
+  /* Info Table */
   .infoTable {
     flex: 1;
     display: flex;
@@ -661,16 +676,24 @@
     margin-right: 0;
   }
   
+  /* Game Table */
   .fullTable {
     flex: 2;
   }
   .holdPlayers {
     margin-bottom: 0.5rem;
   }
-  .showChatBtn {
-    max-height: 5rem;
+  .missionToken {
+    width: 4rem;
+    height: 4rem;
   }
 
+  /* Player Box */
+  .playerBoxUsername {
+    font-size: 0.7rem;
+  }
+  
+  /* Chat */
   .chatWindow {
     position: absolute;
     top: 5%;
@@ -680,20 +703,12 @@
     width: 95svw;
     align-self: center;
   }
-
-  .playerBoxUsername {
-    font-size: 0.7rem;
-  }
-
-  .missionToken {
-    width: 4rem;
-    height: 4rem;
-  }
 }
 
 /* Really Short, Landscape */
 @media all and (max-height: 450px) and (orientation: landscape) {
   /* isReallyShort */
+  /* Game Table */
   .voteHole {
     width: 1.5rem;
     height: 1.5rem;
@@ -712,6 +727,7 @@
 
 /* Really Thin, Landscape */
 @media all and (max-width: 870px) and (orientation: landscape) {
+  /* Game Settings */
   .settingsSelect {
     padding: 0.5rem 0;
   }
@@ -719,28 +735,36 @@
 
 /* Vertical */
 @media all and (max-width: 1000px) { /* isGettingThin */
+  /* Info Table */
+  .information > * {
+    font-size: 0.85rem;
+  }
+
+  /* Game Commands */
   .soldier {
     -ms-transform: scale(0.9, 0.9); /* IE 9 */
     -webkit-transform: scale(0.9, 0.9); /* Safari */
     transform: scale(0.9, 0.9);
   }
+
+  /* Chat */
   .chatInput > input, .chatSendBtn {
     font-size: 0.8rem;
   }
-  .information > * {
-    font-size: 0.85rem;
-  }
-  .playerBoxUsername {
-    font-size: 0.7rem;
-  }
   .msgContent {
     font-size: 0.75rem;
+  }
+
+  /* Player Box*/
+  .playerBoxUsername {
+    font-size: 0.7rem;
   }
 }
 
 @media all and (max-width: 900px) and (min-height: 700px),
   (orientation: portrait) { 
   /* Screen Switch, isThin */
+  /* Game Screen */
   .gameScreen {
     display: flex;
     flex-flow: column nowrap;
@@ -748,6 +772,11 @@
     padding: 3rem 2rem 1rem 2rem;
     gap: 2rem;
   }
+  .showChatBtn {
+    flex: 1 1 auto;
+  }
+
+  /* Info Table */
   .infoTable {
     flex: 1 2 auto;
     flex-flow: column nowrap;
@@ -764,15 +793,22 @@
   .titleLogo > svg {
     width: 75%;
   }
+
+  /* Game Table */
   .fullTable {
     flex: 2 2 auto;
   }
+  .missionToken {
+    width: 4.5rem;
+    height: 4.5rem;
+  }
+
+  /* Game Commands */
   .gameSettings, .gameCommands {
     flex: 1 1 auto;
   }
-  .showChatBtn {
-    flex: 1 1 auto;
-  }
+  
+  /* Chat */
   .chatWindow {
     position: absolute;
     z-index: 2;
@@ -781,34 +817,36 @@
     max-height: 70%;
     align-self: center;
   }
-  .missionToken {
-    width: 4.5rem;
-    height: 4.5rem;
-  }
 }
 
 /* Tall, Portrait */
 @media all and (min-height: 1200px) and (orientation: portrait) {
   /* isTall */
-  .chatInput > input, .chatSendBtn {
-    font-size: 1rem;
-  }
+  /* Info Table */
   .information > * {
     font-size: 1rem;
   }
   .titleLogo > svg {
     width: 100%;
   }
-  .playerBoxUsername {
+
+  /* Chat */
+  .chatInput > input, .chatSendBtn {
     font-size: 1rem;
   }
   .msgContent {
+    font-size: 1rem;
+  }
+
+  /* Player Box */
+  .playerBoxUsername {
     font-size: 1rem;
   }
 }
 
 /* Thin, Portrait */
 @media all and (max-width: 600px) and (orientation: portrait) {
+  /* Game Table */
   .missionToken {
     width: 4rem;
     height: 4rem;
@@ -817,6 +855,8 @@
     width: 1.5rem;
     height: 1.5rem;
   }
+
+  /* Player Box */
   .playerBoxUsername {
     font-size: 0.6rem;
   }
@@ -824,21 +864,25 @@
 
 /* Thinner, Portrait */
 @media all and (max-width: 500px) and (orientation: portrait) {
+  /* Start Screen */
   .startTitle {
     font-size: 3rem;
     margin: 1rem 0;
+  }
+
+  /* Game Table */
+  .fullTable {
+    border: none;
   }
   .missionToken {
     width: 3.25rem;
     height: 3.25rem;
   }
-  .fullTable {
-    border: none;
-  }
 }
 
 /* Really Thin, Portrait */
 @media all and (max-width: 425px) and (orientation: portrait) {
+  /* Game Table */
   .missionToken {
     width: 3.25rem;
     height: 3.25rem;
@@ -847,6 +891,7 @@
 
 /* Super Thin, Portrait */
 @media all and (max-width: 380px) and (orientation: portrait) {
+  /* Game Table */
   .missionToken {
     width: 2.25rem;
     height: 2.25rem;
@@ -855,6 +900,7 @@
 
 /* Most Thin, Portrait */
 @media all and (max-width: 300px) and (orientation: portrait) {
+  /* Game Settings */
   .gameSettings {
     flex-flow: column nowrap;
     justify-content: space-around;
