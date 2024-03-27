@@ -91,7 +91,7 @@ function GameSettings({
           } 
           label={<Typography fontWeight={500} color="white">Private Room</Typography>}
           labelPlacement="start"
-          sx={{color: "var(--main-text-color)", mb: "0.25rem"}}
+          sx={{color: "white", mb: "0.25rem"}}
           
         />
       </div>

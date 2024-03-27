@@ -50,7 +50,7 @@ function PlayerBox({
       <div 
         className="playerBoxUsername" 
         style={{
-          color: ownName ? "orange" : "var(--main-text-color)"
+          color: ownName ? "orange" : "white"
         }}
       >
         {username}

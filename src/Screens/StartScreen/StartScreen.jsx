@@ -40,7 +40,7 @@ function StartScreen({
   };
 
   const modalHeader = {
-    color: "var(--main-text-color)", 
+    color: "white", 
     fontSize: joinRoomModal ? "x-large" : "xx-large", 
     fontWeight: "700", 
     marginBottom: "0",

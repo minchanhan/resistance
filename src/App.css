@@ -1,5 +1,4 @@
 :root {
-  --main-text-color: #F4F4F4;
   --main-bg-color: #394A3E;
   --secondary-color: #F5A65B;
   --disabled-color: #808080;
@@ -106,7 +105,7 @@
 
 /* ----- Start Screen Features ----- */
 .startScreen {
-  color: var(--main-text-color);
+  color: white;
   display: flex;
   flex-flow: column nowrap;
   gap: 0.5rem;
@@ -539,7 +538,7 @@
   height: auto;
   min-height: 1rem;
 
-  color: var(--main-text-color);
+  color: white;
   padding: 0.75rem;
   overflow-wrap: break-word;
   word-break: break-word;
@@ -644,7 +643,7 @@
 
 /* End Screen Features */
 .endScreenResults {
-  color: var(--main-text-color);
+  color: white;
 }
 
 /* Join Room */
@@ -660,7 +659,7 @@
   height: 100%;
   overflow-y: scroll;
   overflow-x: hidden;
-  color: var(--main-text-color);
+  color: white;
 
   display: flex;
   flex-direction: column;
