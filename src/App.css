@@ -1,6 +1,5 @@
 /* IMPORTANT */
 :root {
-  --main-bg-color: #394A3E;
   --secondary-color: #F5A65B;
   --disabled-color: #808080;
   --my-green: #8BBD8B;
@@ -349,7 +348,7 @@
 }
 
 .masterMsg::after {
-  background-color: var(--main-bg-color);
+  background-color: transparent;
   border-top: 1em solid transparent;
   border-bottom: 1em solid transparent;
   border-left: 1em solid black;

@@ -1,6 +1,5 @@
 /* IMPORTANT */
 :root {
-  --main-bg-color: #394A3E;
   --secondary-color: #F5A65B;
   --disabled-color: #808080;
   --my-green: #8BBD8B;
@@ -67,7 +66,7 @@
   color: silver
 }
 .usernameInput:focus {
-  background-color: var(--main-bg-color);
+  background-color: gray;
 
   outline: none;
   -moz-box-shadow: 0 0 0 0.1rem silver;
