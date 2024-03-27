@@ -1,5 +1,5 @@
 import React from "react";
-import "../../../App.css";
+import "./instructions.css";
 import { Box, Modal } from "@mui/material";
 import PlayerBox from "../../GameScreen/Components/GameTable/PlayerBox/PlayerBox";
 

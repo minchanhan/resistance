@@ -1,5 +1,5 @@
 import React from "react";
-import "../App.css";
+import "./components.css";
 
 function DisplayButton({ text="click", onClick }) {
 

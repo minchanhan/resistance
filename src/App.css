@@ -39,70 +39,6 @@
   overflow-y: auto;
 }
 
-/* ----- Custom Components ----- */
-.displayButton {
-  font-size: 1rem;
-  cursor: pointer;
-  text-align: center;
-  color: white;
-  outline: none;
-  border: none;
-  background-color: var(--secondary-color);
-  border-radius: 0.2rem;
-  -moz-box-shadow:0 0.15rem 0.15rem rgba(40, 38, 38, 0.75);
-  -webkit-box-shadow: 0 0.15rem 0.15rem rgba(40, 38, 38, 0.75);
-  box-shadow: 0 0.15rem 0.15rem rgba(40, 38, 38, 0.75); 
-}
-.displayButton:hover {
-  background-color: #dd871e;
-}
-.displayButton:active {
-  background-color: #dd871e;
-  transform: translateY(0.1rem);
-  -moz-box-shadow:0 0.05rem 0.05rem rgba(40, 38, 38, 0.75);
-  -webkit-box-shadow: 0 0.05rem 0.05rem rgba(40, 38, 38, 0.75);
-  box-shadow: 0 0.05rem 0.05rem rgba(40, 38, 38, 0.75); 
-}
-
-.usernameField {
-  display: flex;
-  justify-content: center;
-  align-items: stretch;
-}
-.userInput {
-  flex-grow: 1;
-  z-index: 1;
-  color: white;
-  background-color: rgb(88, 107, 94);
-  border-radius: 0.25rem;
-  border: 1px solid white;
-  padding: 0.2rem 0.2rem 0.2rem 0.5rem;
-}
-.userInput::placeholder {
-  color: silver
-}
-.userInput:focus {
-  background-color: var(--main-bg-color);
-  -moz-box-shadow: 0 0 0 0.1rem silver;
-  -webkit-box-shadow: 0 0 0 0.1rem silver;
-  box-shadow: 0 0 0 0.1rem silver;
-  outline: none;
-}
-
-.displayButton, .inputButton {
-  height: 5rem;
-  width: 75%;
-}
-
-.inputError {
-  border: 1px solid red;
-}
-.nameHelperText {
-  color: red;
-  font-size: 0.7rem;
-  margin-top: 0.1rem;
-}
-
 /* ----- Start Screen Features ----- */
 .startScreen {
   color: white;
@@ -169,7 +105,7 @@
   align-items: center;
 }
 
-/* Title Logo */
+/* ----- Title Logo ----- */
 .titleLogo { 
   flex: 1.5;
   margin-left: 5%;
@@ -190,49 +126,6 @@
   flex-flow: column wrap;
   color: silver;
   margin-right: 0.5rem;
-}
-
-/* --- Game Table --- */
-.fullTable * { 
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -ms-box-sizing: border-box;
-  -o-box-sizing: border-box;
-}
-.fullTable { 
-  flex: 1;
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: space-between;
-  align-items: stretch;
-}
-
-/* --- Chat Window --- */ 
-.chatWindow * { 
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -ms-box-sizing: border-box;
-  -o-box-sizing: border-box;
-}
-.chatWindow {
-  flex: 0 2 65%;
-  padding: 0.5rem;
-  border-radius: 1rem;
-  max-height: 65%;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-flow: column nowrap;
-  background-color: var(--secondary-color);
-
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -ms-box-sizing: border-box;
-  -o-box-sizing: border-box;
 }
 
 /* --- Game Settings --- */
@@ -266,55 +159,6 @@
   padding: 0 1rem;
 }
 
-/* --- Game Master --- */
-.gameCommands * { 
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -ms-box-sizing: border-box;
-  -o-box-sizing: border-box;
-}
-.gameCommands { 
-  flex: 1 0 auto;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  padding: 0.25em 0;
-
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -ms-box-sizing: border-box;
-  -o-box-sizing: border-box;
-}
-
-.showChatBtn { 
-  flex: 1 1 auto;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-.showChatBtnBox {
-  width: 6rem;
-  align-self: center;
-  position: relative;
-}
-.closeChatOnWindow {
-  position: absolute;
-  top: 1.75%;
-  right: 5%;
-  z-index: 3;
-}
-.newMsgAlert {
-  position: absolute;
-  top: -22.5%;
-  right: -5%;
-  z-index: 3;
-  filter: invert(65%) sepia(80%) saturate(362%) hue-rotate(339deg) brightness(98%) contrast(97%);
-}
-
 /* game table features */
 .holdPlayers {
   flex: 1 1 auto;
@@ -327,38 +171,22 @@
   gap: 0.5em;
 }
 
-/* Player Box */
-.playerBox { 
+/* --- Game Table --- */
+.fullTable * { 
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  -o-box-sizing: border-box;
+}
+.fullTable { 
+  flex: 1;
   display: flex;
-  flex-direction: column;
+  flex-flow: column nowrap;
   justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
-  direction: ltr;
+  align-items: stretch;
 }
-.playerBox .status {
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.playerBox .status div {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.status {
-  width: 3.5rem;
-}
-
-.playerBoxUsername {
-  font-size: 0.85rem;
-}
-.selected { /* selected for mission */
-  background-color: var(--secondary-color);
-}
-
-.table { /* Actual Table */
+.table {
   flex: 2 1 auto;
   align-self: center;
   width: 90%;
@@ -445,7 +273,58 @@
   min-height: 1rem;
 }
 
-/* game master command features */
+/* ----- Player Box ----- */
+.playerBox { 
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  direction: ltr;
+}
+.playerBox .status {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.playerBox .status div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.status {
+  width: 3.5rem;
+}
+
+.playerBoxUsername {
+  font-size: 0.85rem;
+}
+.selected { /* selected for mission */
+  background-color: var(--secondary-color);
+}
+
+/* ----- Game Commands/Master ----- */
+.gameCommands * { 
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  -o-box-sizing: border-box;
+}
+.gameCommands { 
+  flex: 1 0 auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0.25em 0;
+
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  -o-box-sizing: border-box;
+}
+
 .masterMsg {
   height: 100%;
   width: 70%;
@@ -482,10 +361,38 @@
   align-items: center;
 }
 
-/* chat window features */
+/* ----- Chat Window ----- */ 
+.chatWindow * { 
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  -o-box-sizing: border-box;
+}
+
+.chatWindow {
+  flex: 0 2 65%;
+  padding: 0.5rem;
+  border-radius: 1rem;
+  max-height: 65%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column nowrap;
+  background-color: var(--secondary-color);
+
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  -o-box-sizing: border-box;
+}
+
 .chatWindow p {
   margin: 0;
 }
+
 .chatWindow .chatHeader { /* header */
   flex: 1 5%;
   background: var(--secondary-color);
@@ -641,56 +548,40 @@
   color: var(--secondary-color);
 }
 
-/* End Screen Features */
+/* ----- Show Chat Button ----- */
+.showChatBtn { 
+  flex: 1 1 auto;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.showChatBtnBox {
+  width: 6rem;
+  align-self: center;
+  position: relative;
+}
+.closeChatOnWindow {
+  position: absolute;
+  top: 1.75%;
+  right: 5%;
+  z-index: 3;
+}
+.newMsgAlert {
+  position: absolute;
+  top: -22.5%;
+  right: -5%;
+  z-index: 3;
+  filter: invert(65%) sepia(80%) saturate(362%) hue-rotate(339deg) brightness(98%) contrast(97%);
+}
+
+/* ----- End Screen ----- */
 .endScreenResults {
   color: white;
 }
 
-/* Join Room */
-
-/* Instructions */
-.instructionsContainer {
-  color-scheme: dark;
-  height: 60vh;
-
-}
-.instructions {
-  width: 100%;
-  height: 100%;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  color: white;
-  white-space: pre-line;
-
-  display: flex;
-  flex-direction: column;
-  margin-top: 1rem;
-  margin-bottom: 0.35rem;
-  gap: 1rem;
-}
-.instructionsSubtitle {
-  font-size: x-large;
-  font-weight: 700;
-}
-.instructionsText {
-  font-weight: 500;
-}
-
-.holdInstructionPics {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-around;
-}
-.numSpiesChart {
-  border-collapse: collapse;
-  border: 1px solid var(--secondary-color);
-  min-width: 15rem;
-}
-.numSpiesChart * {
-  border: 1px dotted var(--secondary-color);
-}
-
-/* Borders */
+/* ----- Borders ----- */
 .infoTable,
 .fullTable,
 .table
@@ -705,18 +596,9 @@
   .startTitle {
     font-size: 6rem;
   }
-  .startScreen Button, .startScreen Input {
-    font-size: 1.75rem;
-  }
-  .nameHelperText {
-    font-size: 1.5rem;
-  }
-  
-
   .information > * {
     font-size: 2rem;
   }
-
   .playerBoxUsername {
     font-size: 1.3rem;
   }
@@ -809,7 +691,8 @@
   }
 }
 
-@media all and (max-height: 450px) and (orientation: landscape) { /* really short landscape */
+/* Really Short, Landscape */
+@media all and (max-height: 450px) and (orientation: landscape) {
   /* isReallyShort */
   .voteHole {
     width: 1.5rem;
@@ -827,7 +710,8 @@
   }
 }
 
-@media all and (max-width: 870px) and (orientation: landscape) { /* really thin landscape */
+/* Really Thin, Landscape */
+@media all and (max-width: 870px) and (orientation: landscape) {
   .settingsSelect {
     padding: 0.5rem 0;
   }
@@ -903,7 +787,9 @@
   }
 }
 
-@media all and (min-height: 1200px) and (orientation: portrait) { /* isTall */
+/* Tall, Portrait */
+@media all and (min-height: 1200px) and (orientation: portrait) {
+  /* isTall */
   .chatInput > input, .chatSendBtn {
     font-size: 1rem;
   }
@@ -921,6 +807,7 @@
   }
 }
 
+/* Thin, Portrait */
 @media all and (max-width: 600px) and (orientation: portrait) {
   .missionToken {
     width: 4rem;
@@ -934,6 +821,8 @@
     font-size: 0.6rem;
   }
 }
+
+/* Thinner, Portrait */
 @media all and (max-width: 500px) and (orientation: portrait) {
   .startTitle {
     font-size: 3rem;
@@ -947,12 +836,16 @@
     border: none;
   }
 }
+
+/* Really Thin, Portrait */
 @media all and (max-width: 425px) and (orientation: portrait) {
   .missionToken {
     width: 3.25rem;
     height: 3.25rem;
   }
 }
+
+/* Super Thin, Portrait */
 @media all and (max-width: 380px) and (orientation: portrait) {
   .missionToken {
     width: 2.25rem;
@@ -960,6 +853,7 @@
   }
 }
 
+/* Most Thin, Portrait */
 @media all and (max-width: 300px) and (orientation: portrait) {
   .gameSettings {
     flex-flow: column nowrap;

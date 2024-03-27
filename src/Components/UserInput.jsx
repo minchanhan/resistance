@@ -1,5 +1,5 @@
 import React from "react";
-import "../App.css";
+import "./components.css";
 
 function UserInput({ 
   value, 
@@ -9,9 +9,9 @@ function UserInput({
 }) {
 
   return (
-    <>
+    <div className="usernameField">
       <input
-        className={`userInput ${showError ? "inputError" : ""}`}
+        className={`usernameInput ${showError ? "inputError" : ""}`}
         type="text" 
         value={value} 
         onChange={onChange}
@@ -20,7 +20,7 @@ function UserInput({
       {
         <div className="nameHelperText">{helperText}</div>
       }
-    </>
+    </div>
   )
 }
 

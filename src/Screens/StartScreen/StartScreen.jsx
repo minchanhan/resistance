@@ -99,18 +99,19 @@ function StartScreen({
         <RebellionLogo />
       </div>
       
-      <div className="usernameField">
-        <UserInput 
-          className="usernameTextField" 
-          value={username} 
-          onChange={ (event) => {
-            setJoinRoomModal(false);
-            if (event.target.value.slice(-1) !== " ") onChangedUsername(event.target.value);
-          }}
-          helperText={!validUsername() && usernameWarningCheck ? "Name must be 3-10 chars" : ""}
-          showError={!validUsername() && usernameWarningCheck}
-        />
+      <div className="userOptionsBox">
+
       </div>
+      
+      <UserInput 
+        value={username} 
+        onChange={ (event) => {
+          setJoinRoomModal(false);
+          if (event.target.value.slice(-1) !== " ") onChangedUsername(event.target.value);
+        }}
+        helperText={!validUsername() && usernameWarningCheck ? "Name must be 3-10 chars" : ""}
+        showError={!validUsername() && usernameWarningCheck}
+      />
       
       <div>
         <DisplayButton onClick={handleCreate} text="Create Room" />

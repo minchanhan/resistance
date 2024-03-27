@@ -1,0 +1,41 @@
+/* Instructions */
+.instructionsContainer {
+  color-scheme: dark;
+  height: 60vh;
+
+}
+.instructions {
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  color: white;
+  white-space: pre-line;
+
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+  margin-bottom: 0.35rem;
+  gap: 1rem;
+}
+.instructionsSubtitle {
+  font-size: x-large;
+  font-weight: 700;
+}
+.instructionsText {
+  font-weight: 500;
+}
+
+.holdInstructionPics {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+}
+.numSpiesChart {
+  border-collapse: collapse;
+  border: 1px solid var(--secondary-color);
+  min-width: 15rem;
+}
+.numSpiesChart * {
+  border: 1px dotted var(--secondary-color);
+}
