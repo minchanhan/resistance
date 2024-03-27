@@ -1,6 +1,6 @@
 import React from "react";
 import Timer from "./Timer";
-import TitleLogo from "./TitleLogo.jsx";
+import RebellionLogo from "../../../../assets/RebellionLogo.jsx";
 
 function InfoTable({ 
   room, 
@@ -17,7 +17,7 @@ function InfoTable({
 
   return (
     <div className="infoTable">
-      <TitleLogo />
+      <RebellionLogo />
 
       {
         !gameStarted ? (

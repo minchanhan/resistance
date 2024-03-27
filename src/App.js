@@ -33,7 +33,7 @@ function App() {
     },
     colors: {
       text: {
-        body: '#F4F4F4',
+        body: 'white',
         link: '#FF8C00'
       }
     }
