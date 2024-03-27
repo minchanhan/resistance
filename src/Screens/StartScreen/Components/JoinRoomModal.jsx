@@ -10,7 +10,7 @@ function JoinRoomModal({
   socket,
   open, 
   handleJoinClose, 
-  style,
+  modalStyle,
   modalHeader
 }) {
   const [checkedRoom, setCheckedRoom] = useState(false);
@@ -35,8 +35,8 @@ function JoinRoomModal({
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
-      <Box sx={style}>
-        <div style={modalHeader}>
+      <Box sx={{...modalStyle, width: "25rem"}}>
+        <div style={{...modalHeader, fontSize: "x-large"}}>
           Enter Room Code
         </div>
         

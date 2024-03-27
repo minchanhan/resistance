@@ -1,17 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import "../App.css";
-import { 
-  Button, 
-  FormControl, 
-  FormControlLabel, 
-  FormHelperText, 
-  InputLabel, 
-  MenuItem, 
-  Select, 
-  Switch,
-  Typography, 
-} from "@mui/material";
 import "../data/Enums.js";
+import DisplayButton from "./DisplayButton.jsx";
+import CheckIcon from '@mui/icons-material/Check';
+import { Box, Modal } from "@mui/material";
 
 function GameSettings({
   capacity,
@@ -22,92 +14,107 @@ function GameSettings({
   privateRoom,
   onChangedPrivateRoom,
   isAdmin,
-  startGame
+  startGame,
+  modalStyle,
+  modalHeader
 }) {
 
   const capacityMenuItems = [5,6,7,8,9,10];
+
+  const [openSettings, setOpenSettings] = useState(false);
+  const handleSettingsClose = () => {
+    setOpenSettings(false);
+  };
   
   return (
     <div className="gameSettings">
-      <div className="settingsSelect">
-        <FormControl style={{ flex: "1 1 auto" }}>
-          <InputLabel id="demo-simple-select-helper-label"># of Players</InputLabel>
-          <Select
-            id="demo-simple-select-helper"
-            labelId="demo-simple-select-helper-label"
-            label="# of Players"
-            value={capacity}
-            onChange={(event) => {
-              onChangedCapacity(event.target.value);
-            }}
-            disabled={!isAdmin}
-          >
-            {
-              capacityMenuItems.map(function(val, i) {
-                return <MenuItem key={i} value={val} disabled={val < curNumPlayers}>{val} players</MenuItem>
-              })
-            }
-          </Select>
-          <FormHelperText>5+ Players</FormHelperText>
-        </FormControl>
-      </div>
+      <DisplayButton
+        onClick={() => {
+          setOpenSettings(true);
+        }} 
+        text="Open Settings"
+        btnStyle={{fontSize: "1rem", height: "3rem", width: "10rem", margin: "1rem"}}
+      />
 
-      <div className="settingsSelect">
-        <FormControl style={{ flex: "1 1 auto" }}>
-          <InputLabel id="demo-simple-select-helper-label">Team Select Time Limit</InputLabel>
-          <Select
-            id="demo-simple-select-helper"
-            labelId="demo-simple-select-helper-label"
-            label="Team Select Time Limit"
-            value={selectionTime}
-            onChange={(event) => {
-              onChangedSelectionTime(event.target.value)
-            }}
-            disabled={!isAdmin}
-          >
-            <MenuItem value={1}>1 min</MenuItem>
-            <MenuItem value={3}>3 min</MenuItem>
-            <MenuItem value={5}>5 min</MenuItem>
-            <MenuItem value={7}>7 min</MenuItem>
-            <MenuItem value={10}>10 min</MenuItem>
-            <MenuItem value={15}>15 min</MenuItem>
-            <MenuItem value={200}>Unlimited</MenuItem>
-          </Select>
-          <FormHelperText>3 min - Ꝏ</FormHelperText>
-        </FormControl>
-      </div>
-      
-      <div className="settingsSwitch">
-        <FormControlLabel 
-          control={
-            <Switch
-              checked={privateRoom}
-              onChange={(event) => {
-                onChangedPrivateRoom();
-              }}
-              inputProps={{ 'aria-label': 'controlled' }}
-              disabled={!isAdmin}
-            />
-          } 
-          label={<Typography fontWeight={500} color="white">Private Room</Typography>}
-          labelPlacement="start"
-          sx={{color: "white", mb: "0.25rem"}}
+      <DisplayButton
+        onClick={() => {
+          startGame();
+        }} 
+        text="Start Game"
+        disabled={curNumPlayers < capacity || !isAdmin}
+        btnStyle={{fontSize: "1rem", height: "3rem", width: "10rem", margin: "1rem"}}
+      />
+
+      <Modal
+        open={openSettings}
+        onClose={handleSettingsClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={{...modalStyle, width: "25rem"}}>
+          <div style={{...modalHeader, fontSize: "x-large"}}>
+            Game Settings
+          </div>
           
-        />
-      </div>
+          <div className="settingsModalContent">
+            <div className="settingsSelectContainer">
+              <p>Number of Players</p>
+              <select
+                className="selectBox"
+                value={capacity}
+                onChange={(event) => {
+                  onChangedCapacity(event.target.value);
+                }}
+                disabled={!isAdmin}
+              >
+                {
+                  capacityMenuItems.map(function(val, i) {
+                    return <option key={i} value={val} disabled={val < curNumPlayers}>{val} players</option>
+                  })
+                }
+              </select>
+            </div>
 
-      <div className="settingsStartBtn">
-        <Button 
-          sx={{fontWeight: 500}}
-          variant="text" 
-          onClick={() => {
-            startGame();
-          }}
-          disabled={curNumPlayers < capacity || !isAdmin}
-        >
-          Start Game
-        </Button>
-      </div>
+            <div className="settingsSelectContainer">
+              <p>Team Select Time</p>
+              <select
+                className="selectBox"
+                value={selectionTime}
+                onChange={(event) => {
+                  onChangedSelectionTime(event.target.value)
+                }}
+                disabled={!isAdmin}
+              >
+                  <option value={1}>1 min</option>
+                  <option value={3}>3 min</option>
+                  <option value={5}>5 min</option>
+                  <option value={7}>7 min</option>
+                  <option value={10}>10 min</option>
+                  <option value={15}>15 min</option>
+                  <option value={200}>No limit</option>
+              </select>
+            </div>
+        
+            <div className="privRoomSettingsContainer">
+              <label class="privRoom">Private Room
+                <input
+                  type="checkbox" 
+                  checked={privateRoom} 
+                  onChange={(event) => {
+                    onChangedPrivateRoom();
+                  }}
+                  disabled={!isAdmin}
+                />
+                <span class="checkbox">
+                  {
+                    privateRoom ? <CheckIcon fontSize="x-small" /> : <></>
+                  }
+                </span>
+              </label>
+            </div>
+          </div>
+        </Box>
+      </Modal>
     </div>
   )
 }

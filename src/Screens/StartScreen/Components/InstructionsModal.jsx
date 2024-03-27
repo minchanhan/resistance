@@ -6,7 +6,7 @@ import PlayerBox from "../../GameScreen/Components/GameTable/PlayerBox/PlayerBox
 function InstructionsModal({
   open, 
   handleInstructionsClose, 
-  style, 
+  modalStyle, 
   modalHeader
 }) {
   const badTeamStyle = {
@@ -48,7 +48,7 @@ function InstructionsModal({
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
-      <Box sx={style}>
+      <Box sx={modalStyle}>
         <div style={modalHeader}>
           Instructions:
         </div>

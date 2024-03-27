@@ -13,7 +13,9 @@ function StartScreen({
   username, 
   onChangedUsername, 
   setIsAdmin,
-  randomStatusMsg
+  randomStatusMsg,
+  modalStyle,
+  modalHeader
 }) {
   const [joinRoomModal, setJoinRoomModal] = useState(false);
   const [instructionsOpen, setInstructionsOpen] = useState(false);
@@ -21,26 +23,6 @@ function StartScreen({
   const [usernameWarningCheck, setUsernameWarningCheck] = useState(false); // activate warning if needed
 
   const is4K = useMediaQuery({ minWidth: 2400 });
-
-  const modalStyle = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-
-    width: joinRoomModal ? "60svw" : "85svw",
-    maxWidth: joinRoomModal ? "20rem" : "85svw",
-    bgcolor: 'gray',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
-  };
-
-  const modalHeader = {
-    color: "white", 
-    fontSize: joinRoomModal ? "x-large" : "xx-large", 
-    fontWeight: "700", 
-  };
 
   const validUsername = () => {
     if (username.length >= 3 && username.length <= 10) {
@@ -95,13 +77,13 @@ function StartScreen({
         socket={socket}
         open={joinRoomModal} 
         handleJoinClose={handleJoinClose}
-        style={modalStyle}
+        modalStyle={modalStyle}
         modalHeader={modalHeader}
       />
       <InstructionsModal 
         open={instructionsOpen} 
         handleInstructionsClose={handleInstructionsClose}
-        style={modalStyle}
+        modalStyle={modalStyle}
         modalHeader={modalHeader}
       />
 
@@ -110,7 +92,7 @@ function StartScreen({
       </div>
       
       <div className="userOptionsBox">
-        <UserInput 
+        <UserInput
           value={username} 
           onChange={ (event) => {
             setJoinRoomModal(false);
@@ -124,10 +106,10 @@ function StartScreen({
           randomStatusMsg !== "" ? <p style={{ color: "red" }}>{randomStatusMsg}</p> : <></>
         }
 
-        <DisplayButton onClick={handleCreate} text="Create Room" />
-        <DisplayButton onClick={handleJoinOpen} text="Join Room with Code" />
-        <DisplayButton onClick={handleRandomJoin} text="Join Random Room" />
-        <DisplayButton onClick={handleInstructionsOpen} text="Instructions" />
+        <DisplayButton className="startScreenBtn" onClick={handleCreate} text="Create Room" />
+        <DisplayButton className="startScreenBtn" onClick={handleJoinOpen} text="Join Room with Code" />
+        <DisplayButton className="startScreenBtn" onClick={handleRandomJoin} text="Join Random Room" />
+        <DisplayButton className="startScreenBtn" onClick={handleInstructionsOpen} text="Instructions" />
       </div>
       
       <footer className="footer">

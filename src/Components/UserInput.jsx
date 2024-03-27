@@ -7,7 +7,7 @@ function UserInput({
   helperText,
   showError,
   placeholder,
-  extraStyle={},
+  inputStyle={},
 }) {
 
   return (
@@ -18,7 +18,7 @@ function UserInput({
         value={value} 
         onChange={onChange}
         placeholder={placeholder}
-        style={extraStyle}
+        style={inputStyle}
       />
       {
         <div className="nameHelperText">{helperText}</div>

@@ -13,6 +13,7 @@
 
   outline: none;
   border: none;
+  padding: 0 0.5rem;
   border-radius: 0.25rem;
   height: 2rem;
 
@@ -25,16 +26,19 @@
   align-items: center;
   text-align: center;
 }
-.displayButton:hover {
+.displayButton:hover:enabled {
   background-color: #f98b05;
 }
-.displayButton:active {
+.displayButton:active:enabled {
   background-color: #f98b05;
   transform: translateY(0.15rem);
 
   -moz-box-shadow:0 0.05rem 0.05rem rgba(40, 38, 38, 0.75);
   -webkit-box-shadow: 0 0.05rem 0.05rem rgba(40, 38, 38, 0.75);
   box-shadow: 0 0.05rem 0.05rem rgba(40, 38, 38, 0.75); 
+}
+.displayButton:disabled {
+  background-color: gray;
 }
 .displayButton p {
   font-weight: 600;
@@ -74,7 +78,6 @@
   font-size: 0.7rem;
   margin-top: 0.1rem;
 }
-
 
 /* 4K */
 @media all and (min-width: 2400px) {

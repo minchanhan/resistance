@@ -47,7 +47,9 @@ function GameScreen({
   newMsg,
   setNewMsg,
   mins,
-  secs
+  secs,
+  modalStyle,
+  modalHeader
 }) {
   // const isPortrait = useMediaQuery({ orientation: 'portrait' });
   // const isRetina = useMediaQuery({ minResolution: '2dppx' });
@@ -114,6 +116,8 @@ function GameScreen({
     onChangedPrivateRoom: onChangedPrivateRoom,
     isAdmin: isAdmin,
     startGame: startGame,
+    modalStyle: modalStyle,
+    modalHeader: modalHeader
   };
 
   const chatBoxProps = {
