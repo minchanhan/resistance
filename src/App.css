@@ -117,6 +117,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 0.75rem 0;
 }
 
 /* ----- Title Logo ----- */
@@ -136,8 +137,7 @@
   justify-content: center;
   align-items: center;
   flex-flow: column wrap;
-  color: silver;
-  margin-right: 0.5rem;
+  color: black;
 }
 
 /* --- Game Settings --- */
@@ -598,7 +598,7 @@
 .fullTable,
 .table
 {
-  border: 2px solid #abb5aa;
+  border: 2px solid var(--secondary-color);
   border-radius: 0.5rem;
 }
 
@@ -672,13 +672,10 @@
     flex: 1;
     display: flex;
     flex-flow: column nowrap;
+    gap: 0.75rem;
   }
   .titleLogo {
     flex: 1;
-  }
-  .information {
-    margin-bottom: 1.5rem;
-    margin-right: 0;
   }
   
   /* Game Table */
@@ -785,6 +782,7 @@
   .infoTable {
     flex: 1 2 auto;
     flex-flow: column nowrap;
+    gap: 0.75rem;
   }
   .titleLogo, .information {
     flex: 1 5 auto;
