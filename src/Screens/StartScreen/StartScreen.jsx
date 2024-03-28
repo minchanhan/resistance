@@ -96,7 +96,7 @@ function StartScreen({
           value={username} 
           onChange={ (event) => {
             setJoinRoomModal(false);
-            if (event.target.value.slice(-1) !== " ") onChangedUsername(event.target.value);
+            if (event.target.value.slice(-1) !== " ") onChangedUsername(event.target.value.toUpperCase());
           }}
           helperText={!validUsername() && usernameWarningCheck ? "Name must be 3-10 chars" : ""}
           showError={!validUsername() && usernameWarningCheck}
