@@ -64,7 +64,7 @@ function InstructionsModal({
               <div className="instructionsSubtitle">{pregameTitle}</div>
               <div className="instructionsText">{pregame}</div>
               <div className="holdInstructionPics">
-                <table class="numSpiesChart">
+                <table className="numSpiesChart">
                   <thead>
                       <tr>
                           <td># of Players</td>

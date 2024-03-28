@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useEffect, useState } from "react";
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { useMediaQuery } from 'react-responsive';
 import "../../App.css";
@@ -53,16 +53,22 @@ function GameScreen({
 }) {
   // const isPortrait = useMediaQuery({ orientation: 'portrait' });
   // const isRetina = useMediaQuery({ minResolution: '2dppx' });
-  const isThin = useMediaQuery({ maxWidth: 900 }); // turn to portrait mode
-  const isPortrait = useMediaQuery({ orientation: 'portrait' });
-  const isReallyThin = useMediaQuery({ maxWidth: 425 });
-
   const isLandscape = useMediaQuery({ orientation: 'landscape' });
-  const isShort = useMediaQuery({ maxHeight: 700 });
-  const isReallyShort = useMediaQuery({ maxHeight: 450 });
+  const isPortrait = useMediaQuery({ orientation: 'portrait' });
 
-  const isHighRes = useMediaQuery({ minWidth: 1440 });
   const is4K = useMediaQuery({ minWidth: 2400 });
+  const isHighRes = useMediaQuery({ minWidth: 1440 });
+
+  const isGettingThin = useMediaQuery({ maxWidth: 1050 });
+  const isThin = useMediaQuery({ maxWidth: 950 });
+  const isThinning = useMediaQuery({ maxWidth: 625 }); // cap >= 9
+  const isPrettyThin = useMediaQuery({ maxWidth: 525 }); // cap >= 7
+  const isReallyThin = useMediaQuery({ maxWidth: 425 }); // cap <= 6
+  const isMostThin = useMediaQuery({ maxWidth: 325 });
+
+  const isTall = useMediaQuery({ minHeight: 700 }); // i)
+  const isShort = useMediaQuery({ maxHeight: 700 }); // ii)
+  const isReallyShort = useMediaQuery({ maxHeight: 450 });
 
   const [showHiddenChat, setShowHiddenChat] = useState(false);
 
@@ -90,7 +96,10 @@ function GameScreen({
     isHighRes: isHighRes,
     is4K: is4K,
     isReallyShort: isReallyShort,
-    isReallyThin: isReallyThin
+    isMostThin: isMostThin,
+    isReallyThin: isReallyThin,
+    isPrettyThin: isPrettyThin,
+    isThinning: isThinning
   };
 
   const infoTableProps = {
@@ -137,7 +146,44 @@ function GameScreen({
   return (
     <>
       {
-        isLandscape && isShort ? (
+        (isThin && isTall) || isPortrait ? (
+          <div className="gameScreen">
+            {
+              showHiddenChat ? (
+                <ChatBox {...chatBoxProps} />
+              ) : <></>
+            }
+            <InfoTable {...infoTableProps} />
+            <GameTable {...gameTableProps} />
+            {
+              gameStarted ? (<GameCommands gameMasterSpeech={gameMasterSpeech} />) : (
+                <GameSettings {...gameSettingsProps} />
+              )
+            }
+            <div className="showChatBtn">
+              <div className="showChatBtnBox">
+                {
+                  newMsg && !showHiddenChat ? (
+                    <NotificationsIcon className="newMsgAlert" />
+                  ) : <></>
+                }
+                <Button
+                  color="secondary"
+                  onClick={() => {
+                    setShowHiddenChat(!showHiddenChat);
+                    setNewMsg(false);
+                  }}
+                  sx={{
+                    border: `1px solid ${getComputedStyle(document.body).getPropertyValue('--secondary-color')}`,
+                    fontWeight: 600
+                  }}
+                >
+                  {showHiddenChat ? "Close Chat" : "Show Chat"}
+                </Button>
+              </div>
+            </div>
+          </div>
+        ) : (isLandscape && isShort) || isGettingThin ? (
           <div className="gameScreen">
             {
               showHiddenChat ? (
@@ -176,43 +222,6 @@ function GameScreen({
                     {showHiddenChat ? "Close Chat" : "Show Chat"}
                   </Button>
                 </div>
-              </div>
-            </div>
-          </div>
-        ) : isThin || isPortrait ? (
-          <div className="gameScreen">
-            {
-              showHiddenChat ? (
-                <ChatBox {...chatBoxProps} />
-              ) : <></>
-            }
-            <InfoTable {...infoTableProps} />
-            <GameTable {...gameTableProps} />
-            {
-              gameStarted ? (<GameCommands gameMasterSpeech={gameMasterSpeech} />) : (
-                <GameSettings {...gameSettingsProps} />
-              )
-            }
-            <div className="showChatBtn">
-              <div className="showChatBtnBox">
-                {
-                  newMsg && !showHiddenChat ? (
-                    <NotificationsIcon className="newMsgAlert" />
-                  ) : <></>
-                }
-                <Button
-                  color="secondary"
-                  onClick={() => {
-                    setShowHiddenChat(!showHiddenChat);
-                    setNewMsg(false);
-                  }}
-                  sx={{
-                    border: `1px solid ${getComputedStyle(document.body).getPropertyValue('--secondary-color')}`,
-                    fontWeight: 600
-                  }}
-                >
-                  {showHiddenChat ? "Close Chat" : "Show Chat"}
-                </Button>
               </div>
             </div>
           </div>

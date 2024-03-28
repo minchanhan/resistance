@@ -106,7 +106,7 @@ function GameSettings({
               style={{backgroundColor: !isAdmin ? "#d08c54" : ""}}
             >
               <label 
-                class="privRoom" 
+                className="privRoom" 
                 style={{
                   color: !isAdmin ? "#e0dcdc" : "",
                   cursor: !isAdmin ? "not-allowed" : ""
@@ -122,7 +122,7 @@ function GameSettings({
                   disabled={!isAdmin}
                 />
                 <span 
-                  class="checkbox" 
+                  className="checkbox" 
                   style={{
                     backgroundColor: !isAdmin ? "#e0dcdc" : "",
                     cursor: !isAdmin ? "not-allowed" : ""

@@ -29,7 +29,10 @@ function GameTable({
   isHighRes,
   is4K,
   isReallyShort,
-  isReallyThin
+  isMostThin,
+  isPrettyThin,
+  isReallyThin,
+  isThinning,
 }) {
   const topRowLength = capacity >= 9 ? 5 : capacity >= 7 ? 4 : 3;
   const bottomRowLength = capacity >= 10 ? 5 : capacity >= 8 ? 4 : capacity >= 6 ? 3 : 2;
@@ -101,6 +104,7 @@ function GameTable({
         isHighRes={isHighRes}
         is4K={is4K}
         isReallyShort={isReallyShort}
+        isThinning={isThinning}
       />
     )
   }
@@ -136,6 +140,7 @@ function GameTable({
             missionTeamSize={missionTeamSize1}
             isReallyShort={isReallyShort}
             isReallyThin={isReallyThin}
+            isMostThin={isMostThin}
           />
           <MissionToken
             isPassed={missionResultTrack[1] === "pass"} 
@@ -144,6 +149,7 @@ function GameTable({
             missionTeamSize={missionTeamSize2}
             isReallyShort={isReallyShort}
             isReallyThin={isReallyThin}
+            isMostThin={isMostThin}
           />
           <MissionToken
             isPassed={missionResultTrack[2] === "pass"} 
@@ -152,6 +158,7 @@ function GameTable({
             missionTeamSize={missionTeamSize3}
             isReallyShort={isReallyShort}
             isReallyThin={isReallyThin}
+            isMostThin={isMostThin}
           />
           <MissionToken
             isPassed={missionResultTrack[3] === "pass"} 
@@ -161,6 +168,7 @@ function GameTable({
             twoFails={capacity >= 7}
             isReallyShort={isReallyShort}
             isReallyThin={isReallyThin}
+            isMostThin={isMostThin}
           />
           <MissionToken
             isPassed={missionResultTrack[4] === "pass"} 
@@ -169,6 +177,7 @@ function GameTable({
             missionTeamSize={missionTeamSize5}
             isReallyShort={isReallyShort}
             isReallyThin={isReallyThin}
+      isMostThin={isMostThin}            
           />
         </div>
         
@@ -188,24 +197,49 @@ function GameTable({
                 color="secondary"
                 disabled={selectedPlayers.length < missionTeamSizes[missionNumber - 1] || disableTeamSubmit} 
                 onClick={() => handleTeamSubmit()}
+                sx={{ fontWeight: 600 }}
               >
                 Submit Team
               </Button>
             ) : voteHappening ? (
               <div>
-                <Button color="green" id="approveBtn" disabled={disableVoteBtns} onClick={() => handleVote(true)}>
+                <Button 
+                  color="green" 
+                  id="approveBtn" 
+                  disabled={disableVoteBtns} 
+                  onClick={() => handleVote(true)}
+                  sx={{ fontWeight: 600 }}
+                >
                   Approve
                 </Button>
-                <Button color="red" id="disapproveBtn" disabled={disableVoteBtns} onClick={() => handleVote(false)}>
+                <Button 
+                  color="red" 
+                  id="disapproveBtn" 
+                  disabled={disableVoteBtns} 
+                  onClick={() => handleVote(false)}
+                  sx={{ fontWeight: 600 }}
+                >
                   Disapprove
                 </Button>
               </div>
             ) : goingOnMission ? (
               <div>
-                <Button color="green" id="passBtn" disabled={disableMissionActions} onClick={() => handleMission(true)}>
+                <Button 
+                  color="green" 
+                  id="passBtn" 
+                  disabled={disableMissionActions} 
+                  onClick={() => handleMission(true)}
+                  sx={{ fontWeight: 600 }}
+                >
                   Pass
                 </Button>
-                <Button color="red" id="failBtn" disabled={disableMissionActions} onClick={() => handleMission(false)}>
+                <Button 
+                  color="red" 
+                  id="failBtn" 
+                  disabled={disableMissionActions} 
+                  onClick={() => handleMission(false)}
+                  sx={{ fontWeight: 600 }}
+                >
                   Fail
                 </Button>
               </div>

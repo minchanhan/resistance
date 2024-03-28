@@ -15,7 +15,8 @@ function PlayerBox({
   onClick,
   isHighRes,
   is4K,
-  isReallyShort
+  isReallyShort,
+  isThinning
 }) {
 
   return (
@@ -41,9 +42,9 @@ function PlayerBox({
       </div>
       
       <div className="fist" style={teamStyle}>
-        <Fist 
-          width={is4K ? "5rem" : isHighRes ? "4rem" : isReallyShort ? "2rem" : "3rem"} 
-          height={is4K ? "5rem" : isHighRes ? "4rem" : isReallyShort ? "2rem" : "3rem"} 
+        <Fist
+          width={is4K ? "5rem" : "3rem"} 
+          height={is4K ? "5rem" : "3rem"} 
         />
       </div>
 

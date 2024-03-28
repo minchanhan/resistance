@@ -4,11 +4,11 @@ import "../App.css";
 function RebellionLogo() {
   return (
     <div className="titleLogo">
-      <svg width="79.375mm" height="23.184mm" version="1.1" viewBox="0 0 79.375 23.184" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+      <svg width="100%" height="100%" version="1.1" viewBox="0 0 79.375 23.184" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
         <defs>
           <linearGradient id="linearGradient18324-4" x1="-66.416" x2="215.06" y1="675.74" y2="675.74" gradientTransform="matrix(.11452 .015847 -.013594 .11211 75.298 21.133)" gradientUnits="userSpaceOnUse">
           <stop offset=".093248"/>
-          <stop stop-color="#dc0000" stop-opacity=".94969" offset=".92604"/>
+          <stop stopColor="#dc0000" stopOpacity=".94969" offset=".92604"/>
           </linearGradient>
         </defs>
         <g transform="translate(-52.917 -92.604)">
