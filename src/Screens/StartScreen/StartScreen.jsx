@@ -25,7 +25,7 @@ function StartScreen({
   const is4K = useMediaQuery({ minWidth: 2400 });
 
   const validUsername = () => {
-    if (username.length >= 3 && username.length <= 10) {
+    if (username.length >= 3 && username.length <= 9) {
       return true;
     } else {
       return false;
@@ -98,7 +98,7 @@ function StartScreen({
             setJoinRoomModal(false);
             if (event.target.value.slice(-1) !== " ") onChangedUsername(event.target.value.toUpperCase());
           }}
-          helperText={!validUsername() && usernameWarningCheck ? "Name must be 3-10 chars" : ""}
+          helperText={!validUsername() && usernameWarningCheck ? "Name must be 3-9 chars" : ""}
           showError={!validUsername() && usernameWarningCheck}
           placeholder="Username"
         />
