@@ -124,7 +124,7 @@ function InstructionsModal({
               <div className="instructionsSubtitle">{gameplayTitle}</div>
               <div className="instructionsText">{gameplay}</div>
               <div className="holdInstructionPics">
-                <div className="table" style={{margin: "2rem"}}>
+                <div className="table" style={{margin: "2rem", gap: "2rem"}}>
                   <div className="missionTokenGrid">
                     <MissionToken
                       isPassed
