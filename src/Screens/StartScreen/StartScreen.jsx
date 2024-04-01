@@ -20,7 +20,7 @@ function StartScreen({
 
   const [usernameWarningCheck, setUsernameWarningCheck] = useState(false); // activate warning if needed
 
-  const is4K = useMediaQuery({ minWidth: 2400 });
+  const is4K = useMediaQuery({ minWidth: 1400 });
 
   const validUsername = () => {
     if (username.length >= 3 && username.length <= 9) {

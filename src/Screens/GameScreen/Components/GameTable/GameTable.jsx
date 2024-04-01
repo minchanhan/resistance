@@ -27,7 +27,6 @@ function GameTable({
   setDisableMissionActions,
   missionNumber,
   missionResultTrack,
-  isHighRes,
   is4K,
   isReallyShort,
   isThinning,
