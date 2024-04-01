@@ -867,6 +867,7 @@
   }
   .showChatBtn {
     flex: 1 1 auto;
+    padding-bottom: 0.75rem;
   }
 }
 
