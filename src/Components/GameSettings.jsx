@@ -63,7 +63,7 @@ function GameSettings({
                 className="selectBox"
                 value={capacity}
                 onChange={(event) => {
-                  onChangedCapacity(event.target.value);
+                  onChangedCapacity(parseInt(event.target.value));
                 }}
                 disabled={!isAdmin}
                 style={{
@@ -84,7 +84,7 @@ function GameSettings({
                 className="selectBox"
                 value={selectionTime}
                 onChange={(event) => {
-                  onChangedSelectionTime(event.target.value)
+                  onChangedSelectionTime(parseInt(event.target.value))
                 }}
                 disabled={!isAdmin}
                 style={{
@@ -97,7 +97,7 @@ function GameSettings({
                   <option value={7}>7 min</option>
                   <option value={10}>10 min</option>
                   <option value={15}>15 min</option>
-                  <option value={200}>No limit</option>
+                  <option value={30}>30 min</option>
               </select>
             </div>
         

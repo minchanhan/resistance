@@ -22,7 +22,7 @@ function InfoTable({
       {
         !gameStarted ? (
           <div className="information">
-            <div>{topText}</div>
+            <div style={{textWrap: "nowrap"}}>{topText}</div>
             <div style={{cursor: "pointer"}} onClick={() => {navigator.clipboard.writeText(room)}}>
               {`Copy Room Code: ${room}`}
             </div>

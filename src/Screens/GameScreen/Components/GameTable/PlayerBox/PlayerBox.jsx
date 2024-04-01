@@ -13,14 +13,12 @@ function PlayerBox({
   username, 
   ownName=false, 
   onClick,
-  isHighRes,
   is4K,
-  isReallyShort,
-  isThinning
+  isThinning,
 }) {
 
   return (
-    <div className="playerBox" onClick={onClick}>
+    <div className="player">
       <div className="status">
         <div id="isLeader">
           <StarIcon style={{
@@ -41,20 +39,21 @@ function PlayerBox({
         </div>
       </div>
       
-      <div className="fist" style={teamStyle}>
+      <div className="fist" style={teamStyle} onClick={onClick}>
         <Fist
-          width={is4K ? "5rem" : "3rem"} 
-          height={is4K ? "5rem" : "3rem"} 
+          width={is4K ? "5rem" : isThinning ? "2.5rem" : "3rem"} 
+          height={is4K ? "5rem" : isThinning ? "2.5rem" : "3rem"} 
         />
       </div>
 
-      <div 
-        className="playerBoxUsername" 
+      <div
+        className="playerUsername" 
         style={{
-          color: ownName ? "orange" : "white"
+          color: ownName ? "white" : "black"
         }}
+        onClick={onClick}
       >
-        {username}
+        <span>{username}</span>
       </div>
     </div>
   )

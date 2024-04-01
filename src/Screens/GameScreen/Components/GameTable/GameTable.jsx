@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../../../../App.css";
 
 import PlayerBox from "./PlayerBox/PlayerBox";
 import MissionToken from "./MissionToken";
 import VoteTrack from "./VoteTrack";
 import { Button } from "@mui/material";
+import { useMediaQuery } from "react-responsive";
 
 function GameTable({
   socket,
@@ -29,13 +30,13 @@ function GameTable({
   isHighRes,
   is4K,
   isReallyShort,
-  isMostThin,
+  isThinning,
   isPrettyThin,
   isReallyThin,
-  isThinning,
+  isMostThin,
 }) {
-  const topRowLength = capacity >= 9 ? 5 : capacity >= 7 ? 4 : 3;
-  const bottomRowLength = capacity >= 10 ? 5 : capacity >= 8 ? 4 : capacity >= 6 ? 3 : 2;
+  const topRowLength = Math.ceil(seats.length / 2);
+  const bottomRowLength = Math.floor(seats.length / 2);;
   const badTeamStyle = {
     filter: 'invert(21%) sepia(76%) saturate(5785%) hue-rotate(338deg) brightness(57%) contrast(119%)'
   };
@@ -47,13 +48,63 @@ function GameTable({
   const missionTeamSize5 = capacity === 5 ? 3 : (capacity <= 7) ? 4 : 5;
   const missionTeamSizes = [missionTeamSize1, missionTeamSize2, missionTeamSize3, missionTeamSize4, missionTeamSize5];
 
-  // for dynamic player rows
-  var playerRow = (rowLength, isBottomRow=false) => ({
-    display: 'grid',
-    gridTemplateColumns: `repeat(${rowLength}, 1fr)`,
-    gridTemplateRows: '1fr',
-    direction: isBottomRow ? 'rtl' : '',
-  });
+  // alternates:
+  const isThinning2 = useMediaQuery({ maxWidth: 560 });
+  const isPrettyThin2 = useMediaQuery({ maxWidth: 460 });
+  const isReallyThin2 = useMediaQuery({ maxWidth: 390 });
+  const isReallyThin3 = useMediaQuery({ maxWidth: 365 });
+
+  const [adjustTopPlayers, setAdjustTopPlayers] = useState(false);
+  const [adjustBottomPlayers, setAdjustBottomPlayers] = useState(false);
+
+  const [lowCramTopRow, setLowCramTopRow] = useState(false);
+  const [lowCramBottomRow, setLowCramBottomRow] = useState(false);
+  const [midCramTopRow, setMidCramTopRow] = useState(false);
+  const [midCramBottomRow, setMidCramBottomRow] = useState(false);
+  const [maxCramTopRow, setMaxCramTopRow] = useState(false);
+  const [maxCramBottomRow, setMaxCramBottomRow] = useState(false);
+
+  useEffect(() => {
+    const maxCram = isThinning && seats.length >= 9;
+    setMaxCramTopRow(maxCram);
+    const midCram = isPrettyThin && seats.length >= 7;
+    setMidCramTopRow(midCram);
+    const lowCram = isReallyThin && seats.length >= 5;
+    setLowCramTopRow(lowCram);
+
+    if (maxCram || midCram || lowCram)
+    {
+      setAdjustTopPlayers(true);
+    } else {
+      setAdjustTopPlayers(false);
+    }
+  }, [ 
+      seats,
+      isThinning, isThinning2, 
+      isPrettyThin, isPrettyThin2, 
+      isReallyThin, isReallyThin2, isReallyThin3
+    ]);
+
+  useEffect(() => {
+    const maxCram = isThinning && seats.length >= 10;
+    setMaxCramBottomRow(maxCram);
+    const midCram = isPrettyThin && seats.length >= 8;
+    setMidCramBottomRow(midCram);
+    const lowCram = isReallyThin && seats.length >= 6;
+    setLowCramBottomRow(lowCram);
+
+    if (maxCram || midCram || lowCram) 
+    {
+      setAdjustBottomPlayers(true);
+    } else {
+      setAdjustBottomPlayers(false);
+    }
+  }, [
+      seats,
+      isThinning, isThinning2, 
+      isPrettyThin, isPrettyThin2, 
+      isReallyThin, isReallyThin2, isReallyThin3
+  ]);
 
   const handleMissionSelection = (seatUsername) => {
     if (!leaderSelecting) return;
@@ -89,9 +140,15 @@ function GameTable({
     setDisableMissionActions(true); // 3b
   };
 
-  const gameStartedPlayerBox = (seatIsLeader, seatOnMission, seatTeam, seatUsername) => {
+  const gameStartedPlayerBox = (
+    seatIsLeader, 
+    seatOnMission, 
+    seatTeam, 
+    seatUsername, 
+  ) => {
+
     return (
-      <PlayerBox 
+      <PlayerBox
         isLeader={seatIsLeader}
         onMission={seatOnMission}
         inTeamVote={selectedPlayers.includes(seatUsername)}
@@ -101,17 +158,15 @@ function GameTable({
         onClick={() => {
           handleMissionSelection(seatUsername);
         }}
-        isHighRes={isHighRes}
         is4K={is4K}
-        isReallyShort={isReallyShort}
-        isThinning={isThinning}
+        isThinning={isThinning} 
       />
     )
   }
 
   return (
-    <div className="fullTable">
-      <div style={playerRow(topRowLength)} className="holdPlayers">
+    <div className={`fullTable ${capacity >= 9 ? "five" : capacity >= 7 ? "four" : ""}`}>
+      <div className={`holdPlayers ${lowCramTopRow ? "lowTopCram" : ""} ${midCramTopRow ? "midTopCram" : ""} ${maxCramTopRow ? "maxTopCram" : ""}`}>
         {
           // this map displays up to 4 players, 3 if there are <= 6 players
           seats.map(function(seat, i) {
@@ -121,9 +176,22 @@ function GameTable({
             const seatOnMission = seat[3];
             
             if (i < topRowLength) {
+              const up = (i === 1) || (i === 3);
+              const wayUp = (i === 2) && (seats.length >= 9);
+
               return (
-                <div key={seatUsername}>
-                  {gameStartedPlayerBox(seatIsLeader, seatOnMission, seatTeam, seatUsername)}
+                <div 
+                  key={seatUsername}
+                  className={`playerBox ${adjustTopPlayers ? "adjust" : ""} \
+                    ${up ? "up" : ""} ${wayUp ? "wayUp" : ""}`
+                  }
+                >
+                  {gameStartedPlayerBox(
+                    seatIsLeader, 
+                    seatOnMission, 
+                    seatTeam, 
+                    seatUsername, 
+                  )}
                 </div>
               )
             }
@@ -252,7 +320,10 @@ function GameTable({
         </div>
       </div>
 
-      <div style={playerRow(bottomRowLength, true)} className="holdPlayers">
+      <div 
+        style={{direction: 'rtl'}}
+        className={`holdPlayers ${lowCramBottomRow ? "lowBottomCram" : ""} ${midCramBottomRow ? "midBottomCram" : ""} ${maxCramBottomRow ? "maxBottomCram" : ""}`}
+      >
         {
           seats.map(function(seat, i) {
             const seatUsername = seat[0];
@@ -261,9 +332,27 @@ function GameTable({
             const seatOnMission = seat[3];
 
             if (i >= topRowLength) {
+              var down = false;
+
+              if (bottomRowLength >= 3) {
+                down = ((i === (topRowLength + 1)) || (i === (topRowLength + 3)));
+              }
+
+              const wayDown = (i === 7) && (seats.length === 10);
+
               return (
-                <div key={seatUsername}>
-                  {gameStartedPlayerBox(seatIsLeader, seatOnMission, seatTeam, seatUsername)}
+                <div 
+                  key={seatUsername}
+                  className={`playerBox ${adjustBottomPlayers ? "adjust" : ""} \
+                    ${down ? "down" : ""} ${wayDown ? "wayDown" : ""}`
+                  }
+                >
+                  {gameStartedPlayerBox(
+                    seatIsLeader, 
+                    seatOnMission, 
+                    seatTeam, 
+                    seatUsername, 
+                  )}
                 </div>
               )
             }

@@ -291,7 +291,7 @@
   flex: 2 1 auto;
   align-self: center;
   width: 90%;
-  padding-bottom: 2%;
+  padding-bottom: 0.15%;
   
   display: flex;
   flex-direction: column;
@@ -303,10 +303,8 @@
 
   display: flex;
   justify-content: space-around;
-  justify-items: center;
   align-items: center;
   text-align: center;
-  gap: 0.45em;
 }
 
 .missionTokenGrid, .voteTrackGrid, .tableBtns {
@@ -387,29 +385,36 @@
 
 /* ----- Player Box ----- */
 .playerBox { 
+  min-width: 0;
+  z-index: 3;
+}
+
+.player {
   display: flex;
+  min-width: 0;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  cursor: pointer;
   direction: ltr;
 }
-.playerBox .status {
+.player .status {  
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  gap: 0.5rem;
 }
-.playerBox .status div {
+.player .status div {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.status {
-  width: 3.5rem;
-}
 
-.playerBoxUsername {
-  font-size: 0.8rem;
+.playerUsername {
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+.fist {
+  cursor: pointer;
 }
 .selected { /* selected for mission */
   background-color: var(--secondary-color);
@@ -678,13 +683,13 @@
   position: absolute;
   top: 1.75%;
   right: 5%;
-  z-index: 3;
+  z-index: 4;
 }
 .newMsgAlert {
   position: absolute;
   top: -22.5%;
   right: 10%;
-  z-index: 3;
+  z-index: 4;
   filter: invert(65%) sepia(80%) saturate(362%) hue-rotate(339deg) brightness(98%) contrast(97%);
 }
 
@@ -719,9 +724,6 @@
   }
 
   /* Player Box */ /* SIZE CHANGE */
-  .playerBoxUsername {
-    font-size: 1.3rem;
-  }
   .missionToken {
     width: 8rem;
     height: 8rem;
@@ -796,22 +798,18 @@
   }
   .holdPlayers {
     margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
   }
   .missionToken { /* SIZE CHANGE */
     width: 4rem;
     height: 4rem;
-  }
-
-  /* Player Box */
-  .playerBoxUsername {
-    font-size: 0.7rem; /* SIZE CHANGE */
   }
   
   /* Chat */
   .chatWindow {
     position: absolute;
     top: 5%;
-    z-index: 2;
+    z-index: 9;
     height: 80%;
     max-height: 80%;
     width: 95svw;
@@ -862,7 +860,7 @@
   /* Chat */
   .chatWindow {
     position: absolute;
-    z-index: 2;
+    z-index: 9;
     height: 80svh;
     width: 95svw;
     align-self: center;
@@ -874,10 +872,50 @@
 
 /* --- Special Cases --- */
 /* Thinning, Portrait */
-@media all and (max-width: 625px) and (orientation: portrait) {
+@media all and (max-width: 650px) and (orientation: portrait) {
   .startScreen .titleLogo > svg {
     width: 90%;
     height: 90%;
+  }
+
+  /* Changing Game Table */
+  .up.adjust {
+    margin-bottom: 3rem;
+  }
+  .down.adjust {
+    margin-top: 3rem;
+  }
+  .wayUp.adjust {
+    margin-bottom: 6rem;
+  }
+  .wayDown.adjust {
+    margin-top: 6rem;
+  }
+
+  .lowTopCram {
+    margin-bottom: 0rem;
+  }
+  .lowBottomCram {
+    margin-top: -1.5rem;
+  }
+  .midTopCram {
+    margin-bottom: -1rem;
+  }
+  .midBottomCram {
+    margin-top: -1.5rem;
+  }
+  .maxTopCram {
+    margin-bottom: -2.5rem;
+  }
+  .maxBottomCram {
+    margin-top: -3rem;
+  }
+}
+
+/* thinning2 */
+@media all and (max-width: 560px) and (orientation: portrait) {
+  .fullTable.five {
+    border: none;
   }
 }
 
@@ -886,11 +924,34 @@
   
 }
 
+/* prettyThin2 */
+@media all and (max-width: 460px) and (orientation: portrait) {
+  .fullTable.four {
+    border: none;
+  }
+}
+
 /* Really Thin, Portrait */
 @media all and (max-width: 425px) and (orientation: portrait) {
+  
+  .information {
+    font-size: 0.7rem;
+    margin-left: -2rem;
+  }
   .missionToken {
     width: 3rem;
     height: 3rem;
+  }
+}
+
+/* reallyThin2 */
+@media all and (max-width: 390px) and (orientation: portrait) {
+  
+}
+/* reallyThin3 */
+@media all and (max-width: 365px) and (orientation: portrait) {
+  .fullTable {
+    border: none;
   }
 }
 

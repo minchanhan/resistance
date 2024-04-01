@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from "react";
+import { React, useState } from "react";
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { useMediaQuery } from 'react-responsive';
 import "../../App.css";
@@ -61,7 +61,7 @@ function GameScreen({
 
   const isGettingThin = useMediaQuery({ maxWidth: 1050 });
   const isThin = useMediaQuery({ maxWidth: 950 });
-  const isThinning = useMediaQuery({ maxWidth: 625 }); // cap >= 9
+  const isThinning = useMediaQuery({ maxWidth: 650 }); // cap >= 9
   const isPrettyThin = useMediaQuery({ maxWidth: 525 }); // cap >= 7
   const isReallyThin = useMediaQuery({ maxWidth: 425 }); // cap <= 6
   const isMostThin = useMediaQuery({ maxWidth: 325 });
@@ -96,10 +96,10 @@ function GameScreen({
     isHighRes: isHighRes,
     is4K: is4K,
     isReallyShort: isReallyShort,
-    isMostThin: isMostThin,
-    isReallyThin: isReallyThin,
+    isThinning: isThinning,
     isPrettyThin: isPrettyThin,
-    isThinning: isThinning
+    isReallyThin: isReallyThin,
+    isMostThin: isMostThin,
   };
 
   const infoTableProps = {
