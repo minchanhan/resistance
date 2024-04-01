@@ -3,7 +3,7 @@ import "../App.css";
 import "../data/Enums.js";
 import DisplayButton from "./DisplayButton.jsx";
 import CheckIcon from '@mui/icons-material/Check';
-import { Box, Modal } from "@mui/material";
+import { Modal } from "@mui/material";
 
 function GameSettings({
   capacity,
@@ -14,9 +14,7 @@ function GameSettings({
   privateRoom,
   onChangedPrivateRoom,
   isAdmin,
-  startGame,
-  modalStyle,
-  modalHeader
+  startGame
 }) {
 
   const capacityMenuItems = [5,6,7,8,9,10];
@@ -51,8 +49,8 @@ function GameSettings({
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={{...modalStyle, width: "25rem"}}>
-          <div style={{...modalHeader, fontSize: "x-large"}}>
+        <div className="modalBox" style={{width: "80%", maxWidth: "25rem"}}>
+          <div className="modalHeader" style={{fontSize: "x-large"}}>
             Game Settings
           </div>
           
@@ -135,7 +133,7 @@ function GameSettings({
               </label>
             </div>
           </div>
-        </Box>
+        </div>
       </Modal>
     </div>
   )

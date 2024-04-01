@@ -1,20 +1,10 @@
 import React from "react";
 import "../../App.css";
-import { Box, Button, Modal, Typography } from "@mui/material";
+import { Modal } from "@mui/material";
+import DisplayButton from "../../Components/DisplayButton";
 
 function EndScreen({ open, handleEndModalClose, revealedPlayers, endMsg }) {
-  const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: "70svw",
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
-  };
-  
+
   return (
     <div>
       <Modal
@@ -23,10 +13,10 @@ function EndScreen({ open, handleEndModalClose, revealedPlayers, endMsg }) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
-          <Typography variant="h6" component="h2" color="white">
+        <div className="modalBox">
+          <div className="modalHeader" style={{fontSize: "x-large"}}>
             {endMsg}
-          </Typography>
+          </div>
    
           {
             revealedPlayers.map(function(playerReveal, i) {
@@ -38,9 +28,13 @@ function EndScreen({ open, handleEndModalClose, revealedPlayers, endMsg }) {
             })
           }
 
-          <Button onClick={handleEndModalClose}>Return to Lobby</Button>
+          <DisplayButton 
+            text="Return to Lobby" 
+            onClick={handleEndModalClose} 
+            btnStyle={{marginTop: "1.3rem"}}
+          />
           
-        </Box>
+        </div>
       </Modal>
     </div>
   )

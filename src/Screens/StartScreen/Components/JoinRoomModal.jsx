@@ -2,16 +2,14 @@ import React, { useState } from "react";
 import "./joinRoom.css";
 import "../../../data/Enums.js";
 
-import { Box, Modal } from "@mui/material";
+import { Modal } from "@mui/material";
 import DisplayButton from "../../../Components/DisplayButton.jsx";
 import UserInput from "../../../Components/UserInput.jsx";
 
 function JoinRoomModal({
   socket,
   open, 
-  handleJoinClose, 
-  modalStyle,
-  modalHeader
+  handleJoinClose
 }) {
   const [checkedRoom, setCheckedRoom] = useState(false);
   const [validRoom, setValidRoom] = useState(true);
@@ -35,8 +33,11 @@ function JoinRoomModal({
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
-      <Box sx={{...modalStyle, width: "25rem"}}>
-        <div style={{...modalHeader, fontSize: "x-large"}}>
+      <div 
+        className="modalBox" 
+        style={{width: "80%", maxWidth: "25rem"}}
+      >
+        <div className="modalHeader" style={{fontSize: "x-large"}}>
           Enter Room Code
         </div>
         
@@ -52,7 +53,7 @@ function JoinRoomModal({
           />
           <DisplayButton onClick={joinRoom} text="Join Room" />
         </div>
-      </Box>
+      </div>
     </Modal>
     
   )

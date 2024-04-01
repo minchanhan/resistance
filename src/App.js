@@ -39,26 +39,6 @@ function App() {
     }
   });
 
-  const modalStyle = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-
-    width: "85svw",
-    maxWidth: "85svw",
-    bgcolor: 'gray',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
-  };
-
-  const modalHeader = {
-    color: "white", 
-    fontSize: "xx-large", 
-    fontWeight: "700", 
-  };
-
   // Screen States
   const [gameScreen, setGameScreen] = useState(false); // Start screen or lobby/game screen
 
@@ -325,8 +305,6 @@ function App() {
               onChangedUsername={onChangedUsername}
               setIsAdmin={setIsAdmin}
               randomStatusMsg={randomStatusMsg}
-              modalStyle={modalStyle}
-              modalHeader={modalHeader}
             />
           ) : gameScreen ? (
             <>
@@ -368,8 +346,6 @@ function App() {
                 setNewMsg={setNewMsg}
                 mins={mins}
                 secs={secs}
-                modalStyle={modalStyle}
-                modalHeader={modalHeader}
               />
               <EndScreen
                 open={gameEnd}

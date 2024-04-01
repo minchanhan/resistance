@@ -1,13 +1,11 @@
 import React from "react";
 import "./instructions.css";
-import { Box, Modal } from "@mui/material";
+import { Modal } from "@mui/material";
 import PlayerBox from "../../GameScreen/Components/GameTable/PlayerBox/PlayerBox";
 
 function InstructionsModal({
   open, 
-  handleInstructionsClose, 
-  modalStyle, 
-  modalHeader
+  handleInstructionsClose
 }) {
   const badTeamStyle = {
     filter: 'invert(21%) sepia(76%) saturate(5785%) hue-rotate(338deg) brightness(57%) contrast(119%)'
@@ -48,8 +46,8 @@ function InstructionsModal({
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
-      <Box sx={modalStyle}>
-        <div style={modalHeader}>
+      <div className="modalBox">
+        <div className="modalHeader">
           Instructions:
         </div>
 
@@ -98,17 +96,24 @@ function InstructionsModal({
                   </tbody>
                 </table>
 
-                <PlayerBox
-                  isLeader={true}
-                  onMission={true}
-                  username="rebellion(?)"
-                />
-                <PlayerBox
-                  isLeader={true}
-                  onMission={true}
-                  teamStyle={badTeamStyle} 
-                  username="spy member"
-                />
+
+                <div style={{padding: "0.5rem"}}>
+                  <PlayerBox
+                    isLeader={true}
+                    onMission={true}
+                    username="rebellion(?)"
+                  />
+                </div>
+                
+                <div style={{padding: "0.5rem"}}>
+                  <PlayerBox
+                    isLeader={true}
+                    onMission={true}
+                    teamStyle={badTeamStyle} 
+                    username="spy member"
+                  />
+                </div>
+                
               </div>
             </div>            
             
@@ -123,7 +128,7 @@ function InstructionsModal({
             </div>                      
           </div>
         </div>
-      </Box>
+      </div>
     </Modal>
   )
 }

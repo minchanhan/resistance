@@ -14,8 +14,6 @@ function StartScreen({
   onChangedUsername, 
   setIsAdmin,
   randomStatusMsg,
-  modalStyle,
-  modalHeader
 }) {
   const [joinRoomModal, setJoinRoomModal] = useState(false);
   const [instructionsOpen, setInstructionsOpen] = useState(false);
@@ -77,14 +75,10 @@ function StartScreen({
         socket={socket}
         open={joinRoomModal} 
         handleJoinClose={handleJoinClose}
-        modalStyle={modalStyle}
-        modalHeader={modalHeader}
       />
       <InstructionsModal 
         open={instructionsOpen} 
         handleInstructionsClose={handleInstructionsClose}
-        modalStyle={modalStyle}
-        modalHeader={modalHeader}
       />
 
       <div className="startTitle">
