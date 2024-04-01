@@ -1,6 +1,7 @@
 import React from "react";
 import ScrollToBottom from "react-scroll-to-bottom";
 import CloseIcon from '@mui/icons-material/Close';
+import CampaignIcon from '@mui/icons-material/Campaign';
 
 function ChatBox({ 
   socket, 
@@ -63,6 +64,11 @@ function ChatBox({
                       ) ? "public" : "other"}`
                     }
                   >
+                    {
+                      msgData.sender === "PUBLIC TALLY" || msgData.sender === "THE UNIVERSE" ?
+                        <CampaignIcon className="publicMsgAlert" fontSize="medium" /> : <></>
+                    }
+                    
                     <div className="msgContent">
                       <p>{msgData.msg}</p>
                     </div>
