@@ -244,7 +244,7 @@ function GameTable({
             missionTeamSize={missionTeamSize5}
             isReallyShort={isReallyShort}
             isReallyThin={isReallyThin}
-      isMostThin={isMostThin}            
+            isMostThin={isMostThin}            
           />
         </div>
         

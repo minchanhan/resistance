@@ -2,6 +2,8 @@ import React from "react";
 import "./instructions.css";
 import { Modal } from "@mui/material";
 import PlayerBox from "../../GameScreen/Components/GameTable/PlayerBox/PlayerBox";
+import MissionToken from "../../GameScreen/Components/GameTable/MissionToken";
+import VoteTrack from "../../GameScreen/Components/GameTable/VoteTrack";
 
 function InstructionsModal({
   open, 
@@ -22,6 +24,7 @@ function InstructionsModal({
 
   const gameplayTitle = "Gameplay";
   const gameplay = `At the start each round, a leader will be randomly chosen to choose a group of players to go on missions (star icon).
+  The number of players that go on each mission is indicated by the mission tracker on the table. \
   Players will take a majority vote on if this group of players (checkbox icon) should go on the mission for that round. 
   If the vote does not pass, then the leader to the right will suggest a new mission team.
   Note, the SPIES ALSO WIN if a mission team is voted against 5 times in one round (vote tracker is at the bottom of the board).
@@ -120,6 +123,39 @@ function InstructionsModal({
             <div className="instructionsBox">
               <div className="instructionsSubtitle">{gameplayTitle}</div>
               <div className="instructionsText">{gameplay}</div>
+              <div className="holdInstructionPics">
+                <div className="table" style={{margin: "2rem"}}>
+                  <div className="missionTokenGrid">
+                    <MissionToken
+                      isPassed
+                      missionTeamSize={2}
+                    />
+                    <MissionToken
+                      isFailed
+                      missionTeamSize={3}
+                    />
+                    <MissionToken
+                      current 
+                      missionTeamSize={4}
+                    />
+                    <MissionToken
+                      missionTeamSize={3}
+                    />
+                    <MissionToken
+                      missionTeamSize={4}         
+                    />
+                  </div>
+
+                  <div className="voteTrackGrid">
+                    <VoteTrack isFilled number={1}/>
+                    <VoteTrack number={2}/>
+                    <VoteTrack number={3}/>
+                    <VoteTrack number={4}/>
+                    <VoteTrack number={5}/>
+                  </div>
+                </div>
+                
+              </div>
             </div>                      
             
             <div className="instructionsBox">
