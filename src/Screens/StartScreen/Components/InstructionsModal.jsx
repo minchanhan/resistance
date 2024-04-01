@@ -17,10 +17,8 @@ function InstructionsModal({
 
   const pregameTitle = `Pregame/Board Info`;
   const pregame = `When the room admin clicks Start, players will be put into the Rebellion or the Spies. The chart below shows how many
-  players are on each team based on total number of players. The Rebellion will not know any players' teams, but the spies will.
-  Spies will be colored red.
-  
-  `
+  players are on each team based on total number of players. The Rebellion will not know any players' teams, but the spies will. \
+  Spies will be colored red.`
 
   const gameplayTitle = "Gameplay";
   const gameplay = `At the start each round, a leader will be randomly chosen to choose a group of players to go on missions (star icon).
@@ -29,15 +27,17 @@ function InstructionsModal({
   Note, the SPIES ALSO WIN if a mission team is voted against 5 times in one round (vote tracker is at the bottom of the board).
 
   If a mission is approved, the rebellion players must "pass" the mission, but the spies have a choice to pass or fail the mission.
-  Players cannot see who voted what, they just see the tally.
+  Players cannot see who voted what, they just see the tally once the mission concludes.
   On most missions, just one fail is required to fail the entire mission (Mission 4 for 7+ player games require 2 FAILS).
-  Once the mission has ended, the leader to the right suggests a team for the next mission.
+  Once the mission has ended, the leader to the right suggests a team for the next mission (clockwise).
 
   Each game consists of 5 rounds (each with one mission) and the winning team is decided by best 3 out of 5. `;
 
   const additionalTitle = "Additional Notes";
   const additional = `- This game is best played over voice chat! Consider using a Discord server.
-  - A leader (player with star) has X minutes to discuss and submit a team for vote (click on players and click "submit"). If they run out of time, the team will be "voted down", and a new leader is suggested.`;
+  - A leader (player with star) has X minutes to discuss and submit a team for vote (click on players and click "submit"). If they run out of time, the team will be "voted down", and a new leader is suggested.
+  - Remember, this web app is a rendition of an in-person board game. That means don't message any players privately, and try not to leave the \
+  game, as the game will end for everyone, just like normal.`;
 
   return (
     <Modal

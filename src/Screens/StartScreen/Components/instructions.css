@@ -43,6 +43,7 @@
   border-collapse: collapse;
   border: 1px solid var(--secondary-dark);
   min-width: 15rem;
+  margin: 1rem;
 }
 .numSpiesChart * {
   border: 1px dotted var(--secondary-dark);
