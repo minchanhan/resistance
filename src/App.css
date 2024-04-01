@@ -1,8 +1,8 @@
 /* IMPORTANT */
 :root {
-  --secondary-dark: #251F7A;
-  --secondary-light: #7B7F95;
-  --disabled-priv-bg: #403C7C;
+  --secondary-dark: #000000;
+  --secondary-light: #CC1424;
+  --disabled-priv-bg: #282424;
   --disabled-priv-text: #D9D9D9;
   --my-green: #8BBD8B;
   --my-red: #DF4730;
@@ -589,11 +589,8 @@
   margin-right: 0.4rem;
 }
 
-.other .msgContent {
+.other .msgContent, .public .msgContent {
   background-color: silver;
-}
-.public .msgContent {
-  background-color: var(--secondary-light);
 }
 .other .msgMeta, .public .msgMeta {
   margin-left: 0.25rem;
