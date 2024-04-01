@@ -355,7 +355,7 @@
   height: 4.5rem;
 }
 .currentMission {
-  border: 1px solid var(--secondary-dark);
+  border: 0.15rem solid var(--secondary-dark);
 }
 .passed {
   background-color: var(--my-green);
