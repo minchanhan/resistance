@@ -54,7 +54,7 @@ function GameScreen({
   const isLandscape = useMediaQuery({ orientation: 'landscape' });
   const isPortrait = useMediaQuery({ orientation: 'portrait' });
 
-  const is4Kwidth = useMediaQuery({ minWidth: 1680 });
+  const is4Kwidth = useMediaQuery({ minWidth: 1880 });
   const is4Kheight = useMediaQuery({ minHeight: 1000 });
   const is4K = is4Kheight && is4Kwidth;
 
