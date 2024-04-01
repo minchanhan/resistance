@@ -688,7 +688,7 @@
   top: -22.5%;
   right: 10%;
   z-index: 4;
-  filter: invert(65%) sepia(80%) saturate(362%) hue-rotate(339deg) brightness(98%) contrast(97%);
+  filter: invert(93%) sepia(79%) saturate(0%) hue-rotate(155deg) brightness(106%) contrast(101%);
 }
 
 /* ----- End Screen ----- */
