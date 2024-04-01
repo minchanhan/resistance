@@ -88,9 +88,13 @@ function StartScreen({
       <div className="userOptionsBox">
         <UserInput
           value={username} 
-          onChange={ (event) => {
+          onChange={(event) => {
             setJoinRoomModal(false);
             if (event.target.value.slice(-1) !== " ") onChangedUsername(event.target.value.toUpperCase());
+          }}
+          onPaste={(event) => {
+            event.preventDefault();
+            return false;
           }}
           helperText={!validUsername() && usernameWarningCheck ? "Name must be 3-9 chars" : ""}
           showError={!validUsername() && usernameWarningCheck}

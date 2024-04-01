@@ -4,6 +4,7 @@ import "./components.css";
 function UserInput({ 
   value, 
   onChange,
+  onPaste,
   helperText,
   showError,
   placeholder,
@@ -17,6 +18,7 @@ function UserInput({
         type="text" 
         value={value} 
         onChange={onChange}
+        onPaste={onPaste}
         placeholder={placeholder}
         style={inputStyle}
       />
