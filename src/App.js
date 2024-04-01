@@ -22,7 +22,7 @@ function App() {
     palette: {
       mode: 'dark',
       secondary: {
-        main: getComputedStyle(document.body).getPropertyValue('--secondary-color')
+        main: getComputedStyle(document.body).getPropertyValue('--secondary-dark')
       },
       green: {
         main: getComputedStyle(document.body).getPropertyValue('--my-green')

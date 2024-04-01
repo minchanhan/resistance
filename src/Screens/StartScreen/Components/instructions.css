@@ -41,9 +41,9 @@
 }
 .numSpiesChart {
   border-collapse: collapse;
-  border: 1px solid var(--secondary-color);
+  border: 1px solid var(--secondary-dark);
   min-width: 15rem;
 }
 .numSpiesChart * {
-  border: 1px dotted var(--secondary-color);
+  border: 1px dotted var(--secondary-dark);
 }

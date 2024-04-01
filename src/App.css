@@ -1,7 +1,9 @@
 /* IMPORTANT */
 :root {
-  --secondary-color: #f0933c;
-  --disabled-color: #808080;
+  --secondary-dark: #251F7A;
+  --secondary-light: #7B7F95;
+  --disabled-priv-bg: #403C7C;
+  --disabled-priv-text: #D9D9D9;
   --my-green: #8BBD8B;
   --my-red: #DF4730;
 
@@ -178,7 +180,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--secondary-color);
+  background-color: var(--secondary-dark);
   border-radius: 0.25rem;
   padding: 1rem;
   margin: 1rem;
@@ -204,7 +206,7 @@
 
 .selectBox {
   width: 100%;
-  background-color: var(--secondary-color);
+  background-color: var(--secondary-dark);
   border-radius: 0.25rem;
   padding: 0.5rem 0 0.5rem 0.4rem;
   color: white;
@@ -247,10 +249,10 @@
 }
 
 .privRoom:hover input ~ .checkbox {
-  background-color:silver;
+  background-color: silver;
 }
 .privRoom input:checked ~ .checkbox {
-  background-color: pink;
+  background-color: var(--secondary-light);
 }
 
 .checkmark {
@@ -343,7 +345,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   font-weight: bold;
-  color: #ecf0f1;
+  color: white;
   text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }
 
@@ -353,7 +355,7 @@
   height: 4.5rem;
 }
 .currentMission {
-  border: 1px solid var(--secondary-color);
+  border: 1px solid var(--secondary-dark);
 }
 .passed {
   background-color: var(--my-green);
@@ -369,7 +371,7 @@
   background-color: #3d3a3a;
 }
 .filledVote {
-  background-color: var(--secondary-color);
+  background-color: var(--secondary-dark);
 }
 
 .tableText {
@@ -416,9 +418,6 @@
 }
 .fist {
   cursor: pointer;
-}
-.selected { /* selected for mission */
-  background-color: var(--secondary-color);
 }
 
 /* ----- Game Commands/Master ----- */
@@ -498,7 +497,7 @@
   justify-content: center;
   align-items: center;
   flex-flow: column nowrap;
-  background-color: var(--secondary-color);
+  background-color: var(--secondary-dark);
 
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -513,14 +512,14 @@
 
 .chatWindow .chatHeader { /* header */
   flex: 1 5%;
-  background: var(--secondary-color);
+  background: var(--secondary-dark);
 
   display: flex;
   justify-content: center;
   align-items: center;
 }
 .chatWindow .chatHeader p {
-  color: black;
+  color: white;
   font-weight: 700;
 }
 
@@ -580,7 +579,7 @@
   align-self: flex-end;
 }
 .you .msgContent {
-  background-color: var(--secondary-color);
+  background-color: var(--secondary-dark);
 }
 .you .msgMeta {
   margin-right: 0.25rem;
@@ -591,10 +590,10 @@
 }
 
 .other .msgContent {
-  background-color: gray;
+  background-color: silver;
 }
 .public .msgContent {
-  background-color: pink;
+  background-color: var(--secondary-light);
 }
 .other .msgMeta, .public .msgMeta {
   margin-left: 0.25rem;
@@ -663,7 +662,7 @@
   align-items: center;
 }
 .chatSendBtn:hover {
-  color: var(--secondary-color);
+  color: var(--secondary-dark);
 }
 
 /* ----- Show Chat Button ----- */
@@ -701,10 +700,9 @@
 
 /* ----- Borders ----- */
 .infoTable,
-.fullTable,
 .table
 {
-  border: 2px solid var(--secondary-color);
+  border: 2px solid var(--secondary-dark);
   border-radius: 0.5rem;
 }
 
@@ -938,9 +936,7 @@
 
 /* thinning2 */
 @media all and (max-width: 560px) and (orientation: portrait) {
-  .fullTable.five {
-    border: none;
-  }
+
 }
 
 /* Pretty Thin, Portrait */
@@ -950,9 +946,7 @@
 
 /* prettyThin2 */
 @media all and (max-width: 460px) and (orientation: portrait) {
-  .fullTable.four {
-    border: none;
-  }
+
 }
 
 /* Really Thin, Portrait */
@@ -974,9 +968,7 @@
 }
 /* reallyThin3 */
 @media all and (max-width: 365px) and (orientation: portrait) {
-  .fullTable {
-    border: none;
-  }
+
 }
 
 /* Most Thin, Portrait */
