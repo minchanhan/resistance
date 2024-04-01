@@ -23,7 +23,7 @@ function PlayerBox({
         <div id="isLeader">
           <StarIcon style={{
               fill: "white", 
-              fontSize: "large",
+              fontSize: is4K ? "xx-large" : "large",
               fillOpacity: isLeader ? "1" : "0"
             }} 
           />
@@ -32,7 +32,7 @@ function PlayerBox({
         <div id="onMission">
           <CheckBoxIcon style={{
               fill: "white",
-              fontSize:"large", 
+              fontSize: is4K ? "xx-large" : "large", 
               fillOpacity: onMission || inTeamVote ? "1" : "0"
             }} 
           />

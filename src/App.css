@@ -74,7 +74,7 @@
   left: 0;
   right: 0;
   bottom: 2%;
-  font-size: x-small;
+  font-size: 0.75rem;
 }
 .footer > * {
   margin: 0 0.2rem;
@@ -566,6 +566,7 @@
   padding: 0.75rem;
   overflow-wrap: break-word;
   word-break: break-word;
+  font-size: 1rem;
   font-weight: 500;
   border-radius: 0.7rem;
 
@@ -740,26 +741,29 @@
   .twoFailsText {
     min-height: 1.5rem;
   }
-
-  /* Player Box */ /* SIZE CHANGE */
   .missionToken {
     width: 8rem;
     height: 8rem;
   }
-  .voteHole{
+  .voteHole {
     width: 2.5rem;
     height: 2.5rem;
   }
 
-  /* Chat */ /* SIZE CHANGE */
-  .chatHeader {
-    font-size: 1.75rem;
+  /* Player Box */ /* SIZE CHANGE */
+  .playerUsername {
+    font-size: 1rem;
   }
+  .player .status {
+    gap: 1.2rem;
+  }
+
+  /* Chat */ /* SIZE CHANGE */
   .msgContent p {
-    font-size: 1.5rem;
+    font-size: 1.35rem;
   }
   .msgMeta p {
-    font-size: 1.25rem;
+    font-size: 0.9rem;
   }
   .chatInput > input, .chatSendBtn { 
     font-size: 1.25rem;
@@ -767,7 +771,7 @@
 
   /* Game Commands */
   .masterMsg {
-    font-size: 1rem;
+    font-size: 1.25rem;
   }
 }
 
