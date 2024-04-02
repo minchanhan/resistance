@@ -717,6 +717,9 @@
   border-radius: 0.25rem;
   box-shadow: 0 0 40px rgba(0, 0, 0, 0.7);
   padding: 1.5rem;
+
+  display: flex;
+  flex-flow: column nowrap;
 }
 
 .modalHeader {

@@ -13,25 +13,29 @@ function EndScreen({ open, handleEndModalClose, revealedPlayers, endMsg }) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <div className="modalBox">
+        <div className="modalBox" style={{maxHeight: "30rem"}}>
           <div className="modalHeader" style={{fontSize: "x-large"}}>
             {endMsg}
           </div>
    
-          {
-            revealedPlayers.map(function(playerReveal, i) {
-              return (
-                <div key={playerReveal} className="endScreenResults">
-                  <p>{playerReveal}</p>
-                </div>
-              )
-            })
-          }
+          <div style={{marginTop: "1rem", overflowY: "auto", height: "85%", maxHeight: "85%"}}>
+            {
+              revealedPlayers.map(function(playerReveal, i) {
+                return (
+                  <div key={playerReveal[0]} className="endScreenResults">
+                    <p style={{color: playerReveal[1] === "badTeam" ? "var(--secondary-light)" : "white" }}>
+                      {playerReveal[0]}
+                    </p>
+                  </div>
+                )
+              })
+            }
+          </div>
 
           <DisplayButton 
             text="Return to Lobby" 
             onClick={handleEndModalClose} 
-            btnStyle={{marginTop: "1.3rem"}}
+            btnStyle={{marginTop: "1.3rem", maxWidth: "15rem", alignSelf: "center"}}
           />
           
         </div>
