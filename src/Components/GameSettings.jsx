@@ -13,7 +13,7 @@ function GameSettings({
   privateRoom,
   onChangedPrivateRoom,
   isAdmin,
-  startGame
+  startGame,
 }) {
 
   const capacityMenuItems = [5,6,7,8,9,10];

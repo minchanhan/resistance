@@ -1,6 +1,10 @@
-import { React, useState } from "react";
-import NotificationsIcon from '@mui/icons-material/Notifications';
+import { React, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { useMediaQuery } from 'react-responsive';
+
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import { Button } from "@mui/material";
+
 import "../../App.css";
 
 import ChatBox from "./Components/ChatBox/ChatBox";
@@ -8,12 +12,11 @@ import GameTable from "./Components/GameTable/GameTable";
 import InfoTable from "./Components/InfoTable/InfoTable";
 import GameCommands from "./Components/GameCommands/GameCommands.jsx";
 import GameSettings from "../../Components/GameSettings.jsx";
-import { Button } from "@mui/material";
 
 function GameScreen({ 
   socket, 
   username, 
-  room, 
+  roomCode, 
   isAdmin,
   seats, 
   capacity,
@@ -22,6 +25,7 @@ function GameScreen({
   onChangedSelectionTime,
   privateRoom,
   onChangedPrivateRoom,
+  gameScreen,
   gameStarted, 
   gameMasterSpeech, 
   leaderSelecting,
@@ -47,9 +51,11 @@ function GameScreen({
   newMsg,
   setNewMsg,
   mins,
-  secs
+  secs,
+  navigate,
 }) {
-  // const isPortrait = useMediaQuery({ orientation: 'portrait' });
+  const { room } = useParams();
+
   // const isRetina = useMediaQuery({ minResolution: '2dppx' });
   const isLandscape = useMediaQuery({ orientation: 'landscape' });
   const isPortrait = useMediaQuery({ orientation: 'portrait' });
@@ -71,13 +77,26 @@ function GameScreen({
 
   const [showHiddenChat, setShowHiddenChat] = useState(false);
 
+  useEffect(() => {
+    if (!gameScreen) {
+      if (room == null) {
+        navigate("/");
+      } else if (room.length === 5) {
+        navigate(`/join/${room}`);
+      } else {
+        navigate("/");
+      }
+      return;
+    }
+  }, [gameScreen, room, navigate]);
+
   // Passing props:
   const gameTableProps = {
     socket: socket,
-    room: room,
+    roomCode: roomCode,
     seats: seats,
     capacity: capacity, 
-    username: username, // for testing only
+    username: username,
     leaderSelecting: leaderSelecting,
     disableTeamSubmit: disableTeamSubmit,
     setDisableTeamSubmit: setDisableTeamSubmit,
@@ -101,7 +120,7 @@ function GameScreen({
   };
 
   const infoTableProps = {
-    room: room, 
+    roomCode: roomCode, 
     capacity: capacity, 
     seats: seats, 
     topText: `Room Admin: ${roomAdminName}`,
@@ -122,7 +141,7 @@ function GameScreen({
     privateRoom: privateRoom,
     onChangedPrivateRoom: onChangedPrivateRoom,
     isAdmin: isAdmin,
-    startGame: startGame
+    startGame: startGame,
   };
 
   const chatBoxProps = {

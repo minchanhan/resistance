@@ -1,0 +1,12 @@
+{
+          !gameScreen ? (
+            <StartScreen {...startScreenProps} />
+          ) : gameScreen ? (
+            <>
+              <GameScreen {...gameScreenProps} />
+              <EndScreen {...endScreenProps} />
+            </>
+          ) : (
+            <>Some sort of error lol</>
+          )
+        }

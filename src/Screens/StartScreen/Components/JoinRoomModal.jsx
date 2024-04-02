@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./joinRoom.css";
 
 import { Modal } from "@mui/material";
@@ -8,7 +8,8 @@ import UserInput from "../../../Components/UserInput.jsx";
 function JoinRoomModal({
   socket,
   open, 
-  handleJoinClose
+  handleJoinClose,
+  room=""
 }) {
   const [checkedRoom, setCheckedRoom] = useState(false);
   const [validRoom, setValidRoom] = useState(true);
@@ -24,6 +25,10 @@ function JoinRoomModal({
     setValidRoom(data.exists);
     setRoomStatus(data.reason);
   });
+
+  useEffect(() => {
+    setRoomCode(room);
+  }, [room])
 
   return (
     <Modal

@@ -1,12 +1,12 @@
 import React from "react";
 import "./components.css";
 
-function DisplayButton({ text="click", onClick, disabled=false, btnStyle={} }) {
+function DisplayButton({ text="click", onClick, disabled=false, btnStyle={}, extraClassName="" }) {
 
   return (
     <button 
       onClick={onClick} 
-      className="displayButton" 
+      className={`displayButton ${extraClassName}`}
       disabled={disabled} 
       style={btnStyle}
     >

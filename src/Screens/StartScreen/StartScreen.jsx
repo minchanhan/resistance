@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import { useMediaQuery } from 'react-responsive';
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+
 import "../../App.css";
 
 import JoinRoomModal from "./Components/JoinRoomModal";
@@ -14,13 +15,28 @@ function StartScreen({
   onChangedUsername, 
   setIsAdmin,
   randomStatusMsg,
+  navigate,
+  hasJoinEmbed=false
 }) {
+
+  const { room } = useParams();
+
   const [joinRoomModal, setJoinRoomModal] = useState(false);
   const [instructionsOpen, setInstructionsOpen] = useState(false);
-
   const [usernameWarningCheck, setUsernameWarningCheck] = useState(false); // activate warning if needed
 
-  const is4K = useMediaQuery({ minWidth: 1400 });
+  useEffect(() => {
+    if (hasJoinEmbed) {
+      if (room == null) {
+        navigate("/");
+        return;
+      }
+      if (room.length !== 5) {
+        navigate("/");
+        return;
+      }
+    }
+  }, [room, navigate, hasJoinEmbed]);
 
   const validUsername = () => {
     if (username.length >= 3 && username.length <= 9) {
@@ -58,7 +74,7 @@ function StartScreen({
     setUsernameWarningCheck(true);
     if (validUsername()) {
       socket.emit("set_username", username);
-      socket.emit("join_room", "random_join");
+      socket.emit("join_room", "random_join"); // "random_join" = a room code technically
     }
   }
 
@@ -75,6 +91,7 @@ function StartScreen({
         socket={socket}
         open={joinRoomModal} 
         handleJoinClose={handleJoinClose}
+        room={room}
       />
       <InstructionsModal 
         open={instructionsOpen} 
@@ -105,7 +122,13 @@ function StartScreen({
         }
 
         <DisplayButton className="startScreenBtn" onClick={handleCreate} text="Create Room" />
-        <DisplayButton className="startScreenBtn" onClick={handleJoinOpen} text="Join Room with Code" />
+        <DisplayButton 
+          btnStyle={{backgroundColor: room != null ? "red" : ""}} 
+          className="startScreenBtn" 
+          onClick={handleJoinOpen} 
+          text="Join Room with Code"
+          extraClassName={room != null ? "pulse" : ""}
+        />
         <DisplayButton className="startScreenBtn" onClick={handleRandomJoin} text="Join Random Room" />
         <DisplayButton className="startScreenBtn" onClick={handleInstructionsOpen} text="Instructions" />
       </div>

@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import './App.css';
 import io from 'socket.io-client';
 
@@ -10,7 +11,7 @@ import GameScreen from './Screens/GameScreen/GameScreen';
 const socket = io.connect("http://localhost:3001"); // connect to socket server
 
 function App() {
-  useEffect(() => {
+  useEffect(() => { // confirmation before leaving
     window.onbeforeunload = function(e) {
       var dialogText = 'Dialog text here';
       e.returnValue = dialogText;
@@ -39,6 +40,8 @@ function App() {
     }
   });
 
+  const navigate = useNavigate();
+
   // Screen States
   const [gameScreen, setGameScreen] = useState(false); // Start screen or lobby/game screen
 
@@ -54,7 +57,7 @@ function App() {
   const [privateRoom, setPrivateRoom] = useState(true);
 
   // Immuatable before game start 
-  const [room, setRoom] = useState("");
+  const [roomCode, setRoomCode] = useState("");
   
   // End Game
   const [endMsg, setEndMsg] = useState("");
@@ -139,17 +142,18 @@ function App() {
     return () => {
       clearInterval(interval);
     };
-  }, [timerOn, mins, secs]);
+  }, [timerOn, timerGoal, mins, secs]);
 
   // Listening for socket messages:
   // Joins/Disconnects:
   useEffect(() => { // When player clicks join
     const handlePlayerJoin = (lobbyInfo) => {
       setSeats(lobbyInfo.seats);
-      setRoom(lobbyInfo.room);
+      setRoomCode(lobbyInfo.room);
       setRoomAdminName(lobbyInfo.roomAdmin);
       setGameScreen(true);
       setRandomStatusMsg("");
+      navigate(`/${lobbyInfo.room}`);
     };
 
     socket.on("player_joined_lobby", handlePlayerJoin);
@@ -180,7 +184,7 @@ function App() {
     socket.on("kicked_player", () => { 
       setGameScreen(false);
       setRoomAdminName("");
-      setRoom("");
+      setRoomCode("");
     });
   }, [socket]);
 
@@ -299,13 +303,14 @@ function App() {
     username: username, 
     onChangedUsername: onChangedUsername,
     setIsAdmin: setIsAdmin,
-    randomStatusMsg: randomStatusMsg
+    randomStatusMsg: randomStatusMsg,
+    navigate: navigate,
   };
 
   const gameScreenProps = {
     socket: socket,
     username: username,
-    room: room,
+    roomCode: roomCode,
     isAdmin: isAdmin,
     seats: seats,
     capacity: capacity,
@@ -314,6 +319,7 @@ function App() {
     onChangedSelectionTime: onChangedSelectionTime,
     privateRoom: privateRoom,
     onChangedPrivateRoom: onChangedPrivateRoom,
+    gameScreen: gameScreen,
     gameStarted: gameStarted,
     gameMasterSpeech: gameMasterSpeech,
     leaderSelecting: leaderSelecting,
@@ -339,7 +345,8 @@ function App() {
     newMsg: newMsg,
     setNewMsg: setNewMsg,
     mins: mins,
-    secs: secs
+    secs: secs,
+    navigate: navigate,
   };
 
   const endScreenProps = {
@@ -352,18 +359,20 @@ function App() {
   return (
     <ThemeProvider theme={darkTheme}>
       <div className="container">
-        {
-          !gameScreen ? (
-            <StartScreen {...startScreenProps} />
-          ) : gameScreen ? (
-            <>
-              <GameScreen {...gameScreenProps} />
-              <EndScreen {...endScreenProps} />
-            </>
-          ) : (
-            <>Some sort of error lol</>
-          )
-        }
+        <Routes>
+          <Route path="/" element={<StartScreen {...startScreenProps} />} />
+          <Route 
+            path="/:room" 
+            element={
+              <>
+                <GameScreen {...gameScreenProps} />
+                <EndScreen {...endScreenProps} />
+              </>
+            } 
+          />
+          <Route path="/join/:room" element={<StartScreen {...{...startScreenProps, hasJoinEmbed: true}} />} />
+          <Route path="*" element={<StartScreen {...startScreenProps} />} />
+        </Routes>
       </div>
     </ThemeProvider> 
   );

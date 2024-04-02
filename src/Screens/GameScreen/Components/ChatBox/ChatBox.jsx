@@ -23,7 +23,6 @@ function ChatBox({
   };
 
   const sendMsg = async () => {
-    socket.emit("checkGames"); // remove after test
     if (msg === "") return;
 
     const msgData = {

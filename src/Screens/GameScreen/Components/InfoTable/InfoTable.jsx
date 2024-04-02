@@ -3,7 +3,7 @@ import Timer from "./Timer";
 import RebellionLogo from "../../../../assets/RebellionLogo.jsx";
 
 function InfoTable({ 
-  room, 
+  roomCode, 
   capacity, 
   seats, 
   topText, 
@@ -23,8 +23,8 @@ function InfoTable({
         !gameStarted ? (
           <div className="information">
             <div style={{textWrap: "nowrap"}}>{topText}</div>
-            <div style={{cursor: "pointer"}} onClick={() => {navigator.clipboard.writeText(room)}}>
-              {`Copy Room Code: ${room}`}
+            <div style={{cursor: "pointer"}} onClick={() => {navigator.clipboard.writeText(roomCode)}}>
+              {`Copy Room Code: ${roomCode}`}
             </div>
             <div>{`${seats.length}/${capacity} players joined`}</div>
           </div>

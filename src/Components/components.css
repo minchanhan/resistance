@@ -53,7 +53,7 @@
 .userTextInput {
   padding: 1rem;
   color: white;
-  background-color: var(--secondary-light);
+  background-color: rgb(89, 87, 87);
   border-radius: 0.25rem;
   border: 1px solid white;
 
@@ -65,7 +65,7 @@
 }
 
 .userTextInput:focus, .userTextInput:hover {
-  background-color: var(--secondary-light);
+  background-color:  rgb(89, 87, 87);
 
   outline: none;
   -moz-box-shadow: 0 0 0 0.1rem silver;

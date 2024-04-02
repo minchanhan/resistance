@@ -9,7 +9,7 @@ import { useMediaQuery } from "react-responsive";
 
 function GameTable({
   socket,
-  room,
+  roomCode,
   seats, 
   capacity, 
   username, 
@@ -125,17 +125,17 @@ function GameTable({
   };
 
   const handleTeamSubmit = () => {
-    socket.emit("selected_players_for_vote", { selectedPlayers: selectedPlayers, room: room });
+    socket.emit("selected_players_for_vote", { selectedPlayers: selectedPlayers, roomCode: roomCode });
     setDisableTeamSubmit(true); // 1b
   };
 
   const handleVote = (approve) => {
-    socket.emit("vote_is_in", { username: username, selectedPlayers: selectedPlayers, approve: approve, room: room });
+    socket.emit("vote_is_in", { username: username, selectedPlayers: selectedPlayers, approve: approve, roomCode: roomCode });
     setDisableVoteBtns(true); // 2b
   };
 
   const handleMission = (pass) => {
-    socket.emit("mission_result_is_in", { pass: pass, room: room });
+    socket.emit("mission_result_is_in", { pass: pass, roomCode: roomCode });
     setDisableMissionActions(true); // 3b
   };
 
