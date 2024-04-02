@@ -27,8 +27,9 @@ function ChatBox({
       setAtBottom(Math.abs(elem.scrollHeight - (elem.scrollTop + elem.clientHeight)) <= 1);
     };
     
-    chatWindow.current?.addEventListener("scroll", handleScroll, true);
-    return () => chatWindow.current?.removeEventListener("scroll", handleScroll, true);
+    const curChatWindow = chatWindow.current;
+    curChatWindow?.addEventListener("scroll", handleScroll, true);
+    return () => curChatWindow?.removeEventListener("scroll", handleScroll, true);
   }, []);
 
   const getTime = () => {
@@ -56,7 +57,7 @@ function ChatBox({
 
   useEffect(() => {
     if (atBottom) scrollToBottom();
-  }, [msgList]);
+  }, [msgList, atBottom]);
 
   return (
     <div className="chatWindow" ref={chatWindow}>
