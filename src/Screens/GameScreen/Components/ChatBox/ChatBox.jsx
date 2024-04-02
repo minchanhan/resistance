@@ -1,5 +1,4 @@
-import React from "react";
-import ScrollToBottom from "react-scroll-to-bottom";
+import React, { useEffect, useRef, useState } from "react";
 import CloseIcon from '@mui/icons-material/Close';
 import CampaignIcon from '@mui/icons-material/Campaign';
 
@@ -14,6 +13,24 @@ function ChatBox({
   setShowHiddenChat,
   haveCloseOnWindow
  }) {
+  const [atBottom, setAtBottom] = useState(true);
+  const msgListEnd = useRef(null);
+  const chatWindow = useRef(null);
+  
+  const scrollToBottom = () => {
+    msgListEnd.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    const handleScroll = (e) => {
+      const elem = e.target;
+      setAtBottom(Math.abs(elem.scrollHeight - (elem.scrollTop + elem.clientHeight)) <= 1);
+    };
+    
+    chatWindow.current?.addEventListener("scroll", handleScroll, true);
+    return () => chatWindow.current?.removeEventListener("scroll", handleScroll, true);
+  }, []);
+
   const getTime = () => {
     var mins = new Date(Date.now()).getMinutes();
     if (mins < 10) {
@@ -37,8 +54,12 @@ function ChatBox({
     setMsg("");
   };
 
+  useEffect(() => {
+    if (atBottom) scrollToBottom();
+  }, [msgList]);
+
   return (
-    <div className="chatWindow">
+    <div className="chatWindow" ref={chatWindow}>
       {
         haveCloseOnWindow ? (
           <CloseIcon 
@@ -51,37 +72,36 @@ function ChatBox({
         <p>Comunication</p>
       </div>
 
-      <ScrollToBottom className="chatScroller">
-        <div className="chatBody">
-            {
-              msgList.map((msgData, i) => {
-                return (
-                  <div
-                    key={i}
-                    className={`message ${username === msgData.sender ? "you" : (
-                        msgData.sender === "PUBLIC TALLY" || msgData.sender === "THE UNIVERSE"
-                      ) ? "public" : "other"}`
-                    }
-                  >
-                    {
-                      msgData.sender === "PUBLIC TALLY" || msgData.sender === "THE UNIVERSE" ?
-                        <CampaignIcon className="publicMsgAlert" fontSize="medium" /> : <></>
-                    }
-                    
-                    <div className="msgContent">
-                      <p>{msgData.msg}</p>
-                    </div>
-                    <div className="msgMeta">
-                      <p className="msgTime">{msgData.time}</p>
-                      <p>{msgData.sender}</p>
-                    </div>
+      <div className="chatBody">
+          {
+            msgList.map((msgData, i) => {
+              return (
+                <div
+                  key={i}
+                  className={`message ${username === msgData.sender ? "you" : (
+                      msgData.sender === "PUBLIC TALLY" || msgData.sender === "THE UNIVERSE"
+                    ) ? "public" : "other"}`
+                  }
+                >
+                  {
+                    msgData.sender === "PUBLIC TALLY" || msgData.sender === "THE UNIVERSE" ?
+                      <CampaignIcon className="publicMsgAlert" fontSize="medium" /> : <></>
+                  }
+                  
+                  <div className="msgContent">
+                    <p>{msgData.msg}</p>
                   </div>
-                )
-              })
-            }
-        </div>
-      </ScrollToBottom>
-
+                  <div className="msgMeta">
+                    <p className="msgTime">{msgData.time}</p>
+                    <p>{msgData.sender}</p>
+                  </div>
+                </div>
+              )
+            })
+          }
+          <div ref={msgListEnd}></div>
+      </div>
+      
       <div className="chatFooter">
         <div className="chatInput">
           <input
