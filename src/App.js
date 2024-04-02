@@ -294,65 +294,71 @@ function App() {
     });
   }, [socket]);
 
+  const startScreenProps = {
+    socket: socket, 
+    username: username, 
+    onChangedUsername: onChangedUsername,
+    setIsAdmin: setIsAdmin,
+    randomStatusMsg: randomStatusMsg
+  };
+
+  const gameScreenProps = {
+    socket: socket,
+    username: username,
+    room: room,
+    isAdmin: isAdmin,
+    seats: seats,
+    capacity: capacity,
+    onChangedCapacity: onChangedCapacity,
+    selectionTime: selectionTime,
+    onChangedSelectionTime: onChangedSelectionTime,
+    privateRoom: privateRoom,
+    onChangedPrivateRoom: onChangedPrivateRoom,
+    gameStarted: gameStarted,
+    gameMasterSpeech: gameMasterSpeech,
+    leaderSelecting: leaderSelecting,
+    disableTeamSubmit: disableTeamSubmit,
+    setDisableTeamSubmit: setDisableTeamSubmit,
+    selectedPlayers: selectedPlayers,
+    setSelectedPlayers: setSelectedPlayers,
+    disableVoteBtns: disableVoteBtns,
+    setDisableVoteBtns: setDisableVoteBtns,
+    voteHappening: voteHappening,
+    curMissionVoteDisapproves: curMissionVoteDisapproves,
+    goingOnMission: goingOnMission,
+    disableMissionActions: disableMissionActions,
+    setDisableMissionActions: setDisableMissionActions,
+    missionNumber: missionNumber,
+    missionResultTrack: missionResultTrack,
+    roomAdminName: roomAdminName,
+    startGame: startGame,
+    msg: msg,
+    setMsg: setMsg,
+    msgList: msgList,
+    setMsgList: setMsgList,
+    newMsg: newMsg,
+    setNewMsg: setNewMsg,
+    mins: mins,
+    secs: secs
+  };
+
+  const endScreenProps = {
+    open: gameEnd,
+    handleEndModalClose: handleEndModalClose,
+    revealedPlayers: revealedPlayers,
+    endMsg: endMsg
+  };
+
   return (
     <ThemeProvider theme={darkTheme}>
       <div className="container">
         {
           !gameScreen ? (
-            <StartScreen 
-              socket={socket} 
-              username={username} 
-              onChangedUsername={onChangedUsername}
-              setIsAdmin={setIsAdmin}
-              randomStatusMsg={randomStatusMsg}
-            />
+            <StartScreen {...startScreenProps} />
           ) : gameScreen ? (
             <>
-              <GameScreen
-                socket={socket}
-                username={username}
-                room={room}
-                isAdmin={isAdmin}
-                seats={seats}
-                capacity={capacity}
-                onChangedCapacity={onChangedCapacity}
-                selectionTime={selectionTime}
-                onChangedSelectionTime={onChangedSelectionTime}
-                privateRoom={privateRoom}
-                onChangedPrivateRoom={onChangedPrivateRoom}
-                gameStarted={gameStarted}
-                gameMasterSpeech={gameMasterSpeech}
-                leaderSelecting={leaderSelecting}
-                disableTeamSubmit={disableTeamSubmit}
-                setDisableTeamSubmit={setDisableTeamSubmit}
-                selectedPlayers={selectedPlayers}
-                setSelectedPlayers={setSelectedPlayers}
-                disableVoteBtns={disableVoteBtns}
-                setDisableVoteBtns={setDisableVoteBtns}
-                voteHappening={voteHappening}
-                curMissionVoteDisapproves={curMissionVoteDisapproves}
-                goingOnMission={goingOnMission}
-                disableMissionActions={disableMissionActions}
-                setDisableMissionActions={setDisableMissionActions}
-                missionNumber={missionNumber}
-                missionResultTrack={missionResultTrack}
-                roomAdminName={roomAdminName}
-                startGame={startGame}
-                msg={msg}
-                setMsg={setMsg}
-                msgList={msgList}
-                setMsgList={setMsgList}
-                newMsg={newMsg}
-                setNewMsg={setNewMsg}
-                mins={mins}
-                secs={secs}
-              />
-              <EndScreen
-                open={gameEnd}
-                handleEndModalClose={handleEndModalClose}
-                revealedPlayers={revealedPlayers}
-                endMsg={endMsg}
-              />
+              <GameScreen {...gameScreenProps} />
+              <EndScreen {...endScreenProps} />
             </>
           ) : (
             <>Some sort of error lol</>
