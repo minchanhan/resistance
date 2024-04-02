@@ -5,10 +5,8 @@ function Timer({ mins, secs }) {
 
   return (
     <div className="timer">
-      { mins === 0 && secs === 0 ? (
-          <div>
-            Team Select Done
-          </div>
+      { mins <= 0 && secs <= 0 ? (
+          <div>Good Luck</div>
         ) : (
           <div style={{ color: mins === 0 && secs <= 30 ? "red" : "black" }}>
             Time: {mins}:{secs < 10 ? `0${secs}` : secs}

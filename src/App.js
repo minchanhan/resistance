@@ -76,12 +76,14 @@ function App() {
   const [gameStarted, setGameStarted] = useState(false); // If false, then in lobby
   const [gameEnd, setGameEnd] = useState(false); // is end modal showing
 
+  const [teamSelectHappening, setTeamSelectHappening] = useState(false);
   const [leaderSelecting, setLeaderSelecting] = useState(false); // leader selecting
   const [disableTeamSubmit, setDisableTeamSubmit] = useState(false);
 
   const [voteHappening, setVoteHappening] = useState(false); // vote
   const [disableVoteBtns, setDisableVoteBtns] = useState(false);
 
+  const [missionHappening, setMissionHappening] = useState(false);
   const [goingOnMission, setGoingOnMission] = useState(false); // mission
   const [disableMissionActions, setDisableMissionActions] = useState(false);
 
@@ -94,7 +96,6 @@ function App() {
   const [secs, setSecs] = useState(0);
   const [mins, setMins] = useState(0);
   const [timerGoal, setTimerGoal] = useState(null); // seconds since jan 1970 + selectionTime
-  const [timerOn, setTimerOn] = useState(false);
 
   const startGame = () => {
     socket.emit("admin_start_game");
@@ -123,26 +124,34 @@ function App() {
     setGameEnd(false);
   }
 
+  // timer
   useEffect(() => {
     let interval = setInterval(() => {
-      if (!timerOn) return;
-      const now = Math.floor(new Date().getTime() / 1000);
-      const mins = Math.floor((timerGoal - now) / 60);
-      const secs = (timerGoal - now) - (mins * 60);
-      setSecs(secs);
-      setMins(mins);
-      if (!(secs > 0 || mins > 0)) {
+      if (!teamSelectHappening) {
         setSecs(0);
         setMins(0);
-        setTimerOn(false);
+        clearInterval(interval);
         return;
+      } else {
+        const now = Math.floor(new Date().getTime() / 1000);
+        const mins = Math.floor((timerGoal - now) / 60);
+        const secs = (timerGoal - now) - (mins * 60);
+        setSecs(secs);
+        setMins(mins);
+        console.log(mins, secs);
+        if (mins < 0) {
+          setSecs(0);
+          setMins(0);
+          clearInterval(interval);
+          return;
+        }
       }
-    }, 900);
+    }, 1000);
 
     return () => {
       clearInterval(interval);
     };
-  }, [timerOn, timerGoal, mins, secs]);
+  }, [timerGoal, teamSelectHappening]);
 
   // Listening for socket messages:
   // Joins/Disconnects:
@@ -205,10 +214,14 @@ function App() {
       if (!info.kicked) setGameEnd(true);
 
       // reset game actions to defaults
+      setTeamSelectHappening(false);
       setLeaderSelecting(false);
       setDisableTeamSubmit(false);
+
       setVoteHappening(false);
       setDisableVoteBtns(false);
+
+      setMissionHappening(false);
       setGoingOnMission(false);
       setDisableMissionActions(false);
 
@@ -220,7 +233,6 @@ function App() {
       setSelectedPlayers([]);
 
       // reset team select timer
-      setTimerOn(false);
       setSecs(0);
       setMins(0);
     };
@@ -244,23 +256,29 @@ function App() {
   }, [socket]);
 
   useEffect(() => {
-    socket.on("leader_is_selecting", (info) => {
-      const now = Math.floor(new Date().getTime() / 1000);
-      setTimerGoal(now + (info.mins * 60));
-      setTimerOn(true);
-
+    socket.on("leader_is_selecting", (info) => { 
       setGameStarted(true); // GAME START WHEN LEADER STARTS SELECTING
-      setGameEnd(false); // If the modal is still up for some reason, take it down
+      setGameEnd(false); // If the modal is still up, take it down
       setSelectedPlayers([]); // reset
+
       setLeaderSelecting(info.isSelecting); // 1a
       setDisableTeamSubmit(false); // 1a
+      setTeamSelectHappening(true);
+      setVoteHappening(false); // 2c
+      setMissionHappening(false); // 3c
+      setGoingOnMission(false);
+
+      const now = Math.floor(new Date().getTime() / 1000);
+      setTimerGoal(now + (info.mins * 60));
     });
   }, [socket]);
 
   useEffect(() => {
     socket.on("vote_on_these_players", (info) => { 
       setSelectedPlayers(info.selectedPlayers);
+
       setLeaderSelecting(false); // 1c
+      setTeamSelectHappening(false);
       setVoteHappening(true); // 2a
       setDisableVoteBtns(false); // 2a
     });
@@ -276,6 +294,7 @@ function App() {
     socket.on("go_on_mission", (onMissionTeam) => {
       setVoteHappening(false); // 2c
       setGoingOnMission(onMissionTeam); // 3a
+      setMissionHappening(true);
       setDisableMissionActions(false); // 3a
     });
   });
@@ -283,6 +302,7 @@ function App() {
   useEffect(() => {
     socket.on("mission_completed", (info) => { // only when mission completed AND new one starting
       setGoingOnMission(false); // 3c
+      setMissionHappening(false);
 
       // update mission stats
       setMissionResultTrack(info.missionResultTrack);
@@ -331,6 +351,7 @@ function App() {
     setDisableVoteBtns: setDisableVoteBtns,
     voteHappening: voteHappening,
     curMissionVoteDisapproves: curMissionVoteDisapproves,
+    missionHappening: missionHappening,
     goingOnMission: goingOnMission,
     disableMissionActions: disableMissionActions,
     setDisableMissionActions: setDisableMissionActions,

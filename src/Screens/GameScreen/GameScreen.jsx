@@ -37,6 +37,7 @@ function GameScreen({
   setDisableVoteBtns,
   voteHappening,
   curMissionVoteDisapproves,
+  missionHappening,
   goingOnMission,
   disableMissionActions,
   setDisableMissionActions,
@@ -129,7 +130,7 @@ function GameScreen({
     mins: mins,
     secs: secs,
     voteHappening: voteHappening,
-    goingOnMission: goingOnMission
+    missionHappening: missionHappening
   };
   
   const gameSettingsProps = {

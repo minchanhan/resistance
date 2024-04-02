@@ -12,7 +12,7 @@ function InfoTable({
   mins,
   secs,
   voteHappening,
-  goingOnMission 
+  missionHappening
 }) {
 
   return (
@@ -35,7 +35,7 @@ function InfoTable({
             </div>
             {
                 voteHappening ? <div>Voting Time</div>
-                : goingOnMission ? <div>Mission Time</div>
+                : missionHappening ? <div>Mission Time</div>
                 : <Timer mins={mins} secs={secs} />
             }
           </div>
