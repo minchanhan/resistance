@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "../App.css";
-import "../data/Enums.js";
 import DisplayButton from "./DisplayButton.jsx";
 import CheckIcon from '@mui/icons-material/Check';
 import { Modal } from "@mui/material";

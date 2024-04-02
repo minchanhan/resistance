@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./joinRoom.css";
-import "../../../data/Enums.js";
 
 import { Modal } from "@mui/material";
 import DisplayButton from "../../../Components/DisplayButton.jsx";
