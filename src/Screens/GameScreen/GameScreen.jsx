@@ -190,7 +190,7 @@ function GameScreen({
                     setNewMsg(false);
                   }}
                   sx={{
-                    border: `1px solid ${getComputedStyle(document.body).getPropertyValue('--secondary-dark')}`,
+                    border: `1px solid black`,
                     fontWeight: 600
                   }}
                 >
@@ -231,7 +231,7 @@ function GameScreen({
                       setNewMsg(false);
                     }}
                     sx={{
-                      border: `1px solid ${getComputedStyle(document.body).getPropertyValue('--secondary-dark')}`,
+                      border: `1px solid black`,
                       fontWeight: 600
                     }}
                   >

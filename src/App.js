@@ -23,13 +23,13 @@ function App() {
     palette: {
       mode: 'dark',
       secondary: {
-        main: getComputedStyle(document.body).getPropertyValue('--secondary-dark')
+        main: "#000000"
       },
       green: {
-        main: getComputedStyle(document.body).getPropertyValue('--my-green')
+        main: "#8BBD8B"
       },
       red: {
-        main: getComputedStyle(document.body).getPropertyValue('--my-red')
+        main: "#DF4730"
       },
     },
     colors: {
