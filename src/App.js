@@ -165,7 +165,7 @@ function App() {
     };
 
     socket.on("player_joined_lobby", handlePlayerJoin);
-  }, [socket]);
+  });
 
   useEffect(() => {
     socket.on("final_username_set", (username) => {
@@ -177,7 +177,7 @@ function App() {
     socket.on("no_random_game", (msg) => {
       setRandomStatusMsg(msg);
     });
-  }, [socket]);
+  });
 
   // Game Settings Changed:
   useEffect(() => {
@@ -186,7 +186,7 @@ function App() {
       setSelectionTime(settings.selectionTime);
       setPrivateRoom(settings.privateRoom);
     });
-  }, [socket]);
+  });
 
   useEffect(() => {
     socket.on("kicked_player", () => { 
@@ -194,7 +194,7 @@ function App() {
       setRoomAdminName("");
       setRoomCode("");
     });
-  }, [socket]);
+  });
 
   useEffect(() => {
     socket.on("room_admin_changed", (adminInfo) => { 
@@ -202,7 +202,7 @@ function App() {
       setRoomAdminName(adminInfo.adminName);
       socket.emit("set_room_admin", adminInfo.isAdmin);
     });
-  }, [socket]);
+  });
 
   // Game States:
   useEffect(() => {
@@ -237,7 +237,7 @@ function App() {
     };
 
     socket.on("set_game_end", handleGameEnd);
-  }, [socket]);
+  });
 
   // Game Updates:
   useEffect(() => {
@@ -246,13 +246,13 @@ function App() {
     };
 
     socket.on("seats_info_share", handleSeats);
-  }, [socket]);
+  });
 
   useEffect(() => {
     socket.on("game_master_speech", (speech) => {
       setGameMasterSpeech(speech);
     });
-  }, [socket]);
+  });
 
   useEffect(() => {
     socket.on("leader_is_selecting", (info) => { 
@@ -270,7 +270,7 @@ function App() {
       const now = Math.floor(new Date().getTime() / 1000);
       setTimerGoal(now + (info.mins * 60));
     });
-  }, [socket]);
+  });
 
   useEffect(() => {
     socket.on("vote_on_these_players", (info) => { 
@@ -281,13 +281,13 @@ function App() {
       setVoteHappening(true); // 2a
       setDisableVoteBtns(false); // 2a
     });
-  }, [socket]);
+  });
 
   useEffect(() => {
     socket.on("vote_track", (newCount) => {
       setCurMissionVoteDisapproves(newCount);
     });
-  }, [socket]);
+  });
 
   useEffect(() => {
     socket.on("go_on_mission", (onMissionTeam) => {
@@ -307,7 +307,7 @@ function App() {
       setMissionResultTrack(info.missionResultTrack);
       setMissionNumber(info.mission);
     });
-  }, [socket]);
+  });
 
   // messages:
   useMemo(() => { // listen
@@ -315,7 +315,7 @@ function App() {
       setMsgList((msgList) => [...msgList, msgData]);
       setNewMsg(true);
     });
-  }, [socket]);
+  }, []);
 
   const startScreenProps = {
     socket: socket, 
