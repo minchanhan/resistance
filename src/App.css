@@ -27,6 +27,10 @@
   -o-box-sizing: border-box;
 }
 
+body {
+  font-weight: 500;
+}
+
 /* ----- Container ----- */
 .container {
   display: flex;
@@ -146,7 +150,7 @@
 
 .information { 
   flex: 1;
-  font-weight: 400;
+  font-weight: 500 !important;
   
   display: flex;
   justify-content: center;
@@ -199,7 +203,7 @@
 
 .settingsSelectContainer > p {
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 600 !important;
   color: white;
   width: 100%;
 }
@@ -211,7 +215,7 @@
   padding: 0.5rem 0 0.5rem 0.4rem;
   color: white;
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 600 !important;
   cursor: pointer;
 }
 
@@ -228,7 +232,7 @@
   gap: 0.5rem;
   align-items: center;
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 600 !important;
   color: white;
 }
 
@@ -415,7 +419,7 @@
 
 .playerUsername {
   font-size: 0.7rem;
-  font-weight: 600;
+  font-weight: 600 !important;
 }
 .fist {
   cursor: pointer;
@@ -521,7 +525,7 @@
 }
 .chatWindow .chatHeader p {
   color: white;
-  font-weight: 700;
+  font-weight: 700 !important;
 }
 
 .chatBody { /* body */
@@ -557,7 +561,7 @@
   overflow-wrap: break-word;
   word-break: break-word;
   font-size: 1rem;
-  font-weight: 500;
+  font-weight: 500 !important;
   border-radius: 0.7rem;
 
   display: flex;
@@ -640,7 +644,7 @@
   outline: none;
   resize: none;
   font-size: 1rem;
-  font-weight: 400;
+  font-weight: 500 !important;
   font-family: inherit;
 }
 .chatSendBtn {
@@ -650,7 +654,7 @@
   border-left: 1px dotted black;
   border-radius: 0 0 1em 0;
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 600 !important;
   background-color: white;
   color: black;
   cursor: pointer;
@@ -726,7 +730,7 @@
 .modalHeader {
   color: white;
   font-size: xx-large;
-  font-weight: 700;
+  font-weight: 700 !important;
 }
 
 /* --- Button Pulse --- */

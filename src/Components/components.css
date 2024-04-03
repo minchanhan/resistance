@@ -42,7 +42,7 @@
 }
 .displayButton p {
   font-size: 0.85rem;
-  font-weight: 600;
+  font-weight: 600 !important;
 }
 
 .userInputField {
@@ -58,7 +58,7 @@
   border: 1px solid white;
 
   font-size: 0.85rem;
-  font-weight: 600;
+  font-weight: 600 !important;
 }
 .userTextInput::placeholder {
   color: white
