@@ -138,7 +138,6 @@ function App() {
         const secs = (timerGoal - now) - (mins * 60);
         setSecs(secs);
         setMins(mins);
-        console.log(mins, secs);
         if (mins < 0) {
           setSecs(0);
           setMins(0);

@@ -58,7 +58,6 @@ function JoinRoomModal({
             }}
             onPaste={(event) => {
               const pastedVal = event.clipboardData.getData('text/plain');
-              console.log(pastedVal.length);
 
               if (pastedVal.length !== 5) {
                 event.preventDefault();
