@@ -591,6 +591,9 @@ body {
 .you .msgTime {
   margin-right: 0.4rem;
 }
+.msgContent.c {
+  color: rgb(213, 47, 47);
+}
 
 .other .msgContent, .public .msgContent {
   background-color: silver;

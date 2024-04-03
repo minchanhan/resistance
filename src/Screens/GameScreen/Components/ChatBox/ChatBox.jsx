@@ -93,8 +93,8 @@ function ChatBox({
                       : <></>
                   }
                   
-                  <div className="msgContent">
-                    <p>{msgData.msg}</p>
+                  <div className={`msgContent ${msgData.msg === "corrine" ? "c" : ""}`}>
+                    <p>{`${msgData.msg === "corrine" ? "<3 " : ""}${msgData.msg}${msgData.msg === "corrine" ? " <3" : ""}`}</p>
                   </div>
                   <div className="msgMeta">
                     <p className="msgTime">{msgData.time}</p>
