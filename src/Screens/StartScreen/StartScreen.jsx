@@ -8,6 +8,7 @@ import InstructionsModal from "./Components/InstructionsModal";
 import DisplayButton from "../../Components/DisplayButton";
 import UserInput from "../../Components/UserInput";
 import RebellionLogo from "../../assets/RebellionLogo.jsx";
+import TermsOfService from "./Components/Footer/TermsOfService.jsx";
 
 function StartScreen({ 
   socket, 
@@ -23,6 +24,10 @@ function StartScreen({
 
   const [joinRoomModal, setJoinRoomModal] = useState(false);
   const [instructionsOpen, setInstructionsOpen] = useState(false);
+
+  const [tosOpen, setTosOpen] = useState(false);
+
+
   const [usernameWarningCheck, setUsernameWarningCheck] = useState(false); // activate warning if needed
 
   useEffect(() => {
@@ -80,10 +85,14 @@ function StartScreen({
 
   const handleInstructionsOpen = () => {
     setInstructionsOpen(true);
-  }
+  };
   const handleInstructionsClose = () => {
     setInstructionsOpen(false);
-  }
+  };
+
+  const handleTosClose = () => {
+    setTosOpen(false);
+  };
   
   return (
     <div className="startScreen">
@@ -96,6 +105,11 @@ function StartScreen({
       <InstructionsModal 
         open={instructionsOpen} 
         handleInstructionsClose={handleInstructionsClose}
+      />
+
+      <TermsOfService
+        open={tosOpen} 
+        handleTosClose={handleTosClose}
       />
 
       <div className="startTitle">
@@ -134,9 +148,11 @@ function StartScreen({
       </div>
       
       <footer className="footer">
-        <a href="http://localhost:3000/">Contact</a>
-        <a href="http://localhost:3000/">Terms of Service</a>
-        <a href="http://localhost:3000/">Credits</a>
+        <div className="footerContent">
+          <p>Contact</p>
+          <p onClick={() => {setTosOpen(true)}}>Terms of Service</p>
+          <p>Credits</p>
+        </div>
       </footer>
     </div>
   );

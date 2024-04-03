@@ -80,8 +80,16 @@ body {
   bottom: 2%;
   font-size: 0.75rem;
 }
-.footer > * {
+
+.footerContent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.footerContent > * {
   margin: 0 0.2rem;
+  border-bottom: 1px solid black;
+  cursor: pointer;
 }
 
 /* ----- Game Screen Features ----- */
