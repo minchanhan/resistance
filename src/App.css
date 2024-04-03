@@ -390,6 +390,7 @@
 .playerBox { 
   min-width: 0;
   z-index: 3;
+  width: 7rem;
 }
 
 .player {
