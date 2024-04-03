@@ -18,7 +18,12 @@ function JoinRoomModal({
 
   const joinRoom = () => {
     setCheckedRoom(true);
-    socket.emit("join_room", roomCode);
+    if (roomCode.length !== 5) {
+      setValidRoom(false);
+      setRoomStatus("Room code must be 5 chars");
+    } else {
+      socket.emit("join_room", roomCode);
+    }
   };
 
   socket.on("room_with_code", (data) => {
@@ -50,6 +55,15 @@ function JoinRoomModal({
             value={roomCode} 
             onChange={ (event) => {
               setRoomCode(event.target.value);
+            }}
+            onPaste={(event) => {
+              const pastedVal = event.clipboardData.getData('text/plain');
+              console.log(pastedVal.length);
+
+              if (pastedVal.length !== 5) {
+                event.preventDefault();
+                return false;
+              }
             }}
             helperText={!validRoom && checkedRoom ? roomStatus : ""}
             showError={!validRoom && checkedRoom}
