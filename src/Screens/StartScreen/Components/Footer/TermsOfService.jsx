@@ -41,7 +41,7 @@ function TermsOfService({open, handleTosClose}) {
 <li>Impersonates any person or entity, including any of our employees or representatives</li>
 </ul>
 
-<p>We neither endorse nor assume any liability for the contents of any material uploaded or submitted by third party users of the Website. We do not pre-screen, monitor, or edit the content posted by users of communications services, chat rooms, message boards, newsgroups, software libraries, or other interactive services that may be available on or through this Website. However, we and our agents have the right at their sole discretion to remove any content that, in our judgment, does not comply with these Terms of Service and any other rules of user conduct for our site, or is otherwise harmful, objectionable, or inaccurate. We are not responsible for any failure or delay in removing such content. You hereby consent to such removal and waive any claim against us arising out of such removal of content.</p>
+<p>We neither endorse nor assume any liability for the contents of any material uploaded or submitted by third party users of the Website, including any messages sent by third party users of the Website through any messaging functionality. We do not pre-screen, monitor, or edit the content posted by users of communications services, chat rooms, message boards, newsgroups, software libraries, or other interactive services that may be available on or through this Website. However, we and our agents have the right at their sole discretion to remove any content that, in our judgment, does not comply with these Terms of Service and any other rules of user conduct for our site, or is otherwise harmful, objectionable, or inaccurate. We are not responsible for any failure or delay in removing such content. You hereby consent to such removal and waive any claim against us arising out of such removal of content.</p>
 
 <p>You agree that we may at any time, and at our sole discretion, terminate your membership, account, or other affiliation with our site without prior notice to you for violating any of the above provisions. In addition, you acknowledge that we will cooperate fully with investigations of violations of systems or network security at other sites, including cooperating with law enforcement authorities in investigating suspected criminal violations.</p>
 
@@ -53,7 +53,7 @@ function TermsOfService({open, handleTosClose}) {
 
 <h3>Intellectual Property</h3>
 
-<p>All custom graphics, icons, logos, and service names used on the Website are registered trademarks, service marks, and/or artwork held under copyright of <span class="website_name">The Rebellion</span> or its Affiliates. All other marks are property of their respective owners. Nothing in these Terms of Service grants you any right to use any trademark, service mark, logo, and/or the name or trade names of <span class="website_name">The Rebellion</span> or its Affiliates.</p>
+<p>All custom graphics, icons, logos, and service names used on the Website are registered trademarks, service marks, and/or artwork held under copyright of <span class="website_name">The Rebellion</span> and its owner, Minchan Han. All other marks are property of their respective owners. Nothing in these Terms of Service grants you any right to use any trademark, service mark, logo, and/or the name or trade names of <span class="website_name">The Rebellion</span> or its Affiliates.</p>
 
 <h3>Disclaimer of Warranties</h3>
 
@@ -65,7 +65,7 @@ function TermsOfService({open, handleTosClose}) {
 
 <h3>International Use</h3>
 
-<p>Although this Website may be accessible worldwide, we make no representation that materials on this Website are appropriate or available for use in locations outside the United States, and accessing them from territories where their contents are illegal is prohibited. Those who choose to access this Website from other locations do so on their own initiative and are responsible for compliance with local laws. Any offer for any product, service, and/or information made in connection with this Website is void where prohibited.</p>
+<p>Although this Website may be accessible worldwide, we make no representation that materials on this Website are appropriate or available for use in locations outside Canada, and accessing them from territories where their contents are illegal is prohibited. Those who choose to access this Website from other locations do so on their own initiative and are responsible for compliance with local laws. Any offer for any product, service, and/or information made in connection with this Website is void where prohibited.</p>
 
 <h3>Termination</h3>
 
@@ -75,9 +75,9 @@ function TermsOfService({open, handleTosClose}) {
     
 <h3>Governing Law</h3>
 
-<p>These Terms of Service and any dispute or claim arising out of, or related to them, shall be governed by and construed in accordance with the internal laws of the <span class="country">ca</span> without giving effect to any choice or conflict of law provision or rule.</p>
+<p>These Terms of Service and any dispute or claim arising out of, or related to them, shall be governed by and construed in accordance with the internal laws of the <span class="country">Canada</span> without giving effect to any choice or conflict of law provision or rule.</p>
 
-<p>Any legal suit, action or proceeding arising out of, or related to, these Terms of Service or the Website shall be instituted exclusively in the federal courts of <span class="country">ca</span>.</p>
+<p>Any legal suit, action or proceeding arising out of, or related to, these Terms of Service or the Website shall be instituted exclusively in the federal courts of <span class="country">Canada</span>.</p>
 
 
 
