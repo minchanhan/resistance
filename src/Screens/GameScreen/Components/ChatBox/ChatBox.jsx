@@ -76,17 +76,21 @@ function ChatBox({
       <div className="chatBody">
           {
             msgList.map((msgData, i) => {
+              const publicMsg = msgData.sender === "PUBLIC TALLY" 
+                || msgData.sender === "PLAYER UPDATE" 
+                || msgData.sender === "ADMIN INFO";
+
               return (
                 <div
                   key={i}
-                  className={`message ${username === msgData.sender ? "you" : (
-                      msgData.sender === "PUBLIC TALLY" || msgData.sender === "THE UNIVERSE"
-                    ) ? "public" : "other"}`
+                  className={`message ${username === msgData.sender ? "you"
+                    : publicMsg ? "public" : "other"}`
                   }
                 >
                   {
-                    msgData.sender === "PUBLIC TALLY" || msgData.sender === "THE UNIVERSE" ?
-                      <CampaignIcon className="publicMsgAlert" fontSize="medium" /> : <></>
+                    publicMsg ? 
+                      <CampaignIcon className="publicMsgAlert" fontSize="medium" /> 
+                      : <></>
                   }
                   
                   <div className="msgContent">

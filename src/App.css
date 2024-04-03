@@ -593,10 +593,10 @@
 }
 .publicMsgAlert {
   position: absolute;
-  bottom: 13.5%;
-  right: 1%;
+  bottom: 43%;
+  right: -2.25rem;
   z-index: 4;
-  filter: invert(0%) sepia(90%) saturate(0%) hue-rotate(127deg) brightness(93%) contrast(104%);
+  color: gray;
 }
 
 .msgMeta {
