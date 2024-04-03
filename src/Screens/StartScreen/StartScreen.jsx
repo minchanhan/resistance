@@ -9,6 +9,7 @@ import DisplayButton from "../../Components/DisplayButton";
 import UserInput from "../../Components/UserInput";
 import RebellionLogo from "../../assets/RebellionLogo.jsx";
 import TermsOfService from "./Components/Footer/TermsOfService.jsx";
+import Contact from "./Components/Footer/Contact.jsx";
 
 function StartScreen({ 
   socket, 
@@ -26,7 +27,7 @@ function StartScreen({
   const [instructionsOpen, setInstructionsOpen] = useState(false);
 
   const [tosOpen, setTosOpen] = useState(false);
-
+  const [contactOpen, setContactOpen] = useState(false);
 
   const [usernameWarningCheck, setUsernameWarningCheck] = useState(false); // activate warning if needed
 
@@ -93,6 +94,9 @@ function StartScreen({
   const handleTosClose = () => {
     setTosOpen(false);
   };
+  const handleContactClose = () => {
+    setContactOpen(false);
+  }
   
   return (
     <div className="startScreen">
@@ -110,6 +114,10 @@ function StartScreen({
       <TermsOfService
         open={tosOpen} 
         handleTosClose={handleTosClose}
+      />
+      <Contact
+        open={contactOpen}
+        handleContactClose={handleContactClose}
       />
 
       <div className="startTitle">
@@ -149,9 +157,8 @@ function StartScreen({
       
       <footer className="footer">
         <div className="footerContent">
-          <p>Contact</p>
+          <p onClick={() => {setContactOpen(true)}}>Contact</p>
           <p onClick={() => {setTosOpen(true)}}>Terms of Service</p>
-          <p>Credits</p>
         </div>
       </footer>
     </div>
