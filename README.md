@@ -1,3 +1,6 @@
-# An online version of The Resistance game
+# THE REBELLION
+## By. Minchan Han
 
-#### Frontend repo
+## Welcome, this is an online adaptation of The Resistance board game.
+
+##### Frontend repo
