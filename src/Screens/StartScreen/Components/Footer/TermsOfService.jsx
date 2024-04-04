@@ -18,7 +18,7 @@ function TermsOfService({open, handleTosClose}) {
         <div className="instructionsContainer">
           <div className="instructions" style={{gap: "0rem"}}>
 
-<p><span class="website_name">The Rebellion</span> ("Us" or "We") provides the <span class="website_url">the-rebellion.io</span> website and various related services (collectively, the "Website") to you, the User, subject to your compliance with all the terms, conditions, and notices contained or referenced herein (the "Terms of Service"), as well as any other written agreement between us and you.</p>
+<p>The Rebellion and Minchan H ("Us" or "We") provides the <span class="website_url">the-rebellion.io</span> website and various related services (collectively, the "Website") to you, the User, subject to your compliance with all the terms, conditions, and notices contained or referenced herein (the "Terms of Service"), as well as any other written agreement between us and you.</p>
 
 <p>In addition, when using particular services or materials on this Website, Users shall be subject to any posted rules applicable to such services or materials that may contain terms and conditions in addition to those in these Terms of Service. All such guidelines or rules are hereby incorporated by reference into these Terms of Service.</p>
 
@@ -53,7 +53,7 @@ function TermsOfService({open, handleTosClose}) {
 
 <h3>Intellectual Property</h3>
 
-<p>All custom graphics, icons, logos, and service names used on the Website are registered trademarks, service marks, and/or artwork held under copyright of <span class="website_name">The Rebellion</span> and its owner, Minchan Han. All other marks are property of their respective owners. Nothing in these Terms of Service grants you any right to use any trademark, service mark, logo, and/or the name or trade names of <span class="website_name">The Rebellion</span> or its Affiliates.</p>
+<p>All custom graphics, icons, logos, and service names used on the Website are held under ownership of Minchan Han. All other marks are property of their respective owners. Nothing in these Terms of Service grants you any right to use any trademark, service mark, logo, and/or the name or trade names of <span class="website_name">The Rebellion</span> or its Affiliates.</p>
 
 <h3>Disclaimer of Warranties</h3>
 

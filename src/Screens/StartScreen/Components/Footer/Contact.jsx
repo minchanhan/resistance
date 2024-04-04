@@ -40,10 +40,14 @@ function Contact({open, handleContactClose}) {
               <a style={{color: "white"}} href="mailto:mchanprojects@gmail.com">mchanprojects@gmail.com</a>
             </div>
 
-            <p>Feel free to check out my GitHub repo as well</p>
+            <p>Feel free to check out my GitHub repos as well</p>
             <div style={contactLinks}>
               <GitHubIcon />
               <a style={{color: "white"}} href="https://github.com/minchanhan/therebellion">github.com/minchanhan/therebellion</a>
+            </div>
+            <div style={contactLinks}>
+              <GitHubIcon />
+              <a style={{color: "white"}} href="https://github.com/minchanhan/therebellionserver">github.com/minchanhan/therebellionserver</a>
             </div>
           </div>
         </div>
