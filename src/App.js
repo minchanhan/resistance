@@ -8,7 +8,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import EndScreen from './Screens/EndScreen/EndScreen';
 import GameScreen from './Screens/GameScreen/GameScreen';
 
-const socket = io.connect("http://localhost:3001"); // connect to socket server
+const socket = io.connect(process.env.REACT_APP_SERVER || "http://localhost:3001"); // connect to socket server
 
 function App() {
   useEffect(() => { // confirmation before leaving
