@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import './App.css';
 import io from 'socket.io-client';
@@ -155,9 +155,9 @@ function App() {
     };
   }, [timerGoal, teamSelectHappening]);
 
-  // Listening for socket messages:
-  // Joins/Disconnects:
-  useEffect(() => { // When player clicks join
+  /* --- Listening for socket messages --- */
+  useEffect(() => {
+    // functions
     const handlePlayerJoin = (lobbyInfo) => {
       setSeats(lobbyInfo.seats);
       setRoomCode(lobbyInfo.room);
@@ -167,48 +167,32 @@ function App() {
       navigate(`/${lobbyInfo.room}`);
     };
 
-    socket.on("player_joined_lobby", handlePlayerJoin);
-  });
-
-  useEffect(() => {
-    socket.on("final_username_set", (username) => {
+    const handleUsernameSet = (username) => {
       setUsername(username);
-    });
-  });
+    };
 
-  useEffect(() => {
-    socket.on("no_random_game", (msg) => {
+    const handleRandomStatus = (msg) => {
       setRandomStatusMsg(msg);
-    });
-  });
+    };
 
-  // Game Settings Changed:
-  useEffect(() => {
-    socket.on("game_settings_changed", (settings) => { 
+    const handleGameSettingsChange = (settings) => { 
       setCapacity(settings.capacity);
       setSelectionTime(settings.selectionTime);
       setPrivateRoom(settings.privateRoom);
-    });
-  });
+    };
 
-  useEffect(() => {
-    socket.on("kicked_player", () => { 
+    const handleKickedPlayer = () => { 
       setGameScreen(false);
       setRoomAdminName("");
       setRoomCode("");
-    });
-  });
+    };
 
-  useEffect(() => {
-    socket.on("room_admin_changed", (adminInfo) => { 
+    const handleRoomAdminChange = (adminInfo) => { 
       setIsAdmin(adminInfo.isAdmin);
       setRoomAdminName(adminInfo.adminName);
       socket.emit("set_room_admin", adminInfo.isAdmin);
-    });
-  });
+    };
 
-  // Game States:
-  useEffect(() => {
     const handleGameEnd = (info) => {
       // handle end game
       setRevealedPlayers(info.playerRevealArr);
@@ -239,26 +223,15 @@ function App() {
       setMins(0);
     };
 
-    socket.on("set_game_end", handleGameEnd);
-  });
-
-  // Game Updates:
-  useEffect(() => {
     const handleSeats = (seats) => {
       setSeats([...seats]);
     };
 
-    socket.on("seats_info_share", handleSeats);
-  });
-
-  useEffect(() => {
-    socket.on("game_master_speech", (speech) => {
+    const handleGameMaster = (speech) => {
       setGameMasterSpeech(speech);
-    });
-  });
-
-  useEffect(() => {
-    socket.on("leader_is_selecting", (info) => { 
+    };
+    
+    const handleLeaderSelect = (info) => { 
       setGameStarted(true); // GAME START WHEN LEADER STARTS SELECTING
       setGameEnd(false); // If the modal is still up, take it down
       setSelectedPlayers([]); // reset
@@ -272,60 +245,85 @@ function App() {
 
       const now = Math.floor(new Date().getTime() / 1000);
       setTimerGoal(now + (info.mins * 60));
-    });
-  });
+    };
 
-  useEffect(() => {
-    socket.on("vote_on_these_players", (info) => { 
+    const handlePlayerVoteStart = (info) => { 
       setSelectedPlayers(info.selectedPlayers);
 
       setLeaderSelecting(false); // 1c
       setTeamSelectHappening(false);
       setVoteHappening(true); // 2a
       setDisableVoteBtns(false); // 2a
-    });
-  });
+    };
 
-  useEffect(() => {
-    socket.on("vote_track", (newCount) => {
+    const handleVoteTrackChange = (newCount) => {
       setCurMissionVoteDisapproves(newCount);
-    });
-  });
+    };
 
-  useEffect(() => {
-    socket.on("go_on_mission", (onMissionTeam) => {
+    const handleMissionStart = (onMissionTeam) => {
       setVoteHappening(false); // 2c
       setGoingOnMission(onMissionTeam); // 3a
       setMissionHappening(true);
       setDisableMissionActions(false); // 3a
-    });
-  });
+    };
 
-  useEffect(() => {
-    socket.on("mission_completed", (info) => { // only when mission completed AND new one starting
+    const handleMissionComplete = (info) => { // only when mission completed AND new one starting
       setGoingOnMission(false); // 3c
       setMissionHappening(false);
 
       // update mission stats
       setMissionResultTrack(info.missionResultTrack);
       setMissionNumber(info.mission);
-    });
-  });
+    };
 
-  useEffect(() => {
-    socket.on("room_with_code", (data) => {
+    const handleRoomWithCode = (data) => {
       setValidRoom(data.exists);
       setRoomStatus(data.reason);
-    });
-  });
+    };
 
-  // messages:
-  useMemo(() => { // listen
-    socket.on("receive_msg", (msgData) => {
+    const handleReceiveMsg = (msgData) => {
       setMsgList((msgList) => [...msgList, msgData]);
       setNewMsg(true);
-    });
-  }, []);
+    };
+    
+    // listeners
+    socket.on("player_joined_lobby", handlePlayerJoin);
+    socket.on("final_username_set", handleUsernameSet);
+    socket.on("no_random_game", handleRandomStatus);
+    socket.on("game_settings_changed", handleGameSettingsChange);
+    socket.on("kicked_player", handleKickedPlayer);
+    socket.on("room_admin_changed", handleRoomAdminChange);
+    socket.on("set_game_end", handleGameEnd);
+    socket.on("seats_info_share", handleSeats);
+    socket.on("game_master_speech", handleGameMaster);
+    socket.on("leader_is_selecting", handleLeaderSelect);
+    socket.on("vote_on_these_players", handlePlayerVoteStart);
+    socket.on("vote_track", handleVoteTrackChange);
+    socket.on("go_on_mission", handleMissionStart);
+    socket.on("mission_completed", handleMissionComplete);
+    socket.on("room_with_code", handleRoomWithCode);
+    socket.on("receive_msg", handleReceiveMsg);
+
+    return () => {
+      // cleanup
+      socket.off("player_joined_lobby", handlePlayerJoin);
+      socket.off("final_username_set", handleUsernameSet);
+      socket.off("no_random_game", handleRandomStatus);
+      socket.off("game_settings_changed", handleGameSettingsChange);
+      socket.off("kicked_player", handleKickedPlayer);
+      socket.off("room_admin_changed", handleRoomAdminChange);
+      socket.off("set_game_end", handleGameEnd);
+      socket.off("seats_info_share", handleSeats);
+      socket.off("game_master_speech", handleGameMaster);
+      socket.off("leader_is_selecting", handleLeaderSelect);
+      socket.off("vote_on_these_players", handlePlayerVoteStart);
+      socket.off("vote_track", handleVoteTrackChange);
+      socket.off("go_on_mission", handleMissionStart);
+      socket.off("mission_completed", handleMissionComplete);
+      socket.off("room_with_code", handleRoomWithCode);
+      socket.off("receive_msg", handleReceiveMsg);
+    };
+  });
 
   const startScreenProps = {
     socket: socket, 
