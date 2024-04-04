@@ -193,6 +193,8 @@ function GameTable({
                   )}
                 </div>
               )
+            } else {
+              return <></>
             }
           })
         }
@@ -354,6 +356,8 @@ function GameTable({
                   )}
                 </div>
               )
+            } else {
+              return <></>
             }
           })
         }
