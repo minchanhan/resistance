@@ -50,6 +50,9 @@ function App() {
   const [isAdmin, setIsAdmin] = useState(false);
   const [roomAdminName, setRoomAdminName] = useState("");
 
+  const [validRoom, setValidRoom] = useState(true);
+  const [roomStatus, setRoomStatus] = useState("");
+
   // Game Settings
   // Mutable before game start 
   const [capacity, setCapacity] = useState(6);
@@ -309,6 +312,13 @@ function App() {
     });
   });
 
+  useEffect(() => {
+    socket.on("room_with_code", (data) => {
+      setValidRoom(data.exists);
+      setRoomStatus(data.reason);
+    });
+  });
+
   // messages:
   useMemo(() => { // listen
     socket.on("receive_msg", (msgData) => {
@@ -324,6 +334,10 @@ function App() {
     setIsAdmin: setIsAdmin,
     randomStatusMsg: randomStatusMsg,
     navigate: navigate,
+    validRoom: validRoom,
+    setValidRoom: setValidRoom,
+    roomStatus: roomStatus,
+    setRoomStatus: setRoomStatus
   };
 
   const gameScreenProps = {

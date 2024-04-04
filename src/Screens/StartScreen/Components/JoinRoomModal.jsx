@@ -9,12 +9,14 @@ function JoinRoomModal({
   socket,
   open, 
   handleJoinClose,
-  room=""
+  room="",
+  validRoom,
+  setValidRoom,
+  roomStatus,
+  setRoomStatus
 }) {
   const [checkedRoom, setCheckedRoom] = useState(false);
-  const [validRoom, setValidRoom] = useState(true);
   const [roomCode, setRoomCode] = useState("");
-  const [roomStatus, setRoomStatus] = useState("");
 
   const joinRoom = () => {
     setCheckedRoom(true);
@@ -25,11 +27,6 @@ function JoinRoomModal({
       socket.emit("join_room", roomCode);
     }
   };
-
-  socket.on("room_with_code", (data) => {
-    setValidRoom(data.exists);
-    setRoomStatus(data.reason);
-  });
 
   useEffect(() => {
     setRoomCode(room);

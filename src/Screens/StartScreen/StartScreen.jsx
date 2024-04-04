@@ -18,7 +18,11 @@ function StartScreen({
   setIsAdmin,
   randomStatusMsg,
   navigate,
-  hasJoinEmbed=false
+  hasJoinEmbed=false,
+  validRoom,
+  setValidRoom,
+  roomStatus,
+  setRoomStatus
 }) {
 
   const { room } = useParams();
@@ -105,6 +109,10 @@ function StartScreen({
         open={joinRoomModal} 
         handleJoinClose={handleJoinClose}
         room={room}
+        validRoom={validRoom}
+        setValidRoom={setValidRoom}
+        roomStatus={roomStatus}
+        setRoomStatus={setRoomStatus}
       />
       <InstructionsModal 
         open={instructionsOpen} 
