@@ -81,11 +81,11 @@ function GameScreen({
   useEffect(() => {
     if (!gameScreen) {
       if (room == null) {
-        navigate("/");
+        navigate("/", { replace: true });
       } else if (room.length === 5) {
-        navigate(`/join/${room}`);
+        navigate(`/join/${room}`, { replace: true });
       } else {
-        navigate("/");
+        navigate("/", { replace: true });
       }
       return;
     }

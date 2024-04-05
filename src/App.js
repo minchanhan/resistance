@@ -164,7 +164,7 @@ function App() {
       setRoomAdminName(lobbyInfo.roomAdmin);
       setGameScreen(true);
       setRandomStatusMsg("");
-      navigate(`/${lobbyInfo.room}`);
+      navigate(`/${lobbyInfo.room}`, { replace: true });
     };
 
     const handleUsernameSet = (username) => {

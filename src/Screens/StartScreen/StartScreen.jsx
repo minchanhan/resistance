@@ -38,11 +38,11 @@ function StartScreen({
   useEffect(() => {
     if (hasJoinEmbed) {
       if (room == null) {
-        navigate("/");
+        navigate("/", { replace: true });
         return;
       }
       if (room.length !== 5) {
-        navigate("/");
+        navigate("/", { replace: true });
         return;
       }
     }
