@@ -12,17 +12,17 @@ function TermsOfService({open, handleTosClose}) {
     >
       <div className="modalBox">
         <div className="modalHeader">
-          Terms of Service of therebelliongame.com:
+          Terms of Service of therebelliongame.com
         </div>
 
         <div className="instructionsContainer">
           <div className="instructions" style={{gap: "0rem"}}>
 
-<p>The Rebellion (therebelliongame.com) and Minchan H ("Us" or "We") provides the <span class="website_url">therebelliongame.com</span> website and various related services (collectively, the "Website") to you, the User, subject to your compliance with all the terms, conditions, and notices contained or referenced herein (the "Terms of Service"), as well as any other written agreement between us and you.</p>
+<p>The Rebellion (therebelliongame.com) and Minchan H ("Us" or "We") provides the <span className="website_url">therebelliongame.com</span> website and various related services (collectively, the "Website") to you, the User, subject to your compliance with all the terms, conditions, and notices contained or referenced herein (the "Terms of Service"), as well as any other written agreement between us and you.</p>
 
 <p>In addition, when using particular services or materials on this Website, Users shall be subject to any posted rules applicable to such services or materials that may contain terms and conditions in addition to those in these Terms of Service. All such guidelines or rules are hereby incorporated by reference into these Terms of Service.</p>
 
-<p>These Terms of Service are effective as of <span class="date">April 3, 2024</span>. We expressly reserve the right to change these Terms of Service from time to time without notice to you. You acknowledge and agree that it is your responsibility to review this Website and these Terms of Service from time to time and to familiarize yourself with any modifications.</p>
+<p>These Terms of Service are effective as of <span className="date">April 3, 2024</span>. We expressly reserve the right to change these Terms of Service from time to time without notice to you. You acknowledge and agree that it is your responsibility to review this Website and these Terms of Service from time to time and to familiarize yourself with any modifications.</p>
 
 <p>Your continued use of this Website after such modifications will constitute acknowledgement of the modified Terms of Service and agreement to abide and be bound by the modified Terms of Service.</p>
 
@@ -53,11 +53,11 @@ function TermsOfService({open, handleTosClose}) {
 
 <h3>Intellectual Property</h3>
 
-<p>All custom graphics, icons, logos, and service names used on the Website are held under ownership of Minchan Han. All other marks are property of their respective owners. Nothing in these Terms of Service grants you any right to use any trademark, service mark, logo, and/or the name or trade names of <span class="website_name">The Rebellion (therebelliongame.com)</span> or its Affiliates.</p>
+<p>All custom graphics, icons, logos, and service names used on the Website are held under ownership of Minchan Han. All other marks are property of their respective owners. Nothing in these Terms of Service grants you any right to use any trademark, service mark, logo, and/or the name or trade names of <span className="website_name">The Rebellion (therebelliongame.com)</span> or its Affiliates.</p>
 
 <h3>Disclaimer of Warranties</h3>
 
-<p>Content available through this Website often represents the opinions and judgments of an information provider, site user, or other person or entity not connected with us. We do not endorse, nor are we responsible for the accuracy or reliability of, any opinion, advice, or statement made by anyone other than an authorized <span class="website_name">The Rebellion (therebelliongame.com)</span> spokesperson speaking in his/her official capacity. Please refer to the specific editorial policies posted on various sections of this Website for further information, which policies are incorporated by reference into these Terms of Service.</p>
+<p>Content available through this Website often represents the opinions and judgments of an information provider, site user, or other person or entity not connected with us. We do not endorse, nor are we responsible for the accuracy or reliability of, any opinion, advice, or statement made by anyone other than an authorized <span className="website_name">The Rebellion (therebelliongame.com)</span> spokesperson speaking in his/her official capacity. Please refer to the specific editorial policies posted on various sections of this Website for further information, which policies are incorporated by reference into these Terms of Service.</p>
 
 <p>You understand and agree that temporary interruptions of the services available through this Website may occur as normal events. You further understand and agree that we have no control over third party networks you may access in the course of the use of this Website, and therefore, delays and disruption of other network transmissions are completely beyond our control.</p>
 
@@ -75,9 +75,9 @@ function TermsOfService({open, handleTosClose}) {
     
 <h3>Governing Law</h3>
 
-<p>These Terms of Service and any dispute or claim arising out of, or related to them, shall be governed by and construed in accordance with the internal laws of the <span class="country">Canada</span> without giving effect to any choice or conflict of law provision or rule.</p>
+<p>These Terms of Service and any dispute or claim arising out of, or related to them, shall be governed by and construed in accordance with the internal laws of the <span className="country">Canada</span> without giving effect to any choice or conflict of law provision or rule.</p>
 
-<p>Any legal suit, action or proceeding arising out of, or related to, these Terms of Service or the Website shall be instituted exclusively in the federal courts of <span class="country">Canada</span>.</p>
+<p>Any legal suit, action or proceeding arising out of, or related to, these Terms of Service or the Website shall be instituted exclusively in the federal courts of <span className="country">Canada</span>.</p>
 
 
 

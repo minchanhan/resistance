@@ -24,6 +24,9 @@ function InstructionsModal({
 
   const gameplayTitle = "Gameplay";
   const gameplay = `At the start each round, a leader will be randomly chosen to choose a group of players to go on missions (star icon).
+  The leader (player with star) has X minutes to discuss and submit a team for vote (click on players and click "submit"). \
+  If they run out of time, the team will be "voted down", and a new leader is suggested.
+
   The number of players that go on each mission is indicated by the mission tracker on the table. \
   Players will take a majority vote on if this group of players (checkbox icon) should go on the mission for that round. 
   If the vote does not pass, then the leader to the right will suggest a new mission team.
@@ -38,9 +41,10 @@ function InstructionsModal({
 
   const additionalTitle = "Additional Notes";
   const additional = `- This game is best played over voice chat! Consider using a Discord server.
-  - A leader (player with star) has X minutes to discuss and submit a team for vote (click on players and click "submit"). If they run out of time, the team will be "voted down", and a new leader is suggested.
   - Remember, this web app is a rendition of an in-person board game. That means don't message any players privately, and try not to leave the \
-  game, as the game will end for everyone, just like normal.`;
+  game, as the game will end for everyone, just like normal.
+  - Please be careful when leaving your current tab if you're playing on a mobile device. Some browsers, including Chrome, have "memory saver" features \
+  that discard background tabs. You will be kicked from your room if your leave your tab.`;
 
   return (
     <Modal
@@ -124,7 +128,7 @@ function InstructionsModal({
               <div className="instructionsSubtitle">{gameplayTitle}</div>
               <div className="instructionsText">{gameplay}</div>
               <div className="holdInstructionPics">
-                <div className="table" style={{margin: "2rem", gap: "2rem"}}>
+                <div className="table" style={{margin: "2rem 0", gap: "2rem"}}>
                   <div className="missionTokenGrid">
                     <MissionToken
                       isPassed
