@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import "../../../../App.css";
 
 import PlayerBox from "./PlayerBox/PlayerBox";
@@ -194,7 +194,7 @@ function GameTable({
                 </div>
               )
             } else {
-              return <></>
+              return <Fragment key={seatUsername}></Fragment>
             }
           })
         }
@@ -357,7 +357,7 @@ function GameTable({
                 </div>
               )
             } else {
-              return <></>
+              return <Fragment key={seatUsername}></Fragment>
             }
           })
         }
