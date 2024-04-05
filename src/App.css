@@ -756,6 +756,7 @@ body {
   color: white;
   font-size: xx-large;
   font-weight: 700 !important;
+  word-wrap: break-word;
 }
 
 /* --- Button Pulse --- */
