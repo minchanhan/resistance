@@ -17,7 +17,9 @@ function InfoTable({
 
   return (
     <div className="infoTable">
-      <RebellionLogo />
+      <div className="titleLogo">
+        <RebellionLogo />
+      </div>
 
       {
         !gameStarted ? (

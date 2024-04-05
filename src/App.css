@@ -26,9 +26,9 @@
   -ms-box-sizing: border-box;
   -o-box-sizing: border-box;
 }
-
 body {
   font-weight: 500;
+  background-color: rgba(117, 102, 102, 0.676);
 }
 
 /* ----- Container ----- */
@@ -44,8 +44,8 @@ body {
   -ms-box-sizing: border-box;
   -o-box-sizing: border-box;
 
-  width: 100vw;
-  height: 100vh;
+  width: 100svw;
+  height: 100svh;
   margin: 0;
   background-image: url("./assets/rebellionBackgroundPlain.svg");
   background-position: center center;
@@ -56,31 +56,48 @@ body {
 
 /* ----- Start Screen ----- */
 .startScreen {
+  width: 100%;
+  height: 85%;
+
   display: flex;
   flex-flow: column nowrap;
-  width: 95%;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  align-self: flex-end;
+  gap: 0.5rem;
 }
+
 .startTitle {
-  margin: 0.5rem 0;
+  flex: 0 40%;
+  padding: 0 1rem;
+
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+.logo {
+  display: block;
 }
 
 .userOptionsBox {
+  flex: 1 60%;
   display: flex;
   flex-flow: column nowrap;
   justify-content: space-around;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.25rem 0;
+  padding: 1rem 0 0 0;
 }
 
 .footer {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 2%;
-  font-size: 0.75rem;
+  flex: 2 0;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-end;
+  align-items: center;
+  padding-bottom: 0.25rem;
 }
-
 .footerContent {
   display: flex;
   justify-content: center;
@@ -90,6 +107,7 @@ body {
   margin: 0 0.2rem;
   border-bottom: 1px solid black;
   cursor: pointer;
+  font-size: small;
 }
 
 /* ----- Game Screen Features ----- */
@@ -129,34 +147,29 @@ body {
 }
 
 /* --- Info Table --- */
-.infoTable {  
+.infoTable {
+  width: 90%;
+  
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 1.5rem 0;
+  align-self: center;
+  gap: 3rem;
 }
 
-/* ----- Title Logo ----- */
-.titleLogo { 
-  flex: 1.25;
+.titleLogo {
+  flex: 1;
+  padding: 0.5rem;
 
   display: flex;
   justify-content: center;
-  align-items: center;
-}
-.gameScreen .titleLogo > svg {
-  width: 75%;
-  height: 75%;
-}
-.startScreen .titleLogo {
-  margin-bottom: 1rem;
-}
-.startScreen .titleLogo > svg {
-  width: 70%;
-  height: 70%;
+  align-content: center;
 }
 
 .information { 
+  height: 90%;
+  width: 90%;
+  padding: 0.25rem 0;
   flex: 1;
   font-weight: 500 !important;
   
@@ -166,6 +179,7 @@ body {
   flex-flow: column wrap;
   color: black;
 }
+
 
 /* --- Game Settings --- */
 .gameSettings * { 
@@ -712,8 +726,8 @@ body {
 }
 
 /* ----- Borders ----- */
-.infoTable,
-.table
+.table,
+.information
 {
   border: 2px solid var(--secondary-dark);
   border-radius: 0.5rem;
@@ -881,11 +895,16 @@ body {
     flex-flow: column nowrap;
     gap: 0.5rem;
   }
-  .gameScreen .titleLogo {
+  .titleLogo {
     flex: 1;
   }
   .information {
     font-size: 0.85rem;
+  }
+
+  /* Game Settings */
+  .gameSettings {
+    flex: 1;
   }
   
   /* Game Table */
@@ -913,6 +932,17 @@ body {
   }
 }
 
+@media all and (max-height: 450px) and (orientation: landscape) {
+  /* Really Short */
+  .startScreen {
+    padding-bottom: 1rem;
+    gap: 0rem;
+  }
+  .userOptionsBox {
+    gap: 0.15rem;
+  }
+}
+
 /* ----- Vertical ----- */
 /* Tall, Portrait */
 @media all and (min-height: 1200px) and (orientation: portrait) {
@@ -933,20 +963,13 @@ body {
   /* Info Table */
   .infoTable {
     flex-flow: row nowrap;
-    gap: 0.75rem;
+    gap: 4rem;
+    margin-bottom: 1.5rem;
   }
-  .gameScreen .titleLogo {
-    flex: 1.25;
-  }
-  .gameScreen .titleLogo > svg {
-    width: 55%;
-  }
+  
   .information {
     flex: 1;
-    margin-right: 0.25rem;
   }
-
-  /* Game Table */
 
   /* Game Commands */
   .gameSettings, .gameCommands {
@@ -970,11 +993,6 @@ body {
 /* --- Special Cases --- */
 /* Thinning, Portrait */
 @media all and (max-width: 650px) and (orientation: portrait) {
-  .startScreen .titleLogo > svg {
-    width: 90%;
-    height: 90%;
-  }
-
   /* Changing Game Table */
   .up.adjust {
     margin-bottom: 3rem;
@@ -1026,11 +1044,19 @@ body {
 
 /* Really Thin, Portrait */
 @media all and (max-width: 425px) and (orientation: portrait) {
-  
-  .information {
-    font-size: 0.7rem;
-    margin-left: -2rem;
+  .infoTable {
+    flex: 0;
+    flex-flow: column nowrap;
+    gap: 1rem;
+    margin-bottom: 0;
   }
+  .information, .masterMsg {
+    font-size: 0.9rem;
+  }
+  .titleLogo {
+    width: 65%;
+  }
+  
   .missionToken {
     width: 3rem;
     height: 3rem;
@@ -1058,9 +1084,4 @@ body {
   .twoFailsText {
     font-size: 0.67rem;
   }
-}
-
-@media all and (max-height: 450px) and (orientation: landscape) {
-  /* Really Short */
-  
 }

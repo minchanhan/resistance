@@ -161,14 +161,14 @@ function StartScreen({
         />
         <DisplayButton className="startScreenBtn" onClick={handleRandomJoin} text="Join Random Room" />
         <DisplayButton className="startScreenBtn" onClick={handleInstructionsOpen} text="Instructions" />
+
+        <footer className="footer">
+          <div className="footerContent">
+            <p onClick={() => {setContactOpen(true)}}>Contact</p>
+            <p onClick={() => {setTosOpen(true)}}>Terms of Service</p>
+          </div>
+        </footer>
       </div>
-      
-      <footer className="footer">
-        <div className="footerContent">
-          <p onClick={() => {setContactOpen(true)}}>Contact</p>
-          <p onClick={() => {setTosOpen(true)}}>Terms of Service</p>
-        </div>
-      </footer>
     </div>
   );
 }
