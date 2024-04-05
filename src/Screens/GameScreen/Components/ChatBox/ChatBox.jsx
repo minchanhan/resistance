@@ -70,7 +70,7 @@ function ChatBox({
         ) : <></>
       }
       <div className="chatHeader">
-        <p>Comunication</p>
+        <p>Communication</p>
       </div>
 
       <div className="chatBody">
