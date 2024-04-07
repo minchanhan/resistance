@@ -95,6 +95,8 @@ function App() {
   const [missionResultTrack, setMissionResultTrack] = useState(["none","none","none","none","none"]); // pass/fail
   const [selectedPlayers, setSelectedPlayers] = useState([]); // selected players for vote/mission  
 
+  const [youDisconnectedModalOpen, setYouDisconnectedModalOpen] = useState(false);
+
   // Timer
   const [secs, setSecs] = useState(0);
   const [mins, setMins] = useState(0);
@@ -127,6 +129,10 @@ function App() {
     setGameEnd(false);
   }
 
+  const checkIfInGame = (room) => {
+    socket.emit("am_i_in_game", room);
+  }
+
   // timer
   useEffect(() => {
     let interval = setInterval(() => {
@@ -157,6 +163,32 @@ function App() {
 
   /* --- Listening for socket messages --- */
   useEffect(() => {
+    // helper
+    const resetActionLobbyTimer = () => {
+      // reset game actions to defaults
+      setTeamSelectHappening(false);
+      setLeaderSelecting(false);
+      setDisableTeamSubmit(false);
+  
+      setVoteHappening(false);
+      setDisableVoteBtns(false);
+  
+      setMissionHappening(false);
+      setGoingOnMission(false);
+      setDisableMissionActions(false);
+  
+      // reset lobby
+      setGameStarted(false);
+      setMissionNumber(1);
+      setCurMissionVoteDisapproves(0);
+      setMissionResultTrack(["none","none","none","none","none"]);
+      setSelectedPlayers([]);
+  
+      // reset team select timer
+      setSecs(0);
+      setMins(0);
+    };
+
     // functions
     const handlePlayerJoin = (lobbyInfo) => {
       setSeats(lobbyInfo.seats);
@@ -199,28 +231,7 @@ function App() {
       setEndMsg(info.endMsg);
       if (!info.kicked) setGameEnd(true);
 
-      // reset game actions to defaults
-      setTeamSelectHappening(false);
-      setLeaderSelecting(false);
-      setDisableTeamSubmit(false);
-
-      setVoteHappening(false);
-      setDisableVoteBtns(false);
-
-      setMissionHappening(false);
-      setGoingOnMission(false);
-      setDisableMissionActions(false);
-
-      // reset lobby
-      setGameStarted(false);
-      setMissionNumber(1);
-      setCurMissionVoteDisapproves(0);
-      setMissionResultTrack(["none","none","none","none","none"]);
-      setSelectedPlayers([]);
-
-      // reset team select timer
-      setSecs(0);
-      setMins(0);
+      resetActionLobbyTimer();
     };
 
     const handleSeats = (seats) => {
@@ -285,6 +296,39 @@ function App() {
       setMsgList((msgList) => [...msgList, msgData]);
       setNewMsg(true);
     };
+
+    const handleInGameCallback = (info) => {
+      if (!info.inGame) {
+        setYouDisconnectedModalOpen(true);
+
+        // reset all states to default because they should be considered a new user:
+        setGameScreen(false); // will cause navigation
+        setUsername("");
+        setIsAdmin(false);
+        setRoomAdminName("");
+        setValidRoom(true);
+        setRoomStatus("");
+        setCapacity(6);
+        setSelectionTime(7);
+        setPrivateRoom(true);
+        setRoomCode("");
+        setRandomStatusMsg("");
+        setGameMasterSpeech("Welcome... to the rebellion");
+        setMsg("");
+        setMsgList([]);
+        setNewMsg(false);
+        setSeats([]);
+        setGameStarted(false);
+        setGameEnd(false);
+        setTimerGoal(null);
+
+        setRevealedPlayers([]);
+        setEndMsg("");
+        setGameEnd(false);
+
+        resetActionLobbyTimer();
+      }
+    };
     
     // listeners
     socket.on("player_joined_lobby", handlePlayerJoin);
@@ -303,6 +347,8 @@ function App() {
     socket.on("mission_completed", handleMissionComplete);
     socket.on("room_with_code", handleRoomWithCode);
     socket.on("receive_msg", handleReceiveMsg);
+    
+    socket.on("are_you_in_game", handleInGameCallback); // special
 
     return () => {
       // cleanup
@@ -322,6 +368,8 @@ function App() {
       socket.off("mission_completed", handleMissionComplete);
       socket.off("room_with_code", handleRoomWithCode);
       socket.off("receive_msg", handleReceiveMsg);
+
+      socket.on("are_you_in_game", handleInGameCallback); // special
     };
   });
 
@@ -379,6 +427,7 @@ function App() {
     mins: mins,
     secs: secs,
     navigate: navigate,
+    checkIfInGame: checkIfInGame,
   };
 
   const endScreenProps = {
@@ -402,7 +451,17 @@ function App() {
               </>
             } 
           />
-          <Route path="/join/:room" element={<StartScreen {...{...startScreenProps, hasJoinEmbed: true}} />} />
+          <Route 
+            path="/join/:room" 
+            element={
+              <StartScreen {...{
+                ...startScreenProps, 
+                hasJoinEmbed: true, 
+                youDisconnectedModalOpen: youDisconnectedModalOpen,
+                setYouDisconnectedModalOpen: setYouDisconnectedModalOpen,
+              }} />
+            } 
+          />
           <Route path="*" element={<StartScreen {...startScreenProps} />} />
         </Routes>
       </div>

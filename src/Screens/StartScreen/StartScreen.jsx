@@ -10,6 +10,7 @@ import UserInput from "../../Components/UserInput";
 import RebellionLogo from "../../assets/RebellionLogo.jsx";
 import TermsOfService from "./Components/Footer/TermsOfService.jsx";
 import Contact from "./Components/Footer/Contact.jsx";
+import YouDisconnected from "./Components/YouDisconnected.jsx";
 
 function StartScreen({ 
   socket, 
@@ -19,6 +20,8 @@ function StartScreen({
   randomStatusMsg,
   navigate,
   hasJoinEmbed=false,
+  youDisconnectedModalOpen=false,
+  setYouDisconnectedModalOpen=() => {},
   validRoom,
   setValidRoom,
   roomStatus,
@@ -100,8 +103,12 @@ function StartScreen({
   };
   const handleContactClose = () => {
     setContactOpen(false);
-  }
-  
+  };
+
+  const handleYouDisconnectedClose = () => {
+    setYouDisconnectedModalOpen(false);
+  };
+
   return (
     <div className="startScreen">
       <JoinRoomModal 
@@ -126,6 +133,10 @@ function StartScreen({
       <Contact
         open={contactOpen}
         handleContactClose={handleContactClose}
+      />
+      <YouDisconnected
+        open={youDisconnectedModalOpen}
+        handleYouDisconnectedClose={handleYouDisconnectedClose}
       />
 
       <div className="startTitle">
