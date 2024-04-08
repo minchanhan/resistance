@@ -6,6 +6,7 @@
   --disabled-priv-text: #D9D9D9;
   --my-green: #8BBD8B;
   --my-red: #DF4730;
+  --my-blue: #102BB0;
 
   font-family: Inter, sans-serif;
   font-feature-settings: 'liga' 1, 'calt' 1; /* fix for Chrome */
