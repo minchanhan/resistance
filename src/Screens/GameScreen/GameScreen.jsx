@@ -89,9 +89,6 @@ function GameScreen({
         navigate("/", { replace: true });
       }
       return;
-    } else { // will run the first time someone who clicked back from room in safari
-      // clicks forward again for example
-      checkIfInGame(room);
     }
   }, [gameScreen, room, navigate, checkIfInGame]);
 
