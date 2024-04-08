@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
-import './App.css';
 import io from 'socket.io-client';
-
-import StartScreen from './Screens/StartScreen/StartScreen';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import './App.css';
+import StartScreen from './Screens/StartScreen/StartScreen';
 import EndScreen from './Screens/EndScreen/EndScreen';
 import GameScreen from './Screens/GameScreen/GameScreen';
 
@@ -44,40 +43,35 @@ function App() {
 
   // Screen States
   const [gameScreen, setGameScreen] = useState(false); // Start screen or lobby/game screen
+  const [gameEnd, setGameEnd] = useState(false); // is end modal showing
+  const [youDisconnectedModalOpen, setYouDisconnectedModalOpen] = useState(false);
 
   // Client Settings
   const [username, setUsername] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
-  const [roomAdminName, setRoomAdminName] = useState("");
 
+  const [roomCode, setRoomCode] = useState("");
   const [validRoom, setValidRoom] = useState(true);
   const [roomStatus, setRoomStatus] = useState("");
+  const [randomStatusMsg, setRandomStatusMsg] = useState(""); // for random room
 
   // Game Settings
-  // Mutable before game start 
   const [capacity, setCapacity] = useState(6);
   const [selectionTime, setSelectionTime] = useState(7);
   const [privateRoom, setPrivateRoom] = useState(true);
 
-  // Immuatable before game start 
-  const [roomCode, setRoomCode] = useState("");
-  
-  // End Game
-  const [endMsg, setEndMsg] = useState("");
-  const [revealedPlayers, setRevealedPlayers] = useState([]);
-
-  // Other msgs
-  const [randomStatusMsg, setRandomStatusMsg] = useState("");
+  // Game Screen
+  const [roomAdminName, setRoomAdminName] = useState("");
   const [gameMasterSpeech, setGameMasterSpeech] = useState("Welcome... to the rebellion");
 
   const [msg, setMsg] = useState("");
   const [msgList, setMsgList] = useState([]);
   const [newMsg, setNewMsg] = useState(false);
 
-  // Game States
   const [seats, setSeats] = useState([]);
-  const [gameStarted, setGameStarted] = useState(false); // If false, then in lobby
-  const [gameEnd, setGameEnd] = useState(false); // is end modal showing
+
+  // Game States
+  const [gameStarted, setGameStarted] = useState(false); // is game started
 
   const [teamSelectHappening, setTeamSelectHappening] = useState(false);
   const [leaderSelecting, setLeaderSelecting] = useState(false); // leader selecting
@@ -95,13 +89,16 @@ function App() {
   const [missionResultTrack, setMissionResultTrack] = useState(["none","none","none","none","none"]); // pass/fail
   const [selectedPlayers, setSelectedPlayers] = useState([]); // selected players for vote/mission  
 
-  const [youDisconnectedModalOpen, setYouDisconnectedModalOpen] = useState(false);
+  // End Game
+  const [endMsg, setEndMsg] = useState("");
+  const [revealedPlayers, setRevealedPlayers] = useState([]);
 
   // Timer
   const [secs, setSecs] = useState(0);
   const [mins, setMins] = useState(0);
   const [timerGoal, setTimerGoal] = useState(null); // seconds since jan 1970 + selectionTime
 
+  /* HELPERS */
   const startGame = () => {
     socket.emit("admin_start_game");
   }
