@@ -41,27 +41,37 @@ function App() {
 
   const navigate = useNavigate();
 
-  // Screen States
-  const [gameScreen, setGameScreen] = useState(false); // Start screen or lobby/game screen
-  const [gameEnd, setGameEnd] = useState(false); // is end modal showing
+  // Modal States
+  const [endModalOpen, setEndModalOpen] = useState(false);
   const [youDisconnectedModalOpen, setYouDisconnectedModalOpen] = useState(false);
 
-  // Client Settings
+  // Client States
   const [username, setUsername] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
 
-  const [roomCode, setRoomCode] = useState("");
-  const [validRoom, setValidRoom] = useState(true);
-  const [roomStatus, setRoomStatus] = useState("");
-  const [randomStatusMsg, setRandomStatusMsg] = useState(""); // for random room
-
   // Game Settings
+  const [roomCode, setRoomCode] = useState("");
+  const [roomAdminName, setRoomAdminName] = useState("");
+
   const [capacity, setCapacity] = useState(6);
   const [selectionTime, setSelectionTime] = useState(7);
   const [privateRoom, setPrivateRoom] = useState(true);
 
+  // Game States
+  const [gameStarted, setGameStarted] = useState(false); // is game started
+
+  const [teamSelectHappening, setTeamSelectHappening] = useState(false); // team select
+  const [isMissionLeader, setIsMissionLeader] = useState(false); // is leader
+  const [disableTeamSubmit, setDisableTeamSubmit] = useState(false);
+
+  const [voteHappening, setVoteHappening] = useState(false); // vote
+  const [disableVoteBtns, setDisableVoteBtns] = useState(false);
+
+  const [missionHappening, setMissionHappening] = useState(false); // mission
+  const [isGoingOnMission, setIsGoingOnMission] = useState(false);
+  const [disableMissionActions, setDisableMissionActions] = useState(false);  
+
   // Game Screen
-  const [roomAdminName, setRoomAdminName] = useState("");
   const [gameMasterSpeech, setGameMasterSpeech] = useState("Welcome... to the rebellion");
 
   const [msg, setMsg] = useState("");
@@ -69,25 +79,16 @@ function App() {
   const [newMsg, setNewMsg] = useState(false);
 
   const [seats, setSeats] = useState([]);
-
-  // Game States
-  const [gameStarted, setGameStarted] = useState(false); // is game started
-
-  const [teamSelectHappening, setTeamSelectHappening] = useState(false);
-  const [leaderSelecting, setLeaderSelecting] = useState(false); // leader selecting
-  const [disableTeamSubmit, setDisableTeamSubmit] = useState(false);
-
-  const [voteHappening, setVoteHappening] = useState(false); // vote
-  const [disableVoteBtns, setDisableVoteBtns] = useState(false);
-
-  const [missionHappening, setMissionHappening] = useState(false);
-  const [goingOnMission, setGoingOnMission] = useState(false); // mission
-  const [disableMissionActions, setDisableMissionActions] = useState(false);
+  const [selectedPlayers, setSelectedPlayers] = useState([]); // selected players for vote/mission  
 
   const [missionNumber, setMissionNumber] = useState(1);
   const [curMissionVoteDisapproves, setCurMissionVoteDisapproves] = useState(0);
   const [missionResultTrack, setMissionResultTrack] = useState(["none","none","none","none","none"]); // pass/fail
-  const [selectedPlayers, setSelectedPlayers] = useState([]); // selected players for vote/mission  
+
+  // misc.
+  const [validRoom, setValidRoom] = useState(true);
+  const [roomStatus, setRoomStatus] = useState("");
+  const [randomStatusMsg, setRandomStatusMsg] = useState(""); // for random room
 
   // End Game
   const [endMsg, setEndMsg] = useState("");
@@ -123,7 +124,7 @@ function App() {
   };
 
   const handleEndModalClose = () => {
-    setGameEnd(false);
+    setEndModalOpen(false);
   }
 
   const checkIfInGame = (room) => {
@@ -164,14 +165,14 @@ function App() {
     const resetActionLobbyTimer = () => {
       // reset game actions to defaults
       setTeamSelectHappening(false);
-      setLeaderSelecting(false);
+      setIsMissionLeader(false);
       setDisableTeamSubmit(false);
   
       setVoteHappening(false);
       setDisableVoteBtns(false);
   
       setMissionHappening(false);
-      setGoingOnMission(false);
+      setIsGoingOnMission(false);
       setDisableMissionActions(false);
   
       // reset lobby
@@ -191,7 +192,6 @@ function App() {
       setSeats(lobbyInfo.seats);
       setRoomCode(lobbyInfo.room);
       setRoomAdminName(lobbyInfo.roomAdmin);
-      setGameScreen(true);
       setRandomStatusMsg("");
       navigate(`/${lobbyInfo.room}`, { replace: true });
     };
@@ -211,7 +211,6 @@ function App() {
     };
 
     const handleKickedPlayer = () => { 
-      setGameScreen(false);
       setRoomAdminName("");
       setRoomCode("");
     };
@@ -226,7 +225,7 @@ function App() {
       // handle end game
       setRevealedPlayers(info.playerRevealArr);
       setEndMsg(info.endMsg);
-      if (!info.kicked) setGameEnd(true);
+      if (!info.kicked) setEndModalOpen(true);
 
       resetActionLobbyTimer();
     };
@@ -241,15 +240,15 @@ function App() {
     
     const handleLeaderSelect = (info) => { 
       setGameStarted(true); // GAME START WHEN LEADER STARTS SELECTING
-      setGameEnd(false); // If the modal is still up, take it down
+      setEndModalOpen(false); // If the modal is still up, take it down
       setSelectedPlayers([]); // reset
 
-      setLeaderSelecting(info.isSelecting); // 1a
+      setIsMissionLeader(info.isSelecting); // 1a
       setDisableTeamSubmit(false); // 1a
       setTeamSelectHappening(true);
       setVoteHappening(false); // 2c
       setMissionHappening(false); // 3c
-      setGoingOnMission(false);
+      setIsGoingOnMission(false);
 
       const now = Math.floor(new Date().getTime() / 1000);
       setTimerGoal(now + (info.mins * 60));
@@ -258,7 +257,7 @@ function App() {
     const handlePlayerVoteStart = (info) => { 
       setSelectedPlayers(info.selectedPlayers);
 
-      setLeaderSelecting(false); // 1c
+      setIsMissionLeader(false); // 1c
       setTeamSelectHappening(false);
       setVoteHappening(true); // 2a
       setDisableVoteBtns(false); // 2a
@@ -270,13 +269,13 @@ function App() {
 
     const handleMissionStart = (onMissionTeam) => {
       setVoteHappening(false); // 2c
-      setGoingOnMission(onMissionTeam); // 3a
+      setIsGoingOnMission(onMissionTeam); // 3a
       setMissionHappening(true);
       setDisableMissionActions(false); // 3a
     };
 
     const handleMissionComplete = (info) => { // only when mission completed AND new one starting
-      setGoingOnMission(false); // 3c
+      setIsGoingOnMission(false); // 3c
       setMissionHappening(false);
 
       // update mission stats
@@ -299,7 +298,6 @@ function App() {
         setYouDisconnectedModalOpen(true);
 
         // reset all states to default because they should be considered a new user:
-        setGameScreen(false); // will cause navigation
         setUsername("");
         setIsAdmin(false);
         setRoomAdminName("");
@@ -316,12 +314,12 @@ function App() {
         setNewMsg(false);
         setSeats([]);
         setGameStarted(false);
-        setGameEnd(false);
+        setEndModalOpen(false);
         setTimerGoal(null);
 
         setRevealedPlayers([]);
         setEndMsg("");
-        setGameEnd(false);
+        setEndModalOpen(false);
 
         resetActionLobbyTimer();
       }
@@ -395,10 +393,9 @@ function App() {
     onChangedSelectionTime: onChangedSelectionTime,
     privateRoom: privateRoom,
     onChangedPrivateRoom: onChangedPrivateRoom,
-    gameScreen: gameScreen,
     gameStarted: gameStarted,
     gameMasterSpeech: gameMasterSpeech,
-    leaderSelecting: leaderSelecting,
+    isMissionLeader: isMissionLeader,
     disableTeamSubmit: disableTeamSubmit,
     setDisableTeamSubmit: setDisableTeamSubmit,
     selectedPlayers: selectedPlayers,
@@ -408,7 +405,7 @@ function App() {
     voteHappening: voteHappening,
     curMissionVoteDisapproves: curMissionVoteDisapproves,
     missionHappening: missionHappening,
-    goingOnMission: goingOnMission,
+    isGoingOnMission: isGoingOnMission,
     disableMissionActions: disableMissionActions,
     setDisableMissionActions: setDisableMissionActions,
     missionNumber: missionNumber,
@@ -428,7 +425,7 @@ function App() {
   };
 
   const endScreenProps = {
-    open: gameEnd,
+    open: endModalOpen,
     handleEndModalClose: handleEndModalClose,
     revealedPlayers: revealedPlayers,
     endMsg: endMsg

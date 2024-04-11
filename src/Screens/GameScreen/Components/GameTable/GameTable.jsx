@@ -13,7 +13,7 @@ function GameTable({
   seats, 
   capacity, 
   username, 
-  leaderSelecting,
+  isMissionLeader,
   disableTeamSubmit,
   setDisableTeamSubmit,
   selectedPlayers,
@@ -22,7 +22,7 @@ function GameTable({
   setDisableVoteBtns,
   voteHappening,
   curMissionVoteDisapproves,
-  goingOnMission,
+  isGoingOnMission,
   disableMissionActions,
   setDisableMissionActions,
   missionNumber,
@@ -106,7 +106,7 @@ function GameTable({
   ]);
 
   const handleMissionSelection = (seatUsername) => {
-    if (!leaderSelecting) return;
+    if (!isMissionLeader) return;
 
     // only leaders can handle this
     var updatedSelection = [...selectedPlayers];
@@ -260,7 +260,7 @@ function GameTable({
 
         <div className="tableBtns">
           {
-            leaderSelecting ? (
+            isMissionLeader ? (
               <Button
                 id="submitBtn" 
                 color="secondary"
@@ -291,7 +291,7 @@ function GameTable({
                   Disapprove
                 </Button>
               </div>
-            ) : goingOnMission ? (
+            ) : isGoingOnMission ? (
               <div>
                 <Button 
                   color="green" 

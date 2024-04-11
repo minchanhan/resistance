@@ -25,10 +25,9 @@ function GameScreen({
   onChangedSelectionTime,
   privateRoom,
   onChangedPrivateRoom,
-  gameScreen,
   gameStarted, 
   gameMasterSpeech, 
-  leaderSelecting,
+  isMissionLeader,
   disableTeamSubmit,
   setDisableTeamSubmit,
   selectedPlayers,
@@ -38,7 +37,7 @@ function GameScreen({
   voteHappening,
   curMissionVoteDisapproves,
   missionHappening,
-  goingOnMission,
+  isGoingOnMission,
   disableMissionActions,
   setDisableMissionActions,
   missionNumber,
@@ -80,20 +79,15 @@ function GameScreen({
   const [showHiddenChat, setShowHiddenChat] = useState(false);
 
   useEffect(() => {
-    if (!gameScreen) {
-      if (room == null) {
-        navigate("/", { replace: true });
-      } else if (room.length === 5) {
-        navigate(`/join/${room}`, { replace: true });
-      } else {
-        navigate("/", { replace: true });
-      }
-      return;
-    } else { // will run the first time someone who clicked back from room in safari
-      // clicks forward again for example
-      checkIfInGame(room);
+    if (room == null) {
+      navigate("/", { replace: true });
+    } else if (room.length === 5) {
+      navigate(`/join/${room}`, { replace: true });
+    } else {
+      navigate("/", { replace: true });
     }
-  }, [gameScreen, room, navigate, checkIfInGame]);
+    return;
+  }, [room, navigate]);
 
   // Passing props:
   const gameTableProps = {
@@ -102,7 +96,7 @@ function GameScreen({
     seats: seats,
     capacity: capacity, 
     username: username,
-    leaderSelecting: leaderSelecting,
+    isMissionLeader: isMissionLeader,
     disableTeamSubmit: disableTeamSubmit,
     setDisableTeamSubmit: setDisableTeamSubmit,
     selectedPlayers: selectedPlayers,
@@ -111,7 +105,7 @@ function GameScreen({
     setDisableVoteBtns: setDisableVoteBtns,
     voteHappening: voteHappening,
     curMissionVoteDisapproves: curMissionVoteDisapproves,
-    goingOnMission: goingOnMission,
+    isGoingOnMission: isGoingOnMission,
     disableMissionActions: disableMissionActions,
     setDisableMissionActions: setDisableMissionActions,
     missionNumber: missionNumber,
