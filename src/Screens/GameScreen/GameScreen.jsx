@@ -14,50 +14,59 @@ import GameCommands from "./Components/GameCommands/GameCommands.jsx";
 import GameSettings from "../../Components/GameSettings.jsx";
 
 function GameScreen({ 
-  socket, 
-  username, 
-  roomCode, 
+  navigate,
+  startGame,
+  handleTeamSubmit,
+  handleVote,
+  handleMission,
+  sendMessage,
+
+  username,
   isAdmin,
-  seats, 
+  roomCode,
+  roomAdminName,
+
   capacity,
   onChangedCapacity,
   selectionTime,
   onChangedSelectionTime,
   privateRoom,
   onChangedPrivateRoom,
-  gameStarted, 
-  gameMasterSpeech, 
+
+  gameStarted,
+  teamSelectHappening,
   isMissionLeader,
   disableTeamSubmit,
   setDisableTeamSubmit,
-  selectedPlayers,
-  setSelectedPlayers,
+  voteHappening,
   disableVoteBtns,
   setDisableVoteBtns,
-  voteHappening,
-  curMissionVoteDisapproves,
+
   missionHappening,
   isGoingOnMission,
   disableMissionActions,
   setDisableMissionActions,
-  missionNumber,
-  missionResultTrack,
-  roomAdminName,
-  startGame,
+
   msg,
   setMsg,
   msgList,
   setMsgList,
   newMsg,
   setNewMsg,
+
+  seats,
+  selectedPlayers,
+  setSelectedPlayers,
+
+  missionNumber,
+  curMissionVoteDisapproves,
+  missionResultTrack,
+  
   mins,
   secs,
-  navigate,
-  checkIfInGame
 }) {
   const { room } = useParams();
 
-  // const isRetina = useMediaQuery({ minResolution: '2dppx' });
   const isLandscape = useMediaQuery({ orientation: 'landscape' });
   const isPortrait = useMediaQuery({ orientation: 'portrait' });
 
@@ -91,25 +100,35 @@ function GameScreen({
 
   // Passing props:
   const gameTableProps = {
-    socket: socket,
-    roomCode: roomCode,
-    seats: seats,
-    capacity: capacity, 
+    handleTeamSubmit: handleTeamSubmit,
+    handleVote: handleVote,
+    handleMission: handleMission,
+    sendMessage: sendMessage,
+
     username: username,
+    roomCode: roomCode,
+    capacity: capacity, 
+
+    teamSelectHappening: teamSelectHappening,
     isMissionLeader: isMissionLeader,
     disableTeamSubmit: disableTeamSubmit,
     setDisableTeamSubmit: setDisableTeamSubmit,
-    selectedPlayers: selectedPlayers,
-    setSelectedPlayers: setSelectedPlayers,
+    voteHappening: voteHappening,
     disableVoteBtns: disableVoteBtns,
     setDisableVoteBtns: setDisableVoteBtns,
-    voteHappening: voteHappening,
-    curMissionVoteDisapproves: curMissionVoteDisapproves,
+    missionHappening: missionHappening,
     isGoingOnMission: isGoingOnMission,
     disableMissionActions: disableMissionActions,
     setDisableMissionActions: setDisableMissionActions,
+
+    seats: seats,
+    selectedPlayers: selectedPlayers,
+    setSelectedPlayers: setSelectedPlayers,
+    
     missionNumber: missionNumber,
+    curMissionVoteDisapproves: curMissionVoteDisapproves,
     missionResultTrack: missionResultTrack,
+
     is4K: is4K,
     isReallyShort: isReallyShort,
     isThinning: isThinning,
@@ -119,42 +138,40 @@ function GameScreen({
   };
 
   const infoTableProps = {
-    roomCode: roomCode, 
+    roomCode: roomCode,
     capacity: capacity, 
-    seats: seats, 
     topText: `Room Admin: ${roomAdminName}`,
     missionNumber: missionNumber,
     gameStarted: gameStarted,
     mins: mins,
     secs: secs,
     voteHappening: voteHappening,
-    missionHappening: missionHappening
+    missionHappening: missionHappening,
+    seats: seats, 
   };
   
   const gameSettingsProps = {
-    capacity: capacity,
+    startGame: startGame,
+    isAdmin: isAdmin,
     curNumPlayers: seats.length,
+    capacity: capacity,
     onChangedCapacity: onChangedCapacity,
     selectionTime: selectionTime,
     onChangedSelectionTime: onChangedSelectionTime,
     privateRoom: privateRoom,
     onChangedPrivateRoom: onChangedPrivateRoom,
-    isAdmin: isAdmin,
-    startGame: startGame,
   };
 
   const chatBoxProps = {
-    socket: socket,
     username: username,
     msg: msg,
     setMsg: setMsg,
     msgList: msgList,
     setMsgList: setMsgList,
-    newMsg: newMsg,
-    setNewMsg: setNewMsg,
     showHiddenChat: showHiddenChat,
     setShowHiddenChat: setShowHiddenChat,
-    haveCloseOnWindow: (isLandscape && isShort) || isThin || isPortrait
+    haveCloseOnWindow: (isLandscape && isShort) || isThin || isPortrait,
+    sendMessage: sendMessage,
   }
 
   return (

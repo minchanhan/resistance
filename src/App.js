@@ -72,8 +72,6 @@ function App() {
   const [disableMissionActions, setDisableMissionActions] = useState(false);  
 
   // Game Screen
-  const [gameMasterSpeech, setGameMasterSpeech] = useState("Welcome... to the rebellion");
-
   const [msg, setMsg] = useState("");
   const [msgList, setMsgList] = useState([]);
   const [newMsg, setNewMsg] = useState(false);
@@ -86,9 +84,9 @@ function App() {
   const [missionResultTrack, setMissionResultTrack] = useState(["none","none","none","none","none"]); // pass/fail
 
   // misc.
-  const [validRoom, setValidRoom] = useState(true);
+  const [isValidRoom, setIsValidRoom] = useState(true);
   const [roomStatus, setRoomStatus] = useState("");
-  const [randomStatusMsg, setRandomStatusMsg] = useState(""); // for random room
+  const [randomRoomMsg, setRandomRoomMsg] = useState(""); // for random room
 
   // End Game
   const [endMsg, setEndMsg] = useState("");
@@ -100,36 +98,73 @@ function App() {
   const [timerGoal, setTimerGoal] = useState(null); // seconds since jan 1970 + selectionTime
 
   /* HELPERS */
-  const startGame = () => {
-    socket.emit("admin_start_game");
-  }
-
-  const onChangedUsername = (updatedUsername) => { // from StartScreen
+  const onChangedUsername = (updatedUsername) => { // StartScreen
     setUsername(updatedUsername);
   };
 
-  const onChangedCapacity = (updatedCapacity) => { // from StartScreen
+  const createRoom = () => { // StartScreen
+    setIsAdmin(true);
+    socket.emit("create_room", username);
+  };
+
+  const joinRoom = (enteredRoomCode) => { // StartScreen
+    socket.emit("join_room", enteredRoomCode);
+  };
+
+  const onChangedCapacity = (updatedCapacity) => { // GameSettings
     setCapacity(updatedCapacity);
     socket.emit("set_capacity", updatedCapacity);
   };
 
-  const onChangedSelectionTime = (updatedSelectionTime) => { // from StartScreen
+  const onChangedSelectionTime = (updatedSelectionTime) => { // GameSettings
     setSelectionTime(updatedSelectionTime);
     socket.emit("set_selection_time", updatedSelectionTime);
   };
 
-  const onChangedPrivateRoom = () => { // from StartScreen
+  const onChangedPrivateRoom = () => { // GameSettings
     socket.emit("set_private", !privateRoom);
     setPrivateRoom(!privateRoom);
   };
 
-  const handleEndModalClose = () => {
+  const handleEndModalClose = () => { // GameScreen
     setEndModalOpen(false);
-  }
+  };
+
+  const startGame = () => { // GameScreen
+    socket.emit("admin_start_game");
+  };
+
+  const handleTeamSubmit = () => {
+    socket.emit("selected_players_for_vote", { selectedPlayers: selectedPlayers, roomCode: roomCode });
+    setDisableTeamSubmit(true); // 1b
+  };
+
+  const handleVote = (approve) => {
+    socket.emit("vote_is_in", { username: username, selectedPlayers: selectedPlayers, approve: approve, roomCode: roomCode });
+    setDisableVoteBtns(true); // 2b
+  };
+
+  const handleMission = (pass) => {
+    socket.emit("mission_result_is_in", { pass: pass, roomCode: roomCode });
+    setDisableMissionActions(true); // 3b
+  };
+
+  const sendMessage = (msgData) => {
+    socket.emit("send_msg", msgData);
+  };
+  
+
+  
+
+
+
+
+
+
 
   const checkIfInGame = (room) => {
     socket.emit("am_i_in_game", room);
-  }
+  };
 
   // timer
   useEffect(() => {
@@ -192,7 +227,7 @@ function App() {
       setSeats(lobbyInfo.seats);
       setRoomCode(lobbyInfo.room);
       setRoomAdminName(lobbyInfo.roomAdmin);
-      setRandomStatusMsg("");
+      setRandomRoomMsg("");
       navigate(`/${lobbyInfo.room}`, { replace: true });
     };
 
@@ -201,7 +236,7 @@ function App() {
     };
 
     const handleRandomStatus = (msg) => {
-      setRandomStatusMsg(msg);
+      setRandomRoomMsg(msg);
     };
 
     const handleGameSettingsChange = (settings) => { 
@@ -284,7 +319,7 @@ function App() {
     };
 
     const handleRoomWithCode = (data) => {
-      setValidRoom(data.exists);
+      setIsValidRoom(data.exists);
       setRoomStatus(data.reason);
     };
 
@@ -301,13 +336,13 @@ function App() {
         setUsername("");
         setIsAdmin(false);
         setRoomAdminName("");
-        setValidRoom(true);
+        setIsValidRoom(true);
         setRoomStatus("");
         setCapacity(6);
         setSelectionTime(7);
         setPrivateRoom(true);
         setRoomCode("");
-        setRandomStatusMsg("");
+        setRandomRoomMsg("");
         setGameMasterSpeech("Welcome... to the rebellion");
         setMsg("");
         setMsgList([]);
@@ -369,59 +404,68 @@ function App() {
   });
 
   const startScreenProps = {
-    socket: socket, 
+    navigate: navigate,
     username: username, 
     onChangedUsername: onChangedUsername,
-    setIsAdmin: setIsAdmin,
-    randomStatusMsg: randomStatusMsg,
-    navigate: navigate,
-    validRoom: validRoom,
-    setValidRoom: setValidRoom,
+    createRoom: createRoom,
+    joinRoom: joinRoom,
+    isValidRoom: isValidRoom,
+    setIsValidRoom: setIsValidRoom,
     roomStatus: roomStatus,
-    setRoomStatus: setRoomStatus
+    setRoomStatus: setRoomStatus,
+    randomRoomMsg: randomRoomMsg,
   };
 
   const gameScreenProps = {
-    socket: socket,
+    navigate: navigate,
+    startGame: startGame,
+    handleTeamSubmit: handleTeamSubmit,
+    handleVote: handleVote,
+    handleMission: handleMission,
+    sendMessage: sendMessage,
+
     username: username,
-    roomCode: roomCode,
     isAdmin: isAdmin,
-    seats: seats,
+    roomCode: roomCode,
+    roomAdminName: roomAdminName,
+
     capacity: capacity,
     onChangedCapacity: onChangedCapacity,
     selectionTime: selectionTime,
     onChangedSelectionTime: onChangedSelectionTime,
     privateRoom: privateRoom,
     onChangedPrivateRoom: onChangedPrivateRoom,
+
     gameStarted: gameStarted,
-    gameMasterSpeech: gameMasterSpeech,
+    teamSelectHappening: teamSelectHappening,
     isMissionLeader: isMissionLeader,
     disableTeamSubmit: disableTeamSubmit,
     setDisableTeamSubmit: setDisableTeamSubmit,
-    selectedPlayers: selectedPlayers,
-    setSelectedPlayers: setSelectedPlayers,
+    voteHappening: voteHappening,
     disableVoteBtns: disableVoteBtns,
     setDisableVoteBtns: setDisableVoteBtns,
-    voteHappening: voteHappening,
-    curMissionVoteDisapproves: curMissionVoteDisapproves,
     missionHappening: missionHappening,
     isGoingOnMission: isGoingOnMission,
     disableMissionActions: disableMissionActions,
     setDisableMissionActions: setDisableMissionActions,
-    missionNumber: missionNumber,
-    missionResultTrack: missionResultTrack,
-    roomAdminName: roomAdminName,
-    startGame: startGame,
+
     msg: msg,
     setMsg: setMsg,
     msgList: msgList,
     setMsgList: setMsgList,
     newMsg: newMsg,
     setNewMsg: setNewMsg,
+
+    seats: seats,
+    selectedPlayers: selectedPlayers,
+    setSelectedPlayers: setSelectedPlayers,
+
+    missionNumber: missionNumber,
+    curMissionVoteDisapproves: curMissionVoteDisapproves,
+    missionResultTrack: missionResultTrack,
+    
     mins: mins,
     secs: secs,
-    navigate: navigate,
-    checkIfInGame: checkIfInGame,
   };
 
   const endScreenProps = {

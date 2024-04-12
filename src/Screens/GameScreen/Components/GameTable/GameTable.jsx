@@ -8,25 +8,35 @@ import { Button } from "@mui/material";
 import { useMediaQuery } from "react-responsive";
 
 function GameTable({
-  socket,
+  handleTeamSubmit,
+  handleVote,
+  handleMission,
+  sendMessage,
+
+  username,
   roomCode,
-  seats, 
   capacity, 
-  username, 
+
+  teamSelectHappening,
   isMissionLeader,
   disableTeamSubmit,
   setDisableTeamSubmit,
-  selectedPlayers,
-  setSelectedPlayers,
+  voteHappening,
   disableVoteBtns,
   setDisableVoteBtns,
-  voteHappening,
-  curMissionVoteDisapproves,
+  missionHappening,
   isGoingOnMission,
   disableMissionActions,
   setDisableMissionActions,
+
+  seats,
+  selectedPlayers,
+  setSelectedPlayers,
+  
   missionNumber,
+  curMissionVoteDisapproves,
   missionResultTrack,
+
   is4K,
   isReallyShort,
   isThinning,
@@ -122,21 +132,6 @@ function GameTable({
     
     // Update state and check if submit button should be disabled
     setSelectedPlayers(updatedSelection);
-  };
-
-  const handleTeamSubmit = () => {
-    socket.emit("selected_players_for_vote", { selectedPlayers: selectedPlayers, roomCode: roomCode });
-    setDisableTeamSubmit(true); // 1b
-  };
-
-  const handleVote = (approve) => {
-    socket.emit("vote_is_in", { username: username, selectedPlayers: selectedPlayers, approve: approve, roomCode: roomCode });
-    setDisableVoteBtns(true); // 2b
-  };
-
-  const handleMission = (pass) => {
-    socket.emit("mission_result_is_in", { pass: pass, roomCode: roomCode });
-    setDisableMissionActions(true); // 3b
   };
 
   const gameStartedPlayerBox = (

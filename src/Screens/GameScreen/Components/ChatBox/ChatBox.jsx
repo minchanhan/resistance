@@ -3,7 +3,6 @@ import CloseIcon from '@mui/icons-material/Close';
 import CampaignIcon from '@mui/icons-material/Campaign';
 
 function ChatBox({ 
-  socket, 
   username, 
   msg, 
   setMsg, 
@@ -11,7 +10,8 @@ function ChatBox({
   setMsgList,
   showHiddenChat,
   setShowHiddenChat,
-  haveCloseOnWindow
+  haveCloseOnWindow,
+  sendMessage
  }) {
   const [atBottom, setAtBottom] = useState(true);
   const msgListEnd = useRef(null);
@@ -40,7 +40,7 @@ function ChatBox({
     return new Date(Date.now()).getHours() + ":" + mins;
   };
 
-  const sendMsg = async () => {
+  const sendMsg = () => {
     if (msg === "") return;
 
     const msgData = {
@@ -49,8 +49,7 @@ function ChatBox({
       time: getTime()
     };
 
-    await socket.emit("send_msg", msgData); // emit event to backend
-
+    sendMessage(msgData);
     setMsgList((msgList) => [...msgList, msgData]);
     setMsg("");
   };

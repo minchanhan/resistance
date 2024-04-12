@@ -5,14 +5,14 @@ import RebellionLogo from "../../../../assets/RebellionLogo.jsx";
 function InfoTable({ 
   roomCode, 
   capacity, 
-  seats, 
   topText, 
   missionNumber, 
   gameStarted=false, 
   mins,
   secs,
   voteHappening,
-  missionHappening
+  missionHappening,
+  seats, 
 }) {
 
   return (

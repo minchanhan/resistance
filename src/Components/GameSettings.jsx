@@ -5,15 +5,15 @@ import CheckIcon from '@mui/icons-material/Check';
 import { Modal } from "@mui/material";
 
 function GameSettings({
-  capacity,
+  startGame,
+  isAdmin,
   curNumPlayers,
+  capacity,
   onChangedCapacity,
   selectionTime,
   onChangedSelectionTime,
   privateRoom,
   onChangedPrivateRoom,
-  isAdmin,
-  startGame,
 }) {
 
   const capacityMenuItems = [5,6,7,8,9,10];

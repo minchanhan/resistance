@@ -13,26 +13,26 @@ import Contact from "./Components/Footer/Contact.jsx";
 import YouDisconnected from "./Components/YouDisconnected.jsx";
 
 function StartScreen({ 
-  socket, 
-  username, 
-  onChangedUsername, 
-  setIsAdmin,
-  randomStatusMsg,
   navigate,
   hasJoinEmbed=false,
   youDisconnectedModalOpen=false,
   setYouDisconnectedModalOpen=() => {},
-  validRoom,
-  setValidRoom,
+  username,
+  onChangedUsername, 
+  createRoom,
+  joinRoom,
+  isValidRoom,
+  setIsValidRoom,
   roomStatus,
-  setRoomStatus
+  setRoomStatus,
+  randomRoomMsg,
 }) {
 
   const { room } = useParams();
+  const invalidRoomCode = room == null || room.length !== 5;
 
-  const [joinRoomModal, setJoinRoomModal] = useState(false);
+  const [joinRoomModalOpen, setJoinRoomModalOpen] = useState(false);
   const [instructionsOpen, setInstructionsOpen] = useState(false);
-
   const [tosOpen, setTosOpen] = useState(false);
   const [contactOpen, setContactOpen] = useState(false);
 
@@ -40,11 +40,7 @@ function StartScreen({
 
   useEffect(() => {
     if (hasJoinEmbed) {
-      if (room == null) {
-        navigate("/", { replace: true });
-        return;
-      }
-      if (room.length !== 5) {
+      if (invalidRoomCode) {
         navigate("/", { replace: true });
         return;
       }
@@ -61,33 +57,21 @@ function StartScreen({
 
   const handleCreate = () => {
     setUsernameWarningCheck(true); // start checking for username
-    if (validUsername()) {
-      socket.emit("set_username", username);
-      socket.emit("set_room_admin", true);
-      socket.emit("set_capacity", 5); // default values
-      socket.emit("set_selection_time", 7); // default values
-      socket.emit("set_private", true); // default values
-      setIsAdmin(true);
-      socket.emit("create_room");
-    }
+    if (validUsername()) createRoom();
   };
 
   const handleJoinOpen = () => {
     setUsernameWarningCheck(true);
-    if (validUsername()) {
-      setJoinRoomModal(true);
-      socket.emit("set_username", username);
-    }
+    if (validUsername()) setJoinRoomModalOpen(true);
   };
   const handleJoinClose = () => {
-    setJoinRoomModal(false);
+    setJoinRoomModalOpen(false);
   };
 
   const handleRandomJoin = () => {
     setUsernameWarningCheck(true);
     if (validUsername()) {
-      socket.emit("set_username", username);
-      socket.emit("join_room", "random_join"); // "random_join" = a room code technically
+      joinRoom("random_join");
     }
   }
 
@@ -112,12 +96,12 @@ function StartScreen({
   return (
     <div className="startScreen">
       <JoinRoomModal 
-        socket={socket}
-        open={joinRoomModal} 
+        open={joinRoomModalOpen} 
         handleJoinClose={handleJoinClose}
         room={room}
-        validRoom={validRoom}
-        setValidRoom={setValidRoom}
+        joinRoom={joinRoom}
+        isValidRoom={isValidRoom}
+        setIsValidRoom={setIsValidRoom}
         roomStatus={roomStatus}
         setRoomStatus={setRoomStatus}
       />
@@ -147,7 +131,7 @@ function StartScreen({
         <UserInput
           value={username} 
           onChange={(event) => {
-            setJoinRoomModal(false);
+            setJoinRoomModalOpen(false);
             if (event.target.value.slice(-1) !== " ") onChangedUsername(event.target.value.toUpperCase());
           }}
           onPaste={(event) => {
@@ -159,16 +143,16 @@ function StartScreen({
           placeholder="Username"
         />
         {
-          randomStatusMsg !== "" ? <p style={{ color: "red" }}>{randomStatusMsg}</p> : <></>
+          randomRoomMsg !== "" ? <p style={{ color: "red" }}>{randomRoomMsg}</p> : <></>
         }
 
         <DisplayButton className="startScreenBtn" onClick={handleCreate} text="Create Room" />
         <DisplayButton 
-          btnStyle={{backgroundColor: room != null ? "red" : ""}} 
+          btnStyle={{backgroundColor: !invalidRoomCode ? "red" : ""}} 
           className="startScreenBtn" 
           onClick={handleJoinOpen} 
           text="Join Room with Code"
-          extraClassName={room != null ? "pulse" : ""}
+          extraClassName={!invalidRoomCode ? "pulse" : ""}
         />
         <DisplayButton className="startScreenBtn" onClick={handleRandomJoin} text="Join Random Room" />
         <DisplayButton className="startScreenBtn" onClick={handleInstructionsOpen} text="Instructions" />

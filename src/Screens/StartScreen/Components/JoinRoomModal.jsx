@@ -6,30 +6,30 @@ import DisplayButton from "../../../Components/DisplayButton.jsx";
 import UserInput from "../../../Components/UserInput.jsx";
 
 function JoinRoomModal({
-  socket,
   open, 
   handleJoinClose,
   room="",
-  validRoom,
-  setValidRoom,
+  joinRoom,
+  isValidRoom,
+  setIsValidRoom,
   roomStatus,
   setRoomStatus
 }) {
   const [checkedRoom, setCheckedRoom] = useState(false);
-  const [roomCode, setRoomCode] = useState("");
+  const [enteredRoomCode, setEnteredRoomCode] = useState("");
 
   const joinRoom = () => {
     setCheckedRoom(true);
-    if (roomCode.length !== 5) {
-      setValidRoom(false);
+    if (enteredRoomCode.length !== 5) {
+      setIsValidRoom(false);
       setRoomStatus("Room code must be 5 chars");
     } else {
-      socket.emit("join_room", roomCode);
+      joinRoom(enteredRoomCode);
     }
   };
 
   useEffect(() => {
-    setRoomCode(room);
+    setEnteredRoomCode(room);
   }, [room])
 
   return (
@@ -49,9 +49,9 @@ function JoinRoomModal({
         
         <div className="joinRoom">
           <UserInput
-            value={roomCode} 
+            value={enteredRoomCode} 
             onChange={ (event) => {
-              setRoomCode(event.target.value);
+              setEnteredRoomCode(event.target.value);
             }}
             onPaste={(event) => {
               const pastedVal = event.clipboardData.getData('text/plain');
@@ -61,8 +61,8 @@ function JoinRoomModal({
                 return false;
               }
             }}
-            helperText={!validRoom && checkedRoom ? roomStatus : ""}
-            showError={!validRoom && checkedRoom}
+            helperText={!isValidRoom && checkedRoom ? roomStatus : ""}
+            showError={!isValidRoom && checkedRoom}
             placeholder="Room Code"
           />
           <DisplayButton onClick={joinRoom} text="Join Room" />
