@@ -10,13 +10,10 @@ import UserInput from "../../Components/UserInput";
 import RebellionLogo from "../../assets/RebellionLogo.jsx";
 import TermsOfService from "./Components/Footer/TermsOfService.jsx";
 import Contact from "./Components/Footer/Contact.jsx";
-import YouDisconnected from "./Components/YouDisconnected.jsx";
 
 function StartScreen({ 
   navigate,
   hasJoinEmbed=false,
-  youDisconnectedModalOpen=false,
-  setYouDisconnectedModalOpen=() => {},
   username,
   onChangedUsername, 
   createRoom,
@@ -29,7 +26,6 @@ function StartScreen({
 }) {
 
   const { room } = useParams();
-  const invalidRoomCode = room == null || room.length !== 5;
 
   const [joinRoomModalOpen, setJoinRoomModalOpen] = useState(false);
   const [instructionsOpen, setInstructionsOpen] = useState(false);
@@ -39,12 +35,10 @@ function StartScreen({
   const [usernameWarningCheck, setUsernameWarningCheck] = useState(false); // activate warning if needed
 
   useEffect(() => {
-    if (hasJoinEmbed) {
-      if (invalidRoomCode) {
-        navigate("/", { replace: true });
-        return;
-      }
-    }
+    if (hasJoinEmbed && room?.length !== 6) {
+      navigate("/", { replace: true });
+      return;
+    };
   }, [room, navigate, hasJoinEmbed]);
 
   const validUsername = () => {
@@ -89,10 +83,6 @@ function StartScreen({
     setContactOpen(false);
   };
 
-  const handleYouDisconnectedClose = () => {
-    setYouDisconnectedModalOpen(false);
-  };
-
   return (
     <div className="startScreen">
       <JoinRoomModal 
@@ -117,10 +107,6 @@ function StartScreen({
       <Contact
         open={contactOpen}
         handleContactClose={handleContactClose}
-      />
-      <YouDisconnected
-        open={youDisconnectedModalOpen}
-        handleYouDisconnectedClose={handleYouDisconnectedClose}
       />
 
       <div className="startTitle">
@@ -148,11 +134,11 @@ function StartScreen({
 
         <DisplayButton className="startScreenBtn" onClick={handleCreate} text="Create Room" />
         <DisplayButton 
-          btnStyle={{backgroundColor: !invalidRoomCode ? "red" : ""}} 
+          btnStyle={{backgroundColor: hasJoinEmbed ? "red" : ""}} 
           className="startScreenBtn" 
           onClick={handleJoinOpen} 
           text="Join Room with Code"
-          extraClassName={!invalidRoomCode ? "pulse" : ""}
+          extraClassName={hasJoinEmbed ? "pulse" : ""}
         />
         <DisplayButton className="startScreenBtn" onClick={handleRandomJoin} text="Join Random Room" />
         <DisplayButton className="startScreenBtn" onClick={handleInstructionsOpen} text="Instructions" />

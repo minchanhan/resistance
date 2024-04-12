@@ -50,11 +50,11 @@ function App() {
   const [isAdmin, setIsAdmin] = useState(false);
 
   // Game Settings
-  const [roomCode, setRoomCode] = useState("");
+  const [roomCode, setRoomCode] = useState(""); // logic uses roomCode, params is room
   const [roomAdminName, setRoomAdminName] = useState("");
 
   const [capacity, setCapacity] = useState(6);
-  const [selectionTime, setSelectionTime] = useState(7);
+  const [selectionTimeSecs, setSelectionTimeSecs] = useState(7 * 60);
   const [privateRoom, setPrivateRoom] = useState(true);
 
   // Game States
@@ -95,7 +95,7 @@ function App() {
   // Timer
   const [secs, setSecs] = useState(0);
   const [mins, setMins] = useState(0);
-  const [timerGoal, setTimerGoal] = useState(null); // seconds since jan 1970 + selectionTime
+  const [timerGoal, setTimerGoal] = useState(null); // seconds since jan 1970 + selectionTimeSecs
 
   /* HELPERS */
   const onChangedUsername = (updatedUsername) => { // StartScreen
@@ -103,12 +103,25 @@ function App() {
   };
 
   const createRoom = () => { // StartScreen
-    setIsAdmin(true);
-    socket.emit("create_room", username);
+    socket.emit("create_room", username, (res) => {
+      setIsAdmin(true);
+      setRoomCode(res.room);
+      setRoomAdminName(username);
+      navigate(`/${res.room}`, { replace: true });
+    });
   };
 
   const joinRoom = (enteredRoomCode) => { // StartScreen
     socket.emit("join_room", enteredRoomCode);
+  };
+
+  const checkInGame = (room) => {
+    socket.emit("am_i_in_room", room, (res) => {
+      console.log(res.inRoom);
+      if (!res.inRoom) {
+        navigate(`/join/${room}`, { replace: true });
+      }
+    });
   };
 
   const onChangedCapacity = (updatedCapacity) => { // GameSettings
@@ -116,9 +129,9 @@ function App() {
     socket.emit("set_capacity", updatedCapacity);
   };
 
-  const onChangedSelectionTime = (updatedSelectionTime) => { // GameSettings
-    setSelectionTime(updatedSelectionTime);
-    socket.emit("set_selection_time", updatedSelectionTime);
+  const onChangedSelectionTimeSecs = (updatedSelectionTimeSecs) => { // GameSettings
+    setSelectionTimeSecs(updatedSelectionTimeSecs);
+    socket.emit("set_selection_time", updatedSelectionTimeSecs);
   };
 
   const onChangedPrivateRoom = () => { // GameSettings
@@ -151,19 +164,6 @@ function App() {
 
   const sendMessage = (msgData) => {
     socket.emit("send_msg", msgData);
-  };
-  
-
-  
-
-
-
-
-
-
-
-  const checkIfInGame = (room) => {
-    socket.emit("am_i_in_game", room);
   };
 
   // timer
@@ -241,7 +241,7 @@ function App() {
 
     const handleGameSettingsChange = (settings) => { 
       setCapacity(settings.capacity);
-      setSelectionTime(settings.selectionTime);
+      setSelectionTimeSecs(settings.selectionTimeSecs);
       setPrivateRoom(settings.privateRoom);
     };
 
@@ -268,10 +268,6 @@ function App() {
     const handleSeats = (seats) => {
       setSeats([...seats]);
     };
-
-    const handleGameMaster = (speech) => {
-      setGameMasterSpeech(speech);
-    };
     
     const handleLeaderSelect = (info) => { 
       setGameStarted(true); // GAME START WHEN LEADER STARTS SELECTING
@@ -286,7 +282,7 @@ function App() {
       setIsGoingOnMission(false);
 
       const now = Math.floor(new Date().getTime() / 1000);
-      setTimerGoal(now + (info.mins * 60));
+      setTimerGoal(now + info.secs);
     };
 
     const handlePlayerVoteStart = (info) => { 
@@ -339,11 +335,10 @@ function App() {
         setIsValidRoom(true);
         setRoomStatus("");
         setCapacity(6);
-        setSelectionTime(7);
+        setSelectionTimeSecs(7 * 60);
         setPrivateRoom(true);
         setRoomCode("");
         setRandomRoomMsg("");
-        setGameMasterSpeech("Welcome... to the rebellion");
         setMsg("");
         setMsgList([]);
         setNewMsg(false);
@@ -369,7 +364,6 @@ function App() {
     socket.on("room_admin_changed", handleRoomAdminChange);
     socket.on("set_game_end", handleGameEnd);
     socket.on("seats_info_share", handleSeats);
-    socket.on("game_master_speech", handleGameMaster);
     socket.on("leader_is_selecting", handleLeaderSelect);
     socket.on("vote_on_these_players", handlePlayerVoteStart);
     socket.on("vote_track", handleVoteTrackChange);
@@ -390,7 +384,6 @@ function App() {
       socket.off("room_admin_changed", handleRoomAdminChange);
       socket.off("set_game_end", handleGameEnd);
       socket.off("seats_info_share", handleSeats);
-      socket.off("game_master_speech", handleGameMaster);
       socket.off("leader_is_selecting", handleLeaderSelect);
       socket.off("vote_on_these_players", handlePlayerVoteStart);
       socket.off("vote_track", handleVoteTrackChange);
@@ -417,12 +410,12 @@ function App() {
   };
 
   const gameScreenProps = {
-    navigate: navigate,
     startGame: startGame,
     handleTeamSubmit: handleTeamSubmit,
     handleVote: handleVote,
     handleMission: handleMission,
     sendMessage: sendMessage,
+    checkInGame: checkInGame,
 
     username: username,
     isAdmin: isAdmin,
@@ -431,8 +424,8 @@ function App() {
 
     capacity: capacity,
     onChangedCapacity: onChangedCapacity,
-    selectionTime: selectionTime,
-    onChangedSelectionTime: onChangedSelectionTime,
+    selectionTimeSecs: selectionTimeSecs,
+    onChangedSelectionTimeSecs: onChangedSelectionTimeSecs,
     privateRoom: privateRoom,
     onChangedPrivateRoom: onChangedPrivateRoom,
 
@@ -480,8 +473,8 @@ function App() {
       <div className="container">
         <Routes>
           <Route path="/" element={<StartScreen {...startScreenProps} />} />
-          <Route 
-            path="/:room" 
+          <Route
+            path="/:room"
             element={
               <>
                 <GameScreen {...gameScreenProps} />
@@ -489,14 +482,12 @@ function App() {
               </>
             } 
           />
-          <Route 
-            path="/join/:room" 
+          <Route
+            path="/join/:room"
             element={
               <StartScreen {...{
                 ...startScreenProps, 
-                hasJoinEmbed: true, 
-                youDisconnectedModalOpen: youDisconnectedModalOpen,
-                setYouDisconnectedModalOpen: setYouDisconnectedModalOpen,
+                hasJoinEmbed: true
               }} />
             } 
           />

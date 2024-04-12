@@ -18,11 +18,11 @@ function JoinRoomModal({
   const [checkedRoom, setCheckedRoom] = useState(false);
   const [enteredRoomCode, setEnteredRoomCode] = useState("");
 
-  const joinRoom = () => {
+  const handleJoinRoom = () => {
     setCheckedRoom(true);
-    if (enteredRoomCode.length !== 5) {
+    if (enteredRoomCode.length !== 6) {
       setIsValidRoom(false);
-      setRoomStatus("Room code must be 5 chars");
+      setRoomStatus("Room code must be 6 chars");
     } else {
       joinRoom(enteredRoomCode);
     }
@@ -56,7 +56,7 @@ function JoinRoomModal({
             onPaste={(event) => {
               const pastedVal = event.clipboardData.getData('text/plain');
 
-              if (pastedVal.length !== 5) {
+              if (pastedVal.length !== 6) {
                 event.preventDefault();
                 return false;
               }
@@ -65,7 +65,7 @@ function JoinRoomModal({
             showError={!isValidRoom && checkedRoom}
             placeholder="Room Code"
           />
-          <DisplayButton onClick={joinRoom} text="Join Room" />
+          <DisplayButton onClick={handleJoinRoom} text="Join Room" />
         </div>
       </div>
     </Modal>

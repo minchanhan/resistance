@@ -8,11 +8,7 @@
   --my-red: #DF4730;
   --my-blue: #102BB0;
 
-  font-family: Inter, sans-serif;
-  font-feature-settings: 'liga' 1, 'calt' 1; /* fix for Chrome */
-}
-@supports (font-variation-settings: normal) {
-  :root { font-family: InterVariable, sans-serif; }
+  font-family: 'Courier New', 'Courier New', Courier, monospace;
 }
 @media (min-width: 2400px) {
   :root {
@@ -671,7 +667,6 @@ body {
   resize: none;
   font-size: 1rem;
   font-weight: 500 !important;
-  font-family: inherit;
 }
 .chatSendBtn {
   flex: 1 15%;

@@ -14,12 +14,12 @@ import GameCommands from "./Components/GameCommands/GameCommands.jsx";
 import GameSettings from "../../Components/GameSettings.jsx";
 
 function GameScreen({ 
-  navigate,
   startGame,
   handleTeamSubmit,
   handleVote,
   handleMission,
   sendMessage,
+  checkInGame,
 
   username,
   isAdmin,
@@ -28,8 +28,8 @@ function GameScreen({
 
   capacity,
   onChangedCapacity,
-  selectionTime,
-  onChangedSelectionTime,
+  selectionTimeSecs,
+  onChangedSelectionTimeSecs,
   privateRoom,
   onChangedPrivateRoom,
 
@@ -88,15 +88,8 @@ function GameScreen({
   const [showHiddenChat, setShowHiddenChat] = useState(false);
 
   useEffect(() => {
-    if (room == null) {
-      navigate("/", { replace: true });
-    } else if (room.length === 5) {
-      navigate(`/join/${room}`, { replace: true });
-    } else {
-      navigate("/", { replace: true });
-    }
-    return;
-  }, [room, navigate]);
+    checkInGame(room);
+  }, [room, checkInGame]);
 
   // Passing props:
   const gameTableProps = {
@@ -156,8 +149,8 @@ function GameScreen({
     curNumPlayers: seats.length,
     capacity: capacity,
     onChangedCapacity: onChangedCapacity,
-    selectionTime: selectionTime,
-    onChangedSelectionTime: onChangedSelectionTime,
+    selectionTimeSecs: selectionTimeSecs,
+    onChangedSelectionTimeSecs: onChangedSelectionTimeSecs,
     privateRoom: privateRoom,
     onChangedPrivateRoom: onChangedPrivateRoom,
   };
@@ -187,7 +180,7 @@ function GameScreen({
             <InfoTable {...infoTableProps} />
             <GameTable {...gameTableProps} />
             {
-              gameStarted ? (<GameCommands gameMasterSpeech={gameMasterSpeech} />) : (
+              gameStarted ? (<GameCommands />) : (
                 <GameSettings {...gameSettingsProps} />
               )
             }
@@ -225,7 +218,7 @@ function GameScreen({
             <div className="colLeft">
               <InfoTable {...infoTableProps} />
               {
-                gameStarted ? (<GameCommands gameMasterSpeech={gameMasterSpeech} />) : (
+                gameStarted ? (<GameCommands />) : (
                   <GameSettings {...gameSettingsProps} />
                 )
               }
@@ -265,7 +258,7 @@ function GameScreen({
             <div className="colRight">
               <ChatBox {...chatBoxProps} />
               {
-                gameStarted ? (<GameCommands gameMasterSpeech={gameMasterSpeech} />) : (
+                gameStarted ? (<GameCommands />) : (
                   <GameSettings {...gameSettingsProps} />
                 )
               }

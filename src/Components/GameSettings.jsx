@@ -10,8 +10,8 @@ function GameSettings({
   curNumPlayers,
   capacity,
   onChangedCapacity,
-  selectionTime,
-  onChangedSelectionTime,
+  selectionTimeSecs,
+  onChangedSelectionTimeSecs,
   privateRoom,
   onChangedPrivateRoom,
 }) {
@@ -79,9 +79,9 @@ function GameSettings({
               <p>Team Select Time</p>
               <select
                 className="selectBox"
-                value={selectionTime}
+                value={selectionTimeSecs}
                 onChange={(event) => {
-                  onChangedSelectionTime(parseInt(event.target.value))
+                  onChangedSelectionTimeSecs(parseInt(event.target.value) * 60);
                 }}
                 disabled={!isAdmin}
                 style={{
