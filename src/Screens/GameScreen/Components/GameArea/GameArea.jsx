@@ -139,7 +139,6 @@ function GameArea({
     seatOnMission, 
     seatTeam, 
   ) => {
-
     return (
       <PlayerBox
         username={seatUsername}

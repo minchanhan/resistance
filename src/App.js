@@ -119,11 +119,15 @@ function App() {
   };
 
   const joinRoom = (enteredRoomCode) => { // StartScreen
-    socket.emit("join_room", enteredRoomCode, (res) => {
-      if (enteredRoomCode === "random_join") {
-        setRandomRoomMsg(res.joinRoomMsg);
+    socket.emit("join_room", username, enteredRoomCode, (res) => {
+      if (res.roomExists) {
+        navigate(`/${enteredRoomCode}`, { replace: true });
       } else {
-        setJoinRoomMsg(res.joinRoomMsg);
+        if (enteredRoomCode === "random_join") {
+          setRandomRoomMsg(res.joinRoomMsg);
+        } else {
+          setJoinRoomMsg(res.joinRoomMsg);
+        }
       }
     });
   };
@@ -137,25 +141,23 @@ function App() {
     });
   };
 
-
-
-
-
-  
   const onChangedCapacity = (updatedCapacity) => { // GameSettings
     setCapacity(updatedCapacity);
-    socket.emit("set_capacity", updatedCapacity);
+    socket.emit("set_capacity", updatedCapacity, roomCode);
   };
 
   const onChangedSelectionTimeSecs = (updatedSelectionTimeSecs) => { // GameSettings
     setSelectionTimeSecs(updatedSelectionTimeSecs);
-    socket.emit("set_selection_time", updatedSelectionTimeSecs);
+    socket.emit("set_selection_time", updatedSelectionTimeSecs, roomCode);
   };
 
   const onChangedPrivateRoom = () => { // GameSettings
-    socket.emit("set_private", !privateRoom);
     setPrivateRoom(!privateRoom);
+    socket.emit("set_private_room", !privateRoom, roomCode);
   };
+
+
+
 
   const handleEndModalClose = () => { // GameScreen
     setEndModalOpen(false);
@@ -163,6 +165,9 @@ function App() {
 
   const startGame = () => { // GameScreen
     socket.emit("admin_start_game");
+    socket.emit("get_my_team", username, roomCode, (team) => {
+      setMyTeam(team);
+    });
   };
 
   const handleTeamSubmit = () => {
@@ -217,9 +222,8 @@ function App() {
     // functions
     const handleSeatsUpdate = (seats) => {
       setSeats(seats);
-      socket.emit("get_my_team", username, roomCode, (team) => {
-        setMyTeam(team);
-      });
+      console.log(username);
+      console.log(roomCode);
     };
 
     const handleMsgListUpdate = (msgList) => {
@@ -228,6 +232,8 @@ function App() {
     };
 
     const handleGameSettingsChange = (settings) => { 
+      setRoomCode(settings.roomCode);
+      setRoomAdminName(settings.roomAdminName);
       setCapacity(settings.capacity);
       setSelectionTimeSecs(settings.selectionTimeSecs);
       setPrivateRoom(settings.privateRoom);

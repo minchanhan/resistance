@@ -16,6 +16,7 @@ function GameSettingsModal({
   setOpenSettings
 }) {
   const capacityMenuItems = [5,6,7,8,9,10];
+  const selectionTimeItems = [3,5,7,10,15,30];
 
   const handleSettingsClose = () => {
     setOpenSettings(false);
@@ -59,22 +60,20 @@ function GameSettingsModal({
             <p>Team Select Time</p>
             <select
               className="selectBox"
-              value={selectionTimeSecs}
+              value={selectionTimeSecs/60}
               onChange={(event) => {
-                onChangedSelectionTimeSecs(parseInt(event.target.value) * 60);
+                onChangedSelectionTimeSecs(parseInt(event.target.value)*60);
               }}
               disabled={!isAdmin}
               style={{
                 cursor: !isAdmin ? "not-allowed" : ""
               }}
             >
-                <option value={1}>1 min</option>
-                <option value={3}>3 min</option>
-                <option value={5}>5 min</option>
-                <option value={7}>7 min</option>
-                <option value={10}>10 min</option>
-                <option value={15}>15 min</option>
-                <option value={30}>30 min</option>
+              {
+                selectionTimeItems.map(function(val, i) {
+                  return <option key={i} value={val}>{val} mins</option>
+                })
+              }
             </select>
           </div>
       
