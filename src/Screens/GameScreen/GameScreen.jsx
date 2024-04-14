@@ -1,5 +1,5 @@
 import { React, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 import { useMediaQuery } from 'react-responsive';
 
 import "../../App.css";
@@ -66,7 +66,7 @@ function GameScreen({
   mins,
   secs,
 }) {
-  const { room } = useParams();
+  // const { room } = useParams();
 
   const isLandscape = useMediaQuery({ orientation: 'landscape' });
   const isPortrait = useMediaQuery({ orientation: 'portrait' });
@@ -88,9 +88,10 @@ function GameScreen({
 
   const [showHiddenChat, setShowHiddenChat] = useState(false);
 
+  /*
   useEffect(() => {
     checkInGame(room);
-  });
+  });*/
 
   // Passing props:
   const gameAreaProps = {

@@ -121,7 +121,7 @@ function App() {
   const joinRoom = (enteredRoomCode) => { // StartScreen
     socket.emit("join_room", username, enteredRoomCode, (res) => {
       if (res.roomExists) {
-        navigate(`/${enteredRoomCode}`, { replace: true });
+        navigate(`/${res.roomCode}`, { replace: true });
       } else {
         if (enteredRoomCode === "random_join") {
           setRandomRoomMsg(res.joinRoomMsg);
@@ -132,9 +132,9 @@ function App() {
     });
   };
 
+
   const checkInGame = (room) => {
     socket.emit("am_i_in_room", room, (res) => {
-      console.log(res.inRoom);
       if (!res.inRoom) {
         navigate(`/join/${room}`, { replace: true });
       }
@@ -222,8 +222,6 @@ function App() {
     // functions
     const handleSeatsUpdate = (seats) => {
       setSeats(seats);
-      console.log(username);
-      console.log(roomCode);
     };
 
     const handleMsgListUpdate = (msgList) => {
@@ -486,10 +484,12 @@ function App() {
           <Route
             path="/:room"
             element={
-              <>
-                <GameScreen {...gameScreenProps} />
-                <EndModal {...endScreenProps} />
-              </>
+              roomCode !== "" ?
+                <>
+                  <GameScreen {...gameScreenProps} />
+                  <EndModal {...endScreenProps} />
+                </> 
+                : <StartScreen {...startScreenProps} />
             } 
           />
           <Route
