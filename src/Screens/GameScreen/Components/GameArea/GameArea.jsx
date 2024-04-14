@@ -16,18 +16,14 @@ function GameArea({
   username,
   myTeam,
   capacity, 
+  missionTeamSizes,
 
-  teamSelectHappening,
   isMissionLeader,
   disableTeamSubmit,
-  setDisableTeamSubmit,
   voteHappening,
   disableVoteBtns,
-  setDisableVoteBtns,
-  missionHappening,
   isGoingOnMission,
   disableMissionActions,
-  setDisableMissionActions,
 
   seats,
   selectedPlayers,
@@ -48,13 +44,6 @@ function GameArea({
 }) {
   const topRowLength = Math.ceil(seats.length / 2);
   const bottomRowLength = Math.floor(seats.length / 2);
-
-  const missionTeamSize1 = capacity <= 7 ? 2 : 3;
-  const missionTeamSize2 = capacity <= 7 ? 3 : 4;
-  const missionTeamSize3 = capacity === 5 ? 2 : (capacity === 7) ? 3 : 4;
-  const missionTeamSize4 = capacity <= 6 ? 3 : (capacity === 7) ? 4 : 5;
-  const missionTeamSize5 = capacity === 5 ? 3 : (capacity <= 7) ? 4 : 5;
-  const missionTeamSizes = [missionTeamSize1, missionTeamSize2, missionTeamSize3, missionTeamSize4, missionTeamSize5];
 
   // alternates:
   const isThinning2 = useMediaQuery({ maxWidth: 560 });
@@ -200,60 +189,37 @@ function GameArea({
       <div className="table">
         
         <div className="missionTokenGrid">
-          <MissionToken 
-            isPassed={missionResultTrack[0] === "pass"} 
-            isFailed={missionResultTrack[0] === "fail"}
-            current={missionNumber === 1} 
-            missionTeamSize={missionTeamSize1}
-            isReallyShort={isReallyShort}
-            isReallyThin={isReallyThin}
-            isMostThin={isMostThin}
-          />
-          <MissionToken
-            isPassed={missionResultTrack[1] === "pass"} 
-            isFailed={missionResultTrack[1] === "fail"}
-            current={missionNumber === 2} 
-            missionTeamSize={missionTeamSize2}
-            isReallyShort={isReallyShort}
-            isReallyThin={isReallyThin}
-            isMostThin={isMostThin}
-          />
-          <MissionToken
-            isPassed={missionResultTrack[2] === "pass"} 
-            isFailed={missionResultTrack[2] === "fail"}
-            current={missionNumber === 3} 
-            missionTeamSize={missionTeamSize3}
-            isReallyShort={isReallyShort}
-            isReallyThin={isReallyThin}
-            isMostThin={isMostThin}
-          />
-          <MissionToken
-            isPassed={missionResultTrack[3] === "pass"} 
-            isFailed={missionResultTrack[3] === "fail"}
-            current={missionNumber === 4} 
-            missionTeamSize={missionTeamSize4}
-            twoFails={capacity >= 7}
-            isReallyShort={isReallyShort}
-            isReallyThin={isReallyThin}
-            isMostThin={isMostThin}
-          />
-          <MissionToken
-            isPassed={missionResultTrack[4] === "pass"} 
-            isFailed={missionResultTrack[4] === "fail"}
-            current={missionNumber === 5} 
-            missionTeamSize={missionTeamSize5}
-            isReallyShort={isReallyShort}
-            isReallyThin={isReallyThin}
-            isMostThin={isMostThin}            
-          />
+          {
+            missionTeamSizes.map(function(teamSize, i) {
+              return (
+                <MissionToken
+                  key={i}
+                  isPassed={missionResultTrack[i] === "pass"} 
+                  isFailed={missionResultTrack[i] === "fail"}
+                  current={missionNumber === (i+1)} 
+                  missionTeamSize={teamSize}
+                  twoFails={(i+1) === 4 && capacity >= 7}
+                  isReallyShort={isReallyShort}
+                  isReallyThin={isReallyThin}
+                  isMostThin={isMostThin}
+                />
+              )
+            })
+          }
         </div>
         
         <div className="voteTrackGrid">
-          <VoteTrack isFilled={curMissionVoteDisapproves > 0} number={1}/>
-          <VoteTrack isFilled={curMissionVoteDisapproves > 1} number={2}/>
-          <VoteTrack isFilled={curMissionVoteDisapproves > 2} number={3}/>
-          <VoteTrack isFilled={curMissionVoteDisapproves > 3} number={4}/>
-          <VoteTrack isFilled={curMissionVoteDisapproves > 4} number={5}/>
+          {
+            [0,1,2,3,4].map(function(num, i) {
+              return (
+                <VoteTrack 
+                  key={i} 
+                  isFilled={curMissionVoteDisapproves > i} 
+                  number={(i+1)}
+                />
+              )
+            })
+          }
         </div>
 
         <div className="tableBtns">

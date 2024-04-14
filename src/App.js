@@ -38,7 +38,6 @@ function App() {
       }
     }
   });
-
   const badTeamStyle = {
     filter: 'invert(21%) sepia(76%) saturate(5785%) hue-rotate(338deg) brightness(57%) contrast(119%)'
   };
@@ -60,10 +59,11 @@ function App() {
   // Game Settings
   const [roomCode, setRoomCode] = useState(""); // logic uses roomCode, params is room
   const [roomAdminName, setRoomAdminName] = useState("");
-
   const [capacity, setCapacity] = useState(6);
   const [selectionTimeSecs, setSelectionTimeSecs] = useState(7 * 60);
   const [privateRoom, setPrivateRoom] = useState(true);
+  const [numGames, setNumGames] = useState(1);
+  const [missionTeamSizes, setMissionTeamSizes] = useState([2,3,4,3,4]);
 
   // Game States
   const [gameStarted, setGameStarted] = useState(false); // is game started
@@ -109,6 +109,14 @@ function App() {
     setUsername(updatedUsername);
   };
 
+  const checkInGame = (room) => {
+    socket.emit("am_i_in_room", room, (res) => {
+      if (!res.inRoom) {
+        navigate(`/join/${room}`, { replace: true });
+      }
+    });
+  };
+
   const createRoom = () => { // StartScreen
     socket.emit("create_room", username, (res) => {
       setIsAdmin(true);
@@ -132,15 +140,6 @@ function App() {
     });
   };
 
-
-  const checkInGame = (room) => {
-    socket.emit("am_i_in_room", room, (res) => {
-      if (!res.inRoom) {
-        navigate(`/join/${room}`, { replace: true });
-      }
-    });
-  };
-
   const onChangedCapacity = (updatedCapacity) => { // GameSettings
     setCapacity(updatedCapacity);
     socket.emit("set_capacity", updatedCapacity, roomCode);
@@ -156,11 +155,8 @@ function App() {
     socket.emit("set_private_room", !privateRoom, roomCode);
   };
 
-
-
-
-  const handleEndModalClose = () => { // GameScreen
-    setEndModalOpen(false);
+  const sendMessage = (msgData) => {
+    socket.emit("send_msg", msgData);
   };
 
   const startGame = () => { // GameScreen
@@ -185,8 +181,8 @@ function App() {
     setDisableMissionActions(true); // 3b
   };
 
-  const sendMessage = (msgData) => {
-    socket.emit("send_msg", msgData);
+  const handleEndModalClose = () => { // GameScreen
+    setEndModalOpen(false);
   };
 
   // timer
@@ -235,10 +231,10 @@ function App() {
       setCapacity(settings.capacity);
       setSelectionTimeSecs(settings.selectionTimeSecs);
       setPrivateRoom(settings.privateRoom);
+      setNumGames(settings.numGames);
+      setMissionTeamSizes(settings.missionTeamSizes);
+      console.log("settings updated");
     };
-
-
-    
 
 
 
@@ -434,19 +430,17 @@ function App() {
     onChangedSelectionTimeSecs: onChangedSelectionTimeSecs,
     privateRoom: privateRoom,
     onChangedPrivateRoom: onChangedPrivateRoom,
+    missionTeamSizes: missionTeamSizes,
 
     gameStarted: gameStarted,
-    teamSelectHappening: teamSelectHappening,
     isMissionLeader: isMissionLeader,
     disableTeamSubmit: disableTeamSubmit,
-    setDisableTeamSubmit: setDisableTeamSubmit,
     voteHappening: voteHappening,
     disableVoteBtns: disableVoteBtns,
-    setDisableVoteBtns: setDisableVoteBtns,
+
     missionHappening: missionHappening,
     isGoingOnMission: isGoingOnMission,
     disableMissionActions: disableMissionActions,
-    setDisableMissionActions: setDisableMissionActions,
 
     msg: msg,
     setMsg: setMsg,
