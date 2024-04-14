@@ -1,21 +1,16 @@
 import React from "react";
 import "./instructions.css";
 import { Modal } from "@mui/material";
-import PlayerBox from "../../GameScreen/Components/GameTable/PlayerBox/PlayerBox";
-import MissionToken from "../../GameScreen/Components/GameTable/MissionToken";
-import VoteTrack from "../../GameScreen/Components/GameTable/VoteTrack";
+import PlayerBox from "../../GameScreen/Components/GameArea/PlayerBox/PlayerBox";
+import MissionToken from "../../GameScreen/Components/GameArea/GameTable/MissionToken";
+import VoteTrack from "../../GameScreen/Components/GameArea/GameTable/VoteTrack";
 
 function InstructionsModal({
   open, 
-  handleInstructionsClose
+  handleInstructionsClose,
+  goodTeamStyle,
+  badTeamStyle,
 }) {
-  const badTeamStyle = {
-    filter: 'invert(21%) sepia(76%) saturate(5785%) hue-rotate(338deg) brightness(57%) contrast(119%)'
-  };
-  const goodTeamStyle = {
-    filter: 'invert(11%) sepia(92%) saturate(4093%) hue-rotate(234deg) brightness(92%) contrast(104%)'
-  };
-
   const objectiveTitle = "Objective";
   const objective = `The Rebellion is a mafia style game, consisting of a good team (The Rebellion) and a bad team (The Spies). The Rebellion \
   is attempting to overthrow the government by passing missions (described below), but the secret spies are attempting to sabotage these missions.`;

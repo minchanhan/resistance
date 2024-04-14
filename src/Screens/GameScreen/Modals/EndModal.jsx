@@ -1,9 +1,9 @@
 import React from "react";
-import "../../App.css";
+import "../../../App.css";
 import { Modal } from "@mui/material";
-import DisplayButton from "../../Components/DisplayButton";
+import DisplayButton from "../../../Utils/DisplayButton";
 
-function EndScreen({ open, handleEndModalClose, revealedPlayers, endMsg }) {
+function EndModal({ open, handleEndModalClose, revealedPlayers, endMsg }) {
 
   return (
     <div>
@@ -44,4 +44,4 @@ function EndScreen({ open, handleEndModalClose, revealedPlayers, endMsg }) {
   )
 }
 
-export default EndScreen;
+export default EndModal;

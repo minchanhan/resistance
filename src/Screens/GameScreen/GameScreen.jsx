@@ -2,16 +2,14 @@ import { React, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useMediaQuery } from 'react-responsive';
 
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import { Button } from "@mui/material";
-
 import "../../App.css";
 
-import ChatBox from "./Components/ChatBox/ChatBox";
-import GameTable from "./Components/GameTable/GameTable";
-import InfoTable from "./Components/InfoTable/InfoTable";
-import GameCommands from "./Components/GameCommands/GameCommands.jsx";
-import GameSettings from "../../Components/GameSettings.jsx";
+import ChatBox from "./Components/ChatBox/ChatBox.jsx";
+import GameArea from "./Components/GameArea/GameArea.jsx";
+import InfoBox from "./Components/InfoBox/InfoBox.jsx";
+import GameMenuBar from "./Components/GameMenuBar/GameMenuBar.jsx";
+import RebellionLogo from "../../assets/RebellionLogo.jsx";
+import ShowChatButton from "../../Utils/ShowChatButton.jsx";
 
 function GameScreen({ 
   startGame,
@@ -23,6 +21,7 @@ function GameScreen({
 
   username,
   isAdmin,
+  myTeam,
   roomCode,
   roomAdminName,
 
@@ -57,6 +56,8 @@ function GameScreen({
   seats,
   selectedPlayers,
   setSelectedPlayers,
+  goodTeamStyle,
+  badTeamStyle,
 
   missionNumber,
   curMissionVoteDisapproves,
@@ -89,17 +90,16 @@ function GameScreen({
 
   useEffect(() => {
     checkInGame(room);
-  }, [room, checkInGame]);
+  });
 
   // Passing props:
-  const gameTableProps = {
+  const gameAreaProps = {
     handleTeamSubmit: handleTeamSubmit,
     handleVote: handleVote,
     handleMission: handleMission,
-    sendMessage: sendMessage,
 
     username: username,
-    roomCode: roomCode,
+    myTeam: myTeam,
     capacity: capacity, 
 
     teamSelectHappening: teamSelectHappening,
@@ -117,6 +117,8 @@ function GameScreen({
     seats: seats,
     selectedPlayers: selectedPlayers,
     setSelectedPlayers: setSelectedPlayers,
+    goodTeamStyle: goodTeamStyle,
+    badTeamStyle: badTeamStyle,
     
     missionNumber: missionNumber,
     curMissionVoteDisapproves: curMissionVoteDisapproves,
@@ -130,7 +132,7 @@ function GameScreen({
     isMostThin: isMostThin,
   };
 
-  const infoTableProps = {
+  const infoBoxProps = {
     roomCode: roomCode,
     capacity: capacity, 
     topText: `Room Admin: ${roomAdminName}`,
@@ -143,7 +145,7 @@ function GameScreen({
     seats: seats, 
   };
   
-  const gameSettingsProps = {
+  const gameMenuBarProps = {
     startGame: startGame,
     isAdmin: isAdmin,
     curNumPlayers: seats.length,
@@ -165,7 +167,14 @@ function GameScreen({
     setShowHiddenChat: setShowHiddenChat,
     haveCloseOnWindow: (isLandscape && isShort) || isThin || isPortrait,
     sendMessage: sendMessage,
-  }
+  };
+  
+  const showChatBtnProps = {
+    showHiddenChat: showHiddenChat, 
+    setShowHiddenChat: setShowHiddenChat,
+    newMsg: newMsg, 
+    setNewMsg: setNewMsg,
+  };
 
   return (
     <>
@@ -177,35 +186,14 @@ function GameScreen({
                 <ChatBox {...chatBoxProps} />
               ) : <></>
             }
-            <InfoTable {...infoTableProps} />
-            <GameTable {...gameTableProps} />
-            {
-              gameStarted ? (<GameCommands />) : (
-                <GameSettings {...gameSettingsProps} />
-              )
-            }
-            <div className="showChatBtn">
-              <div className="showChatBtnBox">
-                {
-                  newMsg && !showHiddenChat ? (
-                    <NotificationsIcon className="newMsgAlert" />
-                  ) : <></>
-                }
-                <Button
-                  color="secondary"
-                  onClick={() => {
-                    setShowHiddenChat(!showHiddenChat);
-                    setNewMsg(false);
-                  }}
-                  sx={{
-                    border: `1px solid black`,
-                    fontWeight: 600
-                  }}
-                >
-                  {showHiddenChat ? "Close Chat" : "Show Chat"}
-                </Button>
-              </div>
+            <div className="titleLogo">
+              <RebellionLogo />
             </div>
+            <GameMenuBar {...gameMenuBarProps} />
+
+            <InfoBox {...infoBoxProps} />
+            <GameArea {...gameAreaProps} />
+            <ShowChatButton {...showChatBtnProps} />
           </div>
         ) : (isLandscape && isShort) || isGettingThin ? (
           <div className="gameScreen">
@@ -216,52 +204,29 @@ function GameScreen({
             }
 
             <div className="colLeft">
-              <InfoTable {...infoTableProps} />
-              {
-                gameStarted ? (<GameCommands />) : (
-                  <GameSettings {...gameSettingsProps} />
-                )
-              }
+              <div className="titleLogo">
+                <RebellionLogo />
+              </div>
+              <GameMenuBar {...gameMenuBarProps} />
+              <InfoBox {...infoBoxProps} />
             </div>
             <div className="colRight">
-              <GameTable {...gameTableProps} />
-              <div className="showChatBtn">
-                <div className="showChatBtnBox">
-                  {
-                    newMsg && !showHiddenChat ? (
-                      <NotificationsIcon className="newMsgAlert" />
-                    ) : <></>
-                  }
-                  <Button
-                    color="secondary"
-                    onClick={() => {
-                      setShowHiddenChat(!showHiddenChat);
-                      setNewMsg(false);
-                    }}
-                    sx={{
-                      border: `1px solid black`,
-                      fontWeight: 600
-                    }}
-                  >
-                    {showHiddenChat ? "Close Chat" : "Show Chat"}
-                  </Button>
-                </div>
-              </div>
+              <GameArea {...gameAreaProps} />
+              <ShowChatButton {...showChatBtnProps} />
             </div>
           </div>
         ) : (
           <div className="gameScreen">
             <div className="colLeft">
-              <InfoTable {...infoTableProps} />
-              <GameTable {...gameTableProps} />
+              <div className="titleLogo">
+                <RebellionLogo />
+              </div>
+              <GameMenuBar {...gameMenuBarProps} />
+              <GameArea {...gameAreaProps} />
             </div>
             <div className="colRight">
               <ChatBox {...chatBoxProps} />
-              {
-                gameStarted ? (<GameCommands />) : (
-                  <GameSettings {...gameSettingsProps} />
-                )
-              }
+              <InfoBox {...infoBoxProps} />
             </div>
           </div>
         )

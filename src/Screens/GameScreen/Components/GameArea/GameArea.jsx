@@ -1,20 +1,20 @@
 import React, { Fragment, useEffect, useState } from "react";
-import "../../../../App.css";
-
-import PlayerBox from "./PlayerBox/PlayerBox";
-import MissionToken from "./MissionToken";
-import VoteTrack from "./VoteTrack";
 import { Button } from "@mui/material";
 import { useMediaQuery } from "react-responsive";
 
-function GameTable({
+import "../../../../App.css";
+
+import PlayerBox from "./PlayerBox/PlayerBox";
+import MissionToken from "./GameTable/MissionToken";
+import VoteTrack from "./GameTable/VoteTrack";
+
+function GameArea({
   handleTeamSubmit,
   handleVote,
   handleMission,
-  sendMessage,
 
   username,
-  roomCode,
+  myTeam,
   capacity, 
 
   teamSelectHappening,
@@ -32,6 +32,8 @@ function GameTable({
   seats,
   selectedPlayers,
   setSelectedPlayers,
+  goodTeamStyle,
+  badTeamStyle,
   
   missionNumber,
   curMissionVoteDisapproves,
@@ -45,10 +47,7 @@ function GameTable({
   isMostThin,
 }) {
   const topRowLength = Math.ceil(seats.length / 2);
-  const bottomRowLength = Math.floor(seats.length / 2);;
-  const badTeamStyle = {
-    filter: 'invert(21%) sepia(76%) saturate(5785%) hue-rotate(338deg) brightness(57%) contrast(119%)'
-  };
+  const bottomRowLength = Math.floor(seats.length / 2);
 
   const missionTeamSize1 = capacity <= 7 ? 2 : 3;
   const missionTeamSize2 = capacity <= 7 ? 3 : 4;
@@ -134,20 +133,24 @@ function GameTable({
     setSelectedPlayers(updatedSelection);
   };
 
-  const gameStartedPlayerBox = (
+  const renderPlayerBox = (
+    seatUsername, 
     seatIsLeader, 
     seatOnMission, 
     seatTeam, 
-    seatUsername, 
   ) => {
 
     return (
       <PlayerBox
+        username={seatUsername}
         isLeader={seatIsLeader}
         onMission={seatOnMission}
-        inTeamVote={selectedPlayers.includes(seatUsername)}
-        teamStyle={seatTeam === "badTeam" ? badTeamStyle : {}} 
-        username={seatUsername}
+        teamStyle={
+          (username === seatUsername) && (myTeam === "goodTeam") ? goodTeamStyle
+            : seatTeam === "badTeam" ? badTeamStyle 
+              : seatTeam === "goodTeam" ? goodTeamStyle 
+              : {}
+        }
         ownName={username === seatUsername}
         onClick={() => {
           handleMissionSelection(seatUsername);
@@ -165,9 +168,9 @@ function GameTable({
           // this map displays up to 4 players, 3 if there are <= 6 players
           seats.map(function(seat, i) {
             const seatUsername = seat[0];
-            const seatTeam = seat[1];
-            const seatIsLeader = seat[2];
-            const seatOnMission = seat[3];
+            const seatIsLeader = seat[1];
+            const seatOnMission = seat[2];
+            const seatTeam = seat[3];
             
             if (i < topRowLength) {
               const up = (i === 1) || (i === 3);
@@ -180,11 +183,11 @@ function GameTable({
                     ${up ? "up" : ""} ${wayUp ? "wayUp" : ""}`
                   }
                 >
-                  {gameStartedPlayerBox(
+                  {renderPlayerBox(
+                    seatUsername, 
                     seatIsLeader, 
                     seatOnMission, 
                     seatTeam, 
-                    seatUsername, 
                   )}
                 </div>
               )
@@ -196,6 +199,7 @@ function GameTable({
       </div>
 
       <div className="table">
+        
         <div className="missionTokenGrid">
           <MissionToken 
             isPassed={missionResultTrack[0] === "pass"} 
@@ -323,9 +327,9 @@ function GameTable({
         {
           seats.map(function(seat, i) {
             const seatUsername = seat[0];
-            const seatTeam = seat[1];
-            const seatIsLeader = seat[2];
-            const seatOnMission = seat[3];
+            const seatIsLeader = seat[1];
+            const seatOnMission = seat[2];
+            const seatTeam = seat[3];
 
             if (i >= topRowLength) {
               var down = false;
@@ -343,11 +347,11 @@ function GameTable({
                     ${down ? "down" : ""} ${wayDown ? "wayDown" : ""}`
                   }
                 >
-                  {gameStartedPlayerBox(
+                  {renderPlayerBox(
+                    seatUsername, 
                     seatIsLeader, 
                     seatOnMission, 
                     seatTeam, 
-                    seatUsername, 
                   )}
                 </div>
               )
@@ -361,4 +365,4 @@ function GameTable({
   )
 }
 
-export default GameTable;
+export default GameArea;

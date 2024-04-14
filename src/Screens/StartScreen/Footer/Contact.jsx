@@ -1,6 +1,5 @@
 import React from "react";
 import { Modal } from "@mui/material";
-import "../instructions.css";
 
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import EmailIcon from '@mui/icons-material/Email';

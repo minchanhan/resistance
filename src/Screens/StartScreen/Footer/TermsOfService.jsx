@@ -1,6 +1,5 @@
 import React from "react";
 import { Modal } from "@mui/material";
-import "../instructions.css";
 
 function TermsOfService({open, handleTosClose}) {
   return (

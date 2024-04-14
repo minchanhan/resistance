@@ -4,7 +4,7 @@ import io from 'socket.io-client';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import './App.css';
 import StartScreen from './Screens/StartScreen/StartScreen';
-import EndScreen from './Screens/EndScreen/EndScreen';
+import EndModal from './Screens/GameScreen/Modals/EndModal';
 import GameScreen from './Screens/GameScreen/GameScreen';
 
 const socket = io.connect(process.env.REACT_APP_SERVER || "http://localhost:3001"); // connect to socket server
@@ -39,6 +39,13 @@ function App() {
     }
   });
 
+  const badTeamStyle = {
+    filter: 'invert(21%) sepia(76%) saturate(5785%) hue-rotate(338deg) brightness(57%) contrast(119%)'
+  };
+  const goodTeamStyle = {
+    filter: 'invert(11%) sepia(92%) saturate(4093%) hue-rotate(234deg) brightness(92%) contrast(104%)'
+  };
+
   const navigate = useNavigate();
 
   // Modal States
@@ -48,6 +55,7 @@ function App() {
   // Client States
   const [username, setUsername] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
+  const [myTeam, setMyTeam] = useState(""); // "badTeam", "goodTeam", ""
 
   // Game Settings
   const [roomCode, setRoomCode] = useState(""); // logic uses roomCode, params is room
@@ -84,8 +92,7 @@ function App() {
   const [missionResultTrack, setMissionResultTrack] = useState(["none","none","none","none","none"]); // pass/fail
 
   // misc.
-  const [isValidRoom, setIsValidRoom] = useState(true);
-  const [roomStatus, setRoomStatus] = useState("");
+  const [joinRoomMsg, setJoinRoomMsg] = useState("");
   const [randomRoomMsg, setRandomRoomMsg] = useState(""); // for random room
 
   // End Game
@@ -112,7 +119,13 @@ function App() {
   };
 
   const joinRoom = (enteredRoomCode) => { // StartScreen
-    socket.emit("join_room", enteredRoomCode);
+    socket.emit("join_room", enteredRoomCode, (res) => {
+      if (enteredRoomCode === "random_join") {
+        setRandomRoomMsg(res.joinRoomMsg);
+      } else {
+        setJoinRoomMsg(res.joinRoomMsg);
+      }
+    });
   };
 
   const checkInGame = (room) => {
@@ -124,6 +137,11 @@ function App() {
     });
   };
 
+
+
+
+
+  
   const onChangedCapacity = (updatedCapacity) => { // GameSettings
     setCapacity(updatedCapacity);
     socket.emit("set_capacity", updatedCapacity);
@@ -196,7 +214,30 @@ function App() {
 
   /* --- Listening for socket messages --- */
   useEffect(() => {
-    // helper
+    // functions
+    const handleSeatsUpdate = (seats) => {
+      setSeats(seats);
+      socket.emit("get_my_team", username, roomCode, (team) => {
+        setMyTeam(team);
+      });
+    };
+
+    const handleMsgListUpdate = (msgList) => {
+      setMsgList(msgList);
+      setNewMsg(true);
+    };
+
+    const handleGameSettingsChange = (settings) => { 
+      setCapacity(settings.capacity);
+      setSelectionTimeSecs(settings.selectionTimeSecs);
+      setPrivateRoom(settings.privateRoom);
+    };
+
+
+    
+
+
+
     const resetActionLobbyTimer = () => {
       // reset game actions to defaults
       setTeamSelectHappening(false);
@@ -222,29 +263,6 @@ function App() {
       setMins(0);
     };
 
-    // functions
-    const handlePlayerJoin = (lobbyInfo) => {
-      setSeats(lobbyInfo.seats);
-      setRoomCode(lobbyInfo.room);
-      setRoomAdminName(lobbyInfo.roomAdmin);
-      setRandomRoomMsg("");
-      navigate(`/${lobbyInfo.room}`, { replace: true });
-    };
-
-    const handleUsernameSet = (username) => {
-      setUsername(username);
-    };
-
-    const handleRandomStatus = (msg) => {
-      setRandomRoomMsg(msg);
-    };
-
-    const handleGameSettingsChange = (settings) => { 
-      setCapacity(settings.capacity);
-      setSelectionTimeSecs(settings.selectionTimeSecs);
-      setPrivateRoom(settings.privateRoom);
-    };
-
     const handleKickedPlayer = () => { 
       setRoomAdminName("");
       setRoomCode("");
@@ -263,10 +281,6 @@ function App() {
       if (!info.kicked) setEndModalOpen(true);
 
       resetActionLobbyTimer();
-    };
-
-    const handleSeats = (seats) => {
-      setSeats([...seats]);
     };
     
     const handleLeaderSelect = (info) => { 
@@ -314,15 +328,7 @@ function App() {
       setMissionNumber(info.mission);
     };
 
-    const handleRoomWithCode = (data) => {
-      setIsValidRoom(data.exists);
-      setRoomStatus(data.reason);
-    };
-
-    const handleReceiveMsg = (msgData) => {
-      setMsgList((msgList) => [...msgList, msgData]);
-      setNewMsg(true);
-    };
+    
 
     const handleInGameCallback = (info) => {
       if (!info.inGame) {
@@ -332,8 +338,7 @@ function App() {
         setUsername("");
         setIsAdmin(false);
         setRoomAdminName("");
-        setIsValidRoom(true);
-        setRoomStatus("");
+        setJoinRoomMsg("");
         setCapacity(6);
         setSelectionTimeSecs(7 * 60);
         setPrivateRoom(true);
@@ -354,43 +359,39 @@ function App() {
         resetActionLobbyTimer();
       }
     };
-    
+
     // listeners
-    socket.on("player_joined_lobby", handlePlayerJoin);
-    socket.on("final_username_set", handleUsernameSet);
-    socket.on("no_random_game", handleRandomStatus);
-    socket.on("game_settings_changed", handleGameSettingsChange);
+    socket.on("seats_update", handleSeatsUpdate);
+    socket.on("msg_list_update", handleMsgListUpdate);
+    socket.on("game_settings_update", handleGameSettingsChange);
+
+
     socket.on("kicked_player", handleKickedPlayer);
     socket.on("room_admin_changed", handleRoomAdminChange);
     socket.on("set_game_end", handleGameEnd);
-    socket.on("seats_info_share", handleSeats);
     socket.on("leader_is_selecting", handleLeaderSelect);
     socket.on("vote_on_these_players", handlePlayerVoteStart);
     socket.on("vote_track", handleVoteTrackChange);
     socket.on("go_on_mission", handleMissionStart);
     socket.on("mission_completed", handleMissionComplete);
-    socket.on("room_with_code", handleRoomWithCode);
-    socket.on("receive_msg", handleReceiveMsg);
     
     socket.on("are_you_in_game", handleInGameCallback); // special
 
     return () => {
       // cleanup
-      socket.off("player_joined_lobby", handlePlayerJoin);
-      socket.off("final_username_set", handleUsernameSet);
-      socket.off("no_random_game", handleRandomStatus);
-      socket.off("game_settings_changed", handleGameSettingsChange);
+      socket.off("seats_update", handleSeatsUpdate);
+      socket.off("msg_list_update", handleMsgListUpdate);
+      socket.off("game_settings_update", handleGameSettingsChange);
+
+
       socket.off("kicked_player", handleKickedPlayer);
       socket.off("room_admin_changed", handleRoomAdminChange);
       socket.off("set_game_end", handleGameEnd);
-      socket.off("seats_info_share", handleSeats);
       socket.off("leader_is_selecting", handleLeaderSelect);
       socket.off("vote_on_these_players", handlePlayerVoteStart);
       socket.off("vote_track", handleVoteTrackChange);
       socket.off("go_on_mission", handleMissionStart);
       socket.off("mission_completed", handleMissionComplete);
-      socket.off("room_with_code", handleRoomWithCode);
-      socket.off("receive_msg", handleReceiveMsg);
 
       socket.on("are_you_in_game", handleInGameCallback); // special
     };
@@ -402,11 +403,11 @@ function App() {
     onChangedUsername: onChangedUsername,
     createRoom: createRoom,
     joinRoom: joinRoom,
-    isValidRoom: isValidRoom,
-    setIsValidRoom: setIsValidRoom,
-    roomStatus: roomStatus,
-    setRoomStatus: setRoomStatus,
+    joinRoomMsg: joinRoomMsg,
+    setJoinRoomMsg: setJoinRoomMsg,
     randomRoomMsg: randomRoomMsg,
+    goodTeamStyle: goodTeamStyle,
+    badTeamStyle: badTeamStyle
   };
 
   const gameScreenProps = {
@@ -419,6 +420,7 @@ function App() {
 
     username: username,
     isAdmin: isAdmin,
+    myTeam: myTeam,
     roomCode: roomCode,
     roomAdminName: roomAdminName,
 
@@ -452,6 +454,8 @@ function App() {
     seats: seats,
     selectedPlayers: selectedPlayers,
     setSelectedPlayers: setSelectedPlayers,
+    goodTeamStyle: goodTeamStyle,
+    badTeamStyle: badTeamStyle,
 
     missionNumber: missionNumber,
     curMissionVoteDisapproves: curMissionVoteDisapproves,
@@ -478,7 +482,7 @@ function App() {
             element={
               <>
                 <GameScreen {...gameScreenProps} />
-                <EndScreen {...endScreenProps} />
+                <EndModal {...endScreenProps} />
               </>
             } 
           />

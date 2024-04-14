@@ -6,11 +6,10 @@ import StarIcon from '@mui/icons-material/Star';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 
 function PlayerBox({ 
+  username, 
   isLeader = false, 
   onMission=false, 
-  inTeamVote=false, 
-  teamStyle={}, 
-  username, 
+  teamStyle={},
   ownName=false, 
   onClick,
   is4K,
@@ -33,7 +32,7 @@ function PlayerBox({
           <CheckBoxIcon style={{
               fill: "white",
               fontSize: is4K ? "xx-large" : "large", 
-              fillOpacity: onMission || inTeamVote ? "1" : "0"
+              fillOpacity: onMission ? "1" : "0"
             }} 
           />
         </div>

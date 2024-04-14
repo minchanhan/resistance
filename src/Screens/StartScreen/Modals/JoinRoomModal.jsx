@@ -2,18 +2,16 @@ import React, { useEffect, useState } from "react";
 import "./joinRoom.css";
 
 import { Modal } from "@mui/material";
-import DisplayButton from "../../../Components/DisplayButton.jsx";
-import UserInput from "../../../Components/UserInput.jsx";
+import DisplayButton from "../../../Utils/DisplayButton.jsx";
+import UserInput from "../../../Utils/UserInput.jsx";
 
 function JoinRoomModal({
   open, 
   handleJoinClose,
   room="",
   joinRoom,
-  isValidRoom,
-  setIsValidRoom,
-  roomStatus,
-  setRoomStatus
+  joinRoomMsg,
+  setJoinRoomMsg
 }) {
   const [checkedRoom, setCheckedRoom] = useState(false);
   const [enteredRoomCode, setEnteredRoomCode] = useState("");
@@ -21,8 +19,7 @@ function JoinRoomModal({
   const handleJoinRoom = () => {
     setCheckedRoom(true);
     if (enteredRoomCode.length !== 6) {
-      setIsValidRoom(false);
-      setRoomStatus("Room code must be 6 chars");
+      setJoinRoomMsg("Room code must be 6 chars");
     } else {
       joinRoom(enteredRoomCode);
     }
@@ -61,8 +58,8 @@ function JoinRoomModal({
                 return false;
               }
             }}
-            helperText={!isValidRoom && checkedRoom ? roomStatus : ""}
-            showError={!isValidRoom && checkedRoom}
+            helperText={joinRoomMsg}
+            showError={joinRoomMsg !== "" && checkedRoom}
             placeholder="Room Code"
           />
           <DisplayButton onClick={handleJoinRoom} text="Join Room" />

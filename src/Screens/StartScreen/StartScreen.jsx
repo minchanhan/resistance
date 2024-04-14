@@ -3,13 +3,13 @@ import { useParams } from "react-router-dom";
 
 import "../../App.css";
 
-import JoinRoomModal from "./Components/JoinRoomModal";
-import InstructionsModal from "./Components/InstructionsModal";
-import DisplayButton from "../../Components/DisplayButton";
-import UserInput from "../../Components/UserInput";
+import JoinRoomModal from "./Modals/JoinRoomModal.jsx";
+import InstructionsModal from "./Modals/InstructionsModal.jsx";
+import DisplayButton from "../../Utils/DisplayButton.jsx";
+import UserInput from "../../Utils/UserInput.jsx";
 import RebellionLogo from "../../assets/RebellionLogo.jsx";
-import TermsOfService from "./Components/Footer/TermsOfService.jsx";
-import Contact from "./Components/Footer/Contact.jsx";
+import TermsOfService from "./Footer/TermsOfService.jsx";
+import Contact from "./Footer/Contact.jsx";
 
 function StartScreen({ 
   navigate,
@@ -18,11 +18,11 @@ function StartScreen({
   onChangedUsername, 
   createRoom,
   joinRoom,
-  isValidRoom,
-  setIsValidRoom,
-  roomStatus,
-  setRoomStatus,
+  joinRoomMsg,
+  setJoinRoomMsg,
   randomRoomMsg,
+  goodTeamStyle,
+  badTeamStyle
 }) {
 
   const { room } = useParams();
@@ -90,14 +90,14 @@ function StartScreen({
         handleJoinClose={handleJoinClose}
         room={room}
         joinRoom={joinRoom}
-        isValidRoom={isValidRoom}
-        setIsValidRoom={setIsValidRoom}
-        roomStatus={roomStatus}
-        setRoomStatus={setRoomStatus}
+        joinRoomMsg={joinRoomMsg}
+        setJoinRoomMsg={setJoinRoomMsg}
       />
       <InstructionsModal 
         open={instructionsOpen} 
         handleInstructionsClose={handleInstructionsClose}
+        goodTeamStyle={goodTeamStyle}
+        badTeamStyle={badTeamStyle}
       />
 
       <TermsOfService
