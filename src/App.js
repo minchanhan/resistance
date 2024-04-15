@@ -245,10 +245,6 @@ function App() {
       }
     };
 
-    const handleSeatsUpdate = (seats) => {
-      setSeats(seats);
-    };
-
     const handleGameSettingsChange = (settings) => { 
       setRoomCode(settings.roomCode);
       setRoomAdminName(settings.roomAdminName);
@@ -264,7 +260,10 @@ function App() {
       if (!showHiddenChat) setNewMsg(true);
     };
 
-    
+    const handleSeatsUpdate = (seats) => {
+      setSeats(seats);
+    };
+
     const handleTeamSelectStart = (info) => { 
       setGameStarted(true); // GAME START WHEN LEADER STARTS SELECTING
       setEndModalOpen(false); // If the modal is still up, take it down
@@ -348,9 +347,9 @@ function App() {
       console.log("from reconnect failed: ", socket.id);
     });*/
     
-    socket.on("seats_update", handleSeatsUpdate);
     socket.on("game_settings_update", handleGameSettingsChange);
     socket.on("msg_list_update", handleMsgListUpdate);
+    socket.on("seats_update", handleSeatsUpdate);
 
     socket.on("team_select_happening", handleTeamSelectStart);
     socket.on("vote_happening", handlePlayerVoteStart);
