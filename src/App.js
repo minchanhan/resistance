@@ -136,7 +136,6 @@ function App() {
   };
 
   const joinRoom = (enteredRoomCode) => { // StartScreen
-    console.log("join room with ", enteredRoomCode);
     socket.emit("join_room", username, enteredRoomCode, (res) => {
       if (res.roomExists) {
         setUsername(res.uniqueName);
@@ -232,7 +231,6 @@ function App() {
         console.log(`socket recovered with id: ${socket.id}`);
       } else {
         console.log(`brand new connection with id: ${socket.id}`);
-        console.log("private room on join: ", privateRoom);
       }
     };
 
