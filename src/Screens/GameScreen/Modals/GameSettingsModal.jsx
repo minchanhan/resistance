@@ -2,14 +2,13 @@ import React from "react";
 import { Modal } from "@mui/material";
 import CheckIcon from '@mui/icons-material/Check';
 
-
 function GameSettingsModal({
   isAdmin,
   curNumPlayers,
   capacity,
   onChangedCapacity,
-  selectionTimeSecs,
-  onChangedSelectionTimeSecs,
+  selectionSecs,
+  onChangedSelectionSecs,
   privateRoom,
   onChangedPrivateRoom,
   openSettings,
@@ -60,9 +59,9 @@ function GameSettingsModal({
             <p>Team Select Time</p>
             <select
               className="selectBox"
-              value={selectionTimeSecs/60}
+              value={selectionSecs/60}
               onChange={(event) => {
-                onChangedSelectionTimeSecs(parseInt(event.target.value)*60);
+                onChangedSelectionSecs(parseInt(event.target.value)*60);
               }}
               disabled={!isAdmin}
               style={{
@@ -100,7 +99,7 @@ function GameSettingsModal({
               <span 
                 className="checkbox" 
                 style={{
-                  backgroundColor: !isAdmin ? "var(--disabled-priv-text)" : "",
+                  backgroundColor: !privateRoom ? "var(--disabled-priv-text)" : "",
                   cursor: !isAdmin ? "not-allowed" : ""
                 }}
               >
@@ -117,5 +116,3 @@ function GameSettingsModal({
 }
 
 export default GameSettingsModal;
-
-

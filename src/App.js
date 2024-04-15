@@ -68,7 +68,7 @@ function App() {
   const [roomCode, setRoomCode] = useState(""); // logic uses roomCode, params is room
   const [roomAdminName, setRoomAdminName] = useState("");
   const [capacity, setCapacity] = useState(6);
-  const [selectionTimeSecs, setSelectionTimeSecs] = useState(7 * 60);
+  const [selectionSecs, setSelectionSecs] = useState(7 * 60);
   const [privateRoom, setPrivateRoom] = useState(true);
   const [numGames, setNumGames] = useState(1);
   const [missionTeamSizes, setMissionTeamSizes] = useState([2,3,4,3,4]);
@@ -111,7 +111,7 @@ function App() {
   // Timer
   const [secs, setSecs] = useState(0);
   const [mins, setMins] = useState(0);
-  const [timerGoal, setTimerGoal] = useState(null); // seconds since jan 1970 + selectionTimeSecs
+  const [timerGoal, setTimerGoal] = useState(null); // seconds since jan 1970 + selectionSecs
 
   /* --- HELPERS --- */
   const checkInGame = (room) => {
@@ -136,6 +136,7 @@ function App() {
   };
 
   const joinRoom = (enteredRoomCode) => { // StartScreen
+    console.log("join room with ", enteredRoomCode);
     socket.emit("join_room", username, enteredRoomCode, (res) => {
       if (res.roomExists) {
         setUsername(res.uniqueName);
@@ -155,9 +156,9 @@ function App() {
     socket.emit("set_capacity", updatedCapacity, roomCode);
   };
 
-  const onChangedSelectionTimeSecs = (updatedSelectionTimeSecs) => { // GameSettings
-    setSelectionTimeSecs(updatedSelectionTimeSecs);
-    socket.emit("set_selection_time", updatedSelectionTimeSecs, roomCode);
+  const onChangedSelectionSecs = (updatedSelectionSecs) => { // GameSettings
+    setSelectionSecs(updatedSelectionSecs);
+    socket.emit("set_selection_secs", updatedSelectionSecs, roomCode);
   };
 
   const onChangedPrivateRoom = () => { // GameSettings
@@ -231,6 +232,7 @@ function App() {
         console.log(`socket recovered with id: ${socket.id}`);
       } else {
         console.log(`brand new connection with id: ${socket.id}`);
+        console.log("private room on join: ", privateRoom);
       }
     };
 
@@ -249,10 +251,19 @@ function App() {
       setRoomCode(settings.roomCode);
       setRoomAdminName(settings.roomAdminName);
       setCapacity(settings.capacity);
-      setSelectionTimeSecs(settings.selectionTimeSecs);
+      setSelectionSecs(settings.selectionSecs);
       setPrivateRoom(settings.privateRoom);
       setNumGames(settings.numGames);
       setMissionTeamSizes(settings.missionTeamSizes);
+    };
+    const handleCapacityChange = (newCapacity) => {
+      setCapacity(newCapacity);
+    };
+    const handleSelectionSecsChange = (newSecs) => {
+      setSelectionSecs(newSecs);
+    };
+    const handlePrivateRoomChange = (newPrivateRoom) => {
+      setPrivateRoom(newPrivateRoom);
     };
 
     const handleMsgListUpdate = (msgList) => {
@@ -348,6 +359,10 @@ function App() {
     });*/
     
     socket.on("game_settings_update", handleGameSettingsChange);
+    socket.on("capacity_change", handleCapacityChange);
+    socket.on("selection_secs_change", handleSelectionSecsChange);
+    socket.on("private_room_change", handlePrivateRoomChange);
+    
     socket.on("msg_list_update", handleMsgListUpdate);
     socket.on("seats_update", handleSeatsUpdate);
 
@@ -408,8 +423,8 @@ function App() {
 
     capacity: capacity,
     onChangedCapacity: onChangedCapacity,
-    selectionTimeSecs: selectionTimeSecs,
-    onChangedSelectionTimeSecs: onChangedSelectionTimeSecs,
+    selectionSecs: selectionSecs,
+    onChangedSelectionSecs: onChangedSelectionSecs,
     privateRoom: privateRoom,
     onChangedPrivateRoom: onChangedPrivateRoom,
     numGames: numGames,

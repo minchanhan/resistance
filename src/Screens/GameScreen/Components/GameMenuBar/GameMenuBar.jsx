@@ -13,8 +13,8 @@ function GameMenuBar({
   curNumPlayers,
   capacity,
   onChangedCapacity,
-  selectionTimeSecs,
-  onChangedSelectionTimeSecs,
+  selectionSecs,
+  onChangedSelectionSecs,
   privateRoom,
   onChangedPrivateRoom,
 }) {
@@ -27,8 +27,8 @@ function GameMenuBar({
         curNumPlayers={curNumPlayers}
         capacity={capacity}
         onChangedCapacity={onChangedCapacity}
-        selectionTimeSecs={selectionTimeSecs}
-        onChangedSelectionTimeSecs={onChangedSelectionTimeSecs}
+        selectionSecs={selectionSecs}
+        onChangedSelectionSecs={onChangedSelectionSecs}
         privateRoom={privateRoom}
         onChangedPrivateRoom={onChangedPrivateRoom}
         openSettings={openSettings}

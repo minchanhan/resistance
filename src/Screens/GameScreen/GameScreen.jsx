@@ -27,8 +27,8 @@ function GameScreen({
 
   capacity,
   onChangedCapacity,
-  selectionTimeSecs,
-  onChangedSelectionTimeSecs,
+  selectionSecs,
+  onChangedSelectionSecs,
   privateRoom,
   onChangedPrivateRoom,
   numGames,
@@ -146,8 +146,8 @@ function GameScreen({
     curNumPlayers: seats.length,
     capacity: capacity,
     onChangedCapacity: onChangedCapacity,
-    selectionTimeSecs: selectionTimeSecs,
-    onChangedSelectionTimeSecs: onChangedSelectionTimeSecs,
+    selectionSecs: selectionSecs,
+    onChangedSelectionSecs: onChangedSelectionSecs,
     privateRoom: privateRoom,
     onChangedPrivateRoom: onChangedPrivateRoom,
   };
