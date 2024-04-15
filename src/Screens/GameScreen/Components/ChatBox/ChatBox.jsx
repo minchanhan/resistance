@@ -7,7 +7,6 @@ function ChatBox({
   msg, 
   setMsg, 
   msgList, 
-  setMsgList,
   showHiddenChat,
   setShowHiddenChat,
   haveCloseOnWindow,
@@ -50,7 +49,6 @@ function ChatBox({
     };
 
     sendMessage(msgData);
-    setMsgList((msgList) => [...msgList, msgData]);
     setMsg("");
   };
 

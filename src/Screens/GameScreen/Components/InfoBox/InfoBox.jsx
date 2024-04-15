@@ -4,7 +4,8 @@ import Timer from "./Timer.jsx";
 function InfoTable({ 
   roomCode, 
   capacity, 
-  topText, 
+  roomAdminName, 
+  numGames,
   missionNumber, 
   gameStarted=false, 
   mins,
@@ -32,11 +33,12 @@ function InfoTable({
           </div>
         ) : (
           <div className="information">
-            <div style={{textWrap: "nowrap"}}>room admin</div>
+            <div style={{textWrap: "nowrap"}}>{`Room Admin: ${roomAdminName}`}</div>
             <div style={{cursor: "pointer"}} onClick={() => {navigator.clipboard.writeText(roomCode)}}>
               {`Copy Room Code: ${roomCode}`}
             </div>
             <div>{`${seats.length}/${capacity} players joined`}</div>
+            <div>{"Game: " + numGames}</div>
           </div>
         )
       }

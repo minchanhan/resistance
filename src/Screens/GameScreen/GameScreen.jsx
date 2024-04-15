@@ -31,6 +31,7 @@ function GameScreen({
   onChangedSelectionTimeSecs,
   privateRoom,
   onChangedPrivateRoom,
+  numGames,
   missionTeamSizes,
 
   gameStarted,
@@ -46,9 +47,10 @@ function GameScreen({
   msg,
   setMsg,
   msgList,
-  setMsgList,
   newMsg,
   setNewMsg,
+  showHiddenChat,
+  setShowHiddenChat,
 
   seats,
   selectedPlayers,
@@ -82,8 +84,6 @@ function GameScreen({
   const isTall = useMediaQuery({ minHeight: 700 }); // i)
   const isShort = useMediaQuery({ maxHeight: 700 }); // ii)
   const isReallyShort = useMediaQuery({ maxHeight: 450 });
-
-  const [showHiddenChat, setShowHiddenChat] = useState(false);
 
   /*
   useEffect(() => {
@@ -129,7 +129,8 @@ function GameScreen({
   const infoBoxProps = {
     roomCode: roomCode,
     capacity: capacity, 
-    topText: `Room Admin: ${roomAdminName}`,
+    roomAdminName: roomAdminName,
+    numGames: numGames,
     missionNumber: missionNumber,
     gameStarted: gameStarted,
     mins: mins,
@@ -156,7 +157,6 @@ function GameScreen({
     msg: msg,
     setMsg: setMsg,
     msgList: msgList,
-    setMsgList: setMsgList,
     showHiddenChat: showHiddenChat,
     setShowHiddenChat: setShowHiddenChat,
     haveCloseOnWindow: (isLandscape && isShort) || isThin || isPortrait,

@@ -7,7 +7,7 @@ import StartScreen from './Screens/StartScreen/StartScreen';
 import EndModal from './Screens/GameScreen/Modals/EndModal';
 import GameScreen from './Screens/GameScreen/GameScreen';
 
-const socket = io.connect(process.env.REACT_APP_SERVER || "http://localhost:3001"); // connect to socket server
+const socket = io(process.env.REACT_APP_SERVER || "http://localhost:3001"); // connect to socket server
 
 function App() {
   useEffect(() => { // confirmation before leaving
@@ -83,6 +83,7 @@ function App() {
   const [msg, setMsg] = useState("");
   const [msgList, setMsgList] = useState([]);
   const [newMsg, setNewMsg] = useState(false);
+  const [showHiddenChat, setShowHiddenChat] = useState(false);
 
   const [seats, setSeats] = useState([]);
   const [selectedPlayers, setSelectedPlayers] = useState([]); // selected players for vote/mission  
@@ -129,6 +130,7 @@ function App() {
   const joinRoom = (enteredRoomCode) => { // StartScreen
     socket.emit("join_room", username, enteredRoomCode, (res) => {
       if (res.roomExists) {
+        setUsername(res.uniqueName);
         navigate(`/${res.roomCode}`, { replace: true });
       } else {
         if (enteredRoomCode === "random_join") {
@@ -156,7 +158,7 @@ function App() {
   };
 
   const sendMessage = (msgData) => {
-    socket.emit("send_msg", msgData);
+    socket.emit("send_msg", msgData, roomCode, isAdmin, username);
   };
 
   const startGame = () => { // GameScreen
@@ -216,13 +218,22 @@ function App() {
   /* --- Listening for socket messages --- */
   useEffect(() => {
     // functions
-    const handleSeatsUpdate = (seats) => {
-      setSeats(seats);
+    const handleConnect = () => {
+      console.log("client connected");
     };
 
-    const handleMsgListUpdate = (msgList) => {
-      setMsgList(msgList);
-      setNewMsg(true);
+    const handleDisconnect = (reason, details) => {
+      if (socket.active) {
+        // temporary disconnection, the socket will automatically try to reconnect
+      } else {
+        // the connection was forcefully closed by the server or the client itself
+        // in that case, `socket.connect()` must be manually called in order to reconnect
+        console.log("disconnected fully", reason, details);
+      }
+    };
+
+    const handleSeatsUpdate = (seats) => {
+      setSeats(seats);
     };
 
     const handleGameSettingsChange = (settings) => { 
@@ -236,52 +247,11 @@ function App() {
       console.log("settings updated");
     };
 
-
-
-    const resetActionLobbyTimer = () => {
-      // reset game actions to defaults
-      setTeamSelectHappening(false);
-      setIsMissionLeader(false);
-      setDisableTeamSubmit(false);
-  
-      setVoteHappening(false);
-      setDisableVoteBtns(false);
-  
-      setMissionHappening(false);
-      setIsGoingOnMission(false);
-      setDisableMissionActions(false);
-  
-      // reset lobby
-      setGameStarted(false);
-      setMissionNumber(1);
-      setCurMissionVoteDisapproves(0);
-      setMissionResultTrack(["none","none","none","none","none"]);
-      setSelectedPlayers([]);
-  
-      // reset team select timer
-      setSecs(0);
-      setMins(0);
+    const handleMsgListUpdate = (msgList) => {
+      setMsgList(msgList);
+      if (!showHiddenChat) setNewMsg(true);
     };
 
-    const handleKickedPlayer = () => { 
-      setRoomAdminName("");
-      setRoomCode("");
-    };
-
-    const handleRoomAdminChange = (adminInfo) => { 
-      setIsAdmin(adminInfo.isAdmin);
-      setRoomAdminName(adminInfo.adminName);
-      socket.emit("set_room_admin", adminInfo.isAdmin);
-    };
-
-    const handleGameEnd = (info) => {
-      // handle end game
-      setRevealedPlayers(info.playerRevealArr);
-      setEndMsg(info.endMsg);
-      if (!info.kicked) setEndModalOpen(true);
-
-      resetActionLobbyTimer();
-    };
     
     const handleLeaderSelect = (info) => { 
       setGameStarted(true); // GAME START WHEN LEADER STARTS SELECTING
@@ -307,16 +277,17 @@ function App() {
       setVoteHappening(true); // 2a
       setDisableVoteBtns(false); // 2a
     };
-
-    const handleVoteTrackChange = (newCount) => {
-      setCurMissionVoteDisapproves(newCount);
-    };
-
+    
     const handleMissionStart = (onMissionTeam) => {
       setVoteHappening(false); // 2c
       setIsGoingOnMission(onMissionTeam); // 3a
       setMissionHappening(true);
       setDisableMissionActions(false); // 3a
+    };
+
+
+    const handleVoteTrackChange = (newCount) => {
+      setCurMissionVoteDisapproves(newCount);
     };
 
     const handleMissionComplete = (info) => { // only when mission completed AND new one starting
@@ -328,72 +299,62 @@ function App() {
       setMissionNumber(info.mission);
     };
 
-    
+    const handleKickedPlayer = () => { 
+      // reset all states
+      // navigate to start screen
+      // you were kicked modal
+    };
 
-    const handleInGameCallback = (info) => {
-      if (!info.inGame) {
-        setYouDisconnectedModalOpen(true);
+    const handleGameEnd = (info) => {
+      // handle end game
+      setRevealedPlayers(info.playerRevealArr);
+      setEndMsg(info.endMsg);
+      if (!info.kicked) setEndModalOpen(true);
 
-        // reset all states to default because they should be considered a new user:
-        setUsername("");
-        setIsAdmin(false);
-        setRoomAdminName("");
-        setJoinRoomMsg("");
-        setCapacity(6);
-        setSelectionTimeSecs(7 * 60);
-        setPrivateRoom(true);
-        setRoomCode("");
-        setRandomRoomMsg("");
-        setMsg("");
-        setMsgList([]);
-        setNewMsg(false);
-        setSeats([]);
-        setGameStarted(false);
-        setEndModalOpen(false);
-        setTimerGoal(null);
-
-        setRevealedPlayers([]);
-        setEndMsg("");
-        setEndModalOpen(false);
-
-        resetActionLobbyTimer();
-      }
     };
 
     // listeners
+    socket.on("connect", handleConnect);
+    socket.on("disconnect", handleDisconnect);
+
+    /*
+    socket.io.on("reconnect", handleReconnect);
+    socket.io.on("reconnect_attempt", handleReconnectAttempt);
+    socket.io.on("reconnect_error", handleReconnectError);
+    socket.io.on("reconnect_failed", handleReconnectFailed);
+    */
+
     socket.on("seats_update", handleSeatsUpdate);
-    socket.on("msg_list_update", handleMsgListUpdate);
     socket.on("game_settings_update", handleGameSettingsChange);
+    socket.on("msg_list_update", handleMsgListUpdate);
 
-
-    socket.on("kicked_player", handleKickedPlayer);
-    socket.on("room_admin_changed", handleRoomAdminChange);
-    socket.on("set_game_end", handleGameEnd);
     socket.on("leader_is_selecting", handleLeaderSelect);
     socket.on("vote_on_these_players", handlePlayerVoteStart);
-    socket.on("vote_track", handleVoteTrackChange);
     socket.on("go_on_mission", handleMissionStart);
-    socket.on("mission_completed", handleMissionComplete);
-    
-    socket.on("are_you_in_game", handleInGameCallback); // special
 
+    socket.on("vote_track", handleVoteTrackChange);
+    socket.on("mission_completed", handleMissionComplete);
+
+    socket.on("kicked_player", handleKickedPlayer);
+    socket.on("set_game_end", handleGameEnd);
+    
     return () => {
       // cleanup
+      socket.off("connect", handleConnect);
+
       socket.off("seats_update", handleSeatsUpdate);
-      socket.off("msg_list_update", handleMsgListUpdate);
       socket.off("game_settings_update", handleGameSettingsChange);
+      socket.off("msg_list_update", handleMsgListUpdate);
 
-
-      socket.off("kicked_player", handleKickedPlayer);
-      socket.off("room_admin_changed", handleRoomAdminChange);
-      socket.off("set_game_end", handleGameEnd);
       socket.off("leader_is_selecting", handleLeaderSelect);
       socket.off("vote_on_these_players", handlePlayerVoteStart);
-      socket.off("vote_track", handleVoteTrackChange);
       socket.off("go_on_mission", handleMissionStart);
+
+      socket.off("vote_track", handleVoteTrackChange);
       socket.off("mission_completed", handleMissionComplete);
 
-      socket.on("are_you_in_game", handleInGameCallback); // special
+      socket.off("kicked_player", handleKickedPlayer);
+      socket.off("set_game_end", handleGameEnd);
     };
   });
 
@@ -430,6 +391,7 @@ function App() {
     onChangedSelectionTimeSecs: onChangedSelectionTimeSecs,
     privateRoom: privateRoom,
     onChangedPrivateRoom: onChangedPrivateRoom,
+    numGames: numGames,
     missionTeamSizes: missionTeamSizes,
 
     gameStarted: gameStarted,
@@ -445,9 +407,10 @@ function App() {
     msg: msg,
     setMsg: setMsg,
     msgList: msgList,
-    setMsgList: setMsgList,
     newMsg: newMsg,
     setNewMsg: setNewMsg,
+    showHiddenChat: showHiddenChat,
+    setShowHiddenChat: setShowHiddenChat,
 
     seats: seats,
     selectedPlayers: selectedPlayers,
