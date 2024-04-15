@@ -68,16 +68,16 @@ function App() {
   // Game States
   const [gameStarted, setGameStarted] = useState(false); // is game started
 
-  const [teamSelectHappening, setTeamSelectHappening] = useState(false); // team select
+  const [teamSelectHappening, setTeamSelectHappening] = useState(false); // show buttons?
   const [isMissionLeader, setIsMissionLeader] = useState(false); // is leader
-  const [disableTeamSubmit, setDisableTeamSubmit] = useState(false);
+  const [disableTeamSubmit, setDisableTeamSubmit] = useState(false); // used by client only
 
-  const [voteHappening, setVoteHappening] = useState(false); // vote
-  const [disableVoteBtns, setDisableVoteBtns] = useState(false);
+  const [voteHappening, setVoteHappening] = useState(false); // // show buttons!
+  const [disableVoteBtns, setDisableVoteBtns] = useState(false); // used by client only
 
   const [missionHappening, setMissionHappening] = useState(false); // mission
-  const [isGoingOnMission, setIsGoingOnMission] = useState(false);
-  const [disableMissionActions, setDisableMissionActions] = useState(false);  
+  const [isGoingOnMission, setIsGoingOnMission] = useState(false); // show buttons?
+  const [disableMissionActions, setDisableMissionActions] = useState(false); // used by client only 
 
   // Game Screen
   const [msg, setMsg] = useState("");
@@ -86,7 +86,7 @@ function App() {
   const [showHiddenChat, setShowHiddenChat] = useState(false);
 
   const [seats, setSeats] = useState([]);
-  const [selectedPlayers, setSelectedPlayers] = useState([]); // selected players for vote/mission  
+  const [selectedPlayers, setSelectedPlayers] = useState([]); // used only by LEADER when selecting team to send
 
   const [missionNumber, setMissionNumber] = useState(1);
   const [curMissionVoteDisapproves, setCurMissionVoteDisapproves] = useState(0);
@@ -169,7 +169,7 @@ function App() {
   };
 
   const handleTeamSubmit = () => {
-    socket.emit("selected_players_for_vote", { selectedPlayers: selectedPlayers, roomCode: roomCode });
+    socket.emit("team_submitted_for_vote", { selectedPlayers: selectedPlayers, roomCode: roomCode });
     setDisableTeamSubmit(true); // 1b
   };
 
@@ -229,6 +229,7 @@ function App() {
         // the connection was forcefully closed by the server or the client itself
         // in that case, `socket.connect()` must be manually called in order to reconnect
         console.log("disconnected fully", reason, details);
+        // show you disconnected modal? idk
       }
     };
 
@@ -253,7 +254,7 @@ function App() {
     };
 
     
-    const handleLeaderSelect = (info) => { 
+    const handleTeamSelectStart = (info) => { 
       setGameStarted(true); // GAME START WHEN LEADER STARTS SELECTING
       setEndModalOpen(false); // If the modal is still up, take it down
       setSelectedPlayers([]); // reset
@@ -264,6 +265,10 @@ function App() {
       setVoteHappening(false); // 2c
       setMissionHappening(false); // 3c
       setIsGoingOnMission(false);
+
+      // update mission stats
+      setMissionResultTrack(info.missionResultTrack);
+      setMissionNumber(info.mission);
 
       const now = Math.floor(new Date().getTime() / 1000);
       setTimerGoal(now + info.secs);
@@ -290,15 +295,6 @@ function App() {
       setCurMissionVoteDisapproves(newCount);
     };
 
-    const handleMissionComplete = (info) => { // only when mission completed AND new one starting
-      setIsGoingOnMission(false); // 3c
-      setMissionHappening(false);
-
-      // update mission stats
-      setMissionResultTrack(info.missionResultTrack);
-      setMissionNumber(info.mission);
-    };
-
     const handleKickedPlayer = () => { 
       // reset all states
       // navigate to start screen
@@ -314,44 +310,37 @@ function App() {
     };
 
     // listeners
+    /*
     socket.on("connect", handleConnect);
     socket.on("disconnect", handleDisconnect);
-
-    /*
     socket.io.on("reconnect", handleReconnect);
     socket.io.on("reconnect_attempt", handleReconnectAttempt);
     socket.io.on("reconnect_error", handleReconnectError);
     socket.io.on("reconnect_failed", handleReconnectFailed);
     */
-
     socket.on("seats_update", handleSeatsUpdate);
     socket.on("game_settings_update", handleGameSettingsChange);
     socket.on("msg_list_update", handleMsgListUpdate);
 
-    socket.on("leader_is_selecting", handleLeaderSelect);
-    socket.on("vote_on_these_players", handlePlayerVoteStart);
-    socket.on("go_on_mission", handleMissionStart);
-
+    socket.on("team_select_happening", handleTeamSelectStart);
+    socket.on("vote_happening", handlePlayerVoteStart);
+    socket.on("mission_happening", handleMissionStart);
     socket.on("vote_track", handleVoteTrackChange);
-    socket.on("mission_completed", handleMissionComplete);
 
     socket.on("kicked_player", handleKickedPlayer);
     socket.on("set_game_end", handleGameEnd);
     
     return () => {
       // cleanup
-      socket.off("connect", handleConnect);
-
+      // socket.off("connect", handleConnect);vo
       socket.off("seats_update", handleSeatsUpdate);
       socket.off("game_settings_update", handleGameSettingsChange);
       socket.off("msg_list_update", handleMsgListUpdate);
 
-      socket.off("leader_is_selecting", handleLeaderSelect);
-      socket.off("vote_on_these_players", handlePlayerVoteStart);
-      socket.off("go_on_mission", handleMissionStart);
-
+      socket.off("team_select_happening", handleTeamSelectStart);
+      socket.off("vote_happening", handlePlayerVoteStart);
+      socket.off("mission_happening", handleMissionStart);
       socket.off("vote_track", handleVoteTrackChange);
-      socket.off("mission_completed", handleMissionComplete);
 
       socket.off("kicked_player", handleKickedPlayer);
       socket.off("set_game_end", handleGameEnd);
