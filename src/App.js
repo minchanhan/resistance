@@ -142,9 +142,9 @@ function App() {
         navigate(`/${res.roomCode}`, { replace: true });
       } else {
         if (enteredRoomCode === "random_join") {
-          setRandomRoomMsg(res.joinRoomMsg);
+          setRandomRoomMsg(res.msg);
         } else {
-          setJoinRoomMsg(res.joinRoomMsg);
+          setJoinRoomMsg(res.msg);
         }
       }
     });

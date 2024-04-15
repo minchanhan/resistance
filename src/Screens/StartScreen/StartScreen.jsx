@@ -67,7 +67,7 @@ function StartScreen({
     if (validUsername()) {
       joinRoom("random_join");
     }
-  }
+  };
 
   const handleInstructionsOpen = () => {
     setInstructionsOpen(true);
