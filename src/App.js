@@ -7,7 +7,15 @@ import StartScreen from './Screens/StartScreen/StartScreen';
 import EndModal from './Screens/GameScreen/Modals/EndModal';
 import GameScreen from './Screens/GameScreen/GameScreen';
 
-const socket = io(process.env.REACT_APP_SERVER || "http://localhost:3001"); // connect to socket server
+const socket = io(
+  process.env.REACT_APP_SERVER || "http://localhost:3001",
+  {
+    reconnectionDelay: 1000, // defaults to 1000
+    reconnectionDelayMax: 5000, // defaults to 5000
+    // retries: 3,
+    // ackTimeout: 5000,
+  }
+); // connect to socket server
 
 function App() {
   useEffect(() => { // confirmation before leaving
@@ -105,17 +113,17 @@ function App() {
   const [mins, setMins] = useState(0);
   const [timerGoal, setTimerGoal] = useState(null); // seconds since jan 1970 + selectionTimeSecs
 
-  /* HELPERS */
-  const onChangedUsername = (updatedUsername) => { // StartScreen
-    setUsername(updatedUsername);
-  };
-
+  /* --- HELPERS --- */
   const checkInGame = (room) => {
     socket.emit("am_i_in_room", room, (res) => {
       if (!res.inRoom) {
         navigate(`/join/${room}`, { replace: true });
       }
     });
+  };
+
+  const onChangedUsername = (updatedUsername) => { // StartScreen
+    setUsername(updatedUsername);
   };
 
   const createRoom = () => { // StartScreen
@@ -187,7 +195,7 @@ function App() {
     setEndModalOpen(false);
   };
 
-  // timer
+  /* --- TIMER --- */
   useEffect(() => {
     let interval = setInterval(() => {
       if (!teamSelectHappening) {
@@ -215,21 +223,25 @@ function App() {
     };
   }, [timerGoal, teamSelectHappening]);
 
-  /* --- Listening for socket messages --- */
+  /* --- EVENT LISTENERS --- */
   useEffect(() => {
     // functions
     const handleConnect = () => {
-      console.log("client connected");
+      if (socket.recovered) {
+        console.log(`socket recovered with id: ${socket.id}`);
+      } else {
+        console.log(`brand new connection with id: ${socket.id}`);
+      }
     };
 
     const handleDisconnect = (reason, details) => {
       if (socket.active) {
         // temporary disconnection, the socket will automatically try to reconnect
+        console.log("temporary disconnection, try to reconnect", reason, details);
       } else {
         // the connection was forcefully closed by the server or the client itself
-        // in that case, `socket.connect()` must be manually called in order to reconnect
         console.log("disconnected fully", reason, details);
-        // show you disconnected modal? idk
+        // show you disconnected modal?
       }
     };
 
@@ -245,7 +257,6 @@ function App() {
       setPrivateRoom(settings.privateRoom);
       setNumGames(settings.numGames);
       setMissionTeamSizes(settings.missionTeamSizes);
-      console.log("settings updated");
     };
 
     const handleMsgListUpdate = (msgList) => {
@@ -310,14 +321,33 @@ function App() {
     };
 
     // listeners
-    /*
     socket.on("connect", handleConnect);
     socket.on("disconnect", handleDisconnect);
-    socket.io.on("reconnect", handleReconnect);
-    socket.io.on("reconnect_attempt", handleReconnectAttempt);
-    socket.io.on("reconnect_error", handleReconnectError);
-    socket.io.on("reconnect_failed", handleReconnectFailed);
-    */
+    /*
+    socket.io.on("ping", () => {
+      console.log("ping from pingInterval");
+    });
+    socket.on("ping", () => {
+      console.log("ping from interval");
+    });
+
+    socket.io.on("reconnect", () => {
+      console.log("reconnect called");
+      console.log("from reconnect: ", socket.id);
+    });
+    socket.io.on("reconnect_attempt", () => {
+      console.log("reconnect attempt called");
+      console.log("from reconnect attempt: ", socket.id);
+    });
+    socket.io.on("reconnect_error", () => {
+      console.log("reconnect error called");
+      console.log("from reconnect error: ", socket.id);
+    });
+    socket.io.on("reconnect_failed", () => {
+      console.log("reconnect failed called");
+      console.log("from reconnect failed: ", socket.id);
+    });*/
+    
     socket.on("seats_update", handleSeatsUpdate);
     socket.on("game_settings_update", handleGameSettingsChange);
     socket.on("msg_list_update", handleMsgListUpdate);
@@ -332,7 +362,9 @@ function App() {
     
     return () => {
       // cleanup
-      // socket.off("connect", handleConnect);vo
+      socket.off("connect", handleConnect);
+      socket.off("disconnect", handleDisconnect);
+
       socket.off("seats_update", handleSeatsUpdate);
       socket.off("game_settings_update", handleGameSettingsChange);
       socket.off("msg_list_update", handleMsgListUpdate);
@@ -347,6 +379,7 @@ function App() {
     };
   });
 
+  /* --- PROPS TO CHILDREN --- */
   const startScreenProps = {
     navigate: navigate,
     username: username, 
