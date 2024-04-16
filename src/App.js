@@ -58,6 +58,7 @@ function App() {
   // Modal States
   const [endModalOpen, setEndModalOpen] = useState(false);
   const [youDisconnectedModalOpen, setYouDisconnectedModalOpen] = useState(false);
+  const [youDisconnectedMsg, setYouDisconnectedMsg] = useState("");
 
   // Client States
   const [username, setUsername] = useState("");
@@ -88,12 +89,12 @@ function App() {
   const [disableMissionActions, setDisableMissionActions] = useState(false); // used by client only 
 
   // Game Screen
-  const [msg, setMsg] = useState("");
-  const [msgList, setMsgList] = useState([]);
+  const [msg, setMsg] = useState(""); // used to track
+  const [msgList, setMsgList] = useState([]); // client's current msg (NEED TO RESET ON DISCONNECT)
   const [newMsg, setNewMsg] = useState(false);
   const [showHiddenChat, setShowHiddenChat] = useState(false);
 
-  const [seats, setSeats] = useState([]);
+  const [seats, setSeats] = useState([]); // (NEED TO RESET ON DISCONNECT)
   const [selectedPlayers, setSelectedPlayers] = useState([]); // used only by LEADER when selecting team to send
 
   const [missionNumber, setMissionNumber] = useState(1);
@@ -116,9 +117,7 @@ function App() {
   /* --- HELPERS --- */
   const checkInGame = (room) => {
     socket.emit("am_i_in_room", room, (res) => {
-      if (!res.inRoom) {
-        navigate(`/join/${room}`, { replace: true });
-      }
+      
     });
   };
 
@@ -166,7 +165,7 @@ function App() {
   };
 
   const sendMessage = (msgData) => {
-    socket.emit("send_msg", msgData, roomCode, isAdmin, username);
+    socket.emit("send_msg", msgData, roomCode, username, isAdmin);
   };
 
   const startGame = () => { // GameScreen
@@ -242,6 +241,8 @@ function App() {
         // the connection was forcefully closed by the server or the client itself
         console.log("disconnected fully", reason, details);
         // show you disconnected modal?
+        // "Please check internet connection and avoid leaving tab inactive (for mobile devices) \
+        // and using forward/back buttons (for Safari users)"
       }
     };
 
@@ -309,15 +310,23 @@ function App() {
       setDisableMissionActions(false); // 3a
     };
 
-
     const handleVoteTrackChange = (newCount) => {
       setCurMissionVoteDisapproves(newCount);
     };
 
     const handleKickedPlayer = () => { 
-      // reset all states
-      // navigate to start screen
-      // you were kicked modal
+      // frontend states to reset on disconnect:
+      setMsgList([]);
+      setSeats([]);
+
+      setRoomCode(""); // will take them to start screen room embeded
+      setYouDisconnectedMsg("Reason: kicked");
+      setYouDisconnectedModalOpen(true);
+      socket.emit("leave_room", roomCode);
+    };
+
+    const handleAdminChange = (newIsAdmin) => {
+      setIsAdmin(newIsAdmin);
     };
 
     const handleGameEnd = (info) => {
@@ -370,6 +379,7 @@ function App() {
     socket.on("vote_track", handleVoteTrackChange);
 
     socket.on("kicked_player", handleKickedPlayer);
+    socket.on("is_admin_update", handleAdminChange);
     socket.on("set_game_end", handleGameEnd);
     
     return () => {
@@ -377,8 +387,12 @@ function App() {
       socket.off("connect", handleConnect);
       socket.off("disconnect", handleDisconnect);
 
-      socket.off("seats_update", handleSeatsUpdate);
       socket.off("game_settings_update", handleGameSettingsChange);
+      socket.off("capacity_change", handleCapacityChange);
+      socket.off("selection_secs_change", handleSelectionSecsChange);
+      socket.off("private_room_change", handlePrivateRoomChange);
+
+      socket.off("seats_update", handleSeatsUpdate);
       socket.off("msg_list_update", handleMsgListUpdate);
 
       socket.off("team_select_happening", handleTeamSelectStart);
@@ -387,6 +401,7 @@ function App() {
       socket.off("vote_track", handleVoteTrackChange);
 
       socket.off("kicked_player", handleKickedPlayer);
+      socket.off("is_admin_update", handleAdminChange);
       socket.off("set_game_end", handleGameEnd);
     };
   });
@@ -402,7 +417,10 @@ function App() {
     setJoinRoomMsg: setJoinRoomMsg,
     randomRoomMsg: randomRoomMsg,
     goodTeamStyle: goodTeamStyle,
-    badTeamStyle: badTeamStyle
+    badTeamStyle: badTeamStyle,
+    youDisconnectedModalOpen: youDisconnectedModalOpen,
+    setYouDisconnectedModalOpen: setYouDisconnectedModalOpen,
+    youDisconnectedMsg: youDisconnectedMsg,
   };
 
   const gameScreenProps = {
@@ -480,16 +498,10 @@ function App() {
                   <GameScreen {...gameScreenProps} />
                   <EndModal {...endScreenProps} />
                 </> 
-                : <StartScreen {...startScreenProps} />
-            } 
-          />
-          <Route
-            path="/join/:room"
-            element={
-              <StartScreen {...{
-                ...startScreenProps, 
-                hasJoinEmbed: true
-              }} />
+                : <StartScreen {...{
+                    ...startScreenProps, 
+                    hasRoomParam: true
+                  }} />
             } 
           />
           <Route path="*" element={<StartScreen {...startScreenProps} />} />

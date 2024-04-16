@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./joinRoom.css";
+import "./startScreenModals.css";
 
 import { Modal } from "@mui/material";
 import DisplayButton from "../../../Utils/DisplayButton.jsx";

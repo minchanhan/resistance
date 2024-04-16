@@ -76,6 +76,7 @@ function ChatBox({
               const publicMsg = msgData.sender === "PUBLIC TALLY" 
                 || msgData.sender === "PLAYER UPDATE" 
                 || msgData.sender === "ADMIN INFO";
+              const easterEgg = msgData.msg.toUpperCase() === "CORRINE";
 
               return (
                 <div
@@ -90,8 +91,8 @@ function ChatBox({
                       : <></>
                   }
                   
-                  <div className={`msgContent ${msgData.msg === "corrine" ? "c" : ""}`}>
-                    <p>{`${msgData.msg === "corrine" ? "<3 " : ""}${msgData.msg}${msgData.msg === "corrine" ? " <3" : ""}`}</p>
+                  <div className={`msgContent ${easterEgg ? "c" : ""}`}>
+                    <p>{`${easterEgg ? "<3 " : ""}${msgData.msg}${easterEgg ? " <3" : ""}`}</p>
                   </div>
                   <div className="msgMeta">
                     <p className="msgTime">{msgData.time}</p>

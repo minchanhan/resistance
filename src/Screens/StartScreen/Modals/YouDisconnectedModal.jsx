@@ -1,14 +1,14 @@
 import React from "react";
-import "./joinRoom.css";
-
 import { Modal } from "@mui/material";
-import DisplayButton from "../../../Components/DisplayButton.jsx";
+import DisplayButton from "../../../Utils/DisplayButton";
 
-function YouDisconnected({
+import "./startScreenModals.css";
+
+function YouDisconnectedModal({
   open, 
   handleYouDisconnectedClose,
+  youDisconnectedMsg,
 }) {
-
   return (
     <Modal
       open={open}
@@ -25,14 +25,12 @@ function YouDisconnected({
         </div>
         
         <div>
-          <p>Please check internet connection</p> 
-          <p>Also, avoid leaving tab inactive (for mobile devices) and using forward/back buttons (for Safari users)</p>
+          {youDisconnectedMsg}
           <DisplayButton onClick={handleYouDisconnectedClose} text="OK" />
         </div>
       </div>
     </Modal>
-    
   )
 }
 
-export default YouDisconnected;
+export default YouDisconnectedModal;
