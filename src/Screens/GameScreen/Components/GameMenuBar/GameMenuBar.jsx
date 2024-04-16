@@ -17,6 +17,7 @@ function GameMenuBar({
   onChangedSelectionSecs,
   privateRoom,
   onChangedPrivateRoom,
+  gameStarted
 }) {
   const [openSettings, setOpenSettings] = useState(false);
   
@@ -35,7 +36,7 @@ function GameMenuBar({
         setOpenSettings={setOpenSettings}
       />
 
-      <TuneIcon 
+      <TuneIcon
         onClick={() => {
           setOpenSettings(true);
         }} 
@@ -43,15 +44,26 @@ function GameMenuBar({
       />
       <Info fontSize="large" />
       {
-        startGame ? 
+        gameStarted ? (
           <Pause 
-            onClick={() => {
-              startGame();
-            }} 
             fontSize="large" 
-            disabled={curNumPlayers < capacity || !isAdmin}
+            style={{
+              cursor: (curNumPlayers === capacity) && isAdmin ? "pointer" : "not-allowed"
+            }}
           /> 
-          : <PlayArrow fontSize="large" />
+        ) : (
+          <PlayArrow 
+            onClick={() => {
+              if ((curNumPlayers === capacity) && isAdmin) {
+                startGame();
+              }
+            }}
+            style={{
+              cursor: (curNumPlayers === capacity) && isAdmin ? "pointer" : "not-allowed"
+            }}
+            fontSize="large" 
+          />
+        )
       }
     </div>
   )

@@ -340,7 +340,30 @@ body {
   flex: 1 1 auto;
   width: 4.5rem;
   height: 4.5rem;
+  position: relative;
 }
+.missionToken:hover {
+  box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.5); /* Black glow */
+  cursor: pointer; /* Indicate that it's clickable */
+}
+.missionHistory {
+  position: absolute;
+  width: 10rem;
+  top: -2rem; /* Adjust placement as needed */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: black;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  opacity: 0; /* Hidden initially */
+  transition: opacity 0.3s; /* Smooth fade-in  */
+}
+
+.missionToken:hover .missionHistory {
+  opacity: 1; /* Visible on hover */
+}
+
 .currentMission {
   border: 0.15rem solid var(--secondary-dark);
 }
@@ -403,9 +426,14 @@ body {
 .playerUsername {
   font-size: 0.7rem;
   font-weight: 600 !important;
+  color: rgb(222, 222, 222);
 }
 .fist {
   cursor: pointer;
+}
+.ownSelf {
+  background-color:  rgb(165, 165, 139, 0.33);
+  box-shadow: 0 0 1.25rem rgb(165, 165, 139);
 }
 
 /* ----- Chat Window ----- */ 

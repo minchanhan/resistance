@@ -25,9 +25,9 @@ function InstructionsModal({
   (player with star icon) has X minutes to discuss and submit a team for a mission (click on players and click "submit"). 
 
   The number of players that go on each mission is indicated by the mission trackers on the table (big circles). \
-  Players will take a majority vote on if this group of players (checkbox icon) should go on the mission for that round. \
+  Players will take a majority vote on if this group of players (checkbox icon) should go on the mission. \
   If the vote does not pass (or the leader fails to submit a team in time), then the leader to the right will suggest a new mission team. \
-  Note, the SPIES ALSO WIN if a mission team is voted against 5 times in one round (vote tracker is at the bottom of the board).
+  Note, the SPIES ALSO WIN if a team cannot be chosen for a mission in 5 tries (vote tracker is at the bottom of the board).
 
   If a mission is approved, the rebellion players must choose to "pass" the mission, but the spies have a choice to pass or fail the mission. \
   Players cannot see who chose what, they just see the results once the mission concludes. \

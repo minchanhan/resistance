@@ -38,18 +38,19 @@ function PlayerBox({
         </div>
       </div>
       
-      <div className="fist" style={teamStyle} onClick={onClick}>
+      <div 
+        className="fist"
+        style={teamStyle} 
+        onClick={onClick}
+      >
         <Fist
           width={is4K ? "5rem" : isThinning ? "2.5rem" : "3rem"} 
-          height={is4K ? "5rem" : isThinning ? "2.5rem" : "3rem"} 
+          height={is4K ? "5rem" : isThinning ? "2.5rem" : "3rem"}
         />
       </div>
 
       <div
-        className="playerUsername" 
-        style={{
-          color: ownName ? "white" : "black"
-        }}
+        className={`playerUsername ${ownName ? "ownSelf" : ""}`}
         onClick={onClick}
       >
         <span>{username}</span>

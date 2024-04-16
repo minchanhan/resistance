@@ -14,7 +14,6 @@ function GameArea({
   handleMission,
 
   username,
-  myTeam,
   capacity, 
   missionTeamSizes,
 
@@ -34,6 +33,7 @@ function GameArea({
   missionNumber,
   curMissionVoteDisapproves,
   missionResultTrack,
+  missionHistory,
 
   is4K,
   isReallyShort,
@@ -134,10 +134,9 @@ function GameArea({
         isLeader={seatIsLeader}
         onMission={seatOnMission}
         teamStyle={
-          (username === seatUsername) && (myTeam === "goodTeam") ? goodTeamStyle
-            : seatTeam === "badTeam" ? badTeamStyle 
-              : seatTeam === "goodTeam" ? goodTeamStyle 
-              : {}
+          seatTeam === "badTeam" ? badTeamStyle 
+          : seatTeam === "goodTeam" ? goodTeamStyle
+          : {}
         }
         ownName={username === seatUsername}
         onClick={() => {
@@ -197,7 +196,9 @@ function GameArea({
                   isPassed={missionResultTrack[i] === "pass"} 
                   isFailed={missionResultTrack[i] === "fail"}
                   current={missionNumber === (i+1)} 
+                  isDone={(i+1) < missionNumber}
                   missionTeamSize={teamSize}
+                  missionHistory={missionHistory}
                   twoFails={(i+1) === 4 && capacity >= 7}
                   isReallyShort={isReallyShort}
                   isReallyThin={isReallyThin}

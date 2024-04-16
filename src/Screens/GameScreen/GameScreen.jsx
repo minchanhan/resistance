@@ -21,7 +21,6 @@ function GameScreen({
 
   username,
   isAdmin,
-  myTeam,
   roomCode,
   roomAdminName,
 
@@ -61,6 +60,7 @@ function GameScreen({
   missionNumber,
   curMissionVoteDisapproves,
   missionResultTrack,
+  missionHistory,
   
   mins,
   secs,
@@ -97,7 +97,6 @@ function GameScreen({
     handleMission: handleMission,
 
     username: username,
-    myTeam: myTeam,
     capacity: capacity, 
     missionTeamSizes: missionTeamSizes,
 
@@ -117,6 +116,7 @@ function GameScreen({
     missionNumber: missionNumber,
     curMissionVoteDisapproves: curMissionVoteDisapproves,
     missionResultTrack: missionResultTrack,
+    missionHistory: missionHistory,
 
     is4K: is4K,
     isReallyShort: isReallyShort,
@@ -150,6 +150,7 @@ function GameScreen({
     onChangedSelectionSecs: onChangedSelectionSecs,
     privateRoom: privateRoom,
     onChangedPrivateRoom: onChangedPrivateRoom,
+    gameStarted: gameStarted,
   };
 
   const chatBoxProps = {

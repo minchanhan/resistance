@@ -20,6 +20,7 @@ function InfoTable({
       {
         gameStarted ? (
           <div className="information">
+            <div>{"Game: " + numGames}</div>
             <div>
               {`Mission: ${missionNumber}`}
             </div>
@@ -29,16 +30,16 @@ function InfoTable({
                 : missionHappening ? <div>Mission Time</div>
                 : <div>Team Select Time</div>
             }
-            <p>Selected Players go here</p>
+            <p>Selected Players go here for vote and mission</p>
           </div>
         ) : (
           <div className="information">
+            <div>{"Game: " + numGames}</div>
             <div style={{textWrap: "nowrap"}}>{`Room Admin: ${roomAdminName}`}</div>
             <div style={{cursor: "pointer"}} onClick={() => {navigator.clipboard.writeText(roomCode)}}>
               {`Copy Room Code: ${roomCode}`}
             </div>
             <div>{`${seats.length}/${capacity} players joined`}</div>
-            <div>{"Game: " + numGames}</div>
           </div>
         )
       }
