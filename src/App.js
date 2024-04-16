@@ -10,21 +10,33 @@ import GameScreen from './Screens/GameScreen/GameScreen';
 const socket = io(
   process.env.REACT_APP_SERVER || "http://localhost:3001",
   {
-    reconnectionDelay: 1000, // defaults to 1000
+    reconnectionDelay: 5000, // defaults to 1000
     reconnectionDelayMax: 5000, // defaults to 5000
-    // retries: 3,
-    // ackTimeout: 5000,
+    // retries: 3, for exactly once
+    // ackTimeout: 5000, for exactly once
+    transports: ["websocket"],
   }
 ); // connect to socket server
 
 function App() {
-  useEffect(() => { // confirmation before leaving
-    window.onbeforeunload = function(e) {
-      var dialogText = 'Dialog text here';
-      e.returnValue = dialogText;
-      return dialogText;
+  useEffect(() => {
+    const onBeforeUnload = (e) => {
+      e.preventDefault();
+      console.log("hi");
     };
-  }, []);
+
+    const handleUnload = () => {
+      socket.emit("remove_me", username, roomCode, isAdmin);
+    };
+
+    window.addEventListener('beforeunload', onBeforeUnload);
+    window.addEventListener('unload', handleUnload);
+
+    return () => {
+      window.removeEventListener('beforeunload', onBeforeUnload);
+      window.removeEventListener('unload', handleUnload);
+    };
+  });
 
   const darkTheme = createTheme({
     palette: {
@@ -231,6 +243,12 @@ function App() {
       } else {
         console.log(`brand new connection with id: ${socket.id}`);
       }
+
+      // test connection state recovery
+      /* setTimeout(() => {
+        // close the low-level connection and trigger a reconnection
+        socket.io.engine.close();
+      }, Math.random() * 5000 + 1000); */
     };
 
     const handleDisconnect = (reason, details) => {
@@ -240,9 +258,9 @@ function App() {
       } else {
         // the connection was forcefully closed by the server or the client itself
         console.log("disconnected fully", reason, details);
-        // show you disconnected modal?
-        // "Please check internet connection and avoid leaving tab inactive (for mobile devices) \
-        // and using forward/back buttons (for Safari users)"
+        // maybe show a are you still here? and if not responding, then close socket connection
+        // and remove from game
+        // but shouldn't call from here, should call from beforeunload
       }
     };
 

@@ -41,7 +41,9 @@ function InstructionsModal({
   - Remember, this web app is a rendition of an in-person board game. That means don't message any players privately, and try not to leave the \
   game, as the game will end for everyone, just like in real life.
   - Please be careful when leaving your current tab if you're playing on a mobile device. Some browsing apps, including Chrome, have "memory saver" features \
-  that discard background tabs. You will be kicked from your room if your leave your tab.`;
+  that discard background tabs. You may be kicked from your room if your leave your tab.;
+  - Please do not use the back/forward buttons when playing in Safari, you will not leave the room and 
+  players will not see that you have left and will have to kick you manually.`;
 
   return (
     <Modal
