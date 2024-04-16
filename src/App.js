@@ -184,6 +184,7 @@ function App() {
     socket.emit("admin_start_game", roomCode);
   };
 
+
   const handleTeamSubmit = () => {
     socket.emit("team_submitted_for_vote", { selectedPlayers: selectedPlayers, roomCode: roomCode });
     setDisableTeamSubmit(true); // 1b
@@ -294,7 +295,7 @@ function App() {
       if (!gameStarted) {
         setGameStarted(true);
         // on game start, user will request teams
-        socket.emit("request_teams", username, roomCode);
+        socket.emit("request_seats", username, roomCode);
       }
 
       setEndModalOpen(false); // If the modal is still up, take it down
@@ -320,11 +321,14 @@ function App() {
       setTimerGoal(now + selectionSecs);
     };
 
-    const handlePlayerVoteStart = (info) => { 
+    const handlePlayerVoteStart = (info) => {
+      console.log("vote happening");
+      socket.emit("request_seats", username, roomCode);
       setSelectedPlayers(info.selectedPlayers);
-
-      setIsMissionLeader(false); // 1c
+      
       setTeamSelectHappening(false);
+      setIsMissionLeader(false); // 1c
+
       setVoteHappening(true); // 2a
       setDisableVoteBtns(false); // 2a
     };

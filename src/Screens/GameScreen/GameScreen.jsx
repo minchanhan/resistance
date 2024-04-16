@@ -131,7 +131,7 @@ function GameScreen({
     capacity: capacity, 
     roomAdminName: roomAdminName,
     numGames: numGames,
-    missionNumber: missionNumber,
+    selectedPlayers: selectedPlayers,
     gameStarted: gameStarted,
     mins: mins,
     secs: secs,

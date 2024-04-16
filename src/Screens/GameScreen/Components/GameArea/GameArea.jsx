@@ -103,7 +103,7 @@ function GameArea({
       isReallyThin, isReallyThin2, isReallyThin3
   ]);
 
-  const handleMissionSelection = (seatUsername) => {
+  const handleTeamSelecting = (seatUsername) => {
     if (!isMissionLeader) return;
 
     // only leaders can handle this
@@ -118,7 +118,6 @@ function GameArea({
       }
     }
     
-    // Update state and check if submit button should be disabled
     setSelectedPlayers(updatedSelection);
   };
 
@@ -132,7 +131,7 @@ function GameArea({
       <PlayerBox
         username={seatUsername}
         isLeader={seatIsLeader}
-        onMission={seatOnMission}
+        onMission={seatOnMission || selectedPlayers.includes(seatUsername)}
         teamStyle={
           seatTeam === "badTeam" ? badTeamStyle 
           : seatTeam === "goodTeam" ? goodTeamStyle
@@ -140,7 +139,7 @@ function GameArea({
         }
         ownName={username === seatUsername}
         onClick={() => {
-          handleMissionSelection(seatUsername);
+          handleTeamSelecting(seatUsername);
         }}
         is4K={is4K}
         isThinning={isThinning} 
