@@ -11,16 +11,18 @@ import VoteTrack from "./GameTable/VoteTrack";
 function GameArea({
   handleTeamSubmit,
   handleVote,
-  handleMission,
+  handleMissionIn,
 
   username,
   capacity, 
   missionTeamSizes,
 
+  teamSelectHappening,
   isMissionLeader,
   disableTeamSubmit,
   voteHappening,
   disableVoteBtns,
+  missionHappening,
   isGoingOnMission,
   disableMissionActions,
 
@@ -197,7 +199,7 @@ function GameArea({
                   current={missionNumber === (i+1)} 
                   isDone={(i+1) < missionNumber}
                   missionTeamSize={teamSize}
-                  missionHistory={missionHistory}
+                  missionHistory={missionHistory[i]}
                   twoFails={(i+1) === 4 && capacity >= 7}
                   isReallyShort={isReallyShort}
                   isReallyThin={isReallyThin}
@@ -224,7 +226,7 @@ function GameArea({
 
         <div className="tableBtns">
           {
-            isMissionLeader ? (
+            teamSelectHappening && isMissionLeader ? (
               <Button
                 id="submitBtn" 
                 color="secondary"
@@ -255,13 +257,13 @@ function GameArea({
                   Disapprove
                 </Button>
               </div>
-            ) : isGoingOnMission ? (
+            ) : missionHappening && isGoingOnMission ? (
               <div>
                 <Button 
                   color="green" 
                   id="passBtn" 
                   disabled={disableMissionActions} 
-                  onClick={() => handleMission(true)}
+                  onClick={() => handleMissionIn(true)}
                   sx={{ fontWeight: 600 }}
                 >
                   Pass
@@ -270,7 +272,7 @@ function GameArea({
                   color="red" 
                   id="failBtn" 
                   disabled={disableMissionActions} 
-                  onClick={() => handleMission(false)}
+                  onClick={() => handleMissionIn(false)}
                   sx={{ fontWeight: 600 }}
                 >
                   Fail

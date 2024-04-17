@@ -15,7 +15,7 @@ function GameScreen({
   startGame,
   handleTeamSubmit,
   handleVote,
-  handleMission,
+  handleMissionIn,
   sendMessage,
   checkInGame,
 
@@ -34,8 +34,10 @@ function GameScreen({
   missionTeamSizes,
 
   gameStarted,
+  teamSelectHappening,
   isMissionLeader,
   disableTeamSubmit,
+
   voteHappening,
   disableVoteBtns,
 
@@ -94,16 +96,18 @@ function GameScreen({
   const gameAreaProps = {
     handleTeamSubmit: handleTeamSubmit,
     handleVote: handleVote,
-    handleMission: handleMission,
+    handleMissionIn: handleMissionIn,
 
     username: username,
     capacity: capacity, 
     missionTeamSizes: missionTeamSizes,
 
+    teamSelectHappening: teamSelectHappening,
     isMissionLeader: isMissionLeader,
     disableTeamSubmit: disableTeamSubmit,
     voteHappening: voteHappening,
     disableVoteBtns: disableVoteBtns,
+    missionHappening: missionHappening,
     isGoingOnMission: isGoingOnMission,
     disableMissionActions: disableMissionActions,
 

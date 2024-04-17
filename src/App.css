@@ -10,12 +10,16 @@
 
   font-family: 'Courier New', 'Courier New', Courier, monospace;
 }
+@media (min-width: 2000px) {
+  :root {
+      font-size: 18px;
+  }
+}
 @media (min-width: 2400px) {
   :root {
       font-size: 22px;
   }
 }
-
 * {
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -24,7 +28,6 @@
   -o-box-sizing: border-box;
 }
 body {
-  font-weight: 500;
   background-color: rgba(117, 102, 102, 0.676);
 }
 
@@ -66,9 +69,6 @@ body {
   display: flex;
   justify-content: center;
   align-content: center;
-}
-.logo {
-  display: block;
 }
 
 .userOptionsBox {
@@ -145,10 +145,9 @@ body {
 }
 
 .information { 
-  width: 90%;
   padding: 0.25rem 0;
   flex: 1;
-  font-weight: 500 !important;
+  font-weight: 600 !important;
   
   display: flex;
   justify-content: center;
@@ -156,7 +155,6 @@ body {
   flex-flow: column wrap;
   color: black;
 }
-
 
 /* --- Game Menu Bar --- */
 .gameMenuBar { 
@@ -340,12 +338,14 @@ body {
   width: 4.5rem;
   height: 4.5rem;
   position: relative;
+  z-index: 5;
 }
 .missionToken:hover {
   box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.5); /* Black glow */
   cursor: pointer; /* Indicate that it's clickable */
 }
 .missionHistory {
+  z-index: 4;
   position: absolute;
   width: 10rem;
   top: -2rem; /* Adjust placement as needed */
@@ -541,7 +541,7 @@ body {
   position: absolute;
   bottom: 43%;
   right: -2.25rem;
-  z-index: 4;
+  z-index: 10;
   color: gray;
 }
 
@@ -607,19 +607,20 @@ body {
   width: 10rem;
   align-self: center;
   position: relative;
+  z-index: 7;
 }
 .closeChatOnWindow {
   position: absolute;
   top: 1.75%;
   right: 5%;
-  z-index: 4;
+  z-index: 7;
   color: white;
 }
 .newMsgAlert {
   position: absolute;
   top: -22.5%;
   right: 10%;
-  z-index: 4;
+  z-index: 7;
   filter: invert(93%) sepia(79%) saturate(0%) hue-rotate(155deg) brightness(106%) contrast(101%);
 }
 
@@ -828,7 +829,7 @@ body {
   .chatWindow {
     position: absolute;
     top: 5%;
-    z-index: 9;
+    z-index: 10;
     height: 80%;
     max-height: 80%;
     width: 95svw;
@@ -882,7 +883,7 @@ body {
   /* Chat */
   .chatWindow {
     position: absolute;
-    z-index: 9;
+    z-index: 10;
     height: 80svh;
     width: 95svw;
     align-self: center;

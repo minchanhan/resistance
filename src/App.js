@@ -22,7 +22,7 @@ function App() {
   useEffect(() => {
     const onBeforeUnload = (e) => {
       e.preventDefault();
-      console.log("hi");
+      console.log("onbeforeunload");
     };
 
     const handleUnload = () => {
@@ -106,7 +106,7 @@ function App() {
   const [showHiddenChat, setShowHiddenChat] = useState(false);
 
   const [seats, setSeats] = useState([]); // (NEED TO RESET ON DISCONNECT)
-  const [selectedPlayers, setSelectedPlayers] = useState([]); // used only by LEADER when selecting team to send
+  const [selectedPlayers, setSelectedPlayers] = useState([]);
 
   const [missionNumber, setMissionNumber] = useState(1);
   const [curMissionVoteDisapproves, setCurMissionVoteDisapproves] = useState(0);
@@ -150,6 +150,7 @@ function App() {
     socket.emit("join_room", username, enteredRoomCode, (res) => {
       if (res.roomExists) {
         setUsername(res.uniqueName);
+        setRoomCode(res.roomCode);
         navigate(`/${res.roomCode}`, { replace: true });
       } else {
         if (enteredRoomCode === "random_join") {
@@ -184,19 +185,29 @@ function App() {
     socket.emit("admin_start_game", roomCode);
   };
 
-
   const handleTeamSubmit = () => {
-    socket.emit("team_submitted_for_vote", { selectedPlayers: selectedPlayers, roomCode: roomCode });
+    socket.emit("team_submitted_for_vote", { 
+      selectedPlayers: selectedPlayers, roomCode: roomCode 
+    });
     setDisableTeamSubmit(true); // 1b
   };
 
   const handleVote = (approve) => {
-    socket.emit("vote_is_in", { username: username, selectedPlayers: selectedPlayers, approve: approve, roomCode: roomCode });
+    socket.emit(
+      "vote_is_in", 
+      { 
+        username: username, 
+        roomCode: roomCode,
+        approve: approve, 
+      }
+    );
     setDisableVoteBtns(true); // 2b
   };
 
-  const handleMission = (pass) => {
-    socket.emit("mission_result_is_in", { pass: pass, roomCode: roomCode });
+  const handleMissionIn = (pass) => {
+    socket.emit("mission_entry_is_in", { 
+      pass: pass, roomCode: roomCode 
+    });
     setDisableMissionActions(true); // 3b
   };
 
@@ -294,9 +305,8 @@ function App() {
     const handleTeamSelectStart = (info) => { 
       if (!gameStarted) {
         setGameStarted(true);
-        // on game start, user will request teams
-        socket.emit("request_seats", username, roomCode);
       }
+      socket.emit("request_seats", username, roomCode);
 
       setEndModalOpen(false); // If the modal is still up, take it down
       setSelectedPlayers([]); // reset
@@ -306,26 +316,24 @@ function App() {
       setDisableTeamSubmit(false); // 1a
 
       setVoteHappening(false); // 2c
-      setDisableVoteBtns(true);
       setMissionHappening(false); // 3c
       setIsGoingOnMission(false);
-      setDisableMissionActions(true);
 
       // update mission stats
       setMissionNumber(info.curMission);
       setCurMissionVoteDisapproves(info.curMissionVoteDisapproves);
       setMissionResultTrack(info.missionResultTrack);
       setMissionHistory(info.missionHistory);
+      console.log(info.missionHistory);
 
       const now = Math.floor(new Date().getTime() / 1000); // in secs
       setTimerGoal(now + selectionSecs);
     };
 
     const handlePlayerVoteStart = (info) => {
-      console.log("vote happening");
       socket.emit("request_seats", username, roomCode);
-      setSelectedPlayers(info.selectedPlayers);
       
+      setSelectedPlayers(info.selectedPlayers);
       setTeamSelectHappening(false);
       setIsMissionLeader(false); // 1c
 
@@ -334,14 +342,11 @@ function App() {
     };
     
     const handleMissionStart = (onMissionTeam) => {
+      console.log("mission_happening")
       setVoteHappening(false); // 2c
-      setIsGoingOnMission(onMissionTeam); // 3a
       setMissionHappening(true);
+      setIsGoingOnMission(onMissionTeam); // 3a
       setDisableMissionActions(false); // 3a
-    };
-
-    const handleVoteTrackChange = (newCount) => {
-      setCurMissionVoteDisapproves(newCount);
     };
 
     const handleKickedPlayer = () => { 
@@ -360,11 +365,9 @@ function App() {
     };
 
     const handleGameEnd = (info) => {
-      // handle end game
+      setGameStarted(false);
       setRevealedPlayers(info.playerRevealArr);
       setEndMsg(info.endMsg);
-      if (!info.kicked) setEndModalOpen(true);
-
     };
 
     // listeners
@@ -406,7 +409,6 @@ function App() {
     socket.on("team_select_happening", handleTeamSelectStart);
     socket.on("vote_happening", handlePlayerVoteStart);
     socket.on("mission_happening", handleMissionStart);
-    socket.on("vote_track", handleVoteTrackChange);
 
     socket.on("kicked_player", handleKickedPlayer);
     socket.on("is_admin_update", handleAdminChange);
@@ -428,7 +430,6 @@ function App() {
       socket.off("team_select_happening", handleTeamSelectStart);
       socket.off("vote_happening", handlePlayerVoteStart);
       socket.off("mission_happening", handleMissionStart);
-      socket.off("vote_track", handleVoteTrackChange);
 
       socket.off("kicked_player", handleKickedPlayer);
       socket.off("is_admin_update", handleAdminChange);
@@ -457,7 +458,7 @@ function App() {
     startGame: startGame,
     handleTeamSubmit: handleTeamSubmit,
     handleVote: handleVote,
-    handleMission: handleMission,
+    handleMissionIn: handleMissionIn,
     sendMessage: sendMessage,
     checkInGame: checkInGame,
 
@@ -476,8 +477,10 @@ function App() {
     missionTeamSizes: missionTeamSizes,
 
     gameStarted: gameStarted,
+    teamSelectHappening: teamSelectHappening,
     isMissionLeader: isMissionLeader,
     disableTeamSubmit: disableTeamSubmit,
+
     voteHappening: voteHappening,
     disableVoteBtns: disableVoteBtns,
 

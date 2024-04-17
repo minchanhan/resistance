@@ -73,9 +73,7 @@ function ChatBox({
       <div className="chatBody">
           {
             msgList.map((msgData, i) => {
-              const publicMsg = msgData.sender === "PUBLIC TALLY" 
-                || msgData.sender === "PLAYER UPDATE" 
-                || msgData.sender === "ADMIN INFO";
+              const publicMsg = msgData.sender === "GAME MASTER";
               const easterEgg = msgData.msg.toUpperCase() === "CORRINE";
 
               return (
