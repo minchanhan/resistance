@@ -127,12 +127,6 @@ function App() {
   const [timerGoal, setTimerGoal] = useState(null); // seconds since jan 1970 + selectionSecs
 
   /* --- HELPERS --- */
-  const checkInGame = (room) => {
-    socket.emit("am_i_in_room", room, (res) => {
-      
-    });
-  };
-
   const onChangedUsername = (updatedUsername) => { // StartScreen
     setUsername(updatedUsername);
   };
@@ -460,7 +454,6 @@ function App() {
     handleVote: handleVote,
     handleMissionIn: handleMissionIn,
     sendMessage: sendMessage,
-    checkInGame: checkInGame,
 
     username: username,
     isAdmin: isAdmin,

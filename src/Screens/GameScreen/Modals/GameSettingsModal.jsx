@@ -15,7 +15,7 @@ function GameSettingsModal({
   setOpenSettings
 }) {
   const capacityMenuItems = [5,6,7,8,9,10];
-  const selectionTimeItems = [3,5,7,10,15,30];
+  const selectionTimeItems = [1,3,5,7,10,15,30];
 
   const handleSettingsClose = () => {
     setOpenSettings(false);

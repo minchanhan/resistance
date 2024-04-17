@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from "react";
+import { React } from "react";
 // import { useParams } from "react-router-dom";
 import { useMediaQuery } from 'react-responsive';
 
@@ -17,7 +17,6 @@ function GameScreen({
   handleVote,
   handleMissionIn,
   sendMessage,
-  checkInGame,
 
   username,
   isAdmin,
