@@ -35,6 +35,7 @@ function GameScreen({
   gameStarted,
   teamSelectHappening,
   isMissionLeader,
+  leaderUsername,
   disableTeamSubmit,
 
   voteHappening,
@@ -134,6 +135,7 @@ function GameScreen({
     capacity: capacity, 
     roomAdminName: roomAdminName,
     numGames: numGames,
+    leaderUsername: leaderUsername,
     selectedPlayers: selectedPlayers,
     gameStarted: gameStarted,
     mins: mins,

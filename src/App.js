@@ -90,6 +90,7 @@ function App() {
 
   const [teamSelectHappening, setTeamSelectHappening] = useState(false); // show buttons?
   const [isMissionLeader, setIsMissionLeader] = useState(false); // is leader
+  const [leaderUsername, setLeaderUsername] = useState("");
   const [disableTeamSubmit, setDisableTeamSubmit] = useState(false); // used by client only
 
   const [voteHappening, setVoteHappening] = useState(false); // // show buttons!
@@ -307,6 +308,7 @@ function App() {
 
       setTeamSelectHappening(true); // 1
       setIsMissionLeader(info.isLeader); // 1a
+      setLeaderUsername(info.leaderUsername);
       setDisableTeamSubmit(false); // 1a
 
       setVoteHappening(false); // 2c
@@ -330,6 +332,7 @@ function App() {
       setSelectedPlayers(info.selectedPlayers);
       setTeamSelectHappening(false);
       setIsMissionLeader(false); // 1c
+      setLeaderUsername("");
 
       setVoteHappening(true); // 2a
       setDisableVoteBtns(false); // 2a
@@ -362,6 +365,7 @@ function App() {
       setGameStarted(false);
       setRevealedPlayers(info.playerRevealArr);
       setEndMsg(info.endMsg);
+      setLeaderUsername("");
     };
 
     // listeners
@@ -472,6 +476,7 @@ function App() {
     gameStarted: gameStarted,
     teamSelectHappening: teamSelectHappening,
     isMissionLeader: isMissionLeader,
+    leaderUsername: leaderUsername,
     disableTeamSubmit: disableTeamSubmit,
 
     voteHappening: voteHappening,

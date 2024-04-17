@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Timer from "./Timer.jsx";
 
 function InfoTable({ 
@@ -6,6 +6,7 @@ function InfoTable({
   capacity, 
   roomAdminName, 
   numGames,
+  leaderUsername,
   selectedPlayers, 
   gameStarted=false, 
   mins,
@@ -14,9 +15,27 @@ function InfoTable({
   missionHappening,
   seats, 
 }) {
+  const [flash, setFlash] = useState(false);
+
+  useEffect(() => {
+    setFlash(true);
+
+    const timeout = setTimeout(() => {
+      setFlash(false);
+    }, 1000);
+
+    return () => clearTimeout(timeout);
+  }, [
+    roomCode,
+    roomAdminName,
+    numGames,
+    leaderUsername,
+    voteHappening,
+    missionHappening,
+  ]);
 
   return (
-    <div className="infoBox">
+    <div className={`infoBox ${flash ? 'flash' : ''}`}>
       {
         gameStarted ? (
           <div className="information">
@@ -24,11 +43,10 @@ function InfoTable({
             {
               voteHappening ? <div>Approve/Disapprove Mission Team</div>
               : missionHappening ? <div>Mission Team is Passing/Failing</div>
-              : <div>Leader Selecting Mission Team</div>
+              : <div>{`${leaderUsername} is Selecting Mission Team`}</div>
             }
-            <div>{"Game: " + numGames}</div>
-
            <div>{`Mission Team: ${selectedPlayers.join(", ")}`}</div>
+           <div>{"Game: " + numGames}</div>
           </div>
         ) : (
           <div className="information">
