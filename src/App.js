@@ -25,16 +25,10 @@ function App() {
       console.log("onbeforeunload");
     };
 
-    const handleUnload = () => {
-      socket.emit("remove_me", username, roomCode, isAdmin);
-    };
-
     window.addEventListener('beforeunload', onBeforeUnload);
-    window.addEventListener('unload', handleUnload);
 
     return () => {
       window.removeEventListener('beforeunload', onBeforeUnload);
-      window.removeEventListener('unload', handleUnload);
     };
   });
 
