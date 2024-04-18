@@ -250,19 +250,6 @@ function App() {
       }, Math.random() * 5000 + 1000); */
     };
 
-    const handleDisconnect = (reason, details) => {
-      if (socket.active) {
-        // temporary disconnection, the socket will automatically try to reconnect
-        console.log("temporary disconnection, try to reconnect", reason, details);
-      } else {
-        // the connection was forcefully closed by the server or the client itself
-        console.log("disconnected fully", reason, details);
-        // maybe show a are you still here? and if not responding, then close socket connection
-        // and remove from game
-        // but shouldn't call from here, should call from beforeunload
-      }
-    };
-
     const handleGameSettingsChange = (settings) => { 
       setRoomCode(settings.roomCode);
       setRoomAdminName(settings.roomAdminName);
@@ -272,8 +259,9 @@ function App() {
       setNumGames(settings.numGames);
       setMissionTeamSizes(settings.missionTeamSizes);
     };
-    const handleCapacityChange = (newCapacity) => {
+    const handleCapacityChange = (newCapacity, newMissionTeamSizes) => {
       setCapacity(newCapacity);
+      setMissionTeamSizes(newMissionTeamSizes);
     };
     const handleSelectionSecsChange = (newSecs) => {
       setSelectionSecs(newSecs);
@@ -340,7 +328,7 @@ function App() {
       setDisableMissionActions(false); // 3a
     };
 
-    const handleKickedPlayer = () => { 
+    const handleKickedPlayer = () => {
       // frontend states to reset on disconnect:
       setMsgList([]);
       setSeats([]);
@@ -349,6 +337,20 @@ function App() {
       setYouDisconnectedMsg("Reason: kicked");
       setYouDisconnectedModalOpen(true);
       socket.emit("leave_room", roomCode);
+    };
+
+    const handleDisconnectedPlayer = () => {
+      // frontend states to reset on disconnect:
+      setMsgList([]);
+      setSeats([]);
+
+      setRoomCode(""); // will take them to start screen room embeded
+      setYouDisconnectedMsg("You've unfortunately been disconnected, please rejoin!");
+      setYouDisconnectedModalOpen(true);
+    };
+
+    const handlePlayerHasLeft = () => {
+      socket.emit("request_seats", username, roomCode);
     };
 
     const handleAdminChange = (newIsAdmin) => {
@@ -364,31 +366,6 @@ function App() {
 
     // listeners
     socket.on("connect", handleConnect);
-    socket.on("disconnect", handleDisconnect);
-    /*
-    socket.io.on("ping", () => {
-      console.log("ping from pingInterval");
-    });
-    socket.on("ping", () => {
-      console.log("ping from interval");
-    });
-
-    socket.io.on("reconnect", () => {
-      console.log("reconnect called");
-      console.log("from reconnect: ", socket.id);
-    });
-    socket.io.on("reconnect_attempt", () => {
-      console.log("reconnect attempt called");
-      console.log("from reconnect attempt: ", socket.id);
-    });
-    socket.io.on("reconnect_error", () => {
-      console.log("reconnect error called");
-      console.log("from reconnect error: ", socket.id);
-    });
-    socket.io.on("reconnect_failed", () => {
-      console.log("reconnect failed called");
-      console.log("from reconnect failed: ", socket.id);
-    });*/
     
     socket.on("game_settings_update", handleGameSettingsChange);
     socket.on("capacity_change", handleCapacityChange);
@@ -403,13 +380,14 @@ function App() {
     socket.on("mission_happening", handleMissionStart);
 
     socket.on("kicked_player", handleKickedPlayer);
+    socket.on("disconnected_player", handleDisconnectedPlayer);
+    socket.on("player_has_left", handlePlayerHasLeft);
     socket.on("is_admin_update", handleAdminChange);
     socket.on("set_game_end", handleGameEnd);
     
     return () => {
       // cleanup
       socket.off("connect", handleConnect);
-      socket.off("disconnect", handleDisconnect);
 
       socket.off("game_settings_update", handleGameSettingsChange);
       socket.off("capacity_change", handleCapacityChange);
@@ -424,6 +402,8 @@ function App() {
       socket.off("mission_happening", handleMissionStart);
 
       socket.off("kicked_player", handleKickedPlayer);
+      socket.off("disconnected_player", handleDisconnectedPlayer);
+      socket.off("player_has_left", handlePlayerHasLeft);
       socket.off("is_admin_update", handleAdminChange);
       socket.off("set_game_end", handleGameEnd);
     };

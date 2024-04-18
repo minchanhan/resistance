@@ -38,9 +38,12 @@ function GameMenuBar({
 
       <TuneIcon
         onClick={() => {
-          setOpenSettings(true);
+          if (!gameStarted) setOpenSettings(true);
         }} 
         fontSize="large" 
+        style={{
+          cursor: !gameStarted ? "pointer" : "not-allowed"
+        }}
       />
       <Info fontSize="large" />
       {
@@ -48,18 +51,19 @@ function GameMenuBar({
           <Pause 
             fontSize="large" 
             style={{
-              cursor: (curNumPlayers === capacity) && isAdmin ? "pointer" : "not-allowed"
+              cursor: isAdmin ? "pointer" : "not-allowed"
             }}
           /> 
         ) : (
           <PlayArrow 
             onClick={() => {
-              if ((curNumPlayers === capacity) && isAdmin) {
+              if ((curNumPlayers >= 5) && isAdmin) {
+                onChangedCapacity(curNumPlayers);
                 startGame();
               }
             }}
             style={{
-              cursor: (curNumPlayers === capacity) && isAdmin ? "pointer" : "not-allowed"
+              cursor: (curNumPlayers >= 5) && isAdmin ? "pointer" : "not-allowed"
             }}
             fontSize="large" 
           />
