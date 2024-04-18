@@ -10,25 +10,24 @@ import GameScreen from './Screens/GameScreen/GameScreen';
 const socket = io(
   process.env.REACT_APP_SERVER || "http://localhost:3001",
   {
-    reconnectionDelay: 5000, // defaults to 1000
-    reconnectionDelayMax: 5000, // defaults to 5000
-    // retries: 3, for exactly once
-    // ackTimeout: 5000, for exactly once
+    reconnectionDelay: 1000, // defaults to 1000
+    reconnectionDelayMax: 3000, // defaults to 5000
     transports: ["websocket"],
   }
-); // connect to socket server
+); 
 
 function App() {
   useEffect(() => {
-    const onBeforeUnload = (e) => {
-      e.preventDefault();
-      console.log("onbeforeunload");
+    const onPageShow = (event) => {
+      if (event.persisted) {
+        window.location.reload();
+      }
     };
 
-    window.addEventListener('beforeunload', onBeforeUnload);
+    window.addEventListener('pageshow', onPageShow);
 
     return () => {
-      window.removeEventListener('beforeunload', onBeforeUnload);
+      window.removeEventListener('pageshow', onPageShow);
     };
   });
 
@@ -200,6 +199,23 @@ function App() {
     setDisableMissionActions(true); // 3b
   };
 
+  const resetStatesAfterDisconnect = () => {
+    if (roomCode !== "") {
+      setYouDisconnectedMsg("You've unfortunately been disconnected, please rejoin!");
+      setYouDisconnectedModalOpen(true);
+    }
+
+    // frontend states to reset on disconnect:
+    setMsgList([]);
+    setSeats([]);
+    setIsAdmin(false);
+    setGameStarted(false);
+    setDisableVoteBtns(false);
+    setDisableMissionActions(false);
+    setSelectedPlayers([]);
+    setRoomCode(""); // will take them to start screen room embeded
+  };
+
   const handleEndModalClose = () => { // GameScreen
     setEndModalOpen(false);
   };
@@ -239,15 +255,17 @@ function App() {
     const handleConnect = () => {
       if (socket.recovered) {
         console.log(`socket recovered with id: ${socket.id}`);
+        socket.emit("i_reconnected");
       } else {
         console.log(`brand new connection with id: ${socket.id}`);
+        resetStatesAfterDisconnect(); // called in case a disconnect happened
       }
 
       // test connection state recovery
       /* setTimeout(() => {
         // close the low-level connection and trigger a reconnection
         socket.io.engine.close();
-      }, Math.random() * 5000 + 1000); */
+      }, 2000); */
     };
 
     const handleGameSettingsChange = (settings) => { 
@@ -277,6 +295,9 @@ function App() {
 
     const handleSeatsUpdate = (seats) => {
       setSeats(seats);
+    };
+    const handlePlayerLeftSeat = () => {
+      socket.emit("request_seats", username, roomCode);
     };
 
     const handleTeamSelectStart = (info) => { 
@@ -321,40 +342,31 @@ function App() {
     };
     
     const handleMissionStart = (onMissionTeam) => {
-      console.log("mission_happening")
       setVoteHappening(false); // 2c
       setMissionHappening(true);
       setIsGoingOnMission(onMissionTeam); // 3a
       setDisableMissionActions(false); // 3a
     };
 
-    const handleKickedPlayer = () => {
-      // frontend states to reset on disconnect:
-      setMsgList([]);
-      setSeats([]);
+    const handleAdminChange = (newIsAdmin) => {
+      setIsAdmin(newIsAdmin);
+    };
 
-      setRoomCode(""); // will take them to start screen room embeded
+    const handleKickedPlayer = () => {
+      console.log("you've been kicked");
+      resetStatesAfterDisconnect();
       setYouDisconnectedMsg("Reason: kicked");
       setYouDisconnectedModalOpen(true);
       socket.emit("leave_room", roomCode);
     };
-
     const handleDisconnectedPlayer = () => {
-      // frontend states to reset on disconnect:
-      setMsgList([]);
-      setSeats([]);
-
-      setRoomCode(""); // will take them to start screen room embeded
-      setYouDisconnectedMsg("You've unfortunately been disconnected, please rejoin!");
-      setYouDisconnectedModalOpen(true);
+      console.log("you've been disconnected");
+      resetStatesAfterDisconnect();
+      
     };
 
-    const handlePlayerHasLeft = () => {
-      socket.emit("request_seats", username, roomCode);
-    };
-
-    const handleAdminChange = (newIsAdmin) => {
-      setIsAdmin(newIsAdmin);
+    const handleRestartSelect = () => {
+      setSelectedPlayers([]);
     };
 
     const handleGameEnd = (info) => {
@@ -374,15 +386,16 @@ function App() {
     
     socket.on("msg_list_update", handleMsgListUpdate);
     socket.on("seats_update", handleSeatsUpdate);
+    socket.on("player_left_seat", handlePlayerLeftSeat);
 
     socket.on("team_select_happening", handleTeamSelectStart);
     socket.on("vote_happening", handlePlayerVoteStart);
     socket.on("mission_happening", handleMissionStart);
 
+    socket.on("is_admin_update", handleAdminChange);
     socket.on("kicked_player", handleKickedPlayer);
     socket.on("disconnected_player", handleDisconnectedPlayer);
-    socket.on("player_has_left", handlePlayerHasLeft);
-    socket.on("is_admin_update", handleAdminChange);
+    socket.on("restart_select", handleRestartSelect);
     socket.on("set_game_end", handleGameEnd);
     
     return () => {
@@ -396,15 +409,16 @@ function App() {
 
       socket.off("msg_list_update", handleMsgListUpdate);
       socket.off("seats_update", handleSeatsUpdate);
+      socket.off("player_left_seat", handlePlayerLeftSeat);
 
       socket.off("team_select_happening", handleTeamSelectStart);
       socket.off("vote_happening", handlePlayerVoteStart);
       socket.off("mission_happening", handleMissionStart);
 
+      socket.off("is_admin_update", handleAdminChange);
       socket.off("kicked_player", handleKickedPlayer);
       socket.off("disconnected_player", handleDisconnectedPlayer);
-      socket.off("player_has_left", handlePlayerHasLeft);
-      socket.off("is_admin_update", handleAdminChange);
+      socket.off("restart_select", handleRestartSelect); // on player leave
       socket.off("set_game_end", handleGameEnd);
     };
   });
