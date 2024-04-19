@@ -11,23 +11,21 @@ const socket = io(
   process.env.REACT_APP_SERVER || "http://localhost:3001",
   {
     reconnectionDelay: 1000, // defaults to 1000
-    reconnectionDelayMax: 3000, // defaults to 5000
+    reconnectionDelayMax: 5000, // defaults to 5000
     transports: ["websocket"],
   }
 ); 
 
 function App() {
   useEffect(() => {
-    const onPageShow = (event) => {
-      if (event.persisted) {
-        window.location.reload();
-      }
+    const onBeforeUnload = (e) => {
+      e.preventDefault();
     };
 
-    window.addEventListener('pageshow', onPageShow);
+    window.addEventListener('beforeunload', onBeforeUnload);
 
     return () => {
-      window.removeEventListener('pageshow', onPageShow);
+      window.removeEventListener('beforeunload', onBeforeUnload);
     };
   });
 
@@ -59,6 +57,7 @@ function App() {
   };
 
   const navigate = useNavigate();
+  const [clientCount, setClientCount] = useState(0);
 
   // Modal States
   const [endModalOpen, setEndModalOpen] = useState(false);
@@ -199,12 +198,7 @@ function App() {
     setDisableMissionActions(true); // 3b
   };
 
-  const resetStatesAfterDisconnect = () => {
-    if (roomCode !== "") {
-      setYouDisconnectedMsg("You've unfortunately been disconnected, please rejoin!");
-      setYouDisconnectedModalOpen(true);
-    }
-
+  const resetStates = () => {
     // frontend states to reset on disconnect:
     setMsgList([]);
     setSeats([]);
@@ -251,21 +245,23 @@ function App() {
 
   /* --- EVENT LISTENERS --- */
   useEffect(() => {
-    // functions
     const handleConnect = () => {
       if (socket.recovered) {
-        console.log(`socket recovered with id: ${socket.id}`);
-        socket.emit("i_reconnected");
+        console.log(`${new Date().toISOString()}: socket recovered with id: ${socket.id}`);
       } else {
-        console.log(`brand new connection with id: ${socket.id}`);
-        resetStatesAfterDisconnect(); // called in case a disconnect happened
+        console.log(`${new Date().toISOString()}: brand new connection with id: ${socket.id}`);
       }
+    };
 
-      // test connection state recovery
-      /* setTimeout(() => {
-        // close the low-level connection and trigger a reconnection
-        socket.io.engine.close();
-      }, 2000); */
+    const handleInitialPing = (newClientCount) => {
+      setClientCount(newClientCount);
+
+      if (newClientCount === 2) {
+        setTimeout(() => {
+          // close the low-level connection and trigger a reconnection
+          socket.io.engine.close();
+        }, Math.random() * 5000 + 3000);
+      }
     };
 
     const handleGameSettingsChange = (settings) => { 
@@ -296,7 +292,7 @@ function App() {
     const handleSeatsUpdate = (seats) => {
       setSeats(seats);
     };
-    const handlePlayerLeftSeat = () => {
+    const handleSeatRequest = () => {
       socket.emit("request_seats", username, roomCode);
     };
 
@@ -323,7 +319,6 @@ function App() {
       setCurMissionVoteDisapproves(info.curMissionVoteDisapproves);
       setMissionResultTrack(info.missionResultTrack);
       setMissionHistory(info.missionHistory);
-      console.log(info.missionHistory);
 
       const now = Math.floor(new Date().getTime() / 1000); // in secs
       setTimerGoal(now + selectionSecs);
@@ -353,16 +348,9 @@ function App() {
     };
 
     const handleKickedPlayer = () => {
-      console.log("you've been kicked");
-      resetStatesAfterDisconnect();
-      setYouDisconnectedMsg("Reason: kicked");
+      setYouDisconnectedMsg("Reason: kicked, please refresh!");
       setYouDisconnectedModalOpen(true);
       socket.emit("leave_room", roomCode);
-    };
-    const handleDisconnectedPlayer = () => {
-      console.log("you've been disconnected");
-      resetStatesAfterDisconnect();
-      
     };
 
     const handleRestartSelect = () => {
@@ -378,6 +366,7 @@ function App() {
 
     // listeners
     socket.on("connect", handleConnect);
+    socket.on("initial_ping", handleInitialPing);
     
     socket.on("game_settings_update", handleGameSettingsChange);
     socket.on("capacity_change", handleCapacityChange);
@@ -386,7 +375,7 @@ function App() {
     
     socket.on("msg_list_update", handleMsgListUpdate);
     socket.on("seats_update", handleSeatsUpdate);
-    socket.on("player_left_seat", handlePlayerLeftSeat);
+    socket.on("request_for_seats", handleSeatRequest);
 
     socket.on("team_select_happening", handleTeamSelectStart);
     socket.on("vote_happening", handlePlayerVoteStart);
@@ -394,13 +383,13 @@ function App() {
 
     socket.on("is_admin_update", handleAdminChange);
     socket.on("kicked_player", handleKickedPlayer);
-    socket.on("disconnected_player", handleDisconnectedPlayer);
     socket.on("restart_select", handleRestartSelect);
     socket.on("set_game_end", handleGameEnd);
     
     return () => {
       // cleanup
       socket.off("connect", handleConnect);
+      socket.off("initial_ping", handleInitialPing);
 
       socket.off("game_settings_update", handleGameSettingsChange);
       socket.off("capacity_change", handleCapacityChange);
@@ -409,7 +398,7 @@ function App() {
 
       socket.off("msg_list_update", handleMsgListUpdate);
       socket.off("seats_update", handleSeatsUpdate);
-      socket.off("player_left_seat", handlePlayerLeftSeat);
+      socket.off("request_for_seats", handleSeatRequest);
 
       socket.off("team_select_happening", handleTeamSelectStart);
       socket.off("vote_happening", handlePlayerVoteStart);
@@ -417,7 +406,6 @@ function App() {
 
       socket.off("is_admin_update", handleAdminChange);
       socket.off("kicked_player", handleKickedPlayer);
-      socket.off("disconnected_player", handleDisconnectedPlayer);
       socket.off("restart_select", handleRestartSelect); // on player leave
       socket.off("set_game_end", handleGameEnd);
     };
@@ -426,6 +414,7 @@ function App() {
   /* --- PROPS TO CHILDREN --- */
   const startScreenProps = {
     navigate: navigate,
+    clientCount: clientCount,
     username: username, 
     onChangedUsername: onChangedUsername,
     createRoom: createRoom,
@@ -436,7 +425,6 @@ function App() {
     goodTeamStyle: goodTeamStyle,
     badTeamStyle: badTeamStyle,
     youDisconnectedModalOpen: youDisconnectedModalOpen,
-    setYouDisconnectedModalOpen: setYouDisconnectedModalOpen,
     youDisconnectedMsg: youDisconnectedMsg,
   };
 
@@ -495,6 +483,9 @@ function App() {
     
     mins: mins,
     secs: secs,
+
+    youDisconnectedModalOpen: youDisconnectedModalOpen,
+    youDisconnectedMsg: youDisconnectedMsg,
   };
 
   const endScreenProps = {

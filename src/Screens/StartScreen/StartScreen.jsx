@@ -15,6 +15,7 @@ import YouDisconnectedModal from "./Modals/YouDisconnectedModal.jsx";
 function StartScreen({ 
   hasRoomParam=false,
   navigate,
+  clientCount=0,
   username,
   onChangedUsername, 
   createRoom,
@@ -25,7 +26,6 @@ function StartScreen({
   goodTeamStyle,
   badTeamStyle,
   youDisconnectedModalOpen,
-  setYouDisconnectedModalOpen,
   youDisconnectedMsg
 }) {
 
@@ -87,10 +87,6 @@ function StartScreen({
     setContactOpen(false);
   };
 
-  const handleYouDisconnectedClose = () => {
-    setYouDisconnectedModalOpen(false);
-  };
-
   return (
     <div className="startScreen">
       <JoinRoomModal 
@@ -119,7 +115,6 @@ function StartScreen({
 
       <YouDisconnectedModal
         open={youDisconnectedModalOpen}
-        handleYouDisconnectedClose={handleYouDisconnectedClose}
         youDisconnectedMsg={youDisconnectedMsg}
       />
 
@@ -161,6 +156,7 @@ function StartScreen({
           <div className="footerContent">
             <p onClick={() => {setContactOpen(true)}}>Contact</p>
             <p onClick={() => {setTosOpen(true)}}>Terms of Service</p>
+            <p>{`Online: ${clientCount}`}</p>
           </div>
         </footer>
       </div>

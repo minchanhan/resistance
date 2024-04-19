@@ -425,9 +425,14 @@ body {
   font-size: 0.7rem;
   font-weight: 600 !important;
   color: rgb(222, 222, 222);
+  cursor: pointer;
 }
 .fist {
   cursor: pointer;
+}
+.seatLeft {
+  opacity: 0.5;
+  cursor: progress;
 }
 .ownSelf {
   background-color:  rgb(165, 165, 139, 0.33);

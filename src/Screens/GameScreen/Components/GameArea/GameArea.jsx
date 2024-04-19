@@ -128,6 +128,7 @@ function GameArea({
     seatIsLeader, 
     seatOnMission, 
     seatTeam, 
+    seatLeft
   ) => {
     return (
       <PlayerBox
@@ -139,6 +140,7 @@ function GameArea({
           : seatTeam === "goodTeam" ? goodTeamStyle
           : {}
         }
+        seatLeft={seatLeft}
         ownName={username === seatUsername}
         onClick={() => {
           handleTeamSelecting(seatUsername);
@@ -159,6 +161,7 @@ function GameArea({
             const seatIsLeader = seat[1];
             const seatOnMission = seat[2];
             const seatTeam = seat[3];
+            const seatLeft = seat[4];
             
             if (i < topRowLength) {
               const up = (i === 1) || (i === 3);
@@ -176,6 +179,7 @@ function GameArea({
                     seatIsLeader, 
                     seatOnMission, 
                     seatTeam, 
+                    seatLeft
                   )}
                 </div>
               )
@@ -297,6 +301,7 @@ function GameArea({
             const seatIsLeader = seat[1];
             const seatOnMission = seat[2];
             const seatTeam = seat[3];
+            const seatLeft = seat[4];
 
             if (i >= topRowLength) {
               var down = false;
@@ -319,6 +324,7 @@ function GameArea({
                     seatIsLeader, 
                     seatOnMission, 
                     seatTeam, 
+                    seatLeft
                   )}
                 </div>
               )

@@ -10,6 +10,7 @@ function PlayerBox({
   isLeader = false, 
   onMission=false, 
   teamStyle={},
+  seatLeft,
   ownName=false, 
   onClick,
   is4K,
@@ -39,7 +40,7 @@ function PlayerBox({
       </div>
       
       <div 
-        className="fist"
+        className={`fist ${seatLeft ? "seatLeft" : ""}`}
         style={teamStyle} 
         onClick={onClick}
       >
@@ -50,7 +51,7 @@ function PlayerBox({
       </div>
 
       <div
-        className={`playerUsername ${ownName ? "ownSelf" : ""}`}
+        className={`playerUsername ${ownName ? "ownSelf" : ""} ${seatLeft ? "seatLeft" : ""}`}
         onClick={onClick}
       >
         <span>{username}</span>

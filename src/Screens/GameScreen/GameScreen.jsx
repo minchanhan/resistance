@@ -10,6 +10,7 @@ import InfoBox from "./Components/InfoBox/InfoBox.jsx";
 import GameMenuBar from "./Components/GameMenuBar/GameMenuBar.jsx";
 import RebellionLogo from "../../assets/RebellionLogo.jsx";
 import ShowChatButton from "../../Utils/ShowChatButton.jsx";
+import YouDisconnectedModal from "../StartScreen/Modals/YouDisconnectedModal.jsx";
 
 function GameScreen({ 
   startGame,
@@ -66,6 +67,9 @@ function GameScreen({
   
   mins,
   secs,
+
+  youDisconnectedModalOpen,
+  youDisconnectedMsg
 }) {
   // const { room } = useParams();
 
@@ -178,6 +182,10 @@ function GameScreen({
 
   return (
     <>
+      <YouDisconnectedModal
+        open={youDisconnectedModalOpen}
+        youDisconnectedMsg={youDisconnectedMsg}
+      />
       {
         (isThin && isTall) || isPortrait ? (
           <div className="gameScreen">
