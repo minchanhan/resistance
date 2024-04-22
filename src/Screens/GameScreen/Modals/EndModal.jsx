@@ -1,7 +1,7 @@
 import React from "react";
-import "../../../App.css";
 import { Modal } from "@mui/material";
-import DisplayButton from "../../../Utils/DisplayButton";
+import CloseIcon from '@mui/icons-material/Close';
+import "../../../App.css";
 
 function EndModal({ open, handleEndModalClose, revealedPlayers, endMsg }) {
 
@@ -13,12 +13,16 @@ function EndModal({ open, handleEndModalClose, revealedPlayers, endMsg }) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <div className="modalBox" style={{maxHeight: "30rem"}}>
+        <div className="modalBox" style={{height: "70%", minWidth: "70%", gap: "0.75rem"}}>
           <div className="modalHeader" style={{fontSize: "x-large"}}>
             {endMsg}
+            <CloseIcon 
+              className="closeModal" 
+              onClick={handleEndModalClose} 
+            />
           </div>
    
-          <div style={{marginTop: "1rem", overflowY: "auto", height: "85%", maxHeight: "85%"}}>
+          <div className="modalContent" style={{gap: "0rem", alignItems: "center"}}>
             {
               revealedPlayers.map(function(playerReveal, i) {
                 return (
@@ -31,13 +35,6 @@ function EndModal({ open, handleEndModalClose, revealedPlayers, endMsg }) {
               })
             }
           </div>
-
-          <DisplayButton 
-            text="Return to Lobby" 
-            onClick={handleEndModalClose} 
-            btnStyle={{marginTop: "1.3rem", maxWidth: "15rem", alignSelf: "center"}}
-          />
-          
         </div>
       </Modal>
     </div>

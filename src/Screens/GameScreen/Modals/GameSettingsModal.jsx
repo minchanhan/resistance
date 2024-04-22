@@ -1,6 +1,8 @@
 import React from "react";
 import { Modal } from "@mui/material";
 import CheckIcon from '@mui/icons-material/Check';
+import CloseIcon from '@mui/icons-material/Close';
+import "../../../App.css";
 
 function GameSettingsModal({
   isAdmin,
@@ -28,12 +30,16 @@ function GameSettingsModal({
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
-      <div className="modalBox" style={{width: "80%", maxWidth: "25rem"}}>
+      <div className="modalBox" style={{ minWidth: "35%" }}>
         <div className="modalHeader" style={{fontSize: "x-large"}}>
           Game Settings
+          <CloseIcon 
+            className="closeModal" 
+            onClick={handleSettingsClose} 
+          />
         </div>
         
-        <div className="settingsModalContent">
+        <div className="modalContent">
           <div className="settingsSelectContainer">
             <p>Number of Players</p>
             <select

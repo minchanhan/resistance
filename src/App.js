@@ -4,7 +4,6 @@ import io from 'socket.io-client';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import './App.css';
 import StartScreen from './Screens/StartScreen/StartScreen';
-import EndModal from './Screens/GameScreen/Modals/EndModal';
 import GameScreen from './Screens/GameScreen/GameScreen';
 
 const socket = io(
@@ -467,10 +466,8 @@ function App() {
 
     youDisconnectedModalOpen: youDisconnectedModalOpen,
     youDisconnectedMsg: youDisconnectedMsg,
-  };
 
-  const endScreenProps = {
-    open: endModalOpen,
+    endModalOpen: endModalOpen,
     handleEndModalClose: handleEndModalClose,
     revealedPlayers: revealedPlayers,
     endMsg: endMsg
@@ -487,7 +484,6 @@ function App() {
               roomCode !== "" ?
                 <>
                   <GameScreen {...gameScreenProps} />
-                  <EndModal {...endScreenProps} />
                 </> 
                 : <StartScreen {...{
                     ...startScreenProps, 

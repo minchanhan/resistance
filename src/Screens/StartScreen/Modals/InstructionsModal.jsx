@@ -1,9 +1,10 @@
 import React from "react";
-import "./instructions.css";
 import { Modal } from "@mui/material";
+import CloseIcon from '@mui/icons-material/Close';
 import PlayerBox from "../../GameScreen/Components/GameArea/PlayerBox/PlayerBox";
 import MissionToken from "../../GameScreen/Components/GameArea/GameTable/MissionToken";
 import VoteTrack from "../../GameScreen/Components/GameArea/GameTable/VoteTrack";
+import "../../../App.css";
 
 function InstructionsModal({
   open, 
@@ -52,121 +53,123 @@ function InstructionsModal({
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
-      <div className="modalBox">
+      <div className="modalBox" style={{width: "80%", height: "80%", gap: "0.5rem"}}>
         <div className="modalHeader">
           Instructions:
+          <CloseIcon
+            className="closeModal" 
+            onClick={handleInstructionsClose} 
+          />
         </div>
 
-        <div className="instructionsContainer">
-          <div className="instructions">
-            <div className="instructionsBox">
-              <div className="instructionsSubtitle">{objectiveTitle}</div>
-              <div className="instructionsText">{objective}</div>
-            </div>
-            
-            <div className="instructionsBox">
-              <div className="instructionsSubtitle">{pregameTitle}</div>
-              <div className="instructionsText">{pregame}</div>
-              <div className="holdInstructionPics">
-                <table className="numSpiesChart">
-                  <thead>
-                      <tr>
-                          <td># of Players</td>
-                          <td>5</td>
-                          <td>6</td>
-                          <td>7</td>
-                          <td>8</td>
-                          <td>9</td>
-                          <td>10</td>
-                      </tr>
-                  </thead>
-                  <tbody>
-                      <tr>
-                          <td>Rebellion</td>
-                          <td>3</td>
-                          <td>4</td>
-                          <td>4</td>
-                          <td>5</td>
-                          <td>5</td>
-                          <td>6</td>
-                      </tr>
-                      <tr>
-                          <td>Spies</td>
-                          <td>2</td>
-                          <td>2</td>
-                          <td>3</td>
-                          <td>3</td>
-                          <td>3</td>
-                          <td>4</td>
-                      </tr>
-                  </tbody>
-                </table>
-
-
-                <div style={{padding: "0.5rem"}}>
-                  <PlayerBox
-                    isLeader={true}
-                    onMission={true}
-                    teamStyle={goodTeamStyle}
-                    username="rebellion"
-                  />
-                </div>
-                
-                <div style={{padding: "0.5rem"}}>
-                  <PlayerBox
-                    isLeader={true}
-                    onMission={true}
-                    teamStyle={badTeamStyle} 
-                    username="spy"
-                  />
-                </div>
-                
-              </div>
-            </div>            
-            
-            <div className="instructionsBox">
-              <div className="instructionsSubtitle">{gameplayTitle}</div>
-              <div className="instructionsText">{gameplay}</div>
-              <div className="holdInstructionPics">
-                <div className="table" style={{margin: "2rem 0", gap: "2rem"}}>
-                  <div className="missionTokenGrid">
-                    <MissionToken
-                      isPassed
-                      missionTeamSize={2}
-                    />
-                    <MissionToken
-                      isFailed
-                      missionTeamSize={3}
-                    />
-                    <MissionToken
-                      current 
-                      missionTeamSize={4}
-                    />
-                    <MissionToken
-                      missionTeamSize={3}
-                    />
-                    <MissionToken
-                      missionTeamSize={4}         
-                    />
-                  </div>
-
-                  <div className="voteTrackGrid">
-                    <VoteTrack isFilled number={1}/>
-                    <VoteTrack number={2}/>
-                    <VoteTrack number={3}/>
-                    <VoteTrack number={4}/>
-                    <VoteTrack number={5}/>
-                  </div>
-                </div>
-                
-              </div>
-            </div>                      
-            
-            <div className="instructionsBox">
-              <div className="instructionsSubtitle">{additionalTitle}</div>
-              <div className="instructionsText">{additional}</div>
-            </div>                      
+        <div className="modalContent">
+          <div className="instructionsBox">
+            <div className="instructionsSubtitle">{objectiveTitle}</div>
+            <div className="instructionsText">{objective}</div>
           </div>
+          
+          <div className="instructionsBox">
+            <div className="instructionsSubtitle">{pregameTitle}</div>
+            <div className="instructionsText">{pregame}</div>
+            <div className="holdInstructionPics">
+              <table className="numSpiesChart">
+                <thead>
+                    <tr>
+                        <td># of Players</td>
+                        <td>5</td>
+                        <td>6</td>
+                        <td>7</td>
+                        <td>8</td>
+                        <td>9</td>
+                        <td>10</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Rebellion</td>
+                        <td>3</td>
+                        <td>4</td>
+                        <td>4</td>
+                        <td>5</td>
+                        <td>5</td>
+                        <td>6</td>
+                    </tr>
+                    <tr>
+                        <td>Spies</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>3</td>
+                        <td>3</td>
+                        <td>4</td>
+                    </tr>
+                </tbody>
+              </table>
+
+
+              <div style={{padding: "0.5rem"}}>
+                <PlayerBox
+                  isLeader={true}
+                  onMission={true}
+                  teamStyle={goodTeamStyle}
+                  username="rebellion"
+                />
+              </div>
+              
+              <div style={{padding: "0.5rem"}}>
+                <PlayerBox
+                  isLeader={true}
+                  onMission={true}
+                  teamStyle={badTeamStyle} 
+                  username="spy"
+                />
+              </div>
+              
+            </div>
+          </div>            
+          
+          <div className="instructionsBox">
+            <div className="instructionsSubtitle">{gameplayTitle}</div>
+            <div className="instructionsText">{gameplay}</div>
+            <div className="holdInstructionPics">
+              <div className="table" style={{margin: "2rem 0", gap: "2rem"}}>
+                <div className="missionTokenGrid">
+                  <MissionToken
+                    isPassed
+                    missionTeamSize={2}
+                  />
+                  <MissionToken
+                    isFailed
+                    missionTeamSize={3}
+                  />
+                  <MissionToken
+                    current 
+                    missionTeamSize={4}
+                  />
+                  <MissionToken
+                    missionTeamSize={3}
+                  />
+                  <MissionToken
+                    missionTeamSize={4}         
+                  />
+                </div>
+
+                <div className="voteTrackGrid">
+                  <VoteTrack isFilled number={1}/>
+                  <VoteTrack number={2}/>
+                  <VoteTrack number={3}/>
+                  <VoteTrack number={4}/>
+                  <VoteTrack number={5}/>
+                </div>
+              </div>
+              
+            </div>
+          </div>                      
+          
+          <div className="instructionsBox">
+            <div className="instructionsSubtitle">{additionalTitle}</div>
+            <div className="instructionsText">{additional}</div>
+          </div>                      
         </div>
       </div>
     </Modal>

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import "./startScreenModals.css";
+import "../../../App.css";
 
 import { Modal } from "@mui/material";
+import CloseIcon from '@mui/icons-material/Close';
 import DisplayButton from "../../../Utils/DisplayButton.jsx";
 import UserInput from "../../../Utils/UserInput.jsx";
 
@@ -36,15 +37,16 @@ function JoinRoomModal({
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
-      <div 
-        className="modalBox" 
-        style={{width: "80%", maxWidth: "25rem"}}
-      >
-        <div className="modalHeader" style={{fontSize: "x-large"}}>
+      <div className="modalBox" style={{ width: "25rem", maxHeight: "15rem", gap: "1rem"}}>
+        <div className="modalHeader" style={{ fontSize: "x-large" }}>
           Enter Room Code
+          <CloseIcon 
+            className="closeModal" 
+            onClick={handleJoinClose} 
+          />
         </div>
         
-        <div className="joinRoom">
+        <div className="modalContent" style={{ alignItems: "center", gap: "0.75rem" }}>
           <UserInput
             value={enteredRoomCode} 
             onChange={ (event) => {

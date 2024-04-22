@@ -1,6 +1,6 @@
 import React from "react";
 import { Modal } from "@mui/material";
-import "./startScreenModals.css";
+import "../../../App.css";
 
 function YouDisconnectedModal({
   open,
@@ -12,14 +12,12 @@ function YouDisconnectedModal({
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
-      <div 
-        className="modalBox" 
-        style={{width: "80%", maxWidth: "25rem"}}
-      >
+      <div className="modalBox" style={{ maxWidth: "25rem"}}>
         <div className="modalHeader" style={{fontSize: "x-large"}}>
           Disconnected!
         </div>
-        <div>
+
+        <div className="modalContent" style={{height: "6rem"}}>
           {youDisconnectedMsg}
         </div>
       </div>
