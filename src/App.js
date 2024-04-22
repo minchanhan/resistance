@@ -198,18 +198,6 @@ function App() {
     setDisableMissionActions(true); // 3b
   };
 
-  const resetStates = () => {
-    // frontend states to reset on disconnect:
-    setMsgList([]);
-    setSeats([]);
-    setIsAdmin(false);
-    setGameStarted(false);
-    setDisableVoteBtns(false);
-    setDisableMissionActions(false);
-    setSelectedPlayers([]);
-    setRoomCode(""); // will take them to start screen room embeded
-  };
-
   const handleEndModalClose = () => { // GameScreen
     setEndModalOpen(false);
   };
@@ -246,22 +234,14 @@ function App() {
   /* --- EVENT LISTENERS --- */
   useEffect(() => {
     const handleConnect = () => {
-      if (socket.recovered) {
-        console.log(`${new Date().toISOString()}: socket recovered with id: ${socket.id}`);
-      } else {
-        console.log(`${new Date().toISOString()}: brand new connection with id: ${socket.id}`);
-      }
+      /* setTimeout(() => {
+        // close the low-level connection and trigger a reconnection
+        socket.io.engine.close();
+      }, Math.random() * 5000 + 25000); */
     };
 
     const handleInitialPing = (newClientCount) => {
       setClientCount(newClientCount);
-
-      if (newClientCount === 2) {
-        setTimeout(() => {
-          // close the low-level connection and trigger a reconnection
-          socket.io.engine.close();
-        }, Math.random() * 5000 + 3000);
-      }
     };
 
     const handleGameSettingsChange = (settings) => { 
@@ -353,8 +333,9 @@ function App() {
       socket.emit("leave_room", roomCode);
     };
 
-    const handleRestartSelect = () => {
-      setSelectedPlayers([]);
+    const handleDisconnectedPlayer = () => {
+      setYouDisconnectedMsg("Reason: network error, please refresh!");
+      setYouDisconnectedModalOpen(true);
     };
 
     const handleGameEnd = (info) => {
@@ -383,7 +364,7 @@ function App() {
 
     socket.on("is_admin_update", handleAdminChange);
     socket.on("kicked_player", handleKickedPlayer);
-    socket.on("restart_select", handleRestartSelect);
+    socket.on("disconnected_player", handleDisconnectedPlayer);
     socket.on("set_game_end", handleGameEnd);
     
     return () => {
@@ -406,7 +387,7 @@ function App() {
 
       socket.off("is_admin_update", handleAdminChange);
       socket.off("kicked_player", handleKickedPlayer);
-      socket.off("restart_select", handleRestartSelect); // on player leave
+      socket.off("disconnected_player", handleDisconnectedPlayer);
       socket.off("set_game_end", handleGameEnd);
     };
   });
