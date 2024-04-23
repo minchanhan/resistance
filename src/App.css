@@ -177,6 +177,9 @@ body {
 .gameMenuBar > * {
   cursor: pointer;
 }
+.gameMenuBar > *:hover {
+  transform: scale(1.25);
+}
 
 /* ----- Game Table ----- */
 .gameArea {
@@ -251,15 +254,15 @@ body {
   color: gray;
 }
 
-.missionToken { /* Mission Holes */
+.missionToken {
   flex: 1 1 auto;
   width: 4.5rem;
   height: 4.5rem;
   position: relative;
 }
 .missionToken:hover {
-  box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.5); /* Black glow */
-  cursor: pointer; /* Indicate that it's clickable */
+  box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
 }
 .missionHistory {
   position: absolute;
@@ -289,7 +292,7 @@ body {
   background-color: var(--secondary-light);
 }
 
-.voteHole { /* Vote Track */
+.voteHole {
   flex: 1 1 auto;
   width: 1.75rem;
   height: 1.75rem;
@@ -344,6 +347,9 @@ body {
 }
 .fist {
   cursor: pointer;
+}
+.fist:hover {
+  transform: scale(1.15);
 }
 .seatLeft {
   opacity: 0.5;
@@ -850,7 +856,7 @@ td {
   .colRight {
     flex: 1 1 65%;
   }
-  .missionToken { /* SIZE CHANGE */
+  .missionToken {
     width: 4rem;
     height: 4rem;
   }
