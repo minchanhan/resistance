@@ -17,7 +17,7 @@ function ChatBox({
   const chatWindow = useRef(null);
   
   const scrollToBottom = () => {
-    msgListEnd.current?.scrollIntoView({ behavior: "smooth" });
+    msgListEnd.current?.scrollIntoView();
   };
 
   useEffect(() => {
@@ -28,8 +28,9 @@ function ChatBox({
     
     const curChatWindow = chatWindow.current;
     curChatWindow?.addEventListener("scroll", handleScroll, true);
+
     return () => curChatWindow?.removeEventListener("scroll", handleScroll, true);
-  }, []);
+  }, [msgList]);
 
   const getTime = () => {
     var mins = new Date(Date.now()).getMinutes();
