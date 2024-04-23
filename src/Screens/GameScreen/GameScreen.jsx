@@ -46,7 +46,8 @@ function GameScreen({
 
   missionHappening,
   isGoingOnMission,
-  disableMissionActions,
+  disableMissionPass,
+  disableMissionFail,
 
   msg,
   setMsg,
@@ -117,7 +118,8 @@ function GameScreen({
     disableVoteBtns: disableVoteBtns,
     missionHappening: missionHappening,
     isGoingOnMission: isGoingOnMission,
-    disableMissionActions: disableMissionActions,
+    disableMissionPass: disableMissionPass,
+    disableMissionFail: disableMissionFail,
 
     seats: seats,
     selectedPlayers: selectedPlayers,

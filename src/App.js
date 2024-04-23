@@ -91,7 +91,8 @@ function App() {
 
   const [missionHappening, setMissionHappening] = useState(false); // mission
   const [isGoingOnMission, setIsGoingOnMission] = useState(false); // show buttons?
-  const [disableMissionActions, setDisableMissionActions] = useState(false); // used by client only 
+  const [disableMissionPass, setDisableMissionPass] = useState(false); // used by client only 
+  const [disableMissionFail, setDisableMissionFail] = useState(false); // used by client only 
 
   // Game Screen
   const [msg, setMsg] = useState(""); // used to track
@@ -200,7 +201,8 @@ function App() {
     socket.emit("mission_entry_is_in", { 
       pass: pass, roomCode: roomCode 
     });
-    setDisableMissionActions(true); // 3b
+    setDisableMissionPass(true); // 3b
+    setDisableMissionFail(true);
   };
 
   const handleEndModalClose = () => { // GameScreen
@@ -328,11 +330,12 @@ function App() {
       setDisableVoteBtns(false); // 2a
     };
     
-    const handleMissionStart = (onMissionTeam) => {
+    const handleMissionStart = (onMissionTeam, disableFail) => {
       setVoteHappening(false); // 2c
       setMissionHappening(true);
       setIsGoingOnMission(onMissionTeam); // 3a
-      setDisableMissionActions(false); // 3a
+      setDisableMissionPass(false); // 3a
+      setDisableMissionFail(disableFail);
     };
 
     const handleAdminChange = (newIsAdmin) => {
@@ -469,7 +472,8 @@ function App() {
 
     missionHappening: missionHappening,
     isGoingOnMission: isGoingOnMission,
-    disableMissionActions: disableMissionActions,
+    disableMissionPass: disableMissionPass,
+    disableMissionFail: disableMissionFail,
 
     msg: msg,
     setMsg: setMsg,

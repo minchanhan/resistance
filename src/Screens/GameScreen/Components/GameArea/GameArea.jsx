@@ -24,7 +24,8 @@ function GameArea({
   disableVoteBtns,
   missionHappening,
   isGoingOnMission,
-  disableMissionActions,
+  disableMissionPass,
+  disableMissionFail,
 
   seats,
   selectedPlayers,
@@ -283,7 +284,7 @@ function GameArea({
                 <Button 
                   color="green" 
                   id="passBtn" 
-                  disabled={disableMissionActions} 
+                  disabled={disableMissionPass} 
                   onClick={() => handleMissionIn(true)}
                   sx={{ fontWeight: 600 }}
                 >
@@ -292,7 +293,7 @@ function GameArea({
                 <Button 
                   color="red" 
                   id="failBtn" 
-                  disabled={disableMissionActions} 
+                  disabled={disableMissionFail} 
                   onClick={() => handleMissionIn(false)}
                   sx={{ fontWeight: 600 }}
                 >
