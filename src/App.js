@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import io from 'socket.io-client';
+
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import './App.css';
 import StartScreen from './Screens/StartScreen/StartScreen';
 import GameScreen from './Screens/GameScreen/GameScreen';
+import './App.css';
 
 const socket = io(
   process.env.REACT_APP_SERVER || "http://localhost:3001",

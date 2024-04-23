@@ -63,6 +63,23 @@ function GameArea({
   const [maxCramTopRow, setMaxCramTopRow] = useState(false);
   const [maxCramBottomRow, setMaxCramBottomRow] = useState(false);
 
+  const [flash, setFlash] = useState(false);
+
+  useEffect(() => {
+    setFlash(true);
+
+    const timeout = setTimeout(() => {
+      setFlash(false);
+    }, 1000);
+
+    return () => clearTimeout(timeout);
+  }, [
+    seats,
+    teamSelectHappening,
+    voteHappening,
+    missionHappening,
+  ]);
+
   useEffect(() => {
     const maxCram = isThinning && seats.length >= 9;
     setMaxCramTopRow(maxCram);
@@ -190,7 +207,7 @@ function GameArea({
         }
       </div>
 
-      <div className="table">
+      <div className={`table ${flash ? 'flash' : ''}`}>
         
         <div className="missionTokenGrid">
           {
