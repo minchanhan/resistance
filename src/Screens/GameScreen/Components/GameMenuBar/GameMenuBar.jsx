@@ -4,6 +4,7 @@ import Info from "@mui/icons-material/Info";
 import PlayArrow from "@mui/icons-material/PlayArrow";
 import StopIcon from '@mui/icons-material/Stop';
 import GameSettingsModal from "../../Modals/GameSettingsModal";
+import EndConfirmModal from "../../Modals/EndConfirmModal";
 
 import "../../../../App.css";
 
@@ -22,6 +23,12 @@ function GameMenuBar({
   handleInstructionsOpen
 }) {
   const [openSettings, setOpenSettings] = useState(false);
+  const [openEndConfirm, setOpenEndConfirm] = useState(false);
+
+  const handleAdminEndGame = () => {
+    endGame();
+    setOpenEndConfirm(false);
+  };
   
   return (
     <div className="gameMenuBar">
@@ -36,6 +43,11 @@ function GameMenuBar({
         onChangedPrivateRoom={onChangedPrivateRoom}
         openSettings={openSettings}
         setOpenSettings={setOpenSettings}
+      />
+      <EndConfirmModal
+        open={openEndConfirm}
+        setOpenEndConfirm={setOpenEndConfirm}
+        handleAdminEndGame={handleAdminEndGame}
       />
 
       <TuneIcon
@@ -55,7 +67,7 @@ function GameMenuBar({
         gameStarted ? (
           <StopIcon 
             onClick={() => {
-              if (isAdmin) endGame();
+              if (isAdmin) setOpenEndConfirm(true);
             }}
             style={{
               cursor: isAdmin ? "pointer" : "not-allowed"
