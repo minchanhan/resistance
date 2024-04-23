@@ -36,10 +36,10 @@ function App() {
         main: "#000000"
       },
       green: {
-        main: "#8BBD8B"
+        main: "#4AAE4A"
       },
       red: {
-        main: "#DF4730"
+        main: "#CC1424"
       },
     },
     colors: {
