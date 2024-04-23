@@ -167,7 +167,7 @@ function GameScreen({
     privateRoom: privateRoom,
     onChangedPrivateRoom: onChangedPrivateRoom,
     gameStarted: gameStarted,
-    handleInstructionsOpen: handleInstructionsOpen
+    handleInstructionsOpen: handleInstructionsOpen,
   };
 
   const chatBoxProps = {
@@ -177,7 +177,7 @@ function GameScreen({
     msgList: msgList,
     showHiddenChat: showHiddenChat,
     setShowHiddenChat: setShowHiddenChat,
-    haveCloseOnWindow: (isLandscape && isShort) || isThin || isPortrait,
+    haveCloseOnWindow: (isLandscape && isShort) || isGettingThin || (isThin && isTall) || isPortrait,
     sendMessage: sendMessage,
   };
   

@@ -6,11 +6,9 @@ function MissionToken({
   isFailed=false, 
   current=false,
   isDone=false,
-  status="none", 
   missionTeamSize,
   missionHistory,
   twoFails=false,
-  isReallyShort=false,
   isReallyThin=false,
   isMostThin=false
 }) {
@@ -25,8 +23,23 @@ function MissionToken({
           `missionToken ${current ? "currentMission" : ""} ${isPassed ? "passed" : ""} ${isFailed ? "failed" : ""}`
         }
       >
-        <div className="missionHistory">{isDone ? `Team was: ${missionHistory.join(', ')}` : "Team History N/A"}</div>
-        <div className="number" style={{fontSize: isMostThin ? "1rem" : isReallyThin ? "1.5rem" : "2.5rem"}}>
+        <div className="missionHistory">
+          {
+            isDone ? (
+              ["Team:", ...missionHistory].map(function(username, i) {
+                return (
+                  <div key={username + i}>
+                    {username}
+                  </div>
+                )
+              })
+            ) : <div>Team History N/A</div>
+          }
+        </div>
+        <div 
+          className="number" 
+          style={{fontSize: isMostThin ? "1rem" : isReallyThin ? "1.5rem" : "2.5rem"}}
+        >
           {missionTeamSize}
         </div>
       </div>

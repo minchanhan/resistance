@@ -170,7 +170,7 @@ function GameArea({
   }
 
   return (
-    <div className={`fullTable ${capacity >= 9 ? "five" : capacity >= 7 ? "four" : ""}`}>
+    <div className={`gameArea ${capacity >= 9 ? "five" : capacity >= 7 ? "four" : ""}`}>
       <div className={`holdPlayers ${lowCramTopRow ? "lowTopCram" : ""} ${midCramTopRow ? "midTopCram" : ""} ${maxCramTopRow ? "maxTopCram" : ""}`}>
         {
           // this map displays up to 4 players, 3 if there are <= 6 players

@@ -136,26 +136,25 @@ function StartScreen({
           randomRoomMsg !== "" ? <p style={{ color: "red" }}>{randomRoomMsg}</p> : <></>
         }
 
-        <DisplayButton className="startScreenBtn" onClick={handleCreate} text="Create Room" />
+        <DisplayButton onClick={handleCreate} text="Create Room" />
         <DisplayButton 
           btnStyle={{backgroundColor: hasRoomParam ? "red" : ""}} 
-          className="startScreenBtn" 
           onClick={handleJoinOpen} 
           text="Join Room with Code"
           extraClassName={hasRoomParam ? "pulse" : ""}
         />
-        <DisplayButton className="startScreenBtn" onClick={handleRandomJoin} text="Join Random Room" />
-        <DisplayButton className="startScreenBtn" onClick={handleInstructionsOpen} text="Instructions" />
+        <DisplayButton onClick={handleRandomJoin} text="Join Random Room" />
+        <DisplayButton onClick={handleInstructionsOpen} text="Instructions" />
 
         <footer className="footer">
           <div className="footerContent">
-            <div className="footerLinkBox">
+            <div className="footerLinkBox" style={{width: "5rem"}}>
               <p className="footerLinks" onClick={() => {setContactOpen(true)}}>Contact</p>
             </div>
-            <div className="footerLinkBox">
+            <div className="footerLinkBox" style={{width: "9rem"}}>
               <p className="footerLinks" onClick={() => {setTosOpen(true)}}>Terms of Service</p>
             </div>
-            <div className="footerLinkBox">
+            <div className="footerLinkBox" style={{width: "5rem"}}>
               <p className="footerLinks">{`Online: ${clientCount}`}</p>
             </div>
           </div>

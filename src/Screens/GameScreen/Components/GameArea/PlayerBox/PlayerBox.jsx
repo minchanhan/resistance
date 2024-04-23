@@ -45,8 +45,8 @@ function PlayerBox({
         onClick={onClick}
       >
         <Fist
-          width={is4K ? "5rem" : isThinning ? "2.5rem" : "3rem"} 
-          height={is4K ? "5rem" : isThinning ? "2.5rem" : "3rem"}
+          width={is4K ? "4rem" : isThinning ? "2.5rem" : "3rem"} 
+          height={is4K ? "4rem" : isThinning ? "2.5rem" : "3rem"}
         />
       </div>
 

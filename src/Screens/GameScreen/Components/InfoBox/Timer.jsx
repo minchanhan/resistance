@@ -8,7 +8,7 @@ function Timer({ mins, secs }) {
       { mins <= 0 && secs <= 0 ? (
           <div>Time: - : - </div>
         ) : (
-          <div style={{ color: mins === 0 && secs <= 30 ? "red" : "black" }}>
+          <div style={{ color: mins === 0 && secs <= 30 ? "red" : "white" }}>
             Time: {mins}:{secs < 10 ? `0${secs}` : secs}
           </div>
         )
