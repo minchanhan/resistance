@@ -35,6 +35,9 @@ function App() {
       secondary: {
         main: "#000000"
       },
+      white: {
+        main: "#FFFFFF"
+      },
       green: {
         main: "#4AAE4A"
       },

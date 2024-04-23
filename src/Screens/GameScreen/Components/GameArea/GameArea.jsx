@@ -251,7 +251,7 @@ function GameArea({
             teamSelectHappening && isMissionLeader ? (
               <Button
                 id="submitBtn" 
-                color="secondary"
+                color="white"
                 disabled={selectedPlayers.length < missionTeamSizes[missionNumber - 1] || disableTeamSubmit} 
                 onClick={() => handleTeamSubmit()}
                 sx={{ fontWeight: 600 }}
