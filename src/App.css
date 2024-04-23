@@ -184,6 +184,8 @@ body {
   align-self: center;
   width: 90%;
   padding-bottom: 0.15%;
+  margin: 0.15rem 0;
+  gap: 1rem;
   
   display: flex;
   flex-direction: column;
@@ -282,7 +284,6 @@ body {
   flex: 1 1 auto;
   width: 1.75rem;
   height: 1.75rem;
-  background-color: #3d3a3a;
 }
 .filledVote {
   background-color: var(--secondary-dark);
@@ -709,13 +710,17 @@ body {
 }
 
 /* Instructions Modal */
+.instructionsBox {
+  margin: 0.25rem 0;
+}
 .instructionsSubtitle {
   font-size: x-large;
   font-weight: 700 !important;
   margin-bottom: 0.25rem;
 }
 .instructionsText {
-  font-weight: 500 !important;
+  font-weight: 501 !important;
+  white-space: pre-line;
 }
 
 .holdInstructionPics {
@@ -726,11 +731,24 @@ body {
 .numSpiesChart {
   border-collapse: collapse;
   border: 1px solid var(--secondary-dark);
-  min-width: 15rem;
-  margin: 1rem;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+  width: 25rem;
+  margin: 1.25rem;
 }
-.numSpiesChart * {
-  border: 1px dotted var(--secondary-dark);
+
+/* Style for table headers */
+th {
+  background-color: #000;
+  color: #fff;
+  font-weight: bold;
+  padding: 0.75rem;
+  text-align: left;
+  border: 1px solid #333;
+}
+/* Style for table cells */
+td {
+  padding: 0.75rem;
+  border: 1px solid #333;
 }
 
 /* --- Button Pulse --- */
