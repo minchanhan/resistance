@@ -601,13 +601,14 @@ body {
 }
 
 .modalContent {
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: auto;
   color: white;
   padding: 0.5rem;
 
   display: flex;
-  flex-direction: column;
-  justify-content: space-around;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
 }
 
 /* Game Settings Modal */
