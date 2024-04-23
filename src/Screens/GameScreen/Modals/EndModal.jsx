@@ -13,7 +13,7 @@ function EndModal({ open, handleEndModalClose, revealedPlayers, endMsg }) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <div className="modalBox" style={{height: "70%", minWidth: "70%", gap: "0.75rem"}}>
+        <div className="modalBox" style={{maxHeight: "70%", minWidth: "70%", gap: "0.75rem"}}>
           <div className="modalHeader" style={{fontSize: "x-large"}}>
             {endMsg}
             <CloseIcon 
@@ -26,9 +26,9 @@ function EndModal({ open, handleEndModalClose, revealedPlayers, endMsg }) {
             {
               revealedPlayers.map(function(playerReveal, i) {
                 return (
-                  <div key={playerReveal[0]} className="endScreenResults">
-                    <p style={{color: playerReveal[1] === "badTeam" ? "var(--secondary-light)" : "white" }}>
-                      {playerReveal[0]}
+                  <div key={playerReveal} className="endScreenResults">
+                    <p style={{color: playerReveal.slice(-1) === "y" ? "var(--secondary-light)" : "white" }}>
+                      {playerReveal}
                     </p>
                   </div>
                 )

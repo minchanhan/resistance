@@ -15,6 +15,7 @@ import EndModal from "./Modals/EndModal.jsx";
 
 function GameScreen({ 
   startGame,
+  endGame,
   handleTeamSubmit,
   handleVote,
   handleMissionIn,
@@ -157,6 +158,7 @@ function GameScreen({
   
   const gameMenuBarProps = {
     startGame: startGame,
+    endGame: endGame,
     isAdmin: isAdmin,
     curNumPlayers: seats.length,
     capacity: capacity,
@@ -194,7 +196,7 @@ function GameScreen({
       />
       <EndModal 
         open={endModalOpen}
-        onClose={handleEndModalClose}
+        handleEndModalClose={handleEndModalClose}
         revealedPlayers={revealedPlayers}
         endMsg={endMsg}
       />

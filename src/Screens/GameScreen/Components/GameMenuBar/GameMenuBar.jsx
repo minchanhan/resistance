@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import TuneIcon from '@mui/icons-material/Tune';
 import Info from "@mui/icons-material/Info";
-import Pause from "@mui/icons-material/Pause";
 import PlayArrow from "@mui/icons-material/PlayArrow";
+import StopIcon from '@mui/icons-material/Stop';
 import GameSettingsModal from "../../Modals/GameSettingsModal";
 
 import "../../../../App.css";
 
 function GameMenuBar({
   startGame,
+  endGame,
   isAdmin,
   curNumPlayers,
   capacity,
@@ -48,12 +49,15 @@ function GameMenuBar({
       <Info fontSize="large" />
       {
         gameStarted ? (
-          <Pause 
-            fontSize="large" 
+          <StopIcon 
+            onClick={() => {
+              if (isAdmin) endGame();
+            }}
             style={{
               cursor: isAdmin ? "pointer" : "not-allowed"
             }}
-          /> 
+            fontSize="large" 
+          />
         ) : (
           <PlayArrow 
             onClick={() => {

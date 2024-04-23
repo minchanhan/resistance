@@ -171,6 +171,10 @@ function App() {
     socket.emit("admin_start_game", roomCode);
   };
 
+  const endGame = () => { // GameScreen
+    socket.emit("admin_end_game", roomCode);
+  };
+
   const handleTeamSubmit = () => {
     socket.emit("team_submitted_for_vote", { 
       selectedPlayers: selectedPlayers, roomCode: roomCode 
@@ -239,7 +243,7 @@ function App() {
       }, Math.random() * 5000 + 25000); */
     };
 
-    const handleInitialPing = (newClientCount) => {
+    const handleServerPing = (newClientCount) => {
       setClientCount(newClientCount);
     };
 
@@ -338,15 +342,27 @@ function App() {
     };
 
     const handleGameEnd = (info) => {
-      setGameStarted(false);
       setRevealedPlayers(info.playerRevealArr);
       setEndMsg(info.endMsg);
+      setCurMissionVoteDisapproves(info.curMissionVoteDisapproves);
+      setMissionResultTrack(info.missionResultTrack);
+      setMissionHistory(info.missionHistory);
+      setEndModalOpen(true);
+
+      setGameStarted(false);
+      setSelectedPlayers([]);
+      setTeamSelectHappening(false);
+      setIsMissionLeader(false);
       setLeaderUsername("");
+      setVoteHappening(false);
+      setMissionHappening(false);
+      setIsGoingOnMission(false);
+      setNumGames(info.numGames);
     };
 
     // listeners
     socket.on("connect", handleConnect);
-    socket.on("initial_ping", handleInitialPing);
+    socket.on("server_ping", handleServerPing);
     
     socket.on("game_settings_update", handleGameSettingsChange);
     socket.on("capacity_change", handleCapacityChange);
@@ -369,7 +385,7 @@ function App() {
     return () => {
       // cleanup
       socket.off("connect", handleConnect);
-      socket.off("initial_ping", handleInitialPing);
+      socket.off("server_ping", handleServerPing);
 
       socket.off("game_settings_update", handleGameSettingsChange);
       socket.off("capacity_change", handleCapacityChange);
@@ -410,6 +426,7 @@ function App() {
 
   const gameScreenProps = {
     startGame: startGame,
+    endGame: endGame,
     handleTeamSubmit: handleTeamSubmit,
     handleVote: handleVote,
     handleMissionIn: handleMissionIn,
