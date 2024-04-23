@@ -356,8 +356,8 @@ body {
   cursor: progress;
 }
 .ownSelf {
-  background-color:  rgb(165, 165, 139, 0.33);
-  box-shadow: 0 0 1.25rem rgb(165, 165, 139);
+  background: radial-gradient(#faff7467, #faff7431, #faff7416, #faff740c, #faff7403, #faff7400, #faff7400, #faff7400);
+  border-radius: 10rem;
 }
 
 /* ----- Chat Window ----- */ 

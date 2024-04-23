@@ -18,7 +18,7 @@ function PlayerBox({
 }) {
 
   return (
-    <div className="player">
+    <div className={`player ${ownName ? "ownSelf" : ""}`}>
       <div className="status">
         <div id="isLeader">
           <StarIcon style={{
@@ -51,7 +51,7 @@ function PlayerBox({
       </div>
 
       <div
-        className={`playerUsername ${ownName ? "ownSelf" : ""} ${seatLeft ? "seatLeft" : ""}`}
+        className={`playerUsername ${seatLeft ? "seatLeft" : ""}`}
         onClick={onClick}
       >
         <span>{username}</span>
