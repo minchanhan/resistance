@@ -62,6 +62,7 @@ function App() {
   const [endModalOpen, setEndModalOpen] = useState(false);
   const [youDisconnectedModalOpen, setYouDisconnectedModalOpen] = useState(false);
   const [youDisconnectedMsg, setYouDisconnectedMsg] = useState("");
+  const [instructionsOpen, setInstructionsOpen] = useState(false);
 
   // Client States
   const [username, setUsername] = useState("");
@@ -203,6 +204,13 @@ function App() {
 
   const handleEndModalClose = () => { // GameScreen
     setEndModalOpen(false);
+  };
+
+  const handleInstructionsOpen = () => {
+    setInstructionsOpen(true);
+  };
+  const handleInstructionsClose = () => {
+    setInstructionsOpen(false);
   };
 
   /* --- TIMER --- */
@@ -422,6 +430,9 @@ function App() {
     badTeamStyle: badTeamStyle,
     youDisconnectedModalOpen: youDisconnectedModalOpen,
     youDisconnectedMsg: youDisconnectedMsg,
+    instructionsOpen: instructionsOpen,
+    handleInstructionsOpen: handleInstructionsOpen,
+    handleInstructionsClose: handleInstructionsClose
   };
 
   const gameScreenProps = {
@@ -487,7 +498,11 @@ function App() {
     endModalOpen: endModalOpen,
     handleEndModalClose: handleEndModalClose,
     revealedPlayers: revealedPlayers,
-    endMsg: endMsg
+    endMsg: endMsg,
+
+    instructionsOpen: instructionsOpen,
+    handleInstructionsOpen: handleInstructionsOpen,
+    handleInstructionsClose: handleInstructionsClose
   };
 
   return (

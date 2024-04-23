@@ -18,7 +18,8 @@ function GameMenuBar({
   onChangedSelectionSecs,
   privateRoom,
   onChangedPrivateRoom,
-  gameStarted
+  gameStarted,
+  handleInstructionsOpen
 }) {
   const [openSettings, setOpenSettings] = useState(false);
   
@@ -46,7 +47,10 @@ function GameMenuBar({
           cursor: !gameStarted ? "pointer" : "not-allowed"
         }}
       />
-      <Info fontSize="large" />
+      <Info 
+        onClick={handleInstructionsOpen}
+        fontSize="large" 
+      />
       {
         gameStarted ? (
           <StopIcon 

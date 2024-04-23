@@ -26,13 +26,15 @@ function StartScreen({
   goodTeamStyle,
   badTeamStyle,
   youDisconnectedModalOpen,
-  youDisconnectedMsg
+  youDisconnectedMsg,
+  instructionsOpen,
+  handleInstructionsOpen,
+  handleInstructionsClose
 }) {
 
   const { room } = useParams();
 
   const [joinRoomModalOpen, setJoinRoomModalOpen] = useState(false);
-  const [instructionsOpen, setInstructionsOpen] = useState(false);
   const [tosOpen, setTosOpen] = useState(false);
   const [contactOpen, setContactOpen] = useState(false);
 
@@ -71,13 +73,6 @@ function StartScreen({
     if (validUsername()) {
       joinRoom("random_join");
     }
-  };
-
-  const handleInstructionsOpen = () => {
-    setInstructionsOpen(true);
-  };
-  const handleInstructionsClose = () => {
-    setInstructionsOpen(false);
   };
 
   const handleTosClose = () => {

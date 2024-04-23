@@ -1,5 +1,4 @@
-import { React } from "react";
-// import { useParams } from "react-router-dom";
+import { React, useState } from "react";
 import { useMediaQuery } from 'react-responsive';
 
 import "../../App.css";
@@ -12,6 +11,7 @@ import RebellionLogo from "../../assets/RebellionLogo.jsx";
 import ShowChatButton from "../GameScreen/Components/ShowChatButton.jsx";
 import YouDisconnectedModal from "../StartScreen/Modals/YouDisconnectedModal.jsx";
 import EndModal from "./Modals/EndModal.jsx";
+import InstructionsModal from "../StartScreen/Modals/InstructionsModal.jsx";
 
 function GameScreen({ 
   startGame,
@@ -76,10 +76,12 @@ function GameScreen({
   endModalOpen,
   handleEndModalClose,
   revealedPlayers,
-  endMsg
-}) {
-  // const { room } = useParams();
+  endMsg,
 
+  instructionsOpen,
+  handleInstructionsOpen,
+  handleInstructionsClose
+}) {
   const isLandscape = useMediaQuery({ orientation: 'landscape' });
   const isPortrait = useMediaQuery({ orientation: 'portrait' });
 
@@ -97,11 +99,6 @@ function GameScreen({
   const isTall = useMediaQuery({ minHeight: 700 }); // i)
   const isShort = useMediaQuery({ maxHeight: 700 }); // ii)
   const isReallyShort = useMediaQuery({ maxHeight: 450 });
-
-  /*
-  useEffect(() => {
-    checkInGame(room);
-  });*/
 
   // Passing props:
   const gameAreaProps = {
@@ -168,6 +165,7 @@ function GameScreen({
     privateRoom: privateRoom,
     onChangedPrivateRoom: onChangedPrivateRoom,
     gameStarted: gameStarted,
+    handleInstructionsOpen: handleInstructionsOpen
   };
 
   const chatBoxProps = {
@@ -199,6 +197,12 @@ function GameScreen({
         handleEndModalClose={handleEndModalClose}
         revealedPlayers={revealedPlayers}
         endMsg={endMsg}
+      />
+      <InstructionsModal 
+        open={instructionsOpen} 
+        handleInstructionsClose={handleInstructionsClose}
+        goodTeamStyle={goodTeamStyle}
+        badTeamStyle={badTeamStyle}
       />
       {
         (isThin && isTall) || isPortrait ? (
