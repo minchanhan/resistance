@@ -149,9 +149,15 @@ function StartScreen({
 
         <footer className="footer">
           <div className="footerContent">
-            <p onClick={() => {setContactOpen(true)}}>Contact</p>
-            <p onClick={() => {setTosOpen(true)}}>Terms of Service</p>
-            <p>{`Online: ${clientCount}`}</p>
+            <div className="footerLinkBox">
+              <p className="footerLinks" onClick={() => {setContactOpen(true)}}>Contact</p>
+            </div>
+            <div className="footerLinkBox">
+              <p className="footerLinks" onClick={() => {setTosOpen(true)}}>Terms of Service</p>
+            </div>
+            <div className="footerLinkBox">
+              <p className="footerLinks">{`Online: ${clientCount}`}</p>
+            </div>
           </div>
         </footer>
       </div>

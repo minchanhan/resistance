@@ -90,11 +90,16 @@ body {
 }
 .footerContent {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
 }
-.footerContent > * {
-  margin: 0 0.2rem;
+.footerLinkBox {
+  width: 9rem;
+  display: flex;
+  justify-content: center;
+}
+.footerLinks {
+  margin: 0.2rem 0rem;
   border-bottom: 1px solid black;
   cursor: pointer;
   font-size: small;
