@@ -47,7 +47,7 @@ function InstructionsModal({
   const additionalTitle = "Additional Notes";
   const additional = `- This game is best played over voice chat! Consider using a Discord server.
   - Please do not message any players privately.
-  - Be careful when leaving your current tab if you're playing on a mobile device. Some browsing apps, including Chrome, have "memory saver" features \
+  - Be careful when leaving your current tab if you're playing on a mobile device. Some browsing apps have "memory saver" features \
   that discard background tabs. You may be kicked from your room if your leave your tab.`;
 
   return (
