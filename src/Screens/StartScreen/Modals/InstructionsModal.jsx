@@ -33,7 +33,7 @@ function InstructionsModal({
   If a team is disapproved/selection time runs out 5 times for a single mission, the spy team automatically wins.
 
   If a mission is approved, the rebellion players must choose to "pass" the mission, but the spies have a choice to pass or fail the mission. \
-  Players cannot see who chose what, they just see the results once the mission concludes (same goes for voting results).\
+  Players cannot see individual choices, just the results once the mission concludes.\
   On most missions, just one fail is required to fail the entire mission (Mission 4 for 7+ player games require 2 FAILS). \
   Once the mission has ended, the next leader suggests a team for the next mission.
 
