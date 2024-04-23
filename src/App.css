@@ -451,7 +451,7 @@ body {
 }
 
 .other .msgContent, .public .msgContent {
-  background-color: silver;
+  background-color: rgb(141, 143, 144);
 }
 .other .msgMeta, .public .msgMeta {
   margin-left: 0.25rem;
