@@ -76,6 +76,7 @@ function GameMenuBar({
           />
         ) : (
           <PlayArrow 
+            className={(curNumPlayers >= 5) && isAdmin ? "startBtnPulse" : ""}
             onClick={() => {
               if ((curNumPlayers >= 5) && isAdmin) {
                 onChangedCapacity(curNumPlayers);

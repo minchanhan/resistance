@@ -214,7 +214,7 @@ function GameScreen({
                 <ChatBox {...chatBoxProps} />
               ) : <></>
             }
-            <div className="titleLogo">
+            <div className="titleLogo slowPulse">
               <RebellionLogo />
             </div>
             <GameMenuBar {...gameMenuBarProps} />
@@ -232,7 +232,7 @@ function GameScreen({
             }
 
             <div className="colLeft">
-              <div className="titleLogo">
+              <div className="titleLogo slowPulse">
                 <RebellionLogo />
               </div>
               <GameMenuBar {...gameMenuBarProps} />
@@ -246,7 +246,7 @@ function GameScreen({
         ) : (
           <div className="gameScreen">
             <div className="colLeft">
-              <div className="titleLogo">
+              <div className="titleLogo slowPulse">
                 <RebellionLogo />
               </div>
               <GameMenuBar {...gameMenuBarProps} />

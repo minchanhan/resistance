@@ -177,7 +177,8 @@ body {
   cursor: pointer;
 }
 .gameMenuBar > *:hover {
-  transform: scale(1.25);
+  transform: scale(1.65);
+  animation: none;
 }
 
 /* ----- Game Table ----- */
@@ -764,7 +765,7 @@ td {
   border: 1px solid #333;
 }
 
-/* --- Button Pulse --- */
+/* --- Join Button Pulse --- */
 @keyframes pulse {
   0% {
     transform: scale(1);
@@ -794,6 +795,70 @@ td {
   -moz-animation: pulse 1s infinite;
   -webkit-animation: pulse 1s infinite;
   -o-animation: pulse 1s infinite;
+}
+
+/* --- Start Button Pulse --- */
+@keyframes startBtnPulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.65);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@-webkit-keyframes startBtnPulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.65);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.startBtnPulse {
+  animation: startBtnPulse 1s infinite;
+  -moz-animation: startBtnPulse 1s infinite;
+  -webkit-animation: startBtnPulse 1s infinite;
+  -o-animation: startBtnPulse 1s infinite;
+}
+
+/* --- Title Logo Pulse --- */
+@keyframes slowPulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.07);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@-webkit-keyframes slowPulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.07);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.slowPulse {
+  animation: slowPulse 7s infinite;
+  -moz-animation: slowPulse 7s infinite;
+  -webkit-animation: slowPulse 7s infinite;
+  -o-animation: slowPulse 7s infinite;
 }
 
 /* -----===== Different Screens =====----- */
