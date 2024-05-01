@@ -490,9 +490,8 @@ body {
   background-color: white;
 }
 .chatInput > input {
-  width: 100%;
+  width: 95%;
   height: 90%;
-  margin-left: 1rem;
   border: none;
   outline: none;
   resize: none;
